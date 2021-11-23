@@ -4,7 +4,7 @@ LDLIBS?=-lm -ltps -lSDL2 -lSDL2_ttf
 
 INCLUDE_PATH = ./include
 
-TARGET   = prgram
+TARGET   = program
 
 SRCDIR   = src
 OBJDIR   = obj
