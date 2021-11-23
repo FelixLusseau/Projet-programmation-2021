@@ -3,6 +3,6 @@
 
 #include "program.h"
 
-void argsParser(int argc, char ** argv, options_t options);
+void parseArgs(int argc, char ** argv, options_t * options);
 
 #endif

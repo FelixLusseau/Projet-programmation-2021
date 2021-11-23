@@ -3,6 +3,22 @@
 
 #include "program.h"
 
-void openFile(options * options);
+/**
+ * @brief Ouvrir les fichiers donnés en arguments
+ * 
+ * @param options 
+ * @return int 
+ */
+
+int openFiles(options_t * options);
+
+/**
+ * @brief Fermer les fichiers donnés en arguments
+ * 
+ * @param options 
+ * @return int 
+ */
+
+int closeFiles(options_t * options);
 
 #endif

@@ -3,6 +3,6 @@
 
 #include "program.h"
 
-void ;
+int parseBase(options_t * options, structureBase_t * structureBase);
 
 #endif

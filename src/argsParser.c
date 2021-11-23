@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <getopt.h>
 
-void argsParser(int argc, char ** argv, options_t options){
+void parseArgs(int argc, char ** argv, options_t * options){
     options->inputFilename=NULL;
     options->outputFilename=NULL;
     options->inputFile=NULL;
@@ -14,10 +14,10 @@ void argsParser(int argc, char ** argv, options_t options){
         switch (c)
         {
             case 'i':
-                options->inputFilename=optargs;
+                options->inputFilename = optarg;
                 break;
             case 'o':
-                options->outputFilename=optargs;
+                options->outputFilename = optarg;
                 break;
         }
     }

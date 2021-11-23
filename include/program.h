@@ -4,8 +4,8 @@
 # include <stdio.h>
 
 typedef struct structureBase_t{
-    char name[50];
-    char article[100];
+    char author[10][50];
+    char title[100];
     int year;
 } structureBase_t;
 
