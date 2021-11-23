@@ -5,4 +5,6 @@
 
 int parseBase(options_t * options, structureBase_t * structureBase);
 
+int readBin(options_t * options);
+
 #endif

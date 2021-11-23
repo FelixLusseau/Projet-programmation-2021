@@ -11,12 +11,3 @@
 <year>1992</year>
 <school>University of Texas, Austin</school>
 </phdthesis>
-
-<phdthesis mdate="2002-01-03" key="phd/Olken93">
-<author>Frank Olken</author>
-<title>Random Sampling from Databases</title>
-<year>1993</year>
-<school>University of California at Berkeley</school>
-<publisher>LBL Technical Report</publisher>
-<number>LBL-32883</number>
-</phdthesis>

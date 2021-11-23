@@ -10,5 +10,6 @@ int main(int argc, char ** argv){
     openFiles(&options);
     parseBase(&options, &structureBase);
     closeFiles(&options);
+    readBin(&options);
     return 0;
 }
