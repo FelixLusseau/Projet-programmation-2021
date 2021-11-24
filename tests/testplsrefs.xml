@@ -1,0 +1,774 @@
+<phdthesis mdate="2021-07-17" key="phd/sk/Frisch2009">
+<author>Guido Frisch</author>
+<title>Using open source software to develop E-business applications for medium-
+ and small-sized enterprises.</title>
+<year>2009</year>
+<school>Bratislava, Univ.</school>
+<pages>1-151</pages>
+<isbn>978-3-8300-4753-7</isbn>
+<ee>https://d-nb.info/996716548</ee>
+</phdthesis><phdthesis mdate="2021-02-08" key="phd/it/Amelio2012">
+<author>Alessia Amelio</author>
+<title>Pattern extraction from data with application to image processing.</title
+>
+<year>2012</year>
+<school>University of Calabria, Italy</school>
+<ee>https://doi.org/10.13126/UNICAL.IT/DOTTORATI/1171</ee>
+</phdthesis>
+<phdthesis mdate="2021-07-17" key="phd/it/Popescu2008">
+<author>Razvan Andrei Popescu</author>
+<title>Aggregation and adaptation of web services: a semi-automated methodology 
+for the aggregation and adaption of web services.</title>
+<year>2008</year>
+<school>University of Pisa</school>
+<pages>1-206</pages>
+<isbn>978-3-8364-6280-8</isbn>
+<ee>https://d-nb.info/991165179</ee>
+</phdthesis><phdthesis mdate="2020-03-12" key="phd/it/Pibiri2018">
+<author>Giulio Ermanno Pibiri</author>
+<author>Moi</author>
+<title>Space and Time-Efficient Data Structures for Massive Datasets.</title>
+<year>2018</year>
+<school>University of Pisa</school>
+<ee type="oa">http://pages.di.unipi.it/pibiri/papers/phd_thesis.pdf</ee>
+<ee>http://pages.di.unipi.it/pibiri/slides/final_PhD_presentation2.pdf</ee>
+</phdthesis>
+<phdthesis mdate="2021-06-11" key="phd/it/Bergami2018a">
+<author>Giacomo Bergami</author>
+<title>A new Nested Graph Model for Data Integration</title>
+<year>2018</year>
+<school>University of Bologna, Italy</school>
+<ee>https://doi.org/10.6092/unibo/amsdottorato/8348</ee>
+<ee>http://amsdottorato.unibo.it/8348/</ee>
+</phdthesis>
+<phdthesis mdate="2021-07-17" key="phd/it/Gulli2008">
+<author>Antonio Gull&igrave;</author>
+<title>Clustering and ranking for web information retrieval: methodologies for s
+earching the web.</title>
+<year>2008</year>
+<school>University of Pisa</school>
+<pages>1-137</pages>
+<isbn>978-3-8364-5657-9</isbn>
+<ee>https://d-nb.info/987753223</ee>
+</phdthesis><phdthesis mdate="2020-11-25" key="phd/it/Chicco2014">
+<author>Davide Chicco</author>
+<title>Computational Prediction of Gene Functions through Machine Learning metho
+ds and Multiple Validation Procedures</title>
+<year>2014</year>
+<school>Polytechnic University of Milan, Italy</school>
+<ee>http://hdl.handle.net/10589/88161</ee>
+</phdthesis>
+<phdthesis mdate="2002-01-03" key="phd/Lieuwen92">
+<author>Daniel F. Lieuwen</author>
+<title>Optimizing and Parallelizing Loops in Object-Oriented Database Programmin
+g Languages.</title>
+<year>1992</year>
+<school>Univ. of Wisconsin-Madison</school>
+</phdthesis>
+
+<phdthesis mdate="2016-05-26" key="phd/nl/Hartmann2015">
+<author>Herman Hartmann</author>
+<title>Software product line engineering for consumer electronics: Keeping up wi
+th the speed of innovation.</title>
+<year>2015</year>
+<school>University of Groningen</school>
+<isbn>978-90-367-7991-3</isbn>
+<ee>http://www.rug.nl/research/portal/publications/software-product-line-enginee
+ring-for-consumer-electronics%286aa1ffab-abf6-4d3e-97cb-1e23daed93c5%29.html</ee
+>
+</phdthesis>
+<article mdate="2017-06-08" key="dblpnote/error" publtype="informal">
+<title>(error)</title>
+</article><article mdate="2017-06-08" key="dblpnote/ellipsis" publtype="informal
+">
+<title>&#8230;</title>
+</article><article mdate="2017-06-08" key="dblpnote/neverpublished" publtype="in
+formal">
+<title>(was never published)</title>
+</article><phdthesis mdate="2002-01-03" key="phd/Turpin92">
+<author>Russell Turpin</author>
+<title>Programming Data Structures in Logic.</title>
+<year>1992</year>
+<school>University of Texas, Austin</school>
+</phdthesis>
+
+<phdthesis mdate="2002-01-03" key="phd/Olken93">
+<author>Frank Olken</author>
+<title>Random Sampling from Databases</title>
+<year>1993</year>
+<school>University of California at Berkeley</school>
+<publisher>LBL Technical Report</publisher>
+<number>LBL-32883</number>
+</phdthesis>
+
+<phdthesis mdate="2021-07-17" key="phd/sk/Frisch2009">
+<author>Guido Frisch</author>
+<title>Using open source software to develop E-business applications for medium-
+ and small-sized enterprises.</title>
+<year>2009</year>
+<school>Bratislava, Univ.</school>
+<pages>1-151</pages>
+<isbn>978-3-8300-4753-7</isbn>
+<ee>https://d-nb.info/996716548</ee>
+</phdthesis><phdthesis mdate="2021-02-08" key="phd/it/Amelio2012">
+<author>Alessia Amelio</author>
+<title>Pattern extraction from data with application to image processing.</title
+>
+<year>2012</year>
+<school>University of Calabria, Italy</school>
+<ee>https://doi.org/10.13126/UNICAL.IT/DOTTORATI/1171</ee>
+</phdthesis>
+<phdthesis mdate="2021-07-17" key="phd/it/Popescu2008">
+<author>Razvan Andrei Popescu</author>
+<title>Aggregation and adaptation of web services: a semi-automated methodology 
+for the aggregation and adaption of web services.</title>
+<year>2008</year>
+<school>University of Pisa</school>
+<pages>1-206</pages>
+<isbn>978-3-8364-6280-8</isbn>
+<ee>https://d-nb.info/991165179</ee>
+</phdthesis><phdthesis mdate="2020-03-12" key="phd/it/Pibiri2018">
+<author>Giulio Ermanno Pibiri</author>
+<title>Space and Time-Efficient Data Structures for Massive Datasets.</title>
+<year>2018</year>
+<school>University of Pisa</school>
+<ee type="oa">http://pages.di.unipi.it/pibiri/papers/phd_thesis.pdf</ee>
+<ee>http://pages.di.unipi.it/pibiri/slides/final_PhD_presentation2.pdf</ee>
+</phdthesis>
+<phdthesis mdate="2021-06-11" key="phd/it/Bergami2018a">
+<author>Giacomo Bergami</author>
+<title>A new Nested Graph Model for Data Integration</title>
+<year>2018</year>
+<school>University of Bologna, Italy</school>
+<ee>https://doi.org/10.6092/unibo/amsdottorato/8348</ee>
+<ee>http://amsdottorato.unibo.it/8348/</ee>
+</phdthesis>
+<phdthesis mdate="2021-07-17" key="phd/it/Gulli2008">
+<author>Antonio Gull&igrave;</author>
+<title>Clustering and ranking for web information retrieval: methodologies for s
+earching the web.</title>
+<year>2008</year>
+<school>University of Pisa</school>
+<pages>1-137</pages>
+<isbn>978-3-8364-5657-9</isbn>
+<ee>https://d-nb.info/987753223</ee>
+</phdthesis><phdthesis mdate="2020-11-25" key="phd/it/Chicco2014">
+<author>Davide Chicco</author>
+<title>Computational Prediction of Gene Functions through Machine Learning metho
+ds and Multiple Validation Procedures</title>
+<year>2014</year>
+<school>Polytechnic University of Milan, Italy</school>
+<ee>http://hdl.handle.net/10589/88161</ee>
+</phdthesis>
+<phdthesis mdate="2002-01-03" key="phd/Lieuwen92">
+<author>Daniel F. Lieuwen</author>
+<title>Optimizing and Parallelizing Loops in Object-Oriented Database Programmin
+g Languages.</title>
+<year>1992</year>
+<school>Univ. of Wisconsin-Madison</school>
+</phdthesis>
+
+<phdthesis mdate="2016-05-26" key="phd/nl/Hartmann2015">
+<author>Herman Hartmann</author>
+<title>Software product line engineering for consumer electronics: Keeping up wi
+th the speed of innovation.</title>
+<year>2015</year>
+<school>University of Groningen</school>
+<isbn>978-90-367-7991-3</isbn>
+<ee>http://www.rug.nl/research/portal/publications/software-product-line-enginee
+ring-for-consumer-electronics%286aa1ffab-abf6-4d3e-97cb-1e23daed93c5%29.html</ee
+>
+</phdthesis>
+<phdthesis mdate="2021-07-17" key="phd/nl/Christiansen2008">
+<author>Kenneth Rohde Christiansen</author>
+<title>Grid-enabling a software product: integration of grid resources in the RC
+E environment.</title>
+<year>2008</year>
+<school>Groningen, Univ.</school>
+<pages>1-135</pages>
+<isbn>978-3-8364-7586-0</isbn>
+<ee>https://d-nb.info/991212878</ee>
+</phdthesis><phdthesis mdate="2021-07-17" key="phd/nl/Kyas2006">
+<author>Marcel Kyas</author>
+<title>Verifying OCL specifications of UML models: tool support and compositiona
+kity.</title>
+<year>2006</year>
+<school>Leiden University</school>
+<pages>1-199</pages>
+<isbn>3-86541-142-8</isbn>
+<ee>https://d-nb.info/97879219X</ee>
+</phdthesis><phdthesis mdate="2021-07-17" key="phd/nl/Denef2011">
+<author>Sebastian Denef</author>
+<title>A Pattern Language of Firefighting Frontline Practice to Inform the Desig
+n of Ubiquitous Computing.</title>
+<year>2011</year>
+<school>Delft University of Technology</school>
+<pages>1-294</pages>
+<isbn>978-3-8440-0533-2</isbn>
+<ee>https://nbn-resolving.org/urn:nbn:de:101:1-201503299440</ee>
+<ee>https://d-nb.info/1017523460</ee>
+<ee>https://d-nb.info/1069050598</ee>
+</phdthesis><phdthesis mdate="2021-07-17" key="phd/nl/Bucksch2011">
+<author>Alexander Bucksch</author>
+<title>Revealing the skeleton from imperfect point clouds.</title>
+<year>2011</year>
+<school>Delft University of Technology</school>
+<pages>1-141</pages>
+<isbn>978-3-86853-877-9</isbn>
+<ee>http://www.dr.hut-verlag.de/978-3-86853-877-9.html</ee>
+<ee>https://nbn-resolving.org/urn:nbn:de:101:1-201105031558</ee>
+<ee>https://d-nb.info/1011442027</ee>
+</phdthesis><phdthesis mdate="2016-05-04" key="phd/nl/Astefanoaei2011">
+<author>Lacramioara Astefanoaei</author>
+<title>An executable theory of multi-agent systems refinement</title>
+<year>2011</year>
+<school>Leiden University</school>
+<ee>https://openaccess.leidenuniv.nl/handle/1887/16343</ee>
+</phdthesis><phdthesis mdate="2016-05-04" key="phd/nl/Beek03">
+<author>Maurice H. ter Beek</author>
+<title>Team Automata: A Formal Approach to the Modeling of Collaboration Between
+ System Components.</title>
+<year>2003</year>
+<school>Leiden University</school>
+<ee>https://openaccess.leidenuniv.nl/handle/1887/29570</ee>
+</phdthesis><phdthesis mdate="2021-07-17" key="phd/nl/Werf2011">
+<author>Jan Martijn E. M. van der Werf</author>
+<title>Compositional design and verification of component-based information syst
+ems.</title>
+<year>2011</year>
+<school>Eindhoven University of Technology</school>
+<pages>1-221</pages>
+<isbn>978-90-386-2412-9</isbn>
+<ee>https://d-nb.info/1011046466</ee>
+</phdthesis><phdthesis mdate="2021-07-17" key="phd/nl/Guner2010">
+<author>Andreas G&uuml;ner</author>
+<title>Testing Object Interactions.</title>
+<year>2010</year>
+<school>Leiden University</school>
+<pages>1-240</pages>
+<isbn>978-3-86853-678-2</isbn>
+<ee>http://www.dr.hut-verlag.de/978-3-86853-678-2.html</ee>
+<ee>https://nbn-resolving.org/urn:nbn:de:101:1-2010121410023</ee>
+<ee>https://d-nb.info/1009095463</ee>
+</phdthesis><phdthesis mdate="2021-07-17" key="phd/nl/Rohrig2003">
+<author>Hein Philipp R&ouml;hrig</author>
+<title>Quantum query: complexity and distributed computing.</title>
+<year>2003</year>
+<school>Free University of Amsterdam</school>
+<pages>1-157</pages>
+<isbn>3-933966-04-3</isbn>
+<ee>https://d-nb.info/979267536</ee>
+</phdthesis><phdthesis mdate="2002-01-03" key="phd/Dan90">
+<author>Asit Dan</author>
+<title>Performance Analysis of Data Sharing Environments</title>
+<year>1990</year>
+<school>University of Massachusetts, Amherst</school>
+</phdthesis>
+
+<phdthesis mdate="2002-01-03" key="phd/Kemp92">
+<author>David B. Kemp</author>
+<title>On the Foundations of Query Evaluation in Deductive Databases</title>
+<year>1992</year>
+<school>University of Melbourne, Department of Computer Science</school>
+</phdthesis>
+
+
+<phdthesis mdate="2021-07-17" key="phd/Haffner2001">
+<author>Ernst Georg Haffner</author>
+<title>Request-Prediction and Hyperlink-Proposals</title>
+<year>2001</year>
+<school>Univ. Trier, FB 4, Informatik</school>
+<ee>http://ubt.opus.hbz-nrw.de/volltexte/2004/142/</ee>
+<ee>https://nbn-resolving.org/urn:nbn:de:hbz:385-1426</ee>
+<ee>https://d-nb.info/971712972</ee>
+</phdthesis><phdthesis mdate="2020-03-12" key="phd/Rubinstein17">
+<author>Aviad Rubinstein</author>
+<title>Hardness of Approximation Between P and NP.</title>
+<year>2017</year>
+<school>University of California at Berkeley, USA</school>
+<ee type="oa">https://www2.eecs.berkeley.edu/Pubs/TechRpts/2017/EECS-2017-146.pd
+f</ee>
+</phdthesis>
+<phdthesis mdate="2021-07-17" key="phd/Heuer2002">
+<author>Andreas Heuer 0002</author>
+<title>Web-Pr&auml;senz-Management im Unternehmen: Entwicklung und Einsatz eines
+ Java-basierten Online-Redaktionssystems.</title>
+<year>2002</year>
+<school>University of Trier, Germany</school>
+<ee>http://ubt.opus.hbz-nrw.de/volltexte/2004/144/</ee>
+<ee>https://nbn-resolving.org/urn:nbn:de:hbz:385-1443</ee>
+<ee>https://d-nb.info/971713197</ee>
+</phdthesis><phdthesis mdate="2021-07-17" key="phd/Stangier2002">
+<author>Christian Stangier</author>
+<title>High-level Methods for OBDD-based Sequential Verification</title>
+<year>2002</year>
+<school>University of Trier, Germany</school>
+<ee>http://ubt.opus.hbz-nrw.de/volltexte/2004/226/</ee>
+<ee>https://nbn-resolving.org/urn:nbn:de:hbz:385-2263</ee>
+<ee>https://d-nb.info/971737991</ee>
+</phdthesis><phdthesis mdate="2021-07-17" key="phd/Neumann2000">
+<author>Andreas Neumann 0001</author>
+<title>Parsing and Quering XML Documents in SML.</title>
+<year>2000</year>
+<school>University of Trier, Germany</school>
+<ee>http://ubt.opus.hbz-nrw.de/volltexte/2004/198/</ee>
+<ee type="oa">http://ub-dok.uni-trier.de/diss/diss72/19991203/19991203.pdf</ee>
+<ee>https://nbn-resolving.org/urn:nbn:de:hbz:385-1988</ee>
+<ee>https://d-nb.info/961036249</ee>
+</phdthesis><phdthesis mdate="2002-01-03" key="phd/Mark85">
+<author>Leo Mark</author>
+<title>Self-Describing Database Systems - Formalization and Realization</title>
+<year>1985</year>
+<school>University of Maryland, Department of Computer Science, College Park, MD
+</school>
+</phdthesis>
+
+
+<phdthesis mdate="2002-10-10" key="phd/Dijkstra59">
+<author>Edsger W. Dijkstra</author>
+<title>Communication with an Automatic Computer</title>
+<year>1959</year>
+<publisher>Excelsior</publisher>
+<school>University of Amsterdam</school>
+<ee>http://www.cs.utexas.edu/users/EWD/PhDthesis/PhDthesis.PDF</ee>
+</phdthesis>
+
+<phdthesis mdate="2004-05-04" key="phd/Reverbel96">
+<author>Francisco Reverbel</author>
+<title>Persistence in Distributed Object Systems: ORB/ODBMS Integration.</title>
+<year>1996</year>
+<month>April</month>
+<school>University of New Mexico</school>
+</phdthesis>
+
+<phdthesis mdate="2002-01-03" key="phd/Shang94">
+<author>Heping Shang</author>
+<title>Trie Methods for Text and Spatial Data on Secondary Storage.</title>
+<year>1994</year>
+<school>McGill University</school>
+</phdthesis>
+
+<phdthesis mdate="2018-11-14" key="phd/Turing38">
+<author>Alan M. Turing</author>
+<title>Systems of Logic Based on Ordinals.</title>
+<year>1938</year>
+<school>Princeton University, NJ, USA</school>
+<ee>https://doi.org/10.1112/plms/s2-45.1.161</ee>
+<ee>https://webspace.princeton.edu/users/jedwards/Turing%20Centennial%202012/Mud
+d%20Archive%20files/12285_AC100_Turing_1938.pdf</ee>
+<ee>https://www.wikidata.org/entity/Q55868868</ee>
+</phdthesis><phdthesis mdate="2021-07-17" key="phd/Sack2002">
+<author>Harald Sack</author>
+<title>Improving the Power of Ordered Binary Decision Diagrams by Integrating Pa
+rity Nodes</title>
+<year>2002</year>
+<school>University of Trier, Germany</school>
+<ee>http://ubt.opus.hbz-nrw.de/volltexte/2004/214/</ee>
+<ee>https://nbn-resolving.org/urn:nbn:de:hbz:385-2148</ee>
+<ee>https://d-nb.info/971741816</ee>
+</phdthesis><phdthesis mdate="2021-07-17" key="phd/Seipel89">
+<author>Dietmar Seipel</author>
+<title>Decomposition in Database and Knowledge-Base Systems.</title>
+<year>1989</year>
+<pages>1-146</pages>
+<school>Julius Maximilians University W&uuml;rzburg, Germany</school>
+<ee>https://d-nb.info/900677945</ee>
+</phdthesis><phdthesis mdate="2002-01-03" key="phd/Chambers92">
+<author>Craig Chambers</author>
+<title>The Design and Implementation of the SELF Compiler, an Optimizing Compile
+t for Object-Oriented Programming Languages</title>
+<year>1992</year>
+<school>Stanford University, Department of Computer Science</school>
+</phdthesis>
+
+
+<phdthesis mdate="2002-01-03" key="phd/Mumick91">
+<author>Inderpal Singh Mumick</author>
+<title>Query Optimization in Deductive and Relational Databases</title>
+<year>1991</year>
+<school>Department of Computer Science, Stanford University</school>
+</phdthesis>
+
+
+
+<phdthesis mdate="2021-07-17" key="phd/Specht92">
+<author>G&uuml;nther Specht</author>
+<title>Source-to-Source Transformationen zur Erkl&auml;rung des Programmverhalte
+ns bei deduktiven Datenbanken.</title>
+<year>1992</year>
+<pages>1-196</pages>
+<school>Technical University Munich, Germany</school>
+<ee>https://d-nb.info/930702824</ee>
+</phdthesis><phdthesis mdate="2006-06-28" key="phd/Dobry87">
+<author>Tep P. Dobry</author>
+<title>A High Performance Architecture For Prolog</title>
+<year>1987</year>
+<school>University of California at Berkeley</school>
+</phdthesis>
+
+
+<phdthesis mdate="2002-01-03" key="phd/VanRoy90">
+<author>Peter Van Roy</author>
+<title>Can Logic Programming Execute as Fast as Imperative Programming?</title>
+<year>1990</year>
+<school>University of California at Berkeley</school>
+</phdthesis>
+
+<phdthesis mdate="2004-07-06" key="phd/Khludov2000">
+<author>Sergey Khludov</author>
+<title>Entwicklung von Algorithmen und Programmen f&uuml;r ein Archivierungs- un
+d Kommunikationssystem zur internetbasierten Verwaltung medizinischer Bilder</ti
+tle>
+<year>2000</year>
+<school>Univ. Trier, FB 4, Informatik</school>
+<ee>http://ubt.opus.hbz-nrw.de/volltexte/2004/168/</ee>
+</phdthesis>
+
+<phdthesis mdate="2002-01-03" key="phd/Ganguly92">
+<author>Sumit Ganguly</author>
+<title>Parallel Evaluation of Deductive Database Queries.</title>
+<year>1992</year>
+<school>University of Texas, Austin</school>
+</phdthesis>
+
+<mastersthesis mdate="2002-01-03" key="phd/Ylonen94">
+<author>Tatu Yl&ouml;nen</author>
+<title>Shadow Paging Is Feasible.</title>
+<year>1994</year>
+<school>Helsinki University of Technology, Department of Computer Science</schoo
+l>
+</mastersthesis>
+
+<mastersthesis mdate="2002-01-03" key="phd/VanRoy84">
+<author>Peter Van Roy</author>
+<title>A Prolog Compiler for the PLM.</title>
+<year>1984</year>
+<school>University of California at Berkeley</school>
+</mastersthesis>
+
+<phdthesis mdate="2002-01-03" key="phd/Seshadri96">
+<author>Praveen Seshadri</author>
+<title>Management of Sequence Data</title>
+<year>1996</year>
+<school>Univ. of Wisconsin-Madison, CS Department</school>
+</phdthesis>
+
+<phdthesis mdate="2002-01-03" key="phd/McKusick84">
+<author>Marshall K. McKusick</author>
+<title>Register Allocation and Data Conversion in Machine Independent Code Gener
+ators</title>
+<year>1984</year>
+<school>University of California at Berkeley</school>
+</phdthesis>
+
+<phdthesis mdate="2020-03-12" key="phd/Seltzer92">
+<author>Margo I. Seltzer</author>
+<title>File System Performance and Transaction Support.</title>
+<year>1992</year>
+<school>University of California at Berkeley</school>
+<ee type="oa">http://db.cs.berkeley.edu/papers/ERL-M93-01.pdf</ee>
+</phdthesis>
+<phdthesis mdate="2021-07-17" key="phd/Smolka89">
+<author>Gert Smolka</author>
+<title>Logic Programming over Polymorphically Order-Sorted Types.</title>
+<year>1989</year>
+<pages>1-222</pages>
+<school>Kaiserslautern University of Technology, Germany</school>
+<ee>https://d-nb.info/891234179</ee>
+</phdthesis><phdthesis mdate="2002-01-03" key="phd/Proebsting92">
+<author>Todd A. Proebsting</author>
+<title>Code Generation Techniques.</title>
+<year>1992</year>
+<school>Univ. of Wisconsin-Madison</school>
+</phdthesis>
+
+<phdthesis mdate="2002-01-03" key="phd/Guttman84">
+<author>Antonin Guttman</author>
+<title>New Features for Relational Database Systems to Support CAD Applications<
+/title>
+<year>1984</year>
+<school>University of California, Berkeley</school>
+</phdthesis>
+
+
+
+<phdthesis mdate="2002-01-03" key="phd/Post94">
+<author>Kjell Post</author>
+<title>Analysis and Transformation of Logic Programs.</title>
+<year>1994</year>
+<school>University of California at Santa Cruz</school>
+</phdthesis>
+
+<phdthesis mdate="2019-07-10" key="phd/White94">
+<author>Seth J. White</author>
+<title>Pointer Swizzling Techniques for Object-Oriented Database Systems</title>
+<year>1994</year>
+<school>University of Wisconsin-Madison, WI, USA</school>
+<series>Technical Report / University of Wisconsin, Madison / Computer Sciences 
+Department</series>
+<volume>1242</volume>
+</phdthesis>
+
+<phdthesis mdate="2021-07-17" key="phd/cn/Zhang2006">
+<author>Xueying Zhang</author>
+<title>Rough set theory based automatic text categorization and the handling of 
+semantic heterogeneity.</title>
+<year>2006</year>
+<school>Nanjing University of Science and Technology</school>
+<pages>1-151</pages>
+<isbn>3-8206-0149-X</isbn>
+<ee>https://d-nb.info/976963094</ee>
+</phdthesis><phdthesis mdate="2002-01-03" key="phd/Friedman92">
+<author>Mark A. Friedman</author>
+<title>A Characterization of Prolog Execution</title>
+<year>1992</year>
+<school>Univ. of Wisconsin-Madison</school>
+</phdthesis>
+
+
+<phdthesis mdate="2021-07-17" key="phd/at/Schwenkert2006">
+<author>Ferdinand Emanuel Schwenkert</author>
+<title>K&auml;uferverhalten bei legalen Musikdownloads: Auswahlverfahren, Qualit
+&auml;tsbeurteilung und Kundenbindung.</title>
+<year>2006</year>
+<school>Vienna University of Economics and Business</school>
+<pages>1-270</pages>
+<isbn>978-3-8350-0508-2</isbn>
+<ee>https://d-nb.info/980315883</ee>
+</phdthesis><phdthesis mdate="2021-07-17" key="phd/at/Emsenhuber2010">
+<author>Bernadette Emsenhuber</author>
+<title>Der riechende Computer: Geruch als altes/neues Medium.</title>
+<year>2010</year>
+<school>Johannes Kepler University of Linz</school>
+<pages>1-251</pages>
+<isbn>978-3-8288-2528-4</isbn>
+<ee>https://d-nb.info/100985156X</ee>
+</phdthesis><phdthesis mdate="2021-07-17" key="phd/at/Lechner2005">
+<author>Stephan Lechner</author>
+<title>Defining web scheme transformers by-example.</title>
+<year>2005</year>
+<school>Johannes Kepler University of Linz</school>
+<pages>1-224</pages>
+<isbn>3-89838-487-X</isbn>
+<ee>https://d-nb.info/973957867</ee>
+</phdthesis><phdthesis mdate="2021-07-17" key="phd/at/Wimmer2010">
+<author>Manuel Wimmer</author>
+<title>From mining to mapping and roundtrip transformations: a systematic approa
+ch to model-based tool integration.</title>
+<year>2010</year>
+<school>University of Vienna</school>
+<pages>1-180</pages>
+<isbn>978-3-89838-504-6</isbn>
+<ee>https://d-nb.info/999145509</ee>
+<volume>104</volume>
+<publisher>Aka Akademische Verlagsgesellschaft Aka GmbH, Berlin</publisher>
+<series href="db/series/disdbis/index.html">DISDBIS</series>
+</phdthesis><phdthesis mdate="2021-07-17" key="phd/at/Kolbitsch2008">
+<author>Josef Kolbitsch</author>
+<title>Recent developments in digital libraries: how Web 2.0 changes our librari
+es.</title>
+<year>2008</year>
+<school>Graz University of Technology</school>
+<pages>1-131</pages>
+<isbn>978-3-8364-5902-0</isbn>
+<ee>https://d-nb.info/987727192</ee>
+</phdthesis><phdthesis mdate="2021-07-17" key="phd/at/Brummayer2010">
+<author>Robert Brummayer</author>
+<title>Efficient SMT solving for bit vectors and the extensional theory of array
+s.</title>
+<year>2010</year>
+<school>Johannes Kepler University of Linz</school>
+<pages>1-142</pages>
+<isbn>978-3-85499-707-8</isbn>
+<ee>https://d-nb.info/1004073887</ee>
+</phdthesis><phdthesis mdate="2021-07-17" key="phd/at/Karpati2008">
+<author>P&eacute;ter K&aacute;rp&aacute;ti</author>
+<title>Designing and scaling proactive, self-organizing video servers: a formal 
+and a simulation model.</title>
+<year>2008</year>
+<school>University of Klagenfurt</school>
+<pages>1-236</pages>
+<isbn>978-3-8364-8715-3</isbn>
+<ee>https://d-nb.info/98872877X</ee>
+</phdthesis><phdthesis mdate="2021-07-17" key="phd/at/Holzmann2009">
+<author>Clemens Holzmann</author>
+<title>Spatial awareness of autonomous embedded systems.</title>
+<year>2009</year>
+<school>Johannes Kepler University of Linz</school>
+<pages>1-206</pages>
+<isbn>978-3-8348-0798-4</isbn>
+<ee>https://d-nb.info/992304865</ee>
+</phdthesis><phdthesis mdate="2021-07-17" key="phd/at/Hoss2007">
+<author>Fabian H&ouml;ss</author>
+<title>Die Einbeziehung von AGB beim Vertragsabschluss im Internet: Grundlagen f
+&uuml;r den &ouml;sterreichisch-deutschen Online-Rechtsverkehr.</title>
+<year>2007</year>
+<school>University of Innsbruck</school>
+<pages>1-244</pages>
+<isbn>978-3-8364-1169-1</isbn>
+<ee>https://d-nb.info/983892636</ee>
+</phdthesis><phdthesis mdate="2021-07-17" key="phd/at/Bruckner2008">
+<author>Dietmar Bruckner</author>
+<title>Probabilistic models in building automation: recognizing scenarios with s
+tatistical methods.</title>
+<year>2008</year>
+<school>Vienna University of Technology</school>
+<pages>1-128</pages>
+<isbn>978-3-8364-5720-0</isbn>
+<ee>https://d-nb.info/987746901</ee>
+</phdthesis><phdthesis mdate="2021-07-17" key="phd/at/Guth2006">
+<author>Susanne Guth</author>
+<title>Interoperability of DRM systems: exchanging and processing XML based righ
+ts expressions.</title>
+<year>2006</year>
+<school>Vienna University of Economics and Business</school>
+<pages>1-262</pages>
+<isbn>978-3-631-53845-6</isbn>
+<ee>https://d-nb.info/981366945</ee>
+</phdthesis><phdthesis mdate="2021-07-17" key="phd/at/Derntl2006">
+<author>Michael Derntl</author>
+<title>Patterns for person centered e-learning.</title>
+<year>2006</year>
+<school>University of Vienna</school>
+<pages>1-465</pages>
+<isbn>978-3-89838-496-4</isbn>
+<ee>https://d-nb.info/982519850</ee>
+</phdthesis><phdthesis mdate="2021-07-17" key="phd/at/Peti2008">
+<author>Philipp Peti</author>
+<title>Diagnosis and maintenance in an integrated time triggered architecture: t
+ackling the trouble identified phenomenon.</title>
+<year>2008</year>
+<school>Vienna University of Technology</school>
+<pages>1-229</pages>
+<isbn>978-3-8364-8310-0</isbn>
+<ee>https://d-nb.info/989292177</ee>
+</phdthesis><phdthesis mdate="2021-07-17" key="phd/at/Muhlmann2002">
+<author>Klaus M&uuml;hlmann</author>
+<title>Datenschutz im Internet unter besonderer Ber&uuml;cksichtigung von Datens
+icherheitsaspekten: der "gl&auml;serne" Internetuser?; rechtliche und technische
+ M&ouml;glichkeiten der Gefahrenabwehr.</title>
+<year>2002</year>
+<school>University of Innsbruck</school>
+<ee>https://d-nb.info/971047650</ee>
+</phdthesis><phdthesis mdate="2021-07-17" key="phd/at/Kobler2010">
+<author>Maximilian Kobler</author>
+<title>Qualit&auml;t von Prozessmodellen: Kennzahlen zur analytischen Qualit&aum
+l;tssicherung bei der Prozessmodellierung.</title>
+<year>2010</year>
+<school>Johannes Kepler University of Linz</school>
+<pages>1-288</pages>
+<isbn>978-3-8325-2576-7</isbn>
+<ee>https://d-nb.info/1007906510</ee>
+</phdthesis><phdthesis mdate="2021-07-17" key="phd/at/Alam2008">
+<author>Masoom Alam</author>
+<title>Model driven security for the realization of dynamic security requirement
+s in collaborative systems.</title>
+<year>2008</year>
+<school>University of Innsbruck</school>
+<pages>1-159</pages>
+<isbn>978-3-8364-7134-3</isbn>
+<ee>https://d-nb.info/989176592</ee>
+</phdthesis><phdthesis mdate="2021-07-17" key="phd/at/Langer2008">
+<author>Josef Langer</author>
+<title>Testing, tracing und debugging bei embedded systems.</title>
+<year>2008</year>
+<school>Johannes Kepler University of Linz</school>
+<pages>1-169</pages>
+<isbn>978-3-85499-567-8</isbn>
+<ee>https://d-nb.info/992351499</ee>
+</phdthesis><phdthesis mdate="2021-07-17" key="phd/at/Weishaupl2006">
+<author>Thomas Weish&auml;upl</author>
+<title>Business and the grid: economic and transparent utilization of virtual re
+sources.</title>
+<year>2006</year>
+<school>University of Vienna</school>
+<pages>1-129</pages>
+<isbn>3-89838-495-0</isbn>
+<ee>https://d-nb.info/981231608</ee>
+</phdthesis><phdthesis mdate="2021-07-17" key="phd/at/Spiess2008">
+<author>Frank Spie&szlig;</author>
+<title>Zum Bildungsbedarf f&uuml;r Datensicherheit: Konzeption und Entwicklung e
+iner Lernumgebung mit Moodle und Flash.</title>
+<year>2008</year>
+<school>University of Klagenfurt</school>
+<pages>1-154</pages>
+<isbn>978-3-8364-5824-5</isbn>
+<ee>https://d-nb.info/991306171</ee>
+</phdthesis><phdthesis mdate="2021-07-17" key="phd/at/Blaha2006">
+<author>Ralf Blaha</author>
+<title>Trusted computing auf dem Pr&uuml;fstand des kartellrechtlichen Missbrauc
+hsverbotes.</title>
+<year>2006</year>
+<school>Vienna University of Economics and Business</school>
+<pages>1-249</pages>
+<isbn>978-3-8329-2473-7</isbn>
+<ee>https://d-nb.info/981771300</ee>
+</phdthesis><phdthesis mdate="2021-07-17" key="phd/at/Altenburger2004">
+<author>Dieter Altenburger</author>
+<title>Hyperlinks: Haftung f&uuml;r fremde Inhalte.</title>
+<year>2004</year>
+<school>University of Vienna</school>
+<pages>1-113</pages>
+<isbn>3-7007-3000-4</isbn>
+<ee>https://d-nb.info/971620210</ee>
+</phdthesis><phdthesis mdate="2021-07-17" key="phd/at/Lehmann2006">
+<author>Marek Lehmann</author>
+<title>Data access in workflow management systems.</title>
+<year>2006</year>
+<school>University of Klagenfurt</school>
+<pages>1-166</pages>
+<isbn>3-89838-494-2</isbn>
+<ee>https://d-nb.info/979672511</ee>
+</phdthesis><phdthesis mdate="2019-10-02" key="phd/at/Ritter2019">
+<author>Daniel Ritter 0001</author>
+<title>Application integration patterns and their compositions.</title>
+<year>2019</year>
+<school>University of Vienna</school>
+<ee>http://othes.univie.ac.at/58436/</ee>
+</phdthesis>
+<phdthesis mdate="2021-07-17" key="phd/at/Fuchs2003">
+<author>Richard J. Fuchs</author>
+<title>Die strafrechtliche Verantwortlichkeit der Internet-Provider.</title>
+<year>2003</year>
+<school>University of Innsbruck</school>
+<ee>https://d-nb.info/971175349</ee>
+</phdthesis><phdthesis mdate="2021-07-17" key="phd/at/Walde2005">
+<author>Janette F. Walde</author>
+<title>Design k&uuml;nstlicher neuronaler Netze: ein Leitfaden zur effizienten H
+andhabung mehrschichtiger Perzeptrone.</title>
+<year>2005</year>
+<school>University of Innsbruck</school>
+<pages>1-159</pages>
+<isbn>3-8244-0842-2</isbn>
+<ee>https://d-nb.info/974182915</ee>
+</phdthesis><phdthesis mdate="2021-07-17" key="phd/at/Obrist2008">
+<author>Marianna Obrist</author>
+<title>DIY HCI: do-it-yourself human computer interaction.</title>
+<year>2008</year>
+<school>University of Salzburg</school>
+<pages>1-145</pages>
+<isbn>978-3-8364-6269-3</isbn>
+<ee>https://d-nb.info/991461355</ee>
+</phdthesis><phdthesis mdate="2021-07-17" key="phd/at/Kottke2006">
+<author>Thomas Kottke</author>
+<title>Untersuchung von fehlertoleranten Prozessorarchitekturen f&uuml;r sicherh
+eitsrelevante Automobilanwendungen.</title>
+<year>2006</year>
+<school>Vienna University of Technology</school>
+<pages>1-144</pages>
+<isbn>3-86537-792-0</isbn>
+<ee>https://d-nb.info/978858492</ee>
+</phdthesis><phdthesis mdate="2021-07-17" key="phd/at/TuurFrohlich2016">
+<author>Terje T&uuml;&uuml;r-Fr&ouml;hlich</author>
+<title>The Non-trivial Effects of Trivial Errors in Scientific Communication and
+ Evaluation.</title>
+<pages>1-162</pages>
+<year>2016</year>
+<school>Johannes Kepler University Linz, Austria</school>
+<publisher>Verlag Werner H&uuml;lsbusch</publisher>
+<series href="db/series/hischr/index.html">Schriften zur Informationswissenschaf
+t</series>
+<volume>69</volume>
+<isbn type="print">978-3-86488-104-6</isbn>
+<ee>https://d-nb.info/1101604085</ee>
+</phdthesis>
