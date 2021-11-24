@@ -18,9 +18,4 @@ typedef struct options_t{
 } options_t;
 
 
-
-
-
-
-
 # endif

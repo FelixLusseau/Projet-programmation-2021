@@ -1,6 +1,8 @@
 #include "argsParser.h"
 #include <stdio.h>
-#include <getopt.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include <ctype.h>
 
 void parseArgs(int argc, char ** argv, options_t * options){
     options->inputFilename=NULL;
@@ -19,6 +21,19 @@ void parseArgs(int argc, char ** argv, options_t * options){
             case 'o':
                 options->outputFilename = optarg;
                 break;
+            case '?':
+                if (optopt == 'i' 
+                    || optopt == 'o' )
+                    fprintf (stderr, "Option -%c requires an argument.\n", optopt);
+                else if (isprint (optopt))
+                    fprintf (stderr, "Unknown option `-%c'.\n", optopt);
+                else
+                    fprintf (stderr,
+                            "Unknown option character `\\x%x'.\n",
+                            optopt);
+                abort();
+            default:
+                abort ();
         }
     }
 

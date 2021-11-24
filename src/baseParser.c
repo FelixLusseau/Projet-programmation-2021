@@ -10,7 +10,7 @@ void initStructure(structureBase_t * structureBase, int authornb){
     structureBase->year=0;
 }
 
-void extractAuthor(structureBase_t * structureBase, int authornb, char * line)
+int extractAuthor(structureBase_t * structureBase, int authornb, char * line)
 {
     int i = 8;
     if (structureBase->author[authornb][0] != '\0')
@@ -23,6 +23,8 @@ void extractAuthor(structureBase_t * structureBase, int authornb, char * line)
         i++;
     }
     structureBase->author[authornb][i - 8] = '\0';
+    authornb++;
+    return authornb;
 }
 
 void extractYear(structureBase_t * structureBase, char * line)
@@ -51,7 +53,7 @@ int parseBase(options_t *options)
     {
         //printf("line : %s\n", line);
         if (line[0] == '<' && line[1] == 'a' && line[2] == 'u')
-            extractAuthor(&structureBase, authornb, line);
+            authornb=extractAuthor(&structureBase, authornb, line);
         if (line[0] == '<' && line[1] == 't' && line[2] == 'i')
         {
             int i = 7;
@@ -99,15 +101,17 @@ int parseBase(options_t *options)
             || strstr(line, "</phdthesis>")!=NULL
             || strstr(line, "</mastersthesis>")!=NULL 
             || strstr(line, "</www>")!=NULL){
-            for (int d=authornb+1; d<9; d++){
-                structureBase.author[d][0]='\0';
-            }
-            fwrite(&structureBase, sizeof(structureBase_t), 1, options->outputFile);
-            printf("write :\nauthor 0 : %s\nauthor 1 : %s\ntitle : %s\nyear : %i\n\n", structureBase.author[0], structureBase.author[1], structureBase.title, structureBase.year);
-            initStructure(&structureBase, authornb);
-            authornb=0;
-            titleEndOfLine=0;
-            titleLenght=0;
+                for (int d=authornb+1; d<9; d++){
+                    structureBase.author[d][0]='\0';
+                }
+                if (authornb != 0){
+                    fwrite(&structureBase, sizeof(structureBase_t), 1, options->outputFile);
+                    printf("write :\nauthor 0 : %s\nauthor 1 : %s\ntitle : %s\nyear : %i\n\n", structureBase.author[0], structureBase.author[1], structureBase.title, structureBase.year);
+                }
+                initStructure(&structureBase, authornb);
+                authornb=0;
+                titleEndOfLine=0;
+                titleLenght=0;
             }
     }
     return 0;

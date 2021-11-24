@@ -53,24 +53,6 @@ title : Software product line engineering for consumer electronics: Keeping up w
 year : 2015
 
 write :
-author 0 : 
-author 1 : 
-title : (error)
-year : 0
-
-write :
-author 0 : 
-author 1 : 
-title : &#8230;
-year : 0
-
-write :
-author 0 : 
-author 1 : 
-title : (was never published)
-year : 0
-
-write :
 author 0 : Russell Turpin
 author 1 : 
 title : Programming Data Structures in Logic.
@@ -609,24 +591,6 @@ author 0 : Herman Hartmann
 author 1 : 
 title : Software product line engineering for consumer electronics: Keeping up with the speed of innovation.
 year : 2015
-
-read :
-author 0 : 
-author 1 : 
-title : (error)
-year : 0
-
-read :
-author 0 : 
-author 1 : 
-title : &#8230;
-year : 0
-
-read :
-author 0 : 
-author 1 : 
-title : (was never published)
-year : 0
 
 read :
 author 0 : Russell Turpin

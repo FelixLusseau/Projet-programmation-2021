@@ -8,6 +8,7 @@ int openFiles(options_t * options){
     options->outputFile=fopen(options->outputFilename, "w");
     if (options->outputFile==NULL)
         return 5;
+    fclose(options->outputFile);
     options->outputFile=fopen(options->outputFilename, "r+");
     if (options->outputFile==NULL)
         return 5;
