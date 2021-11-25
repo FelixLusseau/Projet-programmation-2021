@@ -13,4 +13,8 @@ int extractAuthor(structureBase_t * structureBase, int authornb, char * line);
 
 void extractYear(structureBase_t * structureBase, char * line);
 
+void extractTitle1(structureBase_t * structureBase, char * line, int * titleLenght, int * titleEndOfLine);
+
+void extractTitle2(structureBase_t * structureBase, char * line, int * titleLenght, int titleEndOfLine);
+
 #endif

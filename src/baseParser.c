@@ -39,6 +39,46 @@ void extractYear(structureBase_t * structureBase, char * line)
     structureBase->year = atoi(yeartmp);
 }
 
+void extractTitle1(structureBase_t * structureBase, char * line, int * titleLenght, int * titleEndOfLine){
+    int i = 7;
+    while (*titleEndOfLine == 0)
+    {
+        if (line[i] == '\n')
+        {
+            *titleLenght = i;
+            *titleEndOfLine = 2;
+            break;
+        }
+        if (line[0] == '<' && line[i] == '<')
+        {
+            *titleEndOfLine = 1;
+            break;
+        }
+        structureBase->title[i - 7] = line[i];
+        i++;
+    }
+    structureBase->title[i - 7] = '\0';
+}
+
+void extractTitle2(structureBase_t * structureBase, char * line, int * titleLenght, int titleEndOfLine){
+    int i = *titleLenght;
+            titleEndOfLine=0;
+            while (titleEndOfLine==0)
+            {
+                if (line[i-*titleLenght] == '<'){
+                    titleEndOfLine=1;
+                    break;
+                }
+                if (line[i-*titleLenght]=='\n'){
+                    titleEndOfLine++;
+                    break;
+                }
+                structureBase->title[i - 7] = line[i-*titleLenght];
+                i++;
+            }
+            structureBase->title[i-7]='\0';
+}
+
 int parseBase(options_t *options)
 {
     char *line = malloc(1000);
@@ -55,42 +95,9 @@ int parseBase(options_t *options)
         if (line[0] == '<' && line[1] == 'a' && line[2] == 'u')
             authornb=extractAuthor(&structureBase, authornb, line);
         if (line[0] == '<' && line[1] == 't' && line[2] == 'i')
-        {
-            int i = 7;
-            while (titleEndOfLine==0)
-            {
-                if (line[i]=='\n'){
-                    titleLenght=i;
-                    titleEndOfLine=2;
-                    break;
-                }
-                if (line[0] == '<' && line[i] == '<'){
-                    titleEndOfLine=1;
-                    break;
-                }
-                structureBase.title[i - 7] = line[i];
-                i++;
-            }
-            structureBase.title[i-7]='\0';
-        }
-        if (titleEndOfLine>=2 && line[0] != '<'){
-            int i = titleLenght;
-            titleEndOfLine=0;
-            while (titleEndOfLine==0)
-            {
-                if (line[i-titleLenght] == '<'){
-                    titleEndOfLine=1;
-                    break;
-                }
-                if (line[i-titleLenght]=='\n'){
-                    titleEndOfLine++;
-                    break;
-                }
-                structureBase.title[i - 7] = line[i-titleLenght];
-                i++;
-            }
-            structureBase.title[i-7]='\0';
-        }
+            extractTitle1(&structureBase, line, &titleLenght, &titleEndOfLine);
+        if (titleEndOfLine>=2 && line[0] != '<')
+            extractTitle2(&structureBase, line, &titleLenght, titleEndOfLine);
         if (line[0] == '<' && line[1] == 'y' && line[2] == 'e')
             extractYear(&structureBase, line);
         if(strstr(line, "</article>")!=NULL 
