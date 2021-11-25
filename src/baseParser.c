@@ -91,7 +91,7 @@ int parseBase(options_t *options)
     int titleLenght=0;
     while (fgets(line, 1000, options->inputFile) != NULL)
     {
-        //printf("line : %s\n", line);
+        printf("line : %s\n", line);
         if (line[0] == '<' && line[1] == 'a' && line[2] == 'u')
             authornb=extractAuthor(&structureBase, authornb, line);
         if (line[0] == '<' && line[1] == 't' && line[2] == 'i')
@@ -113,7 +113,7 @@ int parseBase(options_t *options)
                 }
                 if (authornb != 0){
                     fwrite(&structureBase, sizeof(structureBase_t), 1, options->outputFile);
-                    printf("write :\nauthor 0 : %s\nauthor 1 : %s\ntitle : %s\nyear : %i\n\n", structureBase.author[0], structureBase.author[1], structureBase.title, structureBase.year);
+                    //printf("write :\nauthor 0 : %s\nauthor 1 : %s\ntitle : %s\nyear : %i\n\n", structureBase.author[0], structureBase.author[1], structureBase.title, structureBase.year);
                 }
                 initStructure(&structureBase, authornb);
                 authornb=0;

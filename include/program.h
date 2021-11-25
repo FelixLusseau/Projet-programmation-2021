@@ -5,7 +5,7 @@
 
 typedef struct structureBase_t{
     char author[10][50];
-    char title[200];
+    char title[2000];
     int year;
 } structureBase_t;
 
