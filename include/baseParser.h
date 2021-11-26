@@ -23,4 +23,6 @@ int readEntireBin(options_t * options);
 
 structureBase_t readEntryBin(options_t * options, int curseur);
 
+void readLinesOnly(options_t *options);
+
 #endif

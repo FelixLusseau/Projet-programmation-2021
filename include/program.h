@@ -6,7 +6,7 @@
 
 typedef struct structureBase_t{
     int endOfFileFlag;
-    char title[2000];
+    char title[1500];
     int year;
     char author[500][50];
 } structureBase_t;
