@@ -34,10 +34,11 @@ edge *GoToEndEdge(node *node0);
 
 edge * GoToEdge(int n, node *node0);
 
-void appendEdgeSous(edge *edge1,int n1,int n2, node * Node1);
-
 void appendNode(node *node0, char * author);
 
+/**Fonction utile pour appendEdge. Evite de des repétitions.*/
+void appendEdgeSous(edge *edge1,int n1,int n2, node * Node1);
+/** Prend le numéros de somet liés et augmente le graphe.*/
 void appendEdge(int n1,int n2,node *node0);
 
 void freeListAdj(node *node0);
@@ -53,5 +54,8 @@ void printListEdge(node * node0);
    renvoi -1 sinon
 */
 int AuthorInList(char *author, node *node0);
+
+/** prend une ligne d'auteurs et append le graphe*/ 
+void AuthorSAppend(char **authorS,node *node0,int*taille)
 
 #endif

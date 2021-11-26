@@ -243,41 +243,57 @@ int AuthorInList(char *author, node *node0)
     return -1;
 }
 
-/*
-node * DoAdjacentList()
-{
-    //structureBase_t *infoArticle;
-    node node0 = malloc(sizeof(node));
-    node0.nodeNumber = 0;
-    node0.indexEdge=0;
-    //node *currentNode = node0;
-    return node0;
-    while (fread(infoArticle, sizeof(structureBase_t), 1, binaire) != 0)
-    {
-        for (int i = 0; i < 10; i++)
-        {
-            if (author[i] == NULL)
-            {
-                break;
-            }
-            int n = AuthorInList(author[i], node1);
-            if (n == 0)
-            {
-                currentNumber += 1;
-                node *newNode = malloc(sizeof(node));
-                newNode->nodeName = author[i];
-                newNode->nodeNumber = currentNumber;
-                currentNode->nextNode = newNode;
-                currentNode = newNode;
-            }
-            for (int k = 0; k < i; k++)
-            {
-                int n2 = AuthorInList(author[k], node1);
-                appendEdges(n,n2);
-            }
+
+void AuthorSAppend(char **authorS,node *node0,int*taille){
+    int n1;
+    int n2;
+    int k=0;
+    while(authorS[k]!=NULL){
+        char *author1=authorS[k];
+        n1 = AuthorInList(author1,node0);
+        if(n1<0){
+            appendNode(author1,node0);
+            n1=taille;
         }
+        int i=k+1;
+        while(authorS[k]!=NULL){
+            char *author2=authorS[i];
+            n2 = AuthorInList(author2,node0);
+            if(index<0){
+                appendNode(author1,node0);
+                taille++;
+                n2=taille;
+            }
+            appendEdge(n1,n2,node0);
+            i++;
+        }
+        k++;
     }
-    return node1; 
-}**/
+}
+
+node* DoListAdjDeBin(options_t *option){
+    int taille=0;
+    int curseur=0;
+    structureBase_t *Entree;
+    initStructure(Entree, 0);
+    Entree = readEntryBin(option, curseur);
+    curseur++;
+    char **authorS0=Entree->author;
+    
+    if(authorS0[0]==NULL){
+        printf("Erreur 1er livre author[0]=NULL");
+        return NULL;
+    }
+    node *node0=CreateListAdj(authorS0[0]);
+    AuthorSAppend(authorS0+50,node0,&taille);
+
+    while(Entree!=NULL){
+        Entree = readEntryBin(option, curseur);
+        curseur++;
+        char **authorS=Entree->author;
+        AuthorSAppend(authorS,node0,&taille);
+    }
+    return node0;
+}
 
 

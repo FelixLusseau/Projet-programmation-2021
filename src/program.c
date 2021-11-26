@@ -3,7 +3,7 @@
 #include "baseParser.h"
 #include "io-utils.h"
 
-/* int main(int argc, char ** argv){
+ int main(int argc, char ** argv){
     options_t options;
     parseArgs(argc, argv, &options);
     openFiles(&options);
@@ -14,7 +14,7 @@
     //structureBase = readEntryBin(&options, 5);
     closeFiles(&options);
     return 0;
-} */
+} 
 
 #include "fonctionsMatrice.h"
 
