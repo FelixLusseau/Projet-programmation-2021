@@ -2,9 +2,10 @@
 # define PROGRAM_H
 
 # include <stdio.h>
+# include <signal.h>
 
 typedef struct structureBase_t{
-    char author[10][50];
+    char author[500][50];
     char title[2000];
     int year;
 } structureBase_t;
