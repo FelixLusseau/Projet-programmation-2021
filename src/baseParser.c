@@ -4,8 +4,15 @@
 #include <string.h>
 #include <sys/signal.h>
 
+int interruptFlag = 0;
+
 void handleSignal(){
-    fprintf(stderr, "CTRL+C pressed !\n");
+    int carac;
+    fprintf(stderr, "\nCTRL+C pressed !\nDo you want to save and exit ? [Y/N]\nRép : ");
+    scanf("%i", &carac);
+    if (carac=='Y')
+        interruptFlag=1;
+    printf("interruptFlag : %i\n", interruptFlag);
     abort();
 }
 void initSigaction(){
@@ -21,7 +28,8 @@ void initSigaction(){
 
 void initStructure(structureBase_t * structureBase, int authornb){
     for (int h=0; h<=authornb; h++)
-                structureBase->author[h][0]='\0';
+                strcpy(structureBase->author[h], "");
+    //structureBase->author[0][0]='\0';
     structureBase->title[0]='\0';
     structureBase->year=0;
 }
@@ -29,10 +37,10 @@ void initStructure(structureBase_t * structureBase, int authornb){
 void extractAuthor(structureBase_t * structureBase, int * authornb, char * line)
 {
     int i = 8;
-    if (structureBase->author[*authornb][0] != '\0')
+    /* if (structureBase->author[*authornb][0] != '\0')
     {
         *authornb+=1;
-    }
+    } */
     while (line[i] != '<')
     {
         structureBase->author[*authornb][i - 8] = line[i];
@@ -126,14 +134,16 @@ int parseBase(options_t *options)
             || strstr(line, "</phdthesis>")!=NULL
             || strstr(line, "</mastersthesis>")!=NULL 
             || strstr(line, "</www>")!=NULL){
-                for (int d=authornb+1; d<499; d++){
+                /* for (int d=authornb+1; d<499; d++){
                     structureBase.author[d][0]='\0';
-                }
+                } */
                 //printf("authornb : %i\n", authornb);
                 if (authornb != 0){
                     fwrite(&structureBase, sizeof(structureBase_t), 1, options->outputFile);
                     //printf("write :\nauthor 0 : %s\nauthor 1 : %s\ntitle : %s\nyear : %i\n\n", structureBase.author[0], structureBase.author[1], structureBase.title, structureBase.year);
                 }
+                if (interruptFlag==1)
+                    break;
                 initStructure(&structureBase, authornb);
                 authornb=0;
                 titleEndOfLine=0;
@@ -144,7 +154,7 @@ int parseBase(options_t *options)
     return 0;
 }
 
-int readBin(options_t * options){
+int readEntireBin(options_t * options){
     fseek(options->outputFile, 0, SEEK_SET);
     int trigger=1;
     while (1){
@@ -155,4 +165,12 @@ int readBin(options_t * options){
         printf("read :\nauthor 0 : %s\nauthor 1 : %s\ntitle : %s\nyear : %i\n\n", structureBase.author[0], structureBase.author[1], structureBase.title, structureBase.year);
     }
     return 0;
+}
+
+structureBase_t readEntryBin(options_t * options, int curseur){
+    structureBase_t structureBase;
+    fseek(options->outputFile, curseur*sizeof(structureBase_t), SEEK_SET);
+    fread(&structureBase, sizeof(structureBase_t), 1, options->outputFile);
+    printf("read :\nauthor 0 : %s\nauthor 1 : %s\ntitle : %s\nyear : %i\n\n", structureBase.author[0], structureBase.author[1], structureBase.title, structureBase.year);
+    return structureBase;
 }
