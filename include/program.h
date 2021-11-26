@@ -5,9 +5,9 @@
 # include <signal.h>
 
 typedef struct structureBase_t{
+    int endOfFileFlag;
     char title[2000];
     int year;
-    int endOfFileFlag;
     char author[500][50];
 } structureBase_t;
 

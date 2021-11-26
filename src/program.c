@@ -9,10 +9,10 @@ int main(int argc, char ** argv){
     openFiles(&options);
     parseBase(&options);
     //readEntireBin(&options);
-    //structureBase_t structureBase;
-    //initStructure(&structureBase, 0);
-    //structureBase = readEntryBin(&options, 500000000);
-    //closeFiles(&options);
+    structureBase_t structureBase;
+    initStructure(&structureBase, 0);
+    structureBase = readEntryBin(&options, 50);
+    closeFiles(&options);
     return 0;
 }
 

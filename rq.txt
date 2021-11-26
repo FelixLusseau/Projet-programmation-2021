@@ -1,0 +1,1 @@
+couper le fread en 2 et rendre le tableau "dynamique" en taille -> stocker le nombre d'auteurs.
