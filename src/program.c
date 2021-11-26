@@ -8,7 +8,7 @@ int main(int argc, char ** argv){
     parseArgs(argc, argv, &options);
     openFiles(&options);
     parseBase(&options);
-    readBin(&options);
+    //readBin(&options);
     closeFiles(&options);
     return 0;
 }*/

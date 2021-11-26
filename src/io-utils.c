@@ -1,17 +1,18 @@
 # include <stdio.h>
 # include "io-utils.h"
+# include <stdlib.h>
 
 int openFiles(options_t * options){
     options->inputFile=fopen(options->inputFilename, "r");
     if (options->inputFile==NULL)
-        return 4;
+        abort();
     options->outputFile=fopen(options->outputFilename, "w");
     if (options->outputFile==NULL)
-        return 5;
+        abort();
     fclose(options->outputFile);
     options->outputFile=fopen(options->outputFilename, "r+");
     if (options->outputFile==NULL)
-        return 5;
+        abort();
     return 0;
 }
 

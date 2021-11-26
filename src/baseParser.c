@@ -2,6 +2,22 @@
 #include "baseParser.h"
 #include <stdlib.h>
 #include <string.h>
+#include <sys/signal.h>
+
+void handleSignal(){
+    fprintf(stderr, "CTRL+C pressed !\n");
+    abort();
+}
+void initSigaction(){
+    struct sigaction sa;
+    sa.sa_handler = &handleSignal;
+    sa.sa_flags = SA_RESTART;
+    sigfillset(&sa.sa_mask);
+    if (sigaction(SIGINT, &sa, NULL) == -1) {
+        perror("Error: cannot handle SIGINT"); // Should not happen
+    }
+}
+
 
 void initStructure(structureBase_t * structureBase, int authornb){
     for (int h=0; h<=authornb; h++)
@@ -10,21 +26,20 @@ void initStructure(structureBase_t * structureBase, int authornb){
     structureBase->year=0;
 }
 
-int extractAuthor(structureBase_t * structureBase, int authornb, char * line)
+void extractAuthor(structureBase_t * structureBase, int * authornb, char * line)
 {
     int i = 8;
-    if (structureBase->author[authornb][0] != '\0')
+    if (structureBase->author[*authornb][0] != '\0')
     {
-        authornb++;
+        *authornb+=1;
     }
     while (line[i] != '<')
     {
-        structureBase->author[authornb][i - 8] = line[i];
+        structureBase->author[*authornb][i - 8] = line[i];
         i++;
     }
-    structureBase->author[authornb][i - 8] = '\0';
-    authornb++;
-    return authornb;
+    structureBase->author[*authornb][i - 8] = '\0';
+    *authornb+=1;
 }
 
 void extractYear(structureBase_t * structureBase, char * line)
@@ -39,8 +54,50 @@ void extractYear(structureBase_t * structureBase, char * line)
     structureBase->year = atoi(yeartmp);
 }
 
+void extractTitle1(structureBase_t * structureBase, char * line, int * titleLenght, int * titleEndOfLine){
+    int i = 7;
+    while (*titleEndOfLine == 0)
+    {
+        if (line[i] == '\n')
+        {
+            *titleLenght = i;
+            *titleEndOfLine = 2;
+            break;
+        }
+        if (line[0] == '<' && line[i] == '<')
+        {
+            *titleEndOfLine = 1;
+            break;
+        }
+        structureBase->title[i - 7] = line[i];
+        i++;
+    }
+    structureBase->title[i - 7] = '\0';
+}
+
+void extractTitle2(structureBase_t * structureBase, char * line, int * titleLenght, int titleEndOfLine){
+    int i = *titleLenght;
+            titleEndOfLine=0;
+            while (titleEndOfLine==0)
+            {
+                if (line[i-*titleLenght] == '<'){
+                    titleEndOfLine=1;
+                    break;
+                }
+                if (line[i-*titleLenght]=='\n'){
+                    titleEndOfLine++;
+                    break;
+                }
+                structureBase->title[i - 7] = line[i-*titleLenght];
+                i++;
+            }
+            structureBase->title[i-7]='\0';
+}
+
 int parseBase(options_t *options)
 {
+    initSigaction();
+    unsigned long long int linenb=0;
     char *line = malloc(1000);
     if (line == NULL)
         return 6;
@@ -51,46 +108,14 @@ int parseBase(options_t *options)
     int titleLenght=0;
     while (fgets(line, 1000, options->inputFile) != NULL)
     {
-        //printf("line : %s\n", line);
+        linenb++;
+        printf("line %lli : %s\n", linenb, line);
         if (line[0] == '<' && line[1] == 'a' && line[2] == 'u')
-            authornb=extractAuthor(&structureBase, authornb, line);
+            extractAuthor(&structureBase, &authornb, line);
         if (line[0] == '<' && line[1] == 't' && line[2] == 'i')
-        {
-            int i = 7;
-            while (titleEndOfLine==0)
-            {
-                if (line[i]=='\n'){
-                    titleLenght=i;
-                    titleEndOfLine=2;
-                    break;
-                }
-                if (line[0] == '<' && line[i] == '<'){
-                    titleEndOfLine=1;
-                    break;
-                }
-                structureBase.title[i - 7] = line[i];
-                i++;
-            }
-            structureBase.title[i-7]='\0';
-        }
-        if (titleEndOfLine>=2 && line[0] != '<'){
-            int i = titleLenght;
-            titleEndOfLine=0;
-            while (titleEndOfLine==0)
-            {
-                if (line[i-titleLenght] == '<'){
-                    titleEndOfLine=1;
-                    break;
-                }
-                if (line[i-titleLenght]=='\n'){
-                    titleEndOfLine++;
-                    break;
-                }
-                structureBase.title[i - 7] = line[i-titleLenght];
-                i++;
-            }
-            structureBase.title[i-7]='\0';
-        }
+            extractTitle1(&structureBase, line, &titleLenght, &titleEndOfLine);
+        if (titleEndOfLine>=2 && line[0] != '<')
+            extractTitle2(&structureBase, line, &titleLenght, titleEndOfLine);
         if (line[0] == '<' && line[1] == 'y' && line[2] == 'e')
             extractYear(&structureBase, line);
         if(strstr(line, "</article>")!=NULL 
@@ -101,12 +126,13 @@ int parseBase(options_t *options)
             || strstr(line, "</phdthesis>")!=NULL
             || strstr(line, "</mastersthesis>")!=NULL 
             || strstr(line, "</www>")!=NULL){
-                for (int d=authornb+1; d<9; d++){
+                for (int d=authornb+1; d<499; d++){
                     structureBase.author[d][0]='\0';
                 }
+                //printf("authornb : %i\n", authornb);
                 if (authornb != 0){
                     fwrite(&structureBase, sizeof(structureBase_t), 1, options->outputFile);
-                    printf("write :\nauthor 0 : %s\nauthor 1 : %s\ntitle : %s\nyear : %i\n\n", structureBase.author[0], structureBase.author[1], structureBase.title, structureBase.year);
+                    //printf("write :\nauthor 0 : %s\nauthor 1 : %s\ntitle : %s\nyear : %i\n\n", structureBase.author[0], structureBase.author[1], structureBase.title, structureBase.year);
                 }
                 initStructure(&structureBase, authornb);
                 authornb=0;
@@ -114,6 +140,7 @@ int parseBase(options_t *options)
                 titleLenght=0;
             }
     }
+    free(line);
     return 0;
 }
 
