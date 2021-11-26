@@ -8,12 +8,11 @@ int interruptFlag = 0;
 
 void handleSignal(){
     int carac;
-    fprintf(stderr, "\nCTRL+C pressed !\nDo you want to save and exit ? [Y/N]\nRép : ");
+    fprintf(stderr, "\nCTRL+C pressed !\nDo you want to save and exit ? [Y=1/N=0]\nRép : ");
     scanf("%i", &carac);
-    if (carac=='Y')
+    if (carac==1)
         interruptFlag=1;
-    printf("interruptFlag : %i\n", interruptFlag);
-    abort();
+    //printf("interruptFlag : %i\n", interruptFlag);
 }
 void initSigaction(){
     struct sigaction sa;
@@ -32,6 +31,7 @@ void initStructure(structureBase_t * structureBase, int authornb){
     //structureBase->author[0][0]='\0';
     structureBase->title[0]='\0';
     structureBase->year=0;
+    structureBase->endOfFileFlag=1;
 }
 
 void extractAuthor(structureBase_t * structureBase, int * authornb, char * line)
@@ -142,8 +142,10 @@ int parseBase(options_t *options)
                     fwrite(&structureBase, sizeof(structureBase_t), 1, options->outputFile);
                     //printf("write :\nauthor 0 : %s\nauthor 1 : %s\ntitle : %s\nyear : %i\n\n", structureBase.author[0], structureBase.author[1], structureBase.title, structureBase.year);
                 }
-                if (interruptFlag==1)
+                if (interruptFlag==1){
+                    fprintf(stderr, "Exit !\n");
                     break;
+                }
                 initStructure(&structureBase, authornb);
                 authornb=0;
                 titleEndOfLine=0;
@@ -169,8 +171,11 @@ int readEntireBin(options_t * options){
 
 structureBase_t readEntryBin(options_t * options, int curseur){
     structureBase_t structureBase;
+    int trigger=1;
     fseek(options->outputFile, curseur*sizeof(structureBase_t), SEEK_SET);
-    fread(&structureBase, sizeof(structureBase_t), 1, options->outputFile);
+    trigger=fread(&structureBase, sizeof(structureBase_t), 1, options->outputFile);
+    if (trigger==0)
+        structureBase.endOfFileFlag=0;
     printf("read :\nauthor 0 : %s\nauthor 1 : %s\ntitle : %s\nyear : %i\n\n", structureBase.author[0], structureBase.author[1], structureBase.title, structureBase.year);
     return structureBase;
 }
