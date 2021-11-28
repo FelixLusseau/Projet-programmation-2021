@@ -57,6 +57,7 @@ void extractYear(structureBase_t * structureBase, char * line)
         yeartmp[i - 6] = line[i];
         i++;
     }
+    yeartmp[i - 6] = '\0';
     structureBase->year = atoi(yeartmp);
 }
 
@@ -194,21 +195,4 @@ structureBase_t readEntryBin(options_t * options, int curseur){
         structureBase.endOfFileFlag=0;
     //printf("read :\nauthor 0 : %s\nauthor 1 : %s\ntitle : %s\nyear : %i\n\n", structureBase.author[0], structureBase.author[1], structureBase.title, structureBase.year);
     return structureBase;
-}
-
-void readLinesOnly(options_t *options){
-    initSigaction();
-    unsigned long long int linenb=0;
-    char *line = malloc(1000);
-    if (line == NULL)
-        return ;
-    while (fgets(line, 1000, options->inputFile) != NULL)
-    {
-        linenb++;
-        //printf("line %lli : %s\n", linenb, line);
-        if (interruptFlag==1){
-            fprintf(stderr, "Exit !\n");
-            break;
-        }
-    }
 }
