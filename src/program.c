@@ -9,7 +9,7 @@ int main(int argc, char ** argv){
     parseArgs(argc, argv, &options);
     openFiles(&options);
     parseBase(&options);
-    //readEntireBin(&options);
+    readEntireBin(&options);
     //structureBase_t structureBase;
     //initStructure(&structureBase, 0);
     //structureBase = readEntryBin(&options, 50);

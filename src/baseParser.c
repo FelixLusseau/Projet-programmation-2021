@@ -26,17 +26,17 @@ void initSigaction(){
 
 
 void initStructure(structureBase_t * structureBase, int authornb){
-    /* for (int h=0; h<=authornb; h++)
-                strcpy(structureBase->author[h], ""); */
-    (void)authornb;
-    //structureBase->author[0][0]='\0';
+    for (int h=0; h<=authornb; h++){
+                structureBase->author[h][0]='\0';
+                structureBase->authorlengths[h]=0;
+    }
     structureBase->titleLength=0;
     structureBase->title[0]='\0';
     structureBase->year=0;
     structureBase->endOfFileFlag=1;
 }
 
-/* void extractAuthor(structureBase_t * structureBase, int * authornb, char * line)
+void extractAuthor(structureBase_t * structureBase, int * authornb, char * line)
 {
     int i = 8;
     while (line[i] != '<')
@@ -45,8 +45,11 @@ void initStructure(structureBase_t * structureBase, int authornb){
         i++;
     }
     structureBase->author[*authornb][i - 8] = '\0';
+    structureBase->authorlengths[*authornb]=i-8;
     *authornb+=1;
-} */
+    structureBase->authornb=*authornb;
+    //printf("authornb : %i, authorlength : %i\n, author : %s\n", structureBase->authornb, structureBase->authorlengths[0], structureBase->author[*authornb-1]);
+}
 
 void extractYear(structureBase_t * structureBase, char * line)
 {
@@ -128,8 +131,8 @@ int parseBase(options_t *options)
     {
         linenb++;
         //printf("line %lli : %s\n", linenb, line);
-        /* if (line[0] == '<' && line[1] == 'a' && line[2] == 'u')
-            extractAuthor(&structureBase, &authornb, line); */
+        if (line[0] == '<' && line[1] == 'a' && line[2] == 'u')
+            extractAuthor(&structureBase, &authornb, line);
         if (line[0] == '<' && line[1] == 't' && line[2] == 'i')
             extractTitle1(&structureBase, line, &titleLength, &titleEndOfLine);
         if (titleEndOfLine>=2 && line[0] != '<')
@@ -149,8 +152,13 @@ int parseBase(options_t *options)
                     structureBase.author[d][0]='\0';
                 } */
                 //printf("authornb : %i\n", authornb);
-                if (authornb == 0){
+                if (authornb != 0){
                     fwrite(&structureBase, 3*sizeof(int)+titleLength+1, 1, options->outputFile);
+                    fwrite(&structureBase.authornb, sizeof(int), 1, options->outputFile);
+                    fwrite(&structureBase.authorlengths, authornb*sizeof(int), 1, options->outputFile);
+                    for (int m=0; m<structureBase.authornb; m++){
+                        fwrite(structureBase.author[m], structureBase.authorlengths[m]+1, 1, options->outputFile);
+                    }
                     //printf("write :\nauthor 0 : %s\nauthor 1 : %s\ntitle : %s\nyear : %i\n\n", structureBase.author[0], structureBase.author[1], structureBase.title, structureBase.year);
                 }
                 if (interruptFlag==1){
@@ -170,17 +178,25 @@ int parseBase(options_t *options)
 int readEntireBin(options_t * options){
     fseek(options->outputFile, 0, SEEK_SET);
     int trigger=1;
+    int precAuthornb=0;
     while (1){
         structureBase_t structureBase;
+        initStructure(&structureBase, precAuthornb);
         trigger=fread(&structureBase, 3*sizeof(int), 1, options->outputFile);
         //printf("length : %i\n", structureBase.titleLength);
-        trigger=fread(structureBase.title, structureBase.titleLength+1, 1, options->outputFile);
+        trigger=fread(&structureBase.title, structureBase.titleLength+1, 1, options->outputFile);
+        trigger=fread(&structureBase.authornb, sizeof(int), 1 ,options->outputFile);
+        trigger=fread(structureBase.authorlengths, structureBase.authornb*sizeof(int), 1, options->outputFile);
+        for (int m=0; m<structureBase.authornb; m++){
+            trigger=fread(structureBase.author[m], structureBase.authorlengths[m]+1, 1, options->outputFile);
+        }
         if (trigger==0)
             break;
         if (interruptFlag==1)
             break;
-        //printf("read :\nauthor 0 : %s\nauthor 1 : %s\ntitle : %s\nyear : %i\n\n", structureBase.author[0], structureBase.author[1], structureBase.title, structureBase.year);
-        printf("read :\ntitle : %s\nyear : %i\n\n", structureBase.title, structureBase.year);
+        precAuthornb=structureBase.authornb;
+        printf("read :\nauthor 0 : %s\nauthor 1 : %s\ntitle : %s\nyear : %i\n\n", structureBase.author[0], structureBase.author[1], structureBase.title, structureBase.year);
+        //printf("read :\ntitle : %s\nyear : %i\n\n", structureBase.title, structureBase.year);
 
     }
     return 0;
