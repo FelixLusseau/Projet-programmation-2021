@@ -8,12 +8,12 @@ int main(int argc, char ** argv){
     options_t options;
     parseArgs(argc, argv, &options);
     openFiles(&options);
-    //parseBase(&options);
+    parseBase(&options);
     //readEntireBin(&options);
     //structureBase_t structureBase;
     //initStructure(&structureBase, 0);
     //structureBase = readEntryBin(&options, 50);
-    readLinesOnly(&options);
+    //readLinesOnly(&options);
     closeFiles(&options);
     return 0;
 }

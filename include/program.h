@@ -6,9 +6,10 @@
 
 typedef struct structureBase_t{
     int endOfFileFlag;
-    char title[1500];
     int year;
-    char author[500][50];
+    int titleLength;
+    char title[2000];
+    //char author[500][50];
 } structureBase_t;
 
 typedef struct options_t{
