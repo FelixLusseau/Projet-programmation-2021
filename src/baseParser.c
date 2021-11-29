@@ -38,14 +38,22 @@ void initStructure(structureBase_t * structureBase, int authornb){
 
 void extractAuthor(structureBase_t * structureBase, int * authornb, char * line)
 {
-    int i = 8;
-    while (line[i] != '<')
-    {
-        structureBase->author[*authornb][i - 8] = line[i];
+    int dec=8;
+    int i = dec;
+    if (line[i-1]!='>'){
+    while (line[i]!='>'){
         i++;
     }
-    structureBase->author[*authornb][i - 8] = '\0';
-    structureBase->authorlengths[*authornb]=i-8;
+    i++;
+    dec=i;
+    }
+    while (line[i] != '<')
+    {
+        structureBase->author[*authornb][i - dec] = line[i];
+        i++;
+    }
+    structureBase->author[*authornb][i - dec] = '\0';
+    structureBase->authorlengths[*authornb]=i-dec;
     *authornb+=1;
     structureBase->authornb=*authornb;
     //printf("authornb : %i, authorlength : %i\n, author : %s\n", structureBase->authornb, structureBase->authorlengths[0], structureBase->author[*authornb-1]);

@@ -7,12 +7,25 @@
 int main(int argc, char ** argv){
     options_t options;
     parseArgs(argc, argv, &options);
-    openFiles(&options);
-    parseBase(&options);
-    //readEntireBin(&options);
-    structureBase_t structureBase;
-    initStructure(&structureBase, 0);
-    structureBase = readEntryBin(&options, 7);
+    switch (options.action)
+    {
+    case ACTION_PARSE:
+        openFiles(&options, "w");
+        parseBase(&options);
+        break;
+    case ACTION_READ:
+        openFiles(&options, "r");
+        readEntireBin(&options);
+        //structureBase_t structureBase;
+        //initStructure(&structureBase, 0);
+        //structureBase = readEntryBin(&options, 7);
+        break;
+    case ACTION_MAT:
+        break;
+    default:
+        fprintf(stderr, "action is missing\n");
+        break;
+    }
     closeFiles(&options);
     return 0;
 }

@@ -10,7 +10,7 @@
  * @return int 
  */
 
-int openFiles(options_t * options);
+int openFiles(options_t * options, char * openMode);
 
 /**
  * @brief Fermer les fichiers donnés en arguments

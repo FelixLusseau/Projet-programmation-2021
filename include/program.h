@@ -4,6 +4,14 @@
 # include <stdio.h>
 # include <signal.h>
 
+typedef enum action_t {
+    ACTION_UNKNOWN,
+    ACTION_PARSE,
+    ACTION_READ,
+    ACTION_MAT,
+    ACTION_SHOW_ARTICLES
+} action_t;
+
 typedef struct structureBase_t{
     int endOfFileFlag;
     int year;
@@ -15,6 +23,7 @@ typedef struct structureBase_t{
 } structureBase_t;
 
 typedef struct options_t{
+    action_t action;
     char *inputFilename;
     char *outputFilename;
 
