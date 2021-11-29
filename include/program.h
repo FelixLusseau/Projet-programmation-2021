@@ -10,7 +10,7 @@ typedef struct structureBase_t{
     int titleLength;
     char title[2000];
     int authornb;
-    char authorlengths[500];
+    int authorlengths[500];
     char author[500][50];
 } structureBase_t;
 
