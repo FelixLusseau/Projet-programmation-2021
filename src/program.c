@@ -9,7 +9,7 @@ int main(int argc, char ** argv){
     parseArgs(argc, argv, &options);
     openFiles(&options);
     parseBase(&options);
-    //readEntireBin(&options);
+    readEntireBin(&options);
     //structureBase_t structureBase;
     //initStructure(&structureBase, 0);
     //structureBase = readEntryBin(&options, 500000000);
@@ -71,4 +71,4 @@ int main(int argc, char ** argv){
     freeListAdj(node0);
     closeFiles(&options);
     return 0;
-}
+}   

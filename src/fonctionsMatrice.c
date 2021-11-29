@@ -76,7 +76,7 @@ edge * GoToEdge(int n, node *node0){
     return currentNode->nodeEdge;
 }
 
-void appendNode(node *node0,char * author){
+void appendNode(char * author,node *node0){
     node *newNode=malloc(sizeof(node));
     node *currentNode = GoToEndNode(node0);
     int n=currentNode->nodeNumber;
@@ -209,12 +209,12 @@ void printListNode(node * node0){
     node *currentNode=node0;
     printf("liste sommet:\n");
     while(currentNode->nextNode !=NULL){
-        //printf("  %i: %s -> %i |",currentNode->nodeNumber,currentNode->author,currentNode->indexEdge);
-        printf("  %i |",currentNode->indexEdge);
+        printf("  %s: %i |",currentNode->author,currentNode->indexEdge);
+        //printf("  %i |",currentNode->indexEdge);
         currentNode=currentNode->nextNode;
     }
-    //printf( "%i: %s -> %i |",currentNode->nodeNumber,currentNode->author,currentNode->indexEdge);
-    printf("  %i |\n",currentNode->indexEdge);
+    printf( "  %s: %i |",currentNode->author,currentNode->indexEdge);
+    //printf("  %i |\n",currentNode->indexEdge);
 }
 void printListEdge(node * node0){
     edge *currentEdge=node0->nodeEdge;
@@ -261,58 +261,62 @@ node* DoListAdjDeBin(options_t *option){
     node *node0=CreateListAdj(Entree.author[0]);
     int n1;
     int n2;
-    int k=1;
-    while(Entree.author[k]!=NULL){
+    for(int k=0; k<Entree.authornb;k++){
         char *author1=Entree.author[k];
         n1 = AuthorInList(author1,node0);
         if(n1<0){
-            appendNode(node0,author1);
+            appendNode(author1,node0);
             n1=taille;
         }
-        int i=k+1;
-        while(Entree.author[k]!=NULL){
+        for(int i=k+1; i<Entree.authornb;i++){
             char *author2=Entree.author[i];
             n2 = AuthorInList(author2,node0);
-        if(n2<0){
-            appendNode(node0,author2);
-            taille++;
-            n2=taille;
-        }
-        appendEdge(n1,n2,node0);
-        i++;
-        }
-    k++;
-    }
-    
-    while(Entree.endOfFileFlag!=0){
-        Entree = readEntryBin(option, curseur);
-        curseur++;
-        int n1;
-        int n2;
-        int k=0;
-        while(Entree.endOfFileFlag!=0){
-            char *author1=Entree.author[k];
-            n1 = AuthorInList(author1,node0);
-            if(n1<0){
-                appendNode(node0,author1);
-                n1=taille;
-            }
-            int i=k+1;
-            while(Entree.author[k]!=NULL){
-                char *author2=Entree.author[i];
-                n2 = AuthorInList(author2,node0);
             if(n2<0){
-                appendNode(node0,author2);
+                appendNode(author2,node0);
                 taille++;
                 n2=taille;
             }
             appendEdge(n1,n2,node0);
-            i++;
-            }
-        k++;
         }
+    }
+    
+    while(Entree.endOfFileFlag!=0){
+        curseur++;
+        int n1;
+        int n2;
+        for(int k=0; k<Entree.authornb;k++){
+            char *author1=Entree.author[k];
+            n1 = AuthorInList(author1,node0);
+            if(n1<0){
+                appendNode(author1,node0);
+                n1=taille;
+            }
+            for(int i=k+1; i<Entree.authornb;i++){
+                char *author2=Entree.author[i];
+                n2 = AuthorInList(author2,node0);
+                if(n2<0){
+                    appendNode(author2,node0);
+                    taille++;
+                    n2=taille;
+                }
+                appendEdge(n1,n2,node0);
+            }
+        }
+        Entree = readEntryBin(option, curseur);
     }
     return node0;
 }
+/**
+void Dijkstra(int n1, int n2,node *node0){
+    node *node1=GoToNode(n1,node0);
+    node *arbe=CreateListAdj(node->author);
+    node *currentNode=node1;
+    int distance;
+    while(){
 
+    }
+
+
+}
+*/
 
