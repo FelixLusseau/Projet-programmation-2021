@@ -2,6 +2,7 @@
 #include "argsParser.h"
 #include "baseParser.h"
 #include "io-utils.h"
+#include "fonctionsMatrice.h"
 
 int main(int argc, char ** argv){
     options_t options;
@@ -58,4 +59,16 @@ void testCreateListeAdj(void){
 int main(void){
     testCreateListeAdj();
     return 0;
-} */
+} 
+
+int main(int argc, char ** argv){
+    options_t options;
+    parseArgs(argc, argv, &options);
+    openFiles(&options);
+    node *node0 =DoListAdjDeBin(&options);
+    printListNode(node0);
+    printListEdge(node0);
+    freeListAdj(node0);
+    closeFiles(&options);
+    return 0;
+}*/
