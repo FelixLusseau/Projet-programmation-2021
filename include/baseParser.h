@@ -15,9 +15,9 @@ void extractAuthor(structureBase_t * structureBase, int * authornb, char * line)
 
 void extractYear(structureBase_t * structureBase, char * line);
 
-void extractTitle1(structureBase_t * structureBase, char * line, int * titleLenght, int * titleEndOfLine);
+void extractTitle1(structureBase_t * structureBase, char * line, int * titleLength, int * titleEndOfLine);
 
-void extractTitle2(structureBase_t * structureBase, char * line, int * titleLenght, int titleEndOfLine);
+void extractTitle2(structureBase_t * structureBase, char * line, int * titleLength, int titleEndOfLine);
 
 int readEntireBin(options_t * options);
 

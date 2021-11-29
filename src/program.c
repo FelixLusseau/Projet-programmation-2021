@@ -3,7 +3,7 @@
 #include "baseParser.h"
 #include "io-utils.h"
 #include "fonctionsMatrice.h"
-
+/**
 int main(int argc, char ** argv){
     options_t options;
     parseArgs(argc, argv, &options);
@@ -15,7 +15,7 @@ int main(int argc, char ** argv){
     //structureBase = readEntryBin(&options, 500000000);
     //closeFiles(&options);
     return 0;
-}
+}*/
 
 /* #include "fonctionsMatrice.h"
 
@@ -59,7 +59,7 @@ void testCreateListeAdj(void){
 int main(void){
     testCreateListeAdj();
     return 0;
-} 
+} */
 
 int main(int argc, char ** argv){
     options_t options;
@@ -71,4 +71,4 @@ int main(int argc, char ** argv){
     freeListAdj(node0);
     closeFiles(&options);
     return 0;
-}*/
+}

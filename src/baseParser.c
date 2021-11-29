@@ -26,9 +26,11 @@ void initSigaction(){
 
 
 void initStructure(structureBase_t * structureBase, int authornb){
-    for (int h=0; h<=authornb; h++)
-                strcpy(structureBase->author[h], "");
-    //structureBase->author[0][0]='\0';
+    for (int h=0; h<=authornb; h++){
+                structureBase->author[h][0]='\0';
+                structureBase->authorlengths[h]=0;
+    }
+    structureBase->titleLength=0;
     structureBase->title[0]='\0';
     structureBase->year=0;
     structureBase->endOfFileFlag=1;
@@ -37,17 +39,16 @@ void initStructure(structureBase_t * structureBase, int authornb){
 void extractAuthor(structureBase_t * structureBase, int * authornb, char * line)
 {
     int i = 8;
-    /* if (structureBase->author[*authornb][0] != '\0')
-    {
-        *authornb+=1;
-    } */
     while (line[i] != '<')
     {
         structureBase->author[*authornb][i - 8] = line[i];
         i++;
     }
     structureBase->author[*authornb][i - 8] = '\0';
+    structureBase->authorlengths[*authornb]=i-8;
     *authornb+=1;
+    structureBase->authornb=*authornb;
+    //printf("authornb : %i, authorlength : %i\n, author : %s\n", structureBase->authornb, structureBase->authorlengths[0], structureBase->author[*authornb-1]);
 }
 
 void extractYear(structureBase_t * structureBase, char * line)
@@ -59,47 +60,59 @@ void extractYear(structureBase_t * structureBase, char * line)
         yeartmp[i - 6] = line[i];
         i++;
     }
+    yeartmp[i - 6] = '\0';
     structureBase->year = atoi(yeartmp);
 }
 
-void extractTitle1(structureBase_t * structureBase, char * line, int * titleLenght, int * titleEndOfLine){
+void extractTitle1(structureBase_t * structureBase, char * line, int * titleLength, int * titleEndOfLine){
     int i = 7;
     while (*titleEndOfLine == 0)
     {
         if (line[i] == '\n')
         {
-            *titleLenght = i;
+            *titleLength = i-7;
+            structureBase->titleLength = i-7;
             *titleEndOfLine = 2;
             break;
         }
         if (line[0] == '<' && line[i] == '<')
         {
             *titleEndOfLine = 1;
+            *titleLength = i-7;
+            structureBase->titleLength = i-7;
             break;
         }
         structureBase->title[i - 7] = line[i];
         i++;
     }
+    *titleLength = i-7;
+    structureBase->titleLength = i-7;
     structureBase->title[i - 7] = '\0';
 }
 
-void extractTitle2(structureBase_t * structureBase, char * line, int * titleLenght, int titleEndOfLine){
-    int i = *titleLenght;
+void extractTitle2(structureBase_t * structureBase, char * line, int * titleLength, int titleEndOfLine){
+    int i = *titleLength;
             titleEndOfLine=0;
             while (titleEndOfLine==0)
             {
-                if (line[i-*titleLenght] == '<'){
+                if (line[i-*titleLength] == '<'){
                     titleEndOfLine=1;
+                    *titleLength = i;
+                    structureBase->titleLength = i;
                     break;
                 }
-                if (line[i-*titleLenght]=='\n'){
+                if (line[i-*titleLength]=='\n'){
+                    *titleLength = i;
+                    structureBase->titleLength = i;
                     titleEndOfLine++;
                     break;
                 }
-                structureBase->title[i - 7] = line[i-*titleLenght];
+                structureBase->title[i] = line[i-*titleLength];
                 i++;
             }
-            structureBase->title[i-7]='\0';
+            *titleLength = i;
+            structureBase->titleLength = i;
+            structureBase->title[i]='\0';
 }
 
 int parseBase(options_t *options)
@@ -113,17 +126,18 @@ int parseBase(options_t *options)
     structureBase_t structureBase;
     initStructure(&structureBase, authornb);
     int titleEndOfLine=0;
-    int titleLenght=0;
+    int titleLength=0;
     while (fgets(line, 1000, options->inputFile) != NULL)
     {
         linenb++;
-        printf("line %lli : %s\n", linenb, line);
+        //printf("line %lli : %s\n", linenb, line);
         if (line[0] == '<' && line[1] == 'a' && line[2] == 'u')
             extractAuthor(&structureBase, &authornb, line);
         if (line[0] == '<' && line[1] == 't' && line[2] == 'i')
-            extractTitle1(&structureBase, line, &titleLenght, &titleEndOfLine);
+            extractTitle1(&structureBase, line, &titleLength, &titleEndOfLine);
         if (titleEndOfLine>=2 && line[0] != '<')
-            extractTitle2(&structureBase, line, &titleLenght, titleEndOfLine);
+            extractTitle2(&structureBase, line, &titleLength, titleEndOfLine);
+        //printf("length : %i\n", titleLength);
         if (line[0] == '<' && line[1] == 'y' && line[2] == 'e')
             extractYear(&structureBase, line);
         if(strstr(line, "</article>")!=NULL 
@@ -139,7 +153,12 @@ int parseBase(options_t *options)
                 } */
                 //printf("authornb : %i\n", authornb);
                 if (authornb != 0){
-                    fwrite(&structureBase, sizeof(structureBase_t), 1, options->outputFile);
+                    fwrite(&structureBase, 3*sizeof(int)+titleLength+1, 1, options->outputFile);
+                    fwrite(&structureBase.authornb, sizeof(int), 1, options->outputFile);
+                    fwrite(&structureBase.authorlengths, authornb*sizeof(int), 1, options->outputFile);
+                    for (int m=0; m<structureBase.authornb; m++){
+                        fwrite(structureBase.author[m], structureBase.authorlengths[m]+1, 1, options->outputFile);
+                    }
                     //printf("write :\nauthor 0 : %s\nauthor 1 : %s\ntitle : %s\nyear : %i\n\n", structureBase.author[0], structureBase.author[1], structureBase.title, structureBase.year);
                 }
                 if (interruptFlag==1){
@@ -149,7 +168,7 @@ int parseBase(options_t *options)
                 initStructure(&structureBase, authornb);
                 authornb=0;
                 titleEndOfLine=0;
-                titleLenght=0;
+                titleLength=0;
             }
     }
     free(line);
@@ -159,12 +178,26 @@ int parseBase(options_t *options)
 int readEntireBin(options_t * options){
     fseek(options->outputFile, 0, SEEK_SET);
     int trigger=1;
+    int precAuthornb=0;
     while (1){
         structureBase_t structureBase;
-        trigger=fread(&structureBase, sizeof(structureBase_t), 1, options->outputFile);
+        initStructure(&structureBase, precAuthornb);
+        trigger=fread(&structureBase, 3*sizeof(int), 1, options->outputFile);
+        //printf("length : %i\n", structureBase.titleLength);
+        trigger=fread(&structureBase.title, structureBase.titleLength+1, 1, options->outputFile);
+        trigger=fread(&structureBase.authornb, sizeof(int), 1 ,options->outputFile);
+        trigger=fread(structureBase.authorlengths, structureBase.authornb*sizeof(int), 1, options->outputFile);
+        for (int m=0; m<structureBase.authornb; m++){
+            trigger=fread(structureBase.author[m], structureBase.authorlengths[m]+1, 1, options->outputFile);
+        }
         if (trigger==0)
             break;
+        if (interruptFlag==1)
+            break;
+        precAuthornb=structureBase.authornb;
         printf("read :\nauthor 0 : %s\nauthor 1 : %s\ntitle : %s\nyear : %i\n\n", structureBase.author[0], structureBase.author[1], structureBase.title, structureBase.year);
+        //printf("read :\ntitle : %s\nyear : %i\n\n", structureBase.title, structureBase.year);
+
     }
     return 0;
 }
@@ -176,6 +209,6 @@ structureBase_t readEntryBin(options_t * options, int curseur){
     trigger=fread(&structureBase, sizeof(structureBase_t), 1, options->outputFile);
     if (trigger==0)
         structureBase.endOfFileFlag=0;
-    printf("read :\nauthor 0 : %s\nauthor 1 : %s\ntitle : %s\nyear : %i\n\n", structureBase.author[0], structureBase.author[1], structureBase.title, structureBase.year);
+    //printf("read :\nauthor 0 : %s\nauthor 1 : %s\ntitle : %s\nyear : %i\n\n", structureBase.author[0], structureBase.author[1], structureBase.title, structureBase.year);
     return structureBase;
 }
