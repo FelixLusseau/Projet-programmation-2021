@@ -3,6 +3,7 @@
 #include <string.h>
 #include "program.h"
 #include "fonctionsMatrice.h"
+#include "baseParser.h"
 
 node *CreateListAdj(char *author){
     node *node0 = (node *)malloc(sizeof(node));
@@ -243,41 +244,73 @@ int AuthorInList(char *author, node *node0)
     return -1;
 }
 
-/*
-node * DoAdjacentList()
-{
-    //structureBase_t *infoArticle;
-    node node0 = malloc(sizeof(node));
-    node0.nodeNumber = 0;
-    node0.indexEdge=0;
-    //node *currentNode = node0;
-    return node0;
-    while (fread(infoArticle, sizeof(structureBase_t), 1, binaire) != 0)
-    {
-        for (int i = 0; i < 10; i++)
-        {
-            if (author[i] == NULL)
-            {
-                break;
+
+node* DoListAdjDeBin(options_t *option){
+    int taille=0;
+    int curseur=1;
+    structureBase_t Entree;
+    initStructure(&Entree, 0);
+    Entree = readEntryBin(option, curseur);
+    curseur++;
+    if(Entree.author[0]==NULL){
+        printf("Erreur 1er livre author[0]=NULL");
+        return NULL;
+    }
+    node *node0=CreateListAdj(Entree.author[0]);
+    int n1;
+    int n2;
+    int k=1;
+    while(Entree.author[k]!=NULL){
+        char *author1=Entree.author[k];
+        n1 = AuthorInList(author1,node0);
+        if(n1<0){
+            appendNode(node0,author1);
+            n1=taille;
+        }
+        int i=k+1;
+        while(Entree.author[k]!=NULL){
+            char *author2=Entree.author[i];
+            n2 = AuthorInList(author2,node0);
+        if(n2<0){
+            appendNode(node0,author2);
+            taille++;
+            n2=taille;
+        }
+        appendEdge(n1,n2,node0);
+        i++;
+        }
+    k++;
+    }
+    
+    while(Entree.endOfFileFlag!=0){
+        Entree = readEntryBin(option, curseur);
+        curseur++;
+        int n1;
+        int n2;
+        int k=0;
+        while(Entree.endOfFileFlag!=0){
+            char *author1=Entree.author[k];
+            n1 = AuthorInList(author1,node0);
+            if(n1<0){
+                appendNode(node0,author1);
+                n1=taille;
             }
-            int n = AuthorInList(author[i], node1);
-            if (n == 0)
-            {
-                currentNumber += 1;
-                node *newNode = malloc(sizeof(node));
-                newNode->nodeName = author[i];
-                newNode->nodeNumber = currentNumber;
-                currentNode->nextNode = newNode;
-                currentNode = newNode;
+            int i=k+1;
+            while(Entree.author[k]!=NULL){
+                char *author2=Entree.author[i];
+                n2 = AuthorInList(author2,node0);
+            if(n2<0){
+                appendNode(node0,author2);
+                taille++;
+                n2=taille;
             }
-            for (int k = 0; k < i; k++)
-            {
-                int n2 = AuthorInList(author[k], node1);
-                appendEdges(n,n2);
+            appendEdge(n1,n2,node0);
+            i++;
             }
+        k++;
         }
     }
-    return node1; 
-}**/
+    return node0;
+}
 
 
