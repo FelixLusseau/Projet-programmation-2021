@@ -195,26 +195,44 @@ int readEntireBin(options_t * options){
         if (interruptFlag==1)
             break;
         precAuthornb=structureBase.authornb;
-        printf("read :\nauthor 0 : %s\nauthor 1 : %s\ntitle : %s\nyear : %i\n\n", structureBase.author[0], structureBase.author[1], structureBase.title, structureBase.year);
+        printf("read :\ntitle : %s\nyear : %i\n", structureBase.title, structureBase.year);
+        for (int r=0; r<structureBase.authornb; r++){
+            printf("author %i : %s\n", r, structureBase.author[r]);
+        }
+        printf("\n");
         //printf("read :\ntitle : %s\nyear : %i\n\n", structureBase.title, structureBase.year);
 
     }
     return 0;
 }
 
-structureBase_t readEntryBin(options_t * options, int curseur){
+structureBase_t readEntryBin(options_t *options, int curseur)
+{
+    fseek(options->outputFile, 0, SEEK_SET);
+    int precAuthornb=0;
+    int trigger = 1;
+    int count = 0;
     structureBase_t structureBase;
-    int trigger=1;
-    fseek(options->outputFile, curseur*sizeof(structureBase_t), SEEK_SET);
-    trigger=fread(&structureBase, 3*sizeof(int), 1, options->outputFile);
-    trigger=fread(&structureBase.title, structureBase.titleLength+1, 1, options->outputFile);
-    trigger=fread(&structureBase.authornb, sizeof(int), 1 ,options->outputFile);
-    trigger=fread(structureBase.authorlengths, structureBase.authornb*sizeof(int), 1, options->outputFile);
-    for (int m=0; m<structureBase.authornb; m++){
-        trigger=fread(structureBase.author[m], structureBase.authorlengths[m]+1, 1, options->outputFile);
+    while (count < curseur)
+    {
+        initStructure(&structureBase, precAuthornb);
+        trigger = fread(&structureBase, 3 * sizeof(int), 1, options->outputFile);
+        trigger = fread(&structureBase.title, structureBase.titleLength + 1, 1, options->outputFile);
+        trigger = fread(&structureBase.authornb, sizeof(int), 1, options->outputFile);
+        trigger = fread(structureBase.authorlengths, structureBase.authornb * sizeof(int), 1, options->outputFile);
+        for (int m = 0; m < structureBase.authornb; m++)
+        {
+            trigger = fread(structureBase.author[m], structureBase.authorlengths[m] + 1, 1, options->outputFile);
+        }
+        if (trigger == 0)
+            structureBase.endOfFileFlag = 0;
+        count++;
+        precAuthornb=structureBase.authornb;
     }
-    if (trigger==0)
-        structureBase.endOfFileFlag=0;
-    //printf("read :\nauthor 0 : %s\nauthor 1 : %s\ntitle : %s\nyear : %i\n\n", structureBase.author[0], structureBase.author[1], structureBase.title, structureBase.year);
+    printf("read :\ntitle : %s\nyear : %i\n", structureBase.title, structureBase.year);
+        for (int r=0; r<structureBase.authornb; r++){
+            printf("author %i : %s\n", r, structureBase.author[r]);
+        }
+        printf("\n");
     return structureBase;
 }

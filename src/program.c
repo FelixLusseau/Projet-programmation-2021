@@ -9,11 +9,11 @@ int main(int argc, char ** argv){
     parseArgs(argc, argv, &options);
     openFiles(&options);
     parseBase(&options);
-    readEntireBin(&options);
-    //structureBase_t structureBase;
-    //initStructure(&structureBase, 0);
-    //structureBase = readEntryBin(&options, 500000000);
-    //closeFiles(&options);
+    //readEntireBin(&options);
+    structureBase_t structureBase;
+    initStructure(&structureBase, 0);
+    structureBase = readEntryBin(&options, 7);
+    closeFiles(&options);
     return 0;
 }*/
 
