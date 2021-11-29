@@ -11,6 +11,7 @@ typedef struct node{
     char * author;
     int nodeNumber;
     int indexEdge;
+    int flag;
     struct edge *nodeEdge;
     struct node *nextNode;
 }node;
