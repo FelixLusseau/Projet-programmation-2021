@@ -13,7 +13,6 @@ typedef enum action_t {
 } action_t;
 
 typedef struct structureBase_t{
-    int endOfFileFlag;
     int year;
     int titleLength;
     char title[2000];
@@ -26,6 +25,7 @@ typedef struct options_t{
     action_t action;
     char *inputFilename;
     char *outputFilename;
+    char *authorName;
 
     FILE *inputFile;
     FILE *outputFile;

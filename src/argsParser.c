@@ -33,10 +33,12 @@ void parseArgs(int argc, char ** argv, options_t * options){
                 break;
             case 'a':
                 options->action=ACTION_SHOW_ARTICLES;
+                options->authorName = optarg;
                 break;
             case '?':
                 if (optopt == 'i' 
-                    || optopt == 'o' )
+                    || optopt == 'o' 
+                    || optopt == 'a' )
                     fprintf (stderr, "Option -%c requires an argument.\n", optopt);
                 else if (isprint (optopt))
                     fprintf (stderr, "Unknown option `-%c'.\n", optopt);

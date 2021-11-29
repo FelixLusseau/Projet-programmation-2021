@@ -19,11 +19,16 @@ int main(int argc, char ** argv){
         //structureBase_t structureBase;
         //initStructure(&structureBase, 0);
         //structureBase = readEntryBin(&options, 7);
+        //printStruct(&structureBase);
         break;
     case ACTION_MAT:
         break;
+    case ACTION_SHOW_ARTICLES:
+        openFiles(&options, "r");
+        showArticles(&options);
+        break;
     default:
-        fprintf(stderr, "action is missing\n");
+        fprintf(stderr, "Action is missing\n");
         break;
     }
     closeFiles(&options);

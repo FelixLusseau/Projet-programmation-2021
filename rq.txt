@@ -1,1 +1,2 @@
-couper le fread en 2 et rendre le tableau "dynamique" en taille -> stocker le nombre d'auteurs.
+2 args en plus de -i et -o ?
+errno

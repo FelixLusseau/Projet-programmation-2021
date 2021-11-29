@@ -282,13 +282,13 @@ node* DoListAdjDeBin(options_t *option){
     k++;
     }
     
-    while(Entree.endOfFileFlag!=0){
+    while(Entree.authornb!=0){
         Entree = readEntryBin(option, curseur);
         curseur++;
         int n1;
         int n2;
         int k=0;
-        while(Entree.endOfFileFlag!=0){
+        while(Entree.authornb!=0){
             char *author1=Entree.author[k];
             n1 = AuthorInList(author1,node0);
             if(n1<0){
