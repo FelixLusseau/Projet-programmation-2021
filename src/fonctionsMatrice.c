@@ -14,6 +14,7 @@ node *CreateListAdj(char *author){
     node0->author=author;
     node0->nodeNumber =0;
     node0->indexEdge=0;
+    node0->flag=0;
     node0->nextNode=NULL;
     node0->nodeEdge=NULL;
 
@@ -83,6 +84,7 @@ void appendNode(node *node0,char * author){
     newNode->nodeNumber=n+1;
     newNode->nextNode=NULL;
     newNode->author=author;
+    newNode->flag=0;
 
     edge *currentEdge=GoToEndEdge(node0);
     edge *newEdge=(edge *)malloc(sizeof(edge));
