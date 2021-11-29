@@ -206,7 +206,13 @@ structureBase_t readEntryBin(options_t * options, int curseur){
     structureBase_t structureBase;
     int trigger=1;
     fseek(options->outputFile, curseur*sizeof(structureBase_t), SEEK_SET);
-    trigger=fread(&structureBase, sizeof(structureBase_t), 1, options->outputFile);
+    trigger=fread(&structureBase, 3*sizeof(int), 1, options->outputFile);
+    trigger=fread(&structureBase.title, structureBase.titleLength+1, 1, options->outputFile);
+    trigger=fread(&structureBase.authornb, sizeof(int), 1 ,options->outputFile);
+    trigger=fread(structureBase.authorlengths, structureBase.authornb*sizeof(int), 1, options->outputFile);
+    for (int m=0; m<structureBase.authornb; m++){
+        trigger=fread(structureBase.author[m], structureBase.authorlengths[m]+1, 1, options->outputFile);
+    }
     if (trigger==0)
         structureBase.endOfFileFlag=0;
     //printf("read :\nauthor 0 : %s\nauthor 1 : %s\ntitle : %s\nyear : %i\n\n", structureBase.author[0], structureBase.author[1], structureBase.title, structureBase.year);
