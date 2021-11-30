@@ -65,6 +65,11 @@ int main(int argc, char ** argv){
     options_t options;
     parseArgs(argc, argv, &options);
     openFiles(&options);
+    parseBase(&options);
+    /*
+    structureBase_t structureBase;
+    initStructure(&structureBase, 0);
+    structureBase = readEntryBin(&options, 0);*/
     node *node0 =DoListAdjDeBin(&options);
     printListNode(node0);
     printListEdge(node0);
