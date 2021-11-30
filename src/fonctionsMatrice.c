@@ -21,17 +21,6 @@ node *CreateListAdj(char *author){
     node0->flag=0;
     node0->nextNode=NULL;
     node0->nodeEdge=NULL;
-
-    edge *edge0=(edge *)malloc(sizeof(edge));
-    if(edge0==NULL){
-        printf("creatListAdj:erreur malloc edge = NULL");
-        return NULL;
-    }
-    edge0->linkNode=node0;
-    edge0->indexNode=-1;
-    edge0->nextEdge=NULL;
-    edge0->edgeNumber=0;
-    node0->nodeEdge=edge0;
     node0->indexEdge=0;
 
     return node0;
@@ -97,85 +86,94 @@ void appendNode(char * author,node *node0){
 }
 
 void appendEdgeSous(edge *edge1,int n1,int n2, node * Node1){
-    if(edge1->indexNode>=0){
-        edge *newEdge1=(edge *)malloc(sizeof(edge));
-        newEdge1->indexNode=n2;
-        newEdge1->linkNode=Node1;
-        edge *inter=edge1;
-        int Number=0;
-        while(edge1->linkNode->nodeNumber==n1 && edge1->nextEdge!=NULL){
-            inter=edge1;
-            edge1=edge1->nextEdge;
-        }
-        Number=edge1->edgeNumber;
-        if(edge1->nextEdge==NULL){
-            if(edge1->linkNode->nodeNumber==n1){
-                edge1->nextEdge=newEdge1;
-                newEdge1->nextEdge=NULL;
-                newEdge1->edgeNumber=Number+1;
-            }
-            else{
-                newEdge1->nextEdge=edge1;
-                inter->nextEdge=newEdge1;
-                newEdge1->edgeNumber=Number;
-                edge1->edgeNumber=Number;
-            }
-        }
-        else{
-            newEdge1->nextEdge=edge1;
-            inter->nextEdge=newEdge1;
-            newEdge1->edgeNumber=Number;
-            while(edge1->nextEdge!=NULL){
-                Number++;
-                edge1->edgeNumber=Number;
-                edge1=edge1->nextEdge;
-            }
-            edge1->edgeNumber=Number+1;
-        }
-        
+    edge *newEdge1 = (edge *)malloc(sizeof(edge));
+    newEdge1->indexNode = n2;
+    newEdge1->linkNode = Node1;
+    edge *inter = edge1;
+    int Number = 0;
+    while (edge1->linkNode->nodeNumber == n1 && edge1->nextEdge != NULL)
+    {
+        inter = edge1;
+        edge1 = edge1->nextEdge;
     }
-    else{
-        edge1->indexNode=n2;
+    Number = edge1->edgeNumber;
+    if (edge1->nextEdge == NULL)
+    {
+        if (edge1->linkNode->nodeNumber == n1)
+        {
+            edge1->nextEdge = newEdge1;
+            newEdge1->nextEdge = NULL;
+            newEdge1->edgeNumber = Number + 1;
+        }
+        else
+        {
+            newEdge1->nextEdge = edge1;
+            inter->nextEdge = newEdge1;
+            newEdge1->edgeNumber = Number;
+            edge1->edgeNumber = Number;
+        }
+    }
+    else
+    {
+        newEdge1->nextEdge = edge1;
+        inter->nextEdge = newEdge1;
+        newEdge1->edgeNumber = Number;
+        while (edge1->nextEdge != NULL)
+        {
+            Number++;
+            edge1->edgeNumber = Number;
+            edge1 = edge1->nextEdge;
+        }
+        edge1->edgeNumber = Number + 1;
     }
 }
-void appendEdgeSousMallock(node *Node1,int n1,int n2){
+void appendEdgeSousMallock(node *Node1,int n1,int n2, node *node0){
     edge *edge1=GoToEdge(n1-1,node0);
     edge *inter;
     edge *newEdge1=(edge *)malloc(sizeof(edge));
+     if(newEdge1==NULL){
+        printf("creatListAdj:erreur malloc edge = NULL");
+        exit(1);
+    }
     while(edge1->linkNode->nodeNumber==n1-1 && edge1->nextEdge!=NULL){
         inter=edge1;
         edge1=edge1->nextEdge;
     }
-    if(edge1->nextEdge==NULL){
-        if(edge1->linkNode->nodeNumber==n1-1){
-            edge1->nextEdge=newEdge1;
-            newEdge1->nextEdge=NULL;
-            newEdge1->edgeNumber=Number+1;
-        }
-        else{
-            newEdge1->nextEdge=edge1;
-            inter->nextEdge=newEdge1;
-            newEdge1->edgeNumber=Number;
-            edge1->edgeNumber=Number;
-        }
-        }
+    if(edge1->nextEdge!=NULL){
+        newEdge1->nextEdge=edge1;
+        inter->nextEdge=newEdge1;
+        newEdge1->edgeNumber=inter->edgeNumber+1;
+        edge1->edgeNumber=inter->edgeNumber+2;
+    }
+    else{
+        edge1->nextEdge=newEdge1;
+        newEdge1->nextEdge=NULL;
+        newEdge1->edgeNumber=edge1->edgeNumber+1; 
+    }
     newEdge1->indexNode=n2;
-    newEdge1->edgeNumber=edge1->edgeNumber+1;
     newEdge1->linkNode=Node1;
-    newEdge1->nextEdge=NULL;
+    Node1->nodeEdge=newEdge1;
 }
 
 void appendEdge(int n1,int n2,node *node0)
 {
     node *Node1=GoToNode(n1,node0);
-    if(Node1->nodeEdge==NULL){
-        
-    }
-    edge *edge1=GoToEdge(n1,node0);
     node *Node2=GoToNode(n2,node0);
-    edge *edge2=GoToEdge(n2,node0);
-    appendEdgeSous(edge1,n1,n2,Node1);
-    appendEdgeSous(edge2,n2,n1,Node2);
+    if(Node1->nodeEdge==NULL){
+        appendEdgeSousMallock(Node1,n1,n2,node0);
+    }
+    else{
+        edge *edge1=GoToEdge(n1,node0);
+        appendEdgeSous(edge1,n1,n2,Node1);
+    }
+    if(Node2->nodeEdge==NULL){
+        appendEdgeSousMallock(Node2,n2,n1,node0);
+    }
+    else{
+        edge *edge2=GoToEdge(n2,node0);
+        appendEdgeSous(edge2,n2,n1,Node2);
+    }
+
     node *currentNode=node0;
     while(currentNode->nextNode!=NULL){
         currentNode->indexEdge=currentNode->nodeEdge->edgeNumber;
@@ -237,12 +235,12 @@ void printListNode(node * node0){
     node *currentNode=node0;
     printf("liste sommet:\n");
     while(currentNode->nextNode !=NULL){
-        //printf("  %s: %i |",currentNode->author,currentNode->indexEdge);
-        printf("  %i |",currentNode->indexEdge);
+        printf("  %s: %i |",currentNode->author,currentNode->indexEdge);
+        //printf("  %i |",currentNode->indexEdge);
         currentNode=currentNode->nextNode;
     }
-    //printf( "  %s: %i |",currentNode->author,currentNode->indexEdge);
-    printf("  %i |\n",currentNode->indexEdge);
+    printf( "  %s: %i |",currentNode->author,currentNode->indexEdge);
+    //printf("  %i |\n",currentNode->indexEdge);
 }
 void printListEdge(node * node0){
     edge *currentEdge=node0->nodeEdge;
@@ -317,23 +315,12 @@ node* DoListAdjDeBin(options_t *option){
             appendEdge(n1,n2,node0);
         }
     }
-<<<<<<< HEAD
     int L[100];
-    while(Entree.endOfFileFlag!=0){
+    while(Entree.authornb!=0){
         printf("curseur:%i   ",curseur);
         for(int k=0; k<Entree.authornb;k++){
             L[0]=-1;
             int index=0;
-=======
-    
-    while(Entree.authornb!=0){
-        Entree = readEntryBin(option, curseur);
-        curseur++;
-        int n1;
-        int n2;
-        int k=0;
-        while(Entree.authornb!=0){
->>>>>>> 94934a9ae4b6ccd0441572595d02a723a3d59023
             char *author1=Entree.author[k];
             n1 = AuthorInList(author1,node0);
             if(n1<0){
