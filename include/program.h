@@ -3,6 +3,7 @@
 
 # include <stdio.h>
 # include <signal.h>
+#include <stdint.h>
 
 typedef enum action_t {
     ACTION_UNKNOWN,
@@ -13,11 +14,11 @@ typedef enum action_t {
 } action_t;
 
 typedef struct structureBase_t{
-    int year;
-    int titleLength;
+    int16_t year;
+    int16_t titleLength;
     char title[2000];
-    int authornb;
-    int authorlengths[500];
+    int16_t authornb;
+    int8_t authorlengths[500];
     char author[500][50];
 } structureBase_t;
 

@@ -164,9 +164,9 @@ int parseBase(options_t *options)
                 } */
                 //printf("authornb : %i\n", authornb);
                 if (authornb != 0){
-                    fwrite(&structureBase, 2*sizeof(int)+titleLength+1, 1, options->outputFile);
-                    fwrite(&structureBase.authornb, sizeof(int), 1, options->outputFile);
-                    fwrite(&structureBase.authorlengths, authornb*sizeof(int), 1, options->outputFile);
+                    fwrite(&structureBase, 2*sizeof(int16_t)+titleLength+1, 1, options->outputFile);
+                    fwrite(&structureBase.authornb, sizeof(int16_t), 1, options->outputFile);
+                    fwrite(&structureBase.authorlengths, authornb*sizeof(int8_t), 1, options->outputFile);
                     for (int m=0; m<structureBase.authornb; m++){
                         fwrite(structureBase.author[m], structureBase.authorlengths[m]+1, 1, options->outputFile);
                     }
@@ -190,15 +190,15 @@ int readEntireBin(options_t * options){
     initSigaction();
     fseek(options->outputFile, 0, SEEK_SET);
     int trigger=1;
-    int precAuthornb=0;
+    int16_t precAuthornb=0;
     while (1){
         structureBase_t structureBase;
         initStructure(&structureBase, precAuthornb);
-        trigger=fread(&structureBase, 2*sizeof(int), 1, options->outputFile);
+        trigger=fread(&structureBase, 2*sizeof(int16_t), 1, options->outputFile);
         //printf("length : %i\n", structureBase.titleLength);
         trigger=fread(&structureBase.title, structureBase.titleLength+1, 1, options->outputFile);
-        trigger=fread(&structureBase.authornb, sizeof(int), 1 ,options->outputFile);
-        trigger=fread(structureBase.authorlengths, structureBase.authornb*sizeof(int), 1, options->outputFile);
+        trigger=fread(&structureBase.authornb, sizeof(int16_t), 1 ,options->outputFile);
+        trigger=fread(structureBase.authorlengths, structureBase.authornb*sizeof(int8_t), 1, options->outputFile);
         for (int m=0; m<structureBase.authornb; m++){
             trigger=fread(structureBase.author[m], structureBase.authorlengths[m]+1, 1, options->outputFile);
         }
@@ -221,16 +221,16 @@ int readEntireBin(options_t * options){
 structureBase_t readEntryBin(options_t *options, int curseur)
 {
     fseek(options->outputFile, 0, SEEK_SET);
-    int precAuthornb=0;
+    int16_t precAuthornb=0;
     int count = 0;
     structureBase_t structureBase;
     while (count <= curseur)
     {
         initStructure(&structureBase, precAuthornb);
-        fread(&structureBase, 2 * sizeof(int), 1, options->outputFile);
+        fread(&structureBase, 2 * sizeof(int16_t), 1, options->outputFile);
         fread(&structureBase.title, structureBase.titleLength + 1, 1, options->outputFile);
-        fread(&structureBase.authornb, sizeof(int), 1, options->outputFile);
-        fread(structureBase.authorlengths, structureBase.authornb * sizeof(int), 1, options->outputFile);
+        fread(&structureBase.authornb, sizeof(int16_t), 1, options->outputFile);
+        fread(structureBase.authorlengths, structureBase.authornb * sizeof(int8_t), 1, options->outputFile);
         for (int m = 0; m < structureBase.authornb; m++)
         {
             fread(structureBase.author[m], structureBase.authorlengths[m] + 1, 1, options->outputFile);
@@ -252,7 +252,7 @@ void printStruct(structureBase_t * structureBase){
 void showArticles(options_t * options){
     initSigaction();
     int curseur=1;
-    int precAuthornb=0;
+    int16_t precAuthornb=0;
     int authorWritten = 0;
     printf("Articles of ");
     while (1){
@@ -262,7 +262,7 @@ void showArticles(options_t * options){
         //printStruct(&structureBase);
         if (structureBase.authornb==0)
             break;
-        for (int k=0; k<=structureBase.authornb; k++){
+        for (int k=0; k<structureBase.authornb; k++){
             if (strstr(structureBase.author[k], options->authorName)){
                 if (authorWritten==0){
                     printf("%s : \n", structureBase.author[k]);
