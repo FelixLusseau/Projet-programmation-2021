@@ -9,9 +9,10 @@ void parseArgs(int argc, char ** argv, options_t * options){
     options->outputFilename=NULL;
     options->inputFile=NULL;
     options->outputFile=NULL;
+    options->action=ACTION_UNKNOWN;
 
     int c;
-    while ((c = getopt (argc, argv, "i:o:")) != -1) 
+    while ((c = getopt (argc, argv, "i:o:xrma:")) != -1) 
     {
         switch (c)
         {
@@ -21,9 +22,23 @@ void parseArgs(int argc, char ** argv, options_t * options){
             case 'o':
                 options->outputFilename = optarg;
                 break;
+            case 'x':
+                options->action=ACTION_PARSE;
+                break;
+            case 'r':
+                options->action=ACTION_READ;
+                break;
+            case 'm':
+                options->action=ACTION_MAT;
+                break;
+            case 'a':
+                options->action=ACTION_SHOW_ARTICLES;
+                options->authorName = optarg;
+                break;
             case '?':
                 if (optopt == 'i' 
-                    || optopt == 'o' )
+                    || optopt == 'o' 
+                    || optopt == 'a' )
                     fprintf (stderr, "Option -%c requires an argument.\n", optopt);
                 else if (isprint (optopt))
                     fprintf (stderr, "Unknown option `-%c'.\n", optopt);

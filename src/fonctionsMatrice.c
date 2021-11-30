@@ -317,12 +317,23 @@ node* DoListAdjDeBin(options_t *option){
             appendEdge(n1,n2,node0);
         }
     }
+<<<<<<< HEAD
     int L[100];
     while(Entree.endOfFileFlag!=0){
         printf("curseur:%i   ",curseur);
         for(int k=0; k<Entree.authornb;k++){
             L[0]=-1;
             int index=0;
+=======
+    
+    while(Entree.authornb!=0){
+        Entree = readEntryBin(option, curseur);
+        curseur++;
+        int n1;
+        int n2;
+        int k=0;
+        while(Entree.authornb!=0){
+>>>>>>> 94934a9ae4b6ccd0441572595d02a723a3d59023
             char *author1=Entree.author[k];
             n1 = AuthorInList(author1,node0);
             if(n1<0){

@@ -23,4 +23,8 @@ int readEntireBin(options_t * options);
 
 structureBase_t readEntryBin(options_t * options, int curseur);
 
+void printStruct(structureBase_t * structureBase);
+
+void showArticles(options_t * options);
+
 #endif

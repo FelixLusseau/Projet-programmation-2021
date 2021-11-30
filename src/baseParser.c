@@ -26,26 +26,34 @@ void initSigaction(){
 
 
 void initStructure(structureBase_t * structureBase, int authornb){
+    structureBase->year=0;
+    structureBase->titleLength=0;
+    structureBase->title[0]='\0';
+    structureBase->authornb=0;
     for (int h=0; h<=authornb; h++){
                 structureBase->author[h][0]='\0';
                 structureBase->authorlengths[h]=0;
     }
-    structureBase->titleLength=0;
-    structureBase->title[0]='\0';
-    structureBase->year=0;
-    structureBase->endOfFileFlag=1;
 }
 
 void extractAuthor(structureBase_t * structureBase, int * authornb, char * line)
 {
-    int i = 8;
-    while (line[i] != '<')
-    {
-        structureBase->author[*authornb][i - 8] = line[i];
+    int dec=8;
+    int i = dec;
+    if (line[i-1]!='>'){
+    while (line[i]!='>'){
         i++;
     }
-    structureBase->author[*authornb][i - 8] = '\0';
-    structureBase->authorlengths[*authornb]=i-8;
+    i++;
+    dec=i;
+    }
+    while (line[i] != '<')
+    {
+        structureBase->author[*authornb][i - dec] = line[i];
+        i++;
+    }
+    structureBase->author[*authornb][i - dec] = '\0';
+    structureBase->authorlengths[*authornb]=i-dec;
     *authornb+=1;
     structureBase->authornb=*authornb;
     //printf("authornb : %i, authorlength : %i\n, author : %s\n", structureBase->authornb, structureBase->authorlengths[0], structureBase->author[*authornb-1]);
@@ -90,29 +98,32 @@ void extractTitle1(structureBase_t * structureBase, char * line, int * titleLeng
     structureBase->title[i - 7] = '\0';
 }
 
-void extractTitle2(structureBase_t * structureBase, char * line, int * titleLength, int titleEndOfLine){
+void extractTitle2(structureBase_t *structureBase, char *line, int *titleLength, int titleEndOfLine)
+{
     int i = *titleLength;
-            titleEndOfLine=0;
-            while (titleEndOfLine==0)
-            {
-                if (line[i-*titleLength] == '<'){
-                    titleEndOfLine=1;
-                    *titleLength = i;
-                    structureBase->titleLength = i;
-                    break;
-                }
-                if (line[i-*titleLength]=='\n'){
-                    *titleLength = i;
-                    structureBase->titleLength = i;
-                    titleEndOfLine++;
-                    break;
-                }
-                structureBase->title[i] = line[i-*titleLength];
-                i++;
-            }
+    titleEndOfLine = 0;
+    while (titleEndOfLine == 0)
+    {
+        if (line[i - *titleLength] == '<')
+        {
+            titleEndOfLine = 1;
             *titleLength = i;
             structureBase->titleLength = i;
-            structureBase->title[i]='\0';
+            break;
+        }
+        if (line[i - *titleLength] == '\n')
+        {
+            *titleLength = i;
+            structureBase->titleLength = i;
+            titleEndOfLine++;
+            break;
+        }
+        structureBase->title[i] = line[i - *titleLength];
+        i++;
+    }
+    *titleLength = i;
+    structureBase->titleLength = i;
+    structureBase->title[i] = '\0';
 }
 
 int parseBase(options_t *options)
@@ -153,9 +164,9 @@ int parseBase(options_t *options)
                 } */
                 //printf("authornb : %i\n", authornb);
                 if (authornb != 0){
-                    fwrite(&structureBase, 3*sizeof(int)+titleLength+1, 1, options->outputFile);
-                    fwrite(&structureBase.authornb, sizeof(int), 1, options->outputFile);
-                    fwrite(&structureBase.authorlengths, authornb*sizeof(int), 1, options->outputFile);
+                    fwrite(&structureBase, 2*sizeof(int16_t)+titleLength+1, 1, options->outputFile);
+                    fwrite(&structureBase.authornb, sizeof(int16_t), 1, options->outputFile);
+                    fwrite(&structureBase.authorlengths, authornb*sizeof(int8_t), 1, options->outputFile);
                     for (int m=0; m<structureBase.authornb; m++){
                         fwrite(structureBase.author[m], structureBase.authorlengths[m]+1, 1, options->outputFile);
                     }
@@ -176,17 +187,18 @@ int parseBase(options_t *options)
 }
 
 int readEntireBin(options_t * options){
+    initSigaction();
     fseek(options->outputFile, 0, SEEK_SET);
     int trigger=1;
-    int precAuthornb=0;
+    int16_t precAuthornb=0;
     while (1){
         structureBase_t structureBase;
         initStructure(&structureBase, precAuthornb);
-        trigger=fread(&structureBase, 3*sizeof(int), 1, options->outputFile);
+        trigger=fread(&structureBase, 2*sizeof(int16_t), 1, options->outputFile);
         //printf("length : %i\n", structureBase.titleLength);
         trigger=fread(&structureBase.title, structureBase.titleLength+1, 1, options->outputFile);
-        trigger=fread(&structureBase.authornb, sizeof(int), 1 ,options->outputFile);
-        trigger=fread(structureBase.authorlengths, structureBase.authornb*sizeof(int), 1, options->outputFile);
+        trigger=fread(&structureBase.authornb, sizeof(int16_t), 1 ,options->outputFile);
+        trigger=fread(structureBase.authorlengths, structureBase.authornb*sizeof(int8_t), 1, options->outputFile);
         for (int m=0; m<structureBase.authornb; m++){
             trigger=fread(structureBase.author[m], structureBase.authorlengths[m]+1, 1, options->outputFile);
         }
@@ -209,25 +221,23 @@ int readEntireBin(options_t * options){
 structureBase_t readEntryBin(options_t *options, int curseur)
 {
     fseek(options->outputFile, 0, SEEK_SET);
-    int precAuthornb=0;
-    int trigger = 1;
+    int16_t precAuthornb=0;
     int count = 0;
     structureBase_t structureBase;
-    while (count < curseur)
+    while (count <= curseur)
     {
         initStructure(&structureBase, precAuthornb);
-        trigger = fread(&structureBase, 3 * sizeof(int), 1, options->outputFile);
-        trigger = fread(&structureBase.title, structureBase.titleLength + 1, 1, options->outputFile);
-        trigger = fread(&structureBase.authornb, sizeof(int), 1, options->outputFile);
-        trigger = fread(structureBase.authorlengths, structureBase.authornb * sizeof(int), 1, options->outputFile);
+        fread(&structureBase, 2 * sizeof(int16_t), 1, options->outputFile);
+        fread(&structureBase.title, structureBase.titleLength + 1, 1, options->outputFile);
+        fread(&structureBase.authornb, sizeof(int16_t), 1, options->outputFile);
+        fread(structureBase.authorlengths, structureBase.authornb * sizeof(int8_t), 1, options->outputFile);
         for (int m = 0; m < structureBase.authornb; m++)
         {
-            trigger = fread(structureBase.author[m], structureBase.authorlengths[m] + 1, 1, options->outputFile);
+            fread(structureBase.author[m], structureBase.authorlengths[m] + 1, 1, options->outputFile);
         }
-        if (trigger == 0)
-            structureBase.endOfFileFlag = 0;
         count++;
         precAuthornb=structureBase.authornb;
+<<<<<<< HEAD
         /**
         printf("read :\ntitle : %s\nyear : %i\n", structureBase.title, structureBase.year);
         for (int r=0; r<structureBase.authornb; r++){
@@ -242,5 +252,45 @@ structureBase_t readEntryBin(options_t *options, int curseur)
             printf("author %i : %s\n", r, structureBase.author[r]);
         }
         printf("\n");*/
+=======
+    }
+>>>>>>> 94934a9ae4b6ccd0441572595d02a723a3d59023
     return structureBase;
+}
+
+void printStruct(structureBase_t * structureBase){
+    printf("read :\ntitle : %s\nyear : %i\n", structureBase->title, structureBase->year);
+    for (int r=0; r<structureBase->authornb; r++){
+        printf("author %i : %s\n", r, structureBase->author[r]);
+    }
+    printf("\n");
+}
+
+void showArticles(options_t * options){
+    initSigaction();
+    int curseur=1;
+    int16_t precAuthornb=0;
+    int authorWritten = 0;
+    printf("Articles of ");
+    while (1){
+        structureBase_t structureBase;
+        initStructure(&structureBase, precAuthornb);
+        structureBase = readEntryBin(options, curseur);
+        //printStruct(&structureBase);
+        if (structureBase.authornb==0)
+            break;
+        for (int k=0; k<structureBase.authornb; k++){
+            if (strstr(structureBase.author[k], options->authorName)){
+                if (authorWritten==0){
+                    printf("%s : \n", structureBase.author[k]);
+                    authorWritten=1;
+                }
+                printf(" - %s\n", structureBase.title);
+            }
+        }
+        if (interruptFlag==1)
+            break;
+        precAuthornb=structureBase.authornb;
+        curseur++;
+    }
 }
