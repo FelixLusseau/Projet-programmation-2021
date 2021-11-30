@@ -4,7 +4,7 @@
 #include <string.h>
 #include <sys/signal.h>
 
-int interruptFlag = 0;
+extern int interruptFlag;
 
 void handleSignal(){
     int carac;
