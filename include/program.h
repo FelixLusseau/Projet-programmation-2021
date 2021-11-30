@@ -10,7 +10,8 @@ typedef enum action_t {
     ACTION_PARSE,
     ACTION_READ,
     ACTION_MAT,
-    ACTION_SHOW_ARTICLES
+    ACTION_SHOW_ARTICLES,
+    ACTION_SHOW_AUTHORS
 } action_t;
 
 typedef struct structureBase_t{

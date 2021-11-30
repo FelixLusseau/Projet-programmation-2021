@@ -31,6 +31,10 @@ int main(int argc, char ** argv){
         openFiles(&options, "r");
         showArticles(&options);
         break;
+    case ACTION_SHOW_AUTHORS:
+        openFiles(&options, "r");
+        showAuthors(&options);
+        break;
     default:
         fprintf(stderr, "Action is missing\n");
         break;

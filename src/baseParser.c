@@ -277,3 +277,26 @@ void showArticles(options_t * options){
         curseur++;
     }
 }
+
+void showAuthors(options_t * options){
+    initSigaction();
+    int curseur=1;
+    int16_t precAuthornb=0;
+    while (1){
+        structureBase_t structureBase;
+        initStructure(&structureBase, precAuthornb);
+        structureBase = readEntryBin(options, curseur);
+        //printStruct(&structureBase);
+        if (structureBase.authornb==0)
+            break;
+        for (int k=0; k<structureBase.authornb; k++){
+            if (strstr(structureBase.author[k], options->authorName)){
+                printf(" - %s\n", structureBase.author[k]);
+            }
+        }
+        if (interruptFlag==1)
+            break;
+        precAuthornb=structureBase.authornb;
+        curseur++;
+    }
+}

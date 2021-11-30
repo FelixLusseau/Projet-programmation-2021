@@ -12,7 +12,7 @@ void parseArgs(int argc, char ** argv, options_t * options){
     options->action=ACTION_UNKNOWN;
 
     int c;
-    while ((c = getopt (argc, argv, "i:o:xrma:")) != -1) 
+    while ((c = getopt (argc, argv, "i:o:xrma:l:")) != -1) 
     {
         switch (c)
         {
@@ -33,6 +33,10 @@ void parseArgs(int argc, char ** argv, options_t * options){
                 break;
             case 'a':
                 options->action=ACTION_SHOW_ARTICLES;
+                options->authorName = optarg;
+                break;
+            case 'l':
+                options->action=ACTION_SHOW_AUTHORS;
                 options->authorName = optarg;
                 break;
             case '?':
