@@ -42,7 +42,8 @@ void parseArgs(int argc, char ** argv, options_t * options){
             case '?':
                 if (optopt == 'i' 
                     || optopt == 'o' 
-                    || optopt == 'a' )
+                    || optopt == 'a' 
+                    || optopt == 'l' )
                     fprintf (stderr, "Option -%c requires an argument.\n", optopt);
                 else if (isprint (optopt))
                     fprintf (stderr, "Unknown option `-%c'.\n", optopt);

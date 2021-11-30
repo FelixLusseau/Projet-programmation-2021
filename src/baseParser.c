@@ -282,6 +282,7 @@ void showAuthors(options_t * options){
     initSigaction();
     int curseur=1;
     int16_t precAuthornb=0;
+    printf("Authors containing %s in their name : \n", options->authorName);
     while (1){
         structureBase_t structureBase;
         initStructure(&structureBase, precAuthornb);
