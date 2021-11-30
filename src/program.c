@@ -3,8 +3,12 @@
 #include "baseParser.h"
 #include "io-utils.h"
 #include "fonctionsMatrice.h"
-/**
+
+int interruptFlag = 0;
+
+
 int main(int argc, char ** argv){
+    initSigaction();
     options_t options;
     parseArgs(argc, argv, &options);
     switch (options.action)
@@ -33,7 +37,7 @@ int main(int argc, char ** argv){
     }
     closeFiles(&options);
     return 0;
-}*/
+}
 
 /* #include "fonctionsMatrice.h"
 
@@ -79,19 +83,18 @@ int main(void){
     return 0;
 } */
 
-int main(int argc, char ** argv){
+/* int main(int argc, char ** argv){
     options_t options;
     parseArgs(argc, argv, &options);
     openFiles(&options);
     parseBase(&options);
-    /*
     structureBase_t structureBase;
     initStructure(&structureBase, 0);
-    structureBase = readEntryBin(&options, 0);*/
+    structureBase = readEntryBin(&options, 0);
     node *node0 =DoListAdjDeBin(&options);
     printListNode(node0);
     printListEdge(node0);
     freeListAdj(node0);
     closeFiles(&options);
     return 0;
-}   
+}    */

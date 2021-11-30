@@ -237,24 +237,7 @@ structureBase_t readEntryBin(options_t *options, int curseur)
         }
         count++;
         precAuthornb=structureBase.authornb;
-<<<<<<< HEAD
-        /**
-        printf("read :\ntitle : %s\nyear : %i\n", structureBase.title, structureBase.year);
-        for (int r=0; r<structureBase.authornb; r++){
-            printf("author %i : %s\n", r, structureBase.author[r]);
-        }
-        printf("\n");*/
-    }/*
-        printf("entiers %i %i %i\n",structureBase.endOfFileFlag,structureBase.year,structureBase.titleLength);
-        printf("curseur: %i\n",curseur);
-        printf("read :\ntitle : %s\nyear : %i\n", structureBase.title, structureBase.year);
-        for (int r=0; r<structureBase.authornb; r++){
-            printf("author %i : %s\n", r, structureBase.author[r]);
-        }
-        printf("\n");*/
-=======
     }
->>>>>>> 94934a9ae4b6ccd0441572595d02a723a3d59023
     return structureBase;
 }
 
