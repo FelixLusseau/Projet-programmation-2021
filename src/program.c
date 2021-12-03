@@ -53,24 +53,24 @@ void testCreateListeAdj(void){
     appendNode(c4,node0);
     appendNode(c5,node0);
     appendNode(c6,node0);
-    printListNode(node0);
-    printListEdge(node0);
-    
+
     appendEdge(5,1,node0);
     appendEdge(0,3,node0);
     appendEdge(3,2,node0);
     appendEdge(6,5,node0);
     appendEdge(6,3,node0);
     appendEdge(6,2,node0);
+
     printListNode(node0);
-    ptinf("\n");
     printListEdge(node0);
-    ptinf("\n");
-    printListAdj(node0);
-    ptinf("\n");
+    
     char author[]="de";
     int test= AuthorInList(author,node0);
     printf("test présence author: %i\n",test);
+
+    char author2[]="z";
+    int test2= AuthorInList(author2,node0);
+    printf("test présence author: %i\n",test2);
 
     freeListAdj(node0);
 }

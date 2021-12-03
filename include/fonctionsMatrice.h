@@ -38,10 +38,10 @@ void appendNode(char * author,node *node0);
 /**Fonction utile pour appendEdge. Evite de des repétitions.
  * prend un sommet et ajout n1 et n2 a la liste de ses aretes.
 */
-void appendEdgeSous(edge *edge1,int n1,int n2, node * Node1);
-void appendEdgeSousMallock(node *Node1,int n1,int n2, node *node0);
-/** Prend le numéros de somet liés et augmente le graphe.*/
-void appendEdge(int n1,int n2,node *node0);
+void appendEdgeSous(edge *newEdge,int n1,edge *edge0);
+
+/** Prend le numéros de sommets liés et augmente le graphe.*/
+int appendEdge(int n1,int n2,node *node0);
 
 void freeListAdj(node *node0);
 
