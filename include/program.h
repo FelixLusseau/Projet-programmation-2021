@@ -27,7 +27,7 @@ typedef struct options_t{
     action_t action;
     char *inputFilename;
     char *outputFilename;
-    char *authorName;
+    char *authorNames[2];
 
     FILE *inputFile;
     FILE *outputFile;

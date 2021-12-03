@@ -11,8 +11,10 @@ void handleSignal(){
     int carac;
     fprintf(stderr, "\nCTRL+C pressed !\nDo you want to save and exit ? [Y=1/N=0]\nRép : ");
     scanf("%i", &carac);
-    if (carac==1)
+    if (carac==1){
         interruptFlag=1;
+        fprintf(stderr, "Exit !\n");
+    }
     //printf("interruptFlag : %i\n", interruptFlag);
 }
 void initSigaction(){
@@ -177,7 +179,6 @@ int parseBase(options_t *options)
                     //printf("write :\nauthor 0 : %s\nauthor 1 : %s\ntitle : %s\nyear : %i\n\n", structureBase.author[0], structureBase.author[1], structureBase.title, structureBase.year);
                 }
                 if (interruptFlag==1){
-                    fprintf(stderr, "Exit !\n");
                     break;
                 }
                 initStructure(&structureBase, authornb);
@@ -267,7 +268,7 @@ void showArticles(options_t * options){
         if (structureBase.authornb==0)
             break;
         for (int k=0; k<structureBase.authornb; k++){
-            if (strstr(structureBase.author[k], options->authorName)){
+            if (strstr(structureBase.author[k], options->authorNames[0])){
                 if (authorWritten==0){
                     printf("%s : \n", structureBase.author[k]);
                     authorWritten=1;
@@ -286,7 +287,7 @@ void showAuthors(options_t * options){
     initSigaction();
     int curseur=1;
     int16_t precAuthornb=0;
-    printf("Authors containing %s in their name : \n", options->authorName);
+    printf("Authors containing %s in their name : \n", options->authorNames[0]);
     while (1){
         structureBase_t structureBase;
         initStructure(&structureBase, precAuthornb);
@@ -295,7 +296,7 @@ void showAuthors(options_t * options){
         if (structureBase.authornb==0)
             break;
         for (int k=0; k<structureBase.authornb; k++){
-            if (strstr(structureBase.author[k], options->authorName)){
+            if (strstr(structureBase.author[k], options->authorNames[0])){
                 printf(" - %s\n", structureBase.author[k]);
             }
         }
