@@ -134,7 +134,7 @@ int parseBase(options_t *options)
     unsigned long long int linenb=0;
     char *line = malloc(1000);
     if (line == NULL){
-        
+        fprintf(stderr, "%s.\n", strerror(errno));
         return 6;
     }
     int authornb = 0;
