@@ -63,8 +63,11 @@ void testCreateListeAdj(void){
     appendEdge(6,3,node0);
     appendEdge(6,2,node0);
     printListNode(node0);
+    ptinf("\n");
     printListEdge(node0);
+    ptinf("\n");
     printListAdj(node0);
+    ptinf("\n");
     char author[]="de";
     int test= AuthorInList(author,node0);
     printf("test présence author: %i\n",test);

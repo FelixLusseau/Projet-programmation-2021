@@ -85,92 +85,60 @@ void appendNode(char * author,node *node0){
     newNode->nodeEdge=NULL;
 }
 
-void appendEdgeSous(edge *edge1,int n1,int n2, node * Node1){
-    edge *newEdge1 = (edge *)malloc(sizeof(edge));
-    newEdge1->indexNode = n2;
-    newEdge1->linkNode = Node1;
-    edge *inter = edge1;
-    int Number = 0;
-    while (edge1->linkNode->nodeNumber == n1 && edge1->nextEdge != NULL)
-    {
-        inter = edge1;
-        edge1 = edge1->nextEdge;
-    }
-    Number = edge1->edgeNumber;
-    if (edge1->nextEdge == NULL)
-    {
-        if (edge1->linkNode->nodeNumber == n1)
-        {
-            edge1->nextEdge = newEdge1;
-            newEdge1->nextEdge = NULL;
-            newEdge1->edgeNumber = Number + 1;
-        }
-        else
-        {
-            newEdge1->nextEdge = edge1;
-            inter->nextEdge = newEdge1;
-            newEdge1->edgeNumber = Number;
-            edge1->edgeNumber = Number;
-        }
-    }
-    else
-    {
-        newEdge1->nextEdge = edge1;
-        inter->nextEdge = newEdge1;
-        newEdge1->edgeNumber = Number;
-        while (edge1->nextEdge != NULL)
-        {
-            Number++;
-            edge1->edgeNumber = Number;
-            edge1 = edge1->nextEdge;
-        }
-        edge1->edgeNumber = Number + 1;
-    }
-}
-void appendEdgeSousMallock(node *Node1,int n1,int n2, node *node0){
-    edge *edge1=GoToEdge(n1-1,node0);
+void appendEdgeSous(edge *newEdge,int n1,int n2,){
+    edge *currentEdge;
     edge *inter;
-    edge *newEdge1=(edge *)malloc(sizeof(edge));
-     if(newEdge1==NULL){
-        printf("creatListAdj:erreur malloc edge = NULL");
-        exit(1);
+    while(currentEdge->indexNode<n1 && currentEdge->nextEdge!=NULL){
+        inter=currentEdge;
+        currentEdge=currentEdge->nextEdge
     }
-    while(edge1->linkNode->nodeNumber==n1-1 && edge1->nextEdge!=NULL){
-        inter=edge1;
-        edge1=edge1->nextEdge;
+    if(currentEdge->edgeNumber==n1){
+        if(currentEdge->nextEdge!=NULL){
+        newEdge->nextEdge=currentEdge->nextEdge;
+        currentEdge->nextEdge=newEdge;
+        while(currentEdge->nextEdge!=NULL){
+            currentEdge->edgeNumber=inter->edgeNumber+1;
+            inter=currentEdge;
+            currentEdge=currentEdge->nextEdge;
+        }
+        }
+        else{
+            currentEdge->nextEdge=newEdge;
+            newEdge->nextEdge=NULL;
+        }
     }
-    if(edge1->nextEdge!=NULL){
-        newEdge1->nextEdge=edge1;
-        inter->nextEdge=newEdge1;
-        newEdge1->edgeNumber=inter->edgeNumber+1;
-        edge1->edgeNumber=inter->edgeNumber+2;
+    if(currentEdge->edgeNumber>n1){
+        newEdge->nextEdge=currentEdge;
+        inter->nextEdge=newEdge;
+        while(currentEdge->nextEdge!=NULL){
+            currentEdge->edgeNumber=inter->edgeNumber+1;
+            inter=currentEdge;
+            currentEdge=currentEdge->nextEdge;
+        }
     }
-    else{
-        edge1->nextEdge=newEdge1;
-        newEdge1->nextEdge=NULL;
-        newEdge1->edgeNumber=edge1->edgeNumber+1; 
-    }
-    newEdge1->indexNode=n2;
-    newEdge1->linkNode=Node1;
-    Node1->nodeEdge=newEdge1;
 }
+
 
 void appendEdge(int n1,int n2,node *node0)
 {
     node *Node1=GoToNode(n1,node0);
     node *Node2=GoToNode(n2,node0);
+    edge *newEdge1 = (edge *)malloc(sizeof(edge));
+    edge *newEdge2 = (edge *)malloc(sizeof(edge));
     if(Node1->nodeEdge==NULL){
-        appendEdgeSousMallock(Node1,n1,n2,node0);
+        Node1->nodeEdge=newEdge1;
+        appendEdgeSous(Node1,n1,n2,node0);
+        Node1->indexEdge=newEdge1->edgeNumber;
     }
     else{
-        edge *edge1=GoToEdge(n1,node0);
-        appendEdgeSous(edge1,n1,n2,Node1);
+        appendEdgeSous(newEdge1,n1,n2,Node1);
     }
     if(Node2->nodeEdge==NULL){
+        Node2->nodeEdge=newEdge2;
         appendEdgeSousMallock(Node2,n2,n1,node0);
+        Node1->indexEdge=newEdge1->edgeNumber;
     }
     else{
-        edge *edge2=GoToEdge(n2,node0);
         appendEdgeSous(edge2,n2,n1,Node2);
     }
 
