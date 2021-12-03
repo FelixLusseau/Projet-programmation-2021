@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <sys/signal.h>
+#include <errno.h>
 
 extern int interruptFlag;
 
@@ -129,10 +130,13 @@ void extractTitle2(structureBase_t *structureBase, char *line, int *titleLength,
 int parseBase(options_t *options)
 {
     initSigaction();
+    errno = 0;
     unsigned long long int linenb=0;
     char *line = malloc(1000);
-    if (line == NULL)
+    if (line == NULL){
+        
         return 6;
+    }
     int authornb = 0;
     structureBase_t structureBase;
     initStructure(&structureBase, authornb);
