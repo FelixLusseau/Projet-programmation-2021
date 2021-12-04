@@ -1,2 +1,2 @@
-2 args en plus de -i et -o ?
-errno
+2 args diff en plus de -i et -o ?
+
