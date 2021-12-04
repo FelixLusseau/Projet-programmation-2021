@@ -3,8 +3,12 @@
 #include "baseParser.h"
 #include "io-utils.h"
 #include "fonctionsMatrice.h"
-/**
+/*
+//int interruptFlag = 0;
+
+
 int main(int argc, char ** argv){
+    initSigaction();
     options_t options;
     parseArgs(argc, argv, &options);
     switch (options.action)
@@ -27,15 +31,19 @@ int main(int argc, char ** argv){
         openFiles(&options, "r");
         showArticles(&options);
         break;
+    case ACTION_SHOW_AUTHORS:
+        openFiles(&options, "r");
+        showAuthors(&options);
+        break;
     default:
         fprintf(stderr, "Action is missing\n");
         break;
     }
     closeFiles(&options);
     return 0;
-}*/
-
-void testCreateListeAdj(void){
+}
+*/
+ void testCreateListeAdj(void){
     char c0[]="author0";
 
     node *node0=CreateListAdj(c0);
@@ -79,8 +87,8 @@ int main(void){
     testCreateListeAdj();
     return 0;
 } 
-/*
-int main(int argc, char ** argv){
+
+/* int main(int argc, char ** argv){
     options_t options;
     parseArgs(argc, argv, &options);
     openFiles(&options);
@@ -94,4 +102,4 @@ int main(int argc, char ** argv){
     freeListAdj(node0);
     closeFiles(&options);
     return 0;
-}*/
+}    */

@@ -12,7 +12,7 @@ void parseArgs(int argc, char ** argv, options_t * options){
     options->action=ACTION_UNKNOWN;
 
     int c;
-    while ((c = getopt (argc, argv, "i:o:xrma:")) != -1) 
+    while ((c = getopt (argc, argv, "i:o:xrma:l:")) != -1) 
     {
         switch (c)
         {
@@ -35,10 +35,15 @@ void parseArgs(int argc, char ** argv, options_t * options){
                 options->action=ACTION_SHOW_ARTICLES;
                 options->authorName = optarg;
                 break;
+            case 'l':
+                options->action=ACTION_SHOW_AUTHORS;
+                options->authorName = optarg;
+                break;
             case '?':
                 if (optopt == 'i' 
                     || optopt == 'o' 
-                    || optopt == 'a' )
+                    || optopt == 'a' 
+                    || optopt == 'l' )
                     fprintf (stderr, "Option -%c requires an argument.\n", optopt);
                 else if (isprint (optopt))
                     fprintf (stderr, "Unknown option `-%c'.\n", optopt);

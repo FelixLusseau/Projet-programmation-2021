@@ -3,8 +3,9 @@
 #include <stdlib.h>
 #include <string.h>
 #include <sys/signal.h>
+#include <errno.h>
 
-int interruptFlag = 0;
+extern int interruptFlag;
 
 void handleSignal(){
     int carac;
@@ -129,10 +130,13 @@ void extractTitle2(structureBase_t *structureBase, char *line, int *titleLength,
 int parseBase(options_t *options)
 {
     initSigaction();
+    errno = 0;
     unsigned long long int linenb=0;
     char *line = malloc(1000);
-    if (line == NULL)
+    if (line == NULL){
+        
         return 6;
+    }
     int authornb = 0;
     structureBase_t structureBase;
     initStructure(&structureBase, authornb);
@@ -269,6 +273,30 @@ void showArticles(options_t * options){
                     authorWritten=1;
                 }
                 printf(" - %s\n", structureBase.title);
+            }
+        }
+        if (interruptFlag==1)
+            break;
+        precAuthornb=structureBase.authornb;
+        curseur++;
+    }
+}
+
+void showAuthors(options_t * options){
+    initSigaction();
+    int curseur=1;
+    int16_t precAuthornb=0;
+    printf("Authors containing %s in their name : \n", options->authorName);
+    while (1){
+        structureBase_t structureBase;
+        initStructure(&structureBase, precAuthornb);
+        structureBase = readEntryBin(options, curseur);
+        //printStruct(&structureBase);
+        if (structureBase.authornb==0)
+            break;
+        for (int k=0; k<structureBase.authornb; k++){
+            if (strstr(structureBase.author[k], options->authorName)){
+                printf(" - %s\n", structureBase.author[k]);
             }
         }
         if (interruptFlag==1)

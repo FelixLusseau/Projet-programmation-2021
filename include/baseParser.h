@@ -27,4 +27,6 @@ void printStruct(structureBase_t * structureBase);
 
 void showArticles(options_t * options);
 
+void showAuthors(options_t * options);
+
 #endif
