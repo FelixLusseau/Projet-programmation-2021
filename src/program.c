@@ -20,6 +20,7 @@ int main(int argc, char ** argv){
         if(exitCode) goto error;
         exitCode=parseBase(&options);
         if(exitCode) goto error;
+        printf("Database parsing ok ! \n");
         /* char * line = malloc(1000);
         int i=0;
         while (fgets(line, 1000, options.inputFile) != NULL){
