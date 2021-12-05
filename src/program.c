@@ -9,17 +9,28 @@ int interruptFlag = 0;
 
 int main(int argc, char ** argv){
     initSigaction();
+    int exitCode;
     options_t options;
-    parseArgs(argc, argv, &options);
+    exitCode=parseArgs(argc, argv, &options);
+    if(exitCode) goto error;
     switch (options.action)
     {
     case ACTION_PARSE:
-        openFiles(&options, "w");
-        parseBase(&options);
+        exitCode=openFiles(&options, "w");
+        if(exitCode) goto error;
+        exitCode=parseBase(&options);
+        if(exitCode) goto error;
+        /* char * line = malloc(1000);
+        int i=0;
+        while (fgets(line, 1000, options.inputFile) != NULL){
+            i++;
+        } */
         break;
     case ACTION_READ:
-        openFiles(&options, "r");
-        readEntireBin(&options);
+        exitCode=openFiles(&options, "r");
+        if(exitCode) goto error;
+        exitCode=readEntireBin(&options);
+        if(exitCode) goto error;
         //structureBase_t structureBase;
         //initStructure(&structureBase, 0);
         //structureBase = readEntryBin(&options, 7);
@@ -28,19 +39,29 @@ int main(int argc, char ** argv){
     case ACTION_MAT:
         break;
     case ACTION_SHOW_ARTICLES:
-        openFiles(&options, "r");
-        showArticles(&options);
+        exitCode=openFiles(&options, "r");
+        if(exitCode) goto error;
+        exitCode=showArticles(&options);
+        if(exitCode) goto error;
         break;
     case ACTION_SHOW_AUTHORS:
-        openFiles(&options, "r");
-        showAuthors(&options);
+        exitCode=openFiles(&options, "r");
+        if(exitCode) goto error;
+        exitCode=showAuthors(&options);
+        if(exitCode) goto error;
         break;
     default:
         fprintf(stderr, "Action is missing\n");
+        goto error;
         break;
     }
     closeFiles(&options);
-    return 0;
+
+    error: if(exitCode){ 
+        fprintf(stderr, "%s\n", errorToString(exitCode));
+        return exitCode;
+    }
+    return OK;
 }
 
 /* void testCreateListeAdj(void){

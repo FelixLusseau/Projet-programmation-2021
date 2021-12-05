@@ -21,4 +21,6 @@ int openFiles(options_t * options, char * openMode);
 
 int closeFiles(options_t * options);
 
+const char * errorToString(error_t err);
+
 #endif

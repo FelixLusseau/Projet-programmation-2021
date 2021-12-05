@@ -20,7 +20,7 @@ void printUsage(void){
     "./bin/program -i database/dblp.xml -o database/dblp.bin -x\n");
 }
 
-void parseArgs(int argc, char ** argv, options_t * options){
+int parseArgs(int argc, char ** argv, options_t * options){
     options->inputFilename=NULL;
     options->outputFilename=NULL;
     options->inputFile=NULL;
@@ -65,12 +65,12 @@ void parseArgs(int argc, char ** argv, options_t * options){
                     options->authorNames[1]=optarg;
                 if (options->authorNames[0]==NULL || options->authorNames[1]==NULL){
                     fprintf(stderr, "One or two authors are missing ! Usage : ./bin/program -i ... -o ... -p AUTHOR1 -p AUTHOR2\n");
-                    abort();
+                    return ERROR_ARGS_PARSE;
                 }
                 break;
             case 'h':
                 printUsage();
-                abort();
+                return ERROR_ARGS_PARSE;
             case '?':
                 if (optopt == 'i' 
                     || optopt == 'o' 
@@ -84,10 +84,11 @@ void parseArgs(int argc, char ** argv, options_t * options){
                     fprintf (stderr,
                             "Unknown option character `\\x%x'.\n",
                             optopt);
-                abort();
+                return ERROR_ARGS_PARSE;
             default:
-                abort ();
+                return ERROR_ARGS_PARSE;
         }
     }
+    return OK;
 
 }
