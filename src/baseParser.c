@@ -142,18 +142,18 @@ int parseBase(options_t *options)
             extractTitle1(&structureBase, line, &titleEndOfLine);
         if (titleEndOfLine>=2 && line[0] != '<')
             extractTitle2(&structureBase, line, titleEndOfLine);
-        //printf("length : %i\n", titleLength);
         if (line[0] == '<' && line[1] == 'y' && line[2] == 'e')
             extractYear(&structureBase, line);
-        if(strstr(line, "</article>")!=NULL 
-            || strstr(line, "</inproceedings>")!=NULL 
-            || strstr(line, "</proceedings>")!=NULL 
-            || strstr(line, "</book>")!=NULL 
-            || strstr(line, "</incollection>")!=NULL 
-            || strstr(line, "</phdthesis>")!=NULL
-            || strstr(line, "</mastersthesis>")!=NULL 
-            || strstr(line, "</www>")!=NULL){
-                //printf("authornb : %i\n", authornb);
+        //if(strstr(line, "</article>")!=NULL 
+        //    || strstr(line, "</inproceedings>")!=NULL 
+        //    || strstr(line, "</proceedings>")!=NULL 
+        //    || strstr(line, "</book>")!=NULL 
+        //    || strstr(line, "</incollection>")!=NULL 
+        //    || strstr(line, "</phdthesis>")!=NULL
+        //    || strstr(line, "</mastersthesis>")!=NULL 
+        //    || strstr(line, "</www>")!=NULL){
+
+        if(line[0] == '<' && line[1] == '/'){
                 if (structureBase.authornb != 0){
                     fwrite(&structureBase, 2*sizeof(int16_t)+structureBase.titleLength+1, 1, options->outputFile);
                     fwrite(&structureBase.authornb, sizeof(int16_t), 1, options->outputFile);
@@ -183,7 +183,6 @@ int readEntireBin(options_t * options){
         structureBase_t structureBase;
         initStructure(&structureBase, precAuthornb);
         trigger=fread(&structureBase, 2*sizeof(int16_t), 1, options->outputFile);
-        //printf("length : %i\n", structureBase.titleLength);
         trigger=fread(&structureBase.title, structureBase.titleLength+1, 1, options->outputFile);
         trigger=fread(&structureBase.authornb, sizeof(int16_t), 1 ,options->outputFile);
         trigger=fread(structureBase.authorlengths, structureBase.authornb*sizeof(int8_t), 1, options->outputFile);
