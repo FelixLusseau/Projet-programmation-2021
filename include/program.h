@@ -33,5 +33,16 @@ typedef struct options_t{
     FILE *outputFile;
 } options_t;
 
+typedef enum error_t {
+    OK,
+    ERROR_ARGS_PARSE,
+    ERROR_OPEN_FILES,
+    ERROR_BASE_PARSE,
+    ERROR_READ,
+    ERROR_MAT,
+    ERROR_SHOW_ARTICLES,
+    ERROR_SHOW_AUTHORS,
+    ERROR_GRAPH
+} error_t;
 
 # endif

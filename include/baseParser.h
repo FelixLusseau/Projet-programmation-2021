@@ -11,13 +11,13 @@ int parseBase(options_t * options);
 
 void initStructure(structureBase_t * structureBase, int authornb);
 
-void extractAuthor(structureBase_t * structureBase, int * authornb, char * line);
+void extractAuthor(structureBase_t * structureBase, char * line);
 
 void extractYear(structureBase_t * structureBase, char * line);
 
-void extractTitle1(structureBase_t * structureBase, char * line, int * titleLength, int * titleEndOfLine);
+void extractTitle1(structureBase_t * structureBase, char * line, int * titleEndOfLine);
 
-void extractTitle2(structureBase_t * structureBase, char * line, int * titleLength, int titleEndOfLine);
+void extractTitle2(structureBase_t * structureBase, char * line, int titleEndOfLine);
 
 int readEntireBin(options_t * options);
 
@@ -25,8 +25,8 @@ structureBase_t readEntryBin(options_t * options, int curseur);
 
 void printStruct(structureBase_t * structureBase);
 
-void showArticles(options_t * options);
+int showArticles(options_t * options);
 
-void showAuthors(options_t * options);
+int showAuthors(options_t * options);
 
 #endif
