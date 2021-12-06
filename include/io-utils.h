@@ -16,7 +16,15 @@ void handleSignal();
 void initSigaction();
 
 /**
- * @brief Ouvrir les fichiers donnés en arguments
+ * @brief Verify that the input file is a xml base
+ * 
+ * @param file 
+ * @return int 
+ */
+int isXML(FILE * file);
+
+/**
+ * @brief Open the files given through the arguments
  * 
  * @param options 
  * @return int 
@@ -25,7 +33,7 @@ void initSigaction();
 int openFiles(options_t * options, char * openMode);
 
 /**
- * @brief Fermer les fichiers donnés en arguments
+ * @brief Close the files given through the arguments
  * 
  * @param options 
  * @return int 

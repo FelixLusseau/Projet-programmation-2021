@@ -1,0 +1,4 @@
+title : Using open source software to develop E-business applications for medium- and small-sized enterprises.
+year : 2009
+author 0 : Guido Frisch
+

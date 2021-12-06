@@ -36,7 +36,9 @@ typedef struct options_t{
 typedef enum error_t {
     OK,
     ERROR_ARGS_PARSE,
+    ERROR_MISSING_ACTION,
     ERROR_OPEN_FILES,
+    ERROR_XML,
     ERROR_BASE_PARSE,
     ERROR_READ,
     ERROR_MAT,

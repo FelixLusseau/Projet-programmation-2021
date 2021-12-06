@@ -26,6 +26,15 @@ void initSigaction(){
     }
 }
 
+int isXML(FILE * file){
+    char docType[5];
+    fread(&docType, 1, 5, file);
+    if (strcmp("<?xml", docType)!=0){
+        return ERROR_XML;
+    }
+    return OK;
+}
+
 int openFiles(options_t * options, char * openMode){
     errno=0;
     options->inputFile=fopen(options->inputFilename, "r");
@@ -34,6 +43,9 @@ int openFiles(options_t * options, char * openMode){
             fprintf(stderr, "%s : %s.\n", strerror(errno), options->inputFilename);
             return ERROR_OPEN_FILES;
         }
+    if (isXML(options->inputFile)==ERROR_XML){
+        return ERROR_XML;
+    }
     options->outputFile=fopen(options->outputFilename, openMode);
     if (options->outputFile==NULL)
         {
@@ -54,6 +66,7 @@ const char * errorToString(error_t err)
     switch(err) {
         case ERROR_ARGS_PARSE: return "Error while parsing arguments";
         case ERROR_OPEN_FILES: return "Error while opening files";
+        case ERROR_XML: return "The input file isn't a XML database";
         case ERROR_BASE_PARSE: return "Error while parsing base";
         case ERROR_READ: return "Error while reading the binary";
         case ERROR_MAT: return "Error while generating the matrice";

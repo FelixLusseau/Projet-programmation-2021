@@ -97,7 +97,9 @@ int main(int argc, char ** argv){
         if(exitCode) goto error;
         break;
     default:
-        fprintf(stderr, "Action is missing\n");
+        fprintf(stderr, "Action is missing !\n");
+        printUsage();
+        exitCode=ERROR_MISSING_ACTION;
         goto error;
         break;
     }

@@ -7,7 +7,6 @@
 #include "io-utils.h"
 
 extern int interruptFlag;
-int a=0; 
 
 void initStructure(structureBase_t *structureBase, int authornb)
 {
@@ -175,7 +174,7 @@ int readEntireBin(options_t * options){
         if (interruptFlag==1)
             break;
         precAuthornb=structureBase.authornb;
-        printf("read :\ntitle : %s\nyear : %i\n", structureBase.title, structureBase.year);
+        printf("title : %s\nyear : %i\n", structureBase.title, structureBase.year);
         for (int r=0; r<structureBase.authornb; r++){
             printf("author %i : %s\n", r, structureBase.author[r]);
         }

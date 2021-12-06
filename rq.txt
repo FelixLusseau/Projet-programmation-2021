@@ -1,3 +1,5 @@
 2 args diff en plus de -i et -o ?
-return des fonctions
+
 vérifier condition détection multilignes titre
+
+tests.c et test.sh
