@@ -7,6 +7,7 @@
 #include "io-utils.h"
 
 extern int interruptFlag;
+int a=0; 
 
 void initStructure(structureBase_t *structureBase, int authornb)
 {
@@ -42,7 +43,6 @@ void extractAuthor(structureBase_t * structureBase, char * line)
     structureBase->author[structureBase->authornb][i - dec] = '\0';
     structureBase->authorlengths[structureBase->authornb] = i - dec;
     structureBase->authornb += 1;
-    //printf("authornb : %i, authorlength : %i\n, author : %s\n", structureBase->authornb, structureBase->authorlengths[0], structureBase->author[*authornb-1]);
 }
 
 void extractYear(structureBase_t * structureBase, char * line)
@@ -70,7 +70,6 @@ void extractTitle1(structureBase_t * structureBase, char * line, int * titleEndO
         }
         if (line[0] == '<' && line[i] == '<')
         {
-            //printf("%s\n", line);
             *titleEndOfLine = 1;
             structureBase->titleLength = i-7;
             break;
@@ -106,7 +105,7 @@ int parseBase(options_t *options)
     initSigaction();
     errno = 0;
     unsigned long long int linenb=0;
-    char *line = malloc(1300);
+    char *line = malloc(1500);
     if (line == NULL){
         fprintf(stderr, "%s.\n", strerror(errno));
         return ERROR_BASE_PARSE;
@@ -114,7 +113,7 @@ int parseBase(options_t *options)
     structureBase_t structureBase;
     initStructure(&structureBase, 0);
     int titleEndOfLine=0;
-    while (fgets(line, 1300, options->inputFile) != NULL)
+    while (fgets(line, 1500, options->inputFile) != NULL)
     {
         linenb++;
         //printf("line %lli : %s\n", linenb, line);
@@ -151,8 +150,6 @@ int parseBase(options_t *options)
                 initStructure(&structureBase, structureBase.authornb);
                 titleEndOfLine=0;
             }
-        //printStruct(&structureBase);
-        //printf("%s\n\n", structureBase.title);
     }
     free(line);
     return OK;
