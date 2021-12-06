@@ -4,28 +4,9 @@
 #include <string.h>
 #include <sys/signal.h>
 #include <errno.h>
+#include "io-utils.h"
 
 extern int interruptFlag;
-
-void handleSignal(){
-    int carac;
-    fprintf(stderr, "\nCTRL+C pressed !\nDo you want to save and exit ? [Y=1/N=0]\nRép : ");
-    scanf("%i", &carac);
-    if (carac==1){
-        interruptFlag=1;
-        fprintf(stderr, "Exit !\n");
-    }
-    //printf("interruptFlag : %i\n", interruptFlag);
-}
-void initSigaction(){
-    struct sigaction sa;
-    sa.sa_handler = &handleSignal;
-    sa.sa_flags = SA_RESTART;
-    sigfillset(&sa.sa_mask);
-    if (sigaction(SIGINT, &sa, NULL) == -1) {
-        perror("Error: cannot handle SIGINT"); // Should not happen
-    }
-}
 
 void initStructure(structureBase_t *structureBase, int authornb)
 {
@@ -89,6 +70,7 @@ void extractTitle1(structureBase_t * structureBase, char * line, int * titleEndO
         }
         if (line[0] == '<' && line[i] == '<')
         {
+            //printf("%s\n", line);
             *titleEndOfLine = 1;
             structureBase->titleLength = i-7;
             break;
@@ -124,7 +106,7 @@ int parseBase(options_t *options)
     initSigaction();
     errno = 0;
     unsigned long long int linenb=0;
-    char *line = malloc(400);
+    char *line = malloc(1300);
     if (line == NULL){
         fprintf(stderr, "%s.\n", strerror(errno));
         return ERROR_BASE_PARSE;
@@ -132,19 +114,19 @@ int parseBase(options_t *options)
     structureBase_t structureBase;
     initStructure(&structureBase, 0);
     int titleEndOfLine=0;
-    while (fgets(line, 400, options->inputFile) != NULL)
+    while (fgets(line, 1300, options->inputFile) != NULL)
     {
         linenb++;
         //printf("line %lli : %s\n", linenb, line);
         if (line[0] == '<' && line[1] == 'a' && line[2] == 'u')
             extractAuthor(&structureBase, line);
-        if (line[0] == '<' && line[1] == 't' && line[2] == 'i')
+        else if (line[0] == '<' && line[1] == 't' && line[2] == 'i')
             extractTitle1(&structureBase, line, &titleEndOfLine);
-        if (titleEndOfLine>=2 && line[0] != '<')
+        else if (titleEndOfLine>=2 && line[0] != '<')
             extractTitle2(&structureBase, line, titleEndOfLine);
-        if (line[0] == '<' && line[1] == 'y' && line[2] == 'e')
+        else if (line[0] == '<' && line[1] == 'y' && line[2] == 'e')
             extractYear(&structureBase, line);
-        //if(strstr(line, "</article>")!=NULL 
+        //else if(strstr(line, "</article>")!=NULL 
         //    || strstr(line, "</inproceedings>")!=NULL 
         //    || strstr(line, "</proceedings>")!=NULL 
         //    || strstr(line, "</book>")!=NULL 
@@ -153,7 +135,7 @@ int parseBase(options_t *options)
         //    || strstr(line, "</mastersthesis>")!=NULL 
         //    || strstr(line, "</www>")!=NULL){
 
-        if(line[0] == '<' && line[1] == '/'){
+        else if(line[0] == '<' && line[1] == '/'){
                 if (structureBase.authornb != 0){
                     fwrite(&structureBase, 2*sizeof(int16_t)+structureBase.titleLength+1, 1, options->outputFile);
                     fwrite(&structureBase.authornb, sizeof(int16_t), 1, options->outputFile);
@@ -169,6 +151,8 @@ int parseBase(options_t *options)
                 initStructure(&structureBase, structureBase.authornb);
                 titleEndOfLine=0;
             }
+        //printStruct(&structureBase);
+        //printf("%s\n\n", structureBase.title);
     }
     free(line);
     return OK;

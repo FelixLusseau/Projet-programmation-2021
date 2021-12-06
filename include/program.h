@@ -3,7 +3,7 @@
 
 # include <stdio.h>
 # include <signal.h>
-#include <stdint.h>
+# include <stdint.h>
 
 typedef enum action_t {
     ACTION_UNKNOWN,

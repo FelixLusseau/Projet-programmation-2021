@@ -4,6 +4,27 @@
 # include <errno.h>
 # include <string.h>
 
+extern int interruptFlag;
+
+void handleSignal(){
+    int carac;
+    fprintf(stderr, "\nCTRL+C pressed !\nDo you want to save and exit ? [Y=1/N=0]\nRép : ");
+    scanf("%i", &carac);
+    if (carac==1){
+        interruptFlag=1;
+        fprintf(stderr, "Exit !\n");
+    }
+    //printf("interruptFlag : %i\n", interruptFlag);
+}
+void initSigaction(){
+    struct sigaction sa;
+    sa.sa_handler = &handleSignal;
+    sa.sa_flags = SA_RESTART;
+    sigfillset(&sa.sa_mask);
+    if (sigaction(SIGINT, &sa, NULL) == -1) {
+        perror("Error: cannot handle SIGINT"); // Should not happen
+    }
+}
 
 int openFiles(options_t * options, char * openMode){
     errno=0;
