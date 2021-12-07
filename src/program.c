@@ -7,6 +7,8 @@
 #include "baseParser.h"
 #include "io-utils.h"
 #include "fonctionsMatrice.h"
+#include "readBinary.h"
+#include "searchingFunctions.h"
 
 int interruptFlag = 0;
 

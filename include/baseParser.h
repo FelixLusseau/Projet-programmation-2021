@@ -53,53 +53,5 @@ void extractTitle1(structureBase_t * structureBase, char * line, int * titleEndO
  */
 void extractTitle2(structureBase_t * structureBase, char * line, int titleEndOfLine);
 
-/**
- * @brief Read an entry from the binary base
- * 
- * @param options 
- * @param structureBase 
- * @param precAuthornb 
- */
-void readStructure(options_t *options, structureBase_t *structureBase, int16_t precAuthornb);
-
-/**
- * @brief read the binary and print the structures
- * 
- * @param options 
- * @return int 
- */
-int readEntireBin(options_t * options);
-
-/**
- * @brief read one entry and return it in a structure
- * 
- * @param options 
- * @param curseur 
- * @return structureBase_t 
- */
-structureBase_t readEntryBin(options_t * options, int curseur);
-
-/**
- * @brief print the structure given in argument
- * 
- * @param structureBase 
- */
-void printStruct(structureBase_t * structureBase);
-
-/**
- * @brief print the articles written by the author given in argument
- * 
- * @param options 
- * @return int 
- */
-int showArticles(options_t * options);
-
-/**
- * @brief print the authors' names containing the string given in argument
- * 
- * @param options 
- * @return int 
- */
-int showAuthors(options_t * options);
 
 #endif

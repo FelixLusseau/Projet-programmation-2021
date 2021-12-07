@@ -1,9 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
 #include "program.h"
 #include "fonctionsMatrice.h"
 #include "baseParser.h"
+#include "readBinary.h"
 
 extern int interruptFlag;
 
