@@ -89,6 +89,7 @@ node *appendNode(char * author,node *end){
     newNode->nextNode=NULL;
     newNode->nodeNumber=currentNode->nodeNumber+1;
     newNode->indexEdge=-1;
+    newNode->distance=-1;
     newNode->flag=0;
     newNode->nodeEdge=NULL;
     int k=0;
@@ -311,26 +312,20 @@ int AuthorInList(char *author, node *node0)
 }
 
 
-node* DoListAdjDeBin(options_t *option){
+node* DoListAdjDeBin(options_t *option,int *taille){
     printf("************Debut DoListAdjDeBin************\n");
-    int taille=0;
+    *taille=0;
     int curseur=1;
     structureBase_t Entree;
     initStructure(&Entree, 0);
-    Entree = readEntryBin(option, curseur);
+    Entree = readEntryBin(option, -1);
     curseur++;
-    printf("Do list adjacent read :\ntitle : %s\nyear : %i\n", Entree.title, Entree.year);
-        for (int r=0; r<Entree.authornb; r++){
-            printf("author %i : %s\n", r, Entree.author[r]);
-        }
-    printf("\n");
     
     if(Entree.author[0]==NULL){
         printf("Erreur 1er livre author[0]=NULL");
         return NULL;
     }
     node *node0=CreateListAdj(Entree.author[0]);
-    printListNode(node0);
     int n1=0;
     int n2=0;
     node *end=node0;
@@ -339,23 +334,23 @@ node* DoListAdjDeBin(options_t *option){
         n1 = AuthorInList(author1,node0);
         if(n1<0){
             end=appendNode(author1,end);
-            n1=taille+1;
-            taille++;
+            n1=*taille+1;
+            *taille++;
         }
         for(int i=k+1; i<Entree.authornb;i++){
             char *author2=Entree.author[i];
             n2 = AuthorInList(author2,node0);
             if(n2<0){
                 end=appendNode(author2,end);
-                taille++;
-                n2=taille;
+                *taille++;
+                n2=*taille;
             }
             appendEdge(n1,n2,node0);
         }
     }
     int L[100];
     while(Entree.authornb!=0){
-        printf("curseur:%i ",curseur);
+        //printf("curseur:%i ",curseur);
         if(interruptFlag==1){
             break;
         }
@@ -368,8 +363,8 @@ node* DoListAdjDeBin(options_t *option){
                     n1 = AuthorInList(author1,node0);
                     if(n1<0){
                         end=appendNode(author1,end);
-                        taille++;
-                        n1=taille; 
+                        *taille++;
+                        n1=*taille; 
                     }
                     L[index]=n1;
                     index++;
@@ -382,23 +377,63 @@ node* DoListAdjDeBin(options_t *option){
                 }
             }
         }
-        Entree = readEntryBin(option, curseur);
+        Entree = readEntryBin(option, -1);
         curseur++;
     }
     printf("************Fin DoListAdjDeBin************\n");
     return node0;
 }
-/**
-void Dijkstra(int n1, int n2,node *node0){
+
+/*
+void Dijkstra(int n1, int n2,node *node0,int taille){
     node *node1=GoToNode(n1,node0);
-    node *arbe=CreateListAdj(node->author);
+    node *node2=GoToNode(n2,node0);
     node *currentNode=node1;
-    int distance;
-    while(){
+    currentNode->distance=0;
+    int k=0;
+    while(k<taille && currentNode->distance>=0){
+        int list[100];
+        edge *currentEdge=currentNode->nodeEdge;
+        node *voisin=GoToNode(currentEdge->indexNode,node0);
+        while(1){
+            if(voisin->flag==0){
+                if(voisin->distance > (currentNode->distance +1)){
+                    voisin->distance=currentNode->distance +1;
+                }
+            }
 
+            if(currentEdge->nextEdge==NULL){
+                break;
+            }
+            currentEdge=currentEdge->nextEdge;
+            if(currentEdge->linkNode->nodeNumber!=currentNode->nodeNumber){
+                break;
+            }
+            voisin=GoToNode(currentEdge->indexNode,node0);
+        }
+
+        currentEdge=currentNode->nodeEdge;
+        voisin=GoToNode(currentEdge->indexNode,node0);
+        node *minVoisin=voisin;
+        int distance=minVoisin->distance;
+        while(1){
+            if(voisin->distance>0 && voisin->distance < distance ){
+                minVoisin=voisin;
+                distance=minVoisin->distance;
+            }
+            if(currentEdge->nextEdge==NULL){
+                break;
+            }
+            currentEdge=currentEdge->nextEdge;
+            if(currentEdge->linkNode->nodeNumber!=currentNode->nodeNumber){
+                break;
+            }
+            voisin=GoToNode(currentEdge->indexNode,node0);
+        }
+        k++;
+        currentNode->flag=1;
+        currentNode=minVoisin;
     }
-
-
-}
-*/
+    return distance;
+}*/
 
