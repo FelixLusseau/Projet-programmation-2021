@@ -8,7 +8,7 @@
 
 //Structure pour faire une liste adjacente.
 typedef struct node{
-    char author[50];
+    char author[100];
     int nodeNumber;
     int indexEdge;
     int flag;
@@ -33,7 +33,7 @@ edge *GoToEndEdge(node *node0);
 
 edge * GoToEdge(int n, node *node0);
 
-void appendNode(char * author,node *node0);
+node * appendNode(char * author,node *end);
 
 /**Fonction utile pour appendEdge. Evite de des repétitions.
  * prend un sommet et ajout n1 et n2 a la liste de ses aretes.

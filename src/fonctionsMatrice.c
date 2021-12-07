@@ -5,6 +5,8 @@
 #include "fonctionsMatrice.h"
 #include "baseParser.h"
 
+extern int interruptFlag;
+
 node *CreateListAdj(char *author){
     node *node0 = (node *)malloc(sizeof(node));
     if(node0==NULL){
@@ -77,23 +79,25 @@ edge * GoToEdge(int n, node *node0){
     return currentNode->nodeEdge;
 }
 
-void appendNode(char * author,node *node0){
+node *appendNode(char * author,node *end){
     node *newNode=malloc(sizeof(node));
-    node *currentNode = GoToEndNode(node0);
-    
-    int n=currentNode->nodeNumber;
+    if(newNode==NULL){
+        printf("appendNode:erreur malloc node = NULL");
+    }
+    node *currentNode = end;
     currentNode->nextNode=newNode;
-    newNode->nodeNumber=n+1;
     newNode->nextNode=NULL;
+    newNode->nodeNumber=currentNode->nodeNumber+1;
     newNode->indexEdge=-1;
+    newNode->flag=0;
+    newNode->nodeEdge=NULL;
     int k=0;
     while(author[k]!='\0'){
         newNode->author[k]=author[k];
         k++;
     }
-    node0->author[k]='\0';
-    newNode->flag=0;
-    newNode->nodeEdge=NULL;
+    newNode->author[k]='\0';
+    return newNode;
 }
 
 void appendEdgeSous(edge *newEdge,int n1,edge *edge0){
@@ -142,8 +146,6 @@ void appendEdgeSous(edge *newEdge,int n1,edge *edge0){
         currentEdge->edgeNumber=inter->edgeNumber+1;
     }
 }
-
-
 int appendEdge(int n1,int n2,node *node0)
 {   edge *edge0=node0->nodeEdge;
     node *Node1=GoToNode(n1,node0);
@@ -152,16 +154,20 @@ int appendEdge(int n1,int n2,node *node0)
     if((n1==0 || n2==0) && edge0->indexNode==-1){
         if(n1==0){
             edge0->indexNode=n2;
-            printf("n1=O:%i\n",edge0->indexNode);
             edge *newEdge2 = (edge *)malloc(sizeof(edge));
+            if(newEdge2==NULL){
+                printf("appendEdge:erreur malloc edge = NULL");
+            }
             newEdge2->indexNode=n1;
             newEdge2->linkNode=Node2;
             appendEdgeSous(newEdge2,n2,edge0);
         }
         else{
             edge0->indexNode=n1;
-            printf("n2=O:%i\n",edge0->edgeNumber);
             edge *newEdge1 = (edge *)malloc(sizeof(edge));
+            if(newEdge1==NULL){
+                printf("appendEdge:erreur malloc edge = NULL");
+            }
             newEdge1->indexNode=n2;
             newEdge1->linkNode=Node1;
             appendEdgeSous(newEdge1,n1,edge0);
@@ -170,10 +176,16 @@ int appendEdge(int n1,int n2,node *node0)
     }
 
     edge *newEdge1 = (edge *)malloc(sizeof(edge));
+     if(newEdge1==NULL){
+        printf("appendEdge:erreur malloc edge = NULL");
+    }
     newEdge1->indexNode=n2;
     newEdge1->linkNode=Node1;
     newEdge1->edgeNumber=0;
     edge *newEdge2 = (edge *)malloc(sizeof(edge));
+     if(newEdge2==NULL){
+        printf("appendEdge:erreur malloc edge = NULL");
+    }
     newEdge2->indexNode=n1;
     newEdge2->linkNode=Node2;
     newEdge2->edgeNumber=0;
@@ -187,8 +199,14 @@ int appendEdge(int n1,int n2,node *node0)
         Node2->nodeEdge=newEdge2;
     }
     appendEdgeSous(newEdge2,n2,edge0);
-
-    node *currentNode=node0;
+    
+    node *currentNode;
+    if(n1<n2){
+        currentNode=Node1;
+    }
+    else{
+        currentNode=Node2;
+    }
     while(currentNode->nextNode!=NULL){
         if(currentNode->nodeEdge!=NULL){
             currentNode->indexEdge=currentNode->nodeEdge->edgeNumber;
@@ -266,12 +284,12 @@ void printListEdge(node * node0){
     printf("\n");
     printf("liste arretes:\n");
     while(currentEdge->nextEdge !=NULL){
-        printf(" %i :%i -> %i|",currentEdge->edgeNumber, currentEdge->indexNode,currentEdge->linkNode->nodeNumber);
-        //printf(" %i |",currentEdge->indexNode);
+        //printf(" %i :%i -> %i|",currentEdge->edgeNumber, currentEdge->indexNode,currentEdge->linkNode->nodeNumber);
+        printf(" %i |",currentEdge->indexNode);
         currentEdge=currentEdge->nextEdge;
     }
-    printf(" %i :%i -> %i|\n",currentEdge->edgeNumber,currentEdge->indexNode,currentEdge->linkNode->nodeNumber);
-    //printf(" %i |\n",currentEdge->indexNode);
+    //printf(" %i :%i -> %i|\n",currentEdge->edgeNumber,currentEdge->indexNode,currentEdge->linkNode->nodeNumber);
+    printf(" %i |\n",currentEdge->indexNode);
 }
 
 
@@ -279,8 +297,7 @@ int AuthorInList(char *author, node *node0)
 {
     node *currentNode = node0;
     while (currentNode->nextNode != NULL)
-    {   
-        printf("while author: %s\n",currentNode->author);
+    {
         if (strcmp(currentNode->author, author) == 0)
         {
             return currentNode->nodeNumber;
@@ -302,12 +319,11 @@ node* DoListAdjDeBin(options_t *option){
     initStructure(&Entree, 0);
     Entree = readEntryBin(option, curseur);
     curseur++;
-    /*
     printf("Do list adjacent read :\ntitle : %s\nyear : %i\n", Entree.title, Entree.year);
         for (int r=0; r<Entree.authornb; r++){
             printf("author %i : %s\n", r, Entree.author[r]);
         }
-        printf("\n");*/
+    printf("\n");
     
     if(Entree.author[0]==NULL){
         printf("Erreur 1er livre author[0]=NULL");
@@ -317,11 +333,12 @@ node* DoListAdjDeBin(options_t *option){
     printListNode(node0);
     int n1=0;
     int n2=0;
+    node *end=node0;
     for(int k=1; k<Entree.authornb;k++){
         char *author1=Entree.author[k];
         n1 = AuthorInList(author1,node0);
         if(n1<0){
-            appendNode(author1,node0);
+            end=appendNode(author1,end);
             n1=taille+1;
             taille++;
         }
@@ -329,7 +346,7 @@ node* DoListAdjDeBin(options_t *option){
             char *author2=Entree.author[i];
             n2 = AuthorInList(author2,node0);
             if(n2<0){
-                appendNode(author2,node0);
+                end=appendNode(author2,end);
                 taille++;
                 n2=taille;
             }
@@ -338,26 +355,31 @@ node* DoListAdjDeBin(options_t *option){
     }
     int L[100];
     while(Entree.authornb!=0){
-        printf("curseur:%i   ",curseur);
-        for(int k=0; k<Entree.authornb;k++){
-            L[0]=-1;
-            int index=0;
-            char *author1=Entree.author[k];
-            n1 = AuthorInList(author1,node0);
-            if(n1<0){
-                appendNode(author1,node0);
-                taille++;
-                n1=taille;
-            }
-            L[index]=n1;
-            if(index<99){
-                L[index+1]=-1;
-            }
-            index++;  
+        printf("curseur:%i      ",curseur);
+        if(interruptFlag==1){
+            break;
         }
-        for(int i=0;L[i]!=-1 && i<100;i++){
-            for(int k=i+1;L[k]!=-1 && k<100;k++){
-                appendEdge(L[i],L[k],node0);
+        if(Entree.authornb>1){
+            for(int k=0; k<Entree.authornb;k++){
+                L[0]=-1;
+                int index=0;
+                char *author1=Entree.author[k];
+                n1 = AuthorInList(author1,node0);
+                if(n1<0){
+                    end=appendNode(author1,end);
+                    taille++;
+                    n1=taille;
+                }
+                L[index]=n1;
+                if(index<99){
+                    L[index+1]=-1;
+                }
+                index++;  
+            }
+            for(int i=0;L[i]!=-1 && i<100;i++){
+                for(int k=i+1;L[k]!=-1 && k<100;k++){
+                    appendEdge(L[i],L[k],node0);
+                }
             }
         }
         Entree = readEntryBin(option, curseur);
