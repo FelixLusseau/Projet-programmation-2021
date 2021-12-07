@@ -22,7 +22,7 @@ void initStructure(structureBase_t *structureBase, int authornb)
     }
 }
 
-void extractAuthor(structureBase_t * structureBase, char * line)
+void extractAuthor(structureBase_t *structureBase, char *line)
 {
     int dec = 8;
     int i = dec;
@@ -45,7 +45,7 @@ void extractAuthor(structureBase_t * structureBase, char * line)
     structureBase->authornb += 1;
 }
 
-void extractYear(structureBase_t * structureBase, char * line)
+void extractYear(structureBase_t *structureBase, char *line)
 {
     int i = 6;
     char yeartmp[5];
@@ -58,26 +58,27 @@ void extractYear(structureBase_t * structureBase, char * line)
     structureBase->year = atoi(yeartmp);
 }
 
-void extractTitle1(structureBase_t * structureBase, char * line, int * titleEndOfLine){
+void extractTitle1(structureBase_t *structureBase, char *line, int *titleEndOfLine)
+{
     int i = 7;
     while (*titleEndOfLine == 0)
     {
         if (line[i] == '\n')
         {
-            structureBase->titleLength = i-7;
+            structureBase->titleLength = i - 7;
             *titleEndOfLine = 2;
             break;
         }
         if (line[0] == '<' && line[i] == '<')
         {
             *titleEndOfLine = 1;
-            structureBase->titleLength = i-7;
+            structureBase->titleLength = i - 7;
             break;
         }
         structureBase->title[i - 7] = line[i];
         i++;
     }
-    structureBase->titleLength = i-7;
+    structureBase->titleLength = i - 7;
     structureBase->title[i - 7] = '\0';
 }
 
@@ -104,15 +105,16 @@ int parseBase(options_t *options)
 {
     initSigaction();
     errno = 0;
-    unsigned long long int linenb=0;
+    unsigned long long int linenb = 0;
     char *line = malloc(1500);
-    if (line == NULL){
+    if (line == NULL)
+    {
         fprintf(stderr, "%s.\n", strerror(errno));
         return ERROR_BASE_PARSE;
     }
     structureBase_t structureBase;
     initStructure(&structureBase, 0);
-    int titleEndOfLine=0;
+    int titleEndOfLine = 0;
     while (fgets(line, 1500, options->inputFile) != NULL)
     {
         linenb++;
@@ -121,35 +123,39 @@ int parseBase(options_t *options)
             extractAuthor(&structureBase, line);
         else if (line[0] == '<' && line[1] == 't' && line[2] == 'i')
             extractTitle1(&structureBase, line, &titleEndOfLine);
-        else if (titleEndOfLine>=2 && line[0] != '<')
+        else if (titleEndOfLine >= 2 && line[0] != '<')
             extractTitle2(&structureBase, line, titleEndOfLine);
         else if (line[0] == '<' && line[1] == 'y' && line[2] == 'e')
             extractYear(&structureBase, line);
-        //else if(strstr(line, "</article>")!=NULL 
-        //    || strstr(line, "</inproceedings>")!=NULL 
-        //    || strstr(line, "</proceedings>")!=NULL 
-        //    || strstr(line, "</book>")!=NULL 
-        //    || strstr(line, "</incollection>")!=NULL 
+        //else if(strstr(line, "</article>")!=NULL
+        //    || strstr(line, "</inproceedings>")!=NULL
+        //    || strstr(line, "</proceedings>")!=NULL
+        //    || strstr(line, "</book>")!=NULL
+        //    || strstr(line, "</incollection>")!=NULL
         //    || strstr(line, "</phdthesis>")!=NULL
-        //    || strstr(line, "</mastersthesis>")!=NULL 
+        //    || strstr(line, "</mastersthesis>")!=NULL
         //    || strstr(line, "</www>")!=NULL){
 
-        else if(line[0] == '<' && line[1] == '/'){
-                if (structureBase.authornb != 0){
-                    fwrite(&structureBase, 2*sizeof(int16_t)+structureBase.titleLength+1, 1, options->outputFile);
-                    fwrite(&structureBase.authornb, sizeof(int16_t), 1, options->outputFile);
-                    fwrite(&structureBase.authorlengths, structureBase.authornb*sizeof(int8_t), 1, options->outputFile);
-                    for (int m=0; m<structureBase.authornb; m++){
-                        fwrite(structureBase.author[m], structureBase.authorlengths[m]+1, 1, options->outputFile);
-                    }
-                    //printf("write :\nauthor 0 : %s\nauthor 1 : %s\ntitle : %s\nyear : %i\n\n", structureBase.author[0], structureBase.author[1], structureBase.title, structureBase.year);
+        else if (line[0] == '<' && line[1] == '/')
+        {
+            if (structureBase.authornb != 0)
+            {
+                fwrite(&structureBase, 2 * sizeof(int16_t) + structureBase.titleLength + 1, 1, options->outputFile);
+                fwrite(&structureBase.authornb, sizeof(int16_t), 1, options->outputFile);
+                fwrite(&structureBase.authorlengths, structureBase.authornb * sizeof(int8_t), 1, options->outputFile);
+                for (int m = 0; m < structureBase.authornb; m++)
+                {
+                    fwrite(structureBase.author[m], structureBase.authorlengths[m] + 1, 1, options->outputFile);
                 }
-                if (interruptFlag==1){
-                    break;
-                }
-                initStructure(&structureBase, structureBase.authornb);
-                titleEndOfLine=0;
+                //printf("write :\nauthor 0 : %s\nauthor 1 : %s\ntitle : %s\nyear : %i\n\n", structureBase.author[0], structureBase.author[1], structureBase.title, structureBase.year);
             }
+            if (interruptFlag == 1)
+            {
+                break;
+            }
+            initStructure(&structureBase, structureBase.authornb);
+            titleEndOfLine = 0;
+        }
     }
     free(line);
     return OK;
