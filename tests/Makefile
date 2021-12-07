@@ -15,7 +15,7 @@ OBJDIR   = obj
 SOURCES  := $(wildcard $(SRCDIR)/*.c)
 INCLUDES := $(wildcard $(INCLUDE_PATH)/*.h)
 OBJECTS0  := $(SOURCES:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
-OBJECTS = $(filter-out $(OBJDIR)/bmp-msg.o,$(OBJECTS0))
+OBJECTS = $(filter-out $(OBJDIR)/program.o,$(OBJECTS0))
 
 
 

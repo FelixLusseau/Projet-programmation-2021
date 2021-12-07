@@ -8,7 +8,12 @@
 #include "io-utils.h"
 #include "fonctionsMatrice.h"
 
+int interruptFlag = 0;
 
+int main(){
+
+    return 0;
+}
 
  void testCreateListeAdj(void){
     char c0[]="author0";
