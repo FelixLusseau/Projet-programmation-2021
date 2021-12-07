@@ -1,9 +1,10 @@
 #include <stdio.h>
-#include "baseParser.h"
 #include <stdlib.h>
 #include <string.h>
 #include <sys/signal.h>
 #include <errno.h>
+
+#include "baseParser.h"
 #include "io-utils.h"
 
 extern int interruptFlag;
@@ -151,118 +152,5 @@ int parseBase(options_t *options)
             }
     }
     free(line);
-    return OK;
-}
-
-void readStructure(options_t *options, structureBase_t *structureBase, int16_t precAuthornb)
-{
-    initStructure(structureBase, precAuthornb);
-    fread(structureBase, 2 * sizeof(int16_t), 1, options->outputFile);
-    fread(&structureBase->title, structureBase->titleLength + 1, 1, options->outputFile);
-    fread(&structureBase->authornb, sizeof(int16_t), 1, options->outputFile);
-    fread(&structureBase->authorlengths, structureBase->authornb * sizeof(int8_t), 1, options->outputFile);
-    for (int m = 0; m < structureBase->authornb; m++)
-    {
-        fread(structureBase->author[m], structureBase->authorlengths[m] + 1, 1, options->outputFile);
-    }
-    //printStruct(structureBase);
-}
-
-int readEntireBin(options_t * options){
-    initSigaction();
-    fseek(options->outputFile, 0, SEEK_SET);
-    int16_t precAuthornb=0;
-    structureBase_t structureBase;
-    while (1){
-        readStructure(options, &structureBase, precAuthornb);
-        if (structureBase.authornb==0 || interruptFlag==1)
-            break;
-        precAuthornb=structureBase.authornb;
-        printStruct(&structureBase);
-    }
-    return OK;
-}
-
-structureBase_t readEntryBin(options_t *options, int curseur)
-{
-    int16_t precAuthornb=0;
-    int count = 0;
-    structureBase_t structureBase;
-    if (curseur==-1){
-        readStructure(options, &structureBase, precAuthornb);
-    }
-    else if (curseur!=0)
-        {
-        fseek(options->outputFile, 0, SEEK_SET);
-        while (count <= curseur)
-        {
-            readStructure(options, &structureBase, precAuthornb);
-            count++;
-            precAuthornb=structureBase.authornb;
-        }
-        }
-    return structureBase;
-}
-
-void printStruct(structureBase_t * structureBase){
-    printf("title : %s\nyear : %i\n", structureBase->title, structureBase->year);
-    for (int r=0; r<structureBase->authornb; r++){
-        printf("author %i : %s\n", r, structureBase->author[r]);
-    }
-    printf("\n");
-}
-
-int showArticles(options_t * options){
-    initSigaction();
-    int16_t precAuthornb=0;
-    int authorWritten = 0;
-    structureBase_t structureBase;
-    initStructure(&structureBase, precAuthornb);
-    structureBase = readEntryBin(options, 0);
-    printf("Articles of ");
-    while (1){
-        initStructure(&structureBase, precAuthornb);
-        structureBase = readEntryBin(options, -1);
-        //printStruct(&structureBase);
-        if (structureBase.authornb==0)
-            break;
-        for (int k=0; k<structureBase.authornb; k++){
-            if (strstr(structureBase.author[k], options->authorNames[0])){
-                if (authorWritten==0){
-                    printf("%s : \n", structureBase.author[k]);
-                    authorWritten=1;
-                }
-                printf(" - %s\n", structureBase.title);
-            }
-        }
-        if (interruptFlag==1)
-            break;
-        precAuthornb=structureBase.authornb;
-    }
-    return OK;
-}
-
-int showAuthors(options_t * options){
-    initSigaction();
-    int curseur=1;
-    int16_t precAuthornb=0;
-    printf("Authors containing %s in their name : \n", options->authorNames[0]);
-    while (1){
-        structureBase_t structureBase;
-        initStructure(&structureBase, precAuthornb);
-        structureBase = readEntryBin(options, curseur);
-        //printStruct(&structureBase);
-        if (structureBase.authornb==0)
-            break;
-        for (int k=0; k<structureBase.authornb; k++){
-            if (strstr(structureBase.author[k], options->authorNames[0])){
-                printf(" - %s\n", structureBase.author[k]);
-            }
-        }
-        if (interruptFlag==1)
-            break;
-        precAuthornb=structureBase.authornb;
-        curseur++;
-    }
     return OK;
 }
