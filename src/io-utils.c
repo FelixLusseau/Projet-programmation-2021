@@ -32,6 +32,7 @@ int isXML(FILE * file){
     if (strcmp("<?xml", docType)!=0){
         return ERROR_XML;
     }
+    fseek(file, 0, SEEK_SET);
     return OK;
 }
 

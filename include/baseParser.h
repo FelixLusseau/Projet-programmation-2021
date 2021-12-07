@@ -54,6 +54,15 @@ void extractTitle1(structureBase_t * structureBase, char * line, int * titleEndO
 void extractTitle2(structureBase_t * structureBase, char * line, int titleEndOfLine);
 
 /**
+ * @brief Read an entry from the binary base
+ * 
+ * @param options 
+ * @param structureBase 
+ * @param precAuthornb 
+ */
+void readStructure(options_t *options, structureBase_t *structureBase, int16_t precAuthornb);
+
+/**
  * @brief read the binary and print the structures
  * 
  * @param options 

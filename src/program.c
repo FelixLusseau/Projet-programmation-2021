@@ -36,10 +36,16 @@ int main(int argc, char ** argv){
         if(exitCode) goto error;
         exitCode=readEntireBin(&options);
         if(exitCode) goto error;
-        //structureBase_t structureBase;
+        /* structureBase_t structureBase;
         //initStructure(&structureBase, 0);
-        //structureBase = readEntryBin(&options, 7);
-        //printStruct(&structureBase);
+        int curseur=0;
+        structureBase = readEntryBin(&options, 45);
+        printStruct(&structureBase);
+        do{
+            structureBase = readEntryBin(&options, -1);
+            curseur++;
+            printStruct(&structureBase);
+        } while (curseur!=200); */
         break;
     case ACTION_MAT:
         exitCode=openFiles(&options, "r");
