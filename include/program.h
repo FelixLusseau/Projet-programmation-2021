@@ -3,7 +3,7 @@
 
 # include <stdio.h>
 # include <signal.h>
-#include <stdint.h>
+# include <stdint.h>
 
 typedef enum action_t {
     ACTION_UNKNOWN,
@@ -20,7 +20,7 @@ typedef struct structureBase_t{
     char title[2000];
     int16_t authornb;
     int8_t authorlengths[500];
-    char author[500][50];
+    char author[500][100];
 } structureBase_t;
 
 typedef struct options_t{
@@ -36,7 +36,9 @@ typedef struct options_t{
 typedef enum error_t {
     OK,
     ERROR_ARGS_PARSE,
+    ERROR_MISSING_ACTION,
     ERROR_OPEN_FILES,
+    ERROR_XML,
     ERROR_BASE_PARSE,
     ERROR_READ,
     ERROR_MAT,
