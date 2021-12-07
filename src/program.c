@@ -46,7 +46,6 @@ int main(int argc, char ** argv){
         node0=DoListAdjDeBin(&options);
         printListNode(node0);
         printListEdge(node0);
-        //testCreateListeAdj();
         freeListAdj(node0);
         break;
     case ACTION_SHOW_ARTICLES:

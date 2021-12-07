@@ -41,7 +41,7 @@ node *GoToNode(int n, node *node0)
     for (int k = 0; currentNode->nodeNumber < n; k++)
     {
         if(currentNode->nextNode==NULL){
-            printf("dépassement de list:index trop grand");
+            printf(" dépassement de list:index trop grand ");
             return currentNode;
         }
         currentNode = currentNode->nextNode;
@@ -82,7 +82,7 @@ edge * GoToEdge(int n, node *node0){
 node *appendNode(char * author,node *end){
     node *newNode=malloc(sizeof(node));
     if(newNode==NULL){
-        printf("appendNode:erreur malloc node = NULL");
+        printf(" appendNode:erreur malloc node = NULL ");
     }
     node *currentNode = end;
     currentNode->nextNode=newNode;
@@ -355,29 +355,29 @@ node* DoListAdjDeBin(options_t *option){
     }
     int L[100];
     while(Entree.authornb!=0){
-        printf("curseur:%i      ",curseur);
+        printf("curseur:%i ",curseur);
         if(interruptFlag==1){
             break;
         }
         if(Entree.authornb>1){
-            for(int k=0; k<Entree.authornb;k++){
-                L[0]=-1;
-                int index=0;
+            L[0]=-1;
+            int index=0;
+            for(int k=0; k<=Entree.authornb;k++){
                 char *author1=Entree.author[k];
-                n1 = AuthorInList(author1,node0);
-                if(n1<0){
-                    end=appendNode(author1,end);
-                    taille++;
-                    n1=taille;
+                if(strcmp(author1,"")!=0){
+                    n1 = AuthorInList(author1,node0);
+                    if(n1<0){
+                        end=appendNode(author1,end);
+                        taille++;
+                        n1=taille; 
+                    }
+                    L[index]=n1;
+                    index++;
+                    L[index]=-1; 
                 }
-                L[index]=n1;
-                if(index<99){
-                    L[index+1]=-1;
-                }
-                index++;  
             }
-            for(int i=0;L[i]!=-1 && i<100;i++){
-                for(int k=i+1;L[k]!=-1 && k<100;k++){
+            for(int i=0;L[i]>-1 && i<100;i++){
+                for(int k=i+1;L[k]>-1 && k<100;k++){
                     appendEdge(L[i],L[k],node0);
                 }
             }
