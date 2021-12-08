@@ -13,6 +13,7 @@
 int interruptFlag = 0;
 
 int main(int argc, char ** argv){
+    int taille=0;
     initSigaction();
     int exitCode;
     options_t options;
@@ -50,8 +51,9 @@ int main(int argc, char ** argv){
         } while (curseur!=200); */
         break;
     case ACTION_MAT:
+        
         exitCode=openFiles(&options, "r");
-        node0=DoListAdjDeBin(&options);
+        node0=DoListAdjDeBin(&options,&taille);
         printListNode(node0);
         printListEdge(node0);
         freeListAdj(node0);

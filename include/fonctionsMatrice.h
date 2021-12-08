@@ -61,6 +61,6 @@ int AuthorInList(char *author, node *node0);
 /** prend une ligne d'auteurs et append le graphe*/ 
 void AuthorSAppend(char **authorS,node *node0,int*taille);
 
-node* DoListAdjDeBin(options_t *option);
+node* DoListAdjDeBin(options_t *option,int *taille);
 
 #endif

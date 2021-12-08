@@ -336,15 +336,15 @@ node* DoListAdjDeBin(options_t *option,int *taille){
         n1 = AuthorInList(author1,node0);
         if(n1<0){
             end=appendNode(author1,end);
-            n1=*taille+1;
-            *taille++;
+            *taille+=1;
+            n1=*taille;
         }
         for(int i=k+1; i<Entree.authornb;i++){
             char *author2=Entree.author[i];
             n2 = AuthorInList(author2,node0);
             if(n2<0){
                 end=appendNode(author2,end);
-                *taille++;
+                *taille+=1;
                 n2=*taille;
             }
             appendEdge(n1,n2,node0);
@@ -365,7 +365,7 @@ node* DoListAdjDeBin(options_t *option,int *taille){
                     n1 = AuthorInList(author1,node0);
                     if(n1<0){
                         end=appendNode(author1,end);
-                        *taille++;
+                        *taille+=1;
                         n1=*taille; 
                     }
                     L[index]=n1;
