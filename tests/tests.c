@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
 
 #include "program.h"
 #include "argsParser.h"
@@ -10,6 +11,7 @@
 #include "readBinary.h"
 
 #define MAX(X, Y) (((X) > (Y)) ? (X) : (Y))
+#define MIN(X, Y) (((X) < (Y)) ? (X) : (Y))
 
 int interruptFlag = 0;
 
@@ -20,8 +22,8 @@ unsigned hash(unsigned char *str)
 
     while ((c = *str++))
         hash = ((hash << 5) + hash) + c; /* hash * 33 + c */
-
-    //printf("%lu\n", hash);
+    hash %= 50000000;
+    //printf("%u\n", hash);
     return hash;
 }
 
@@ -30,6 +32,7 @@ unsigned int showALlAuthors(options_t * options){
     int16_t precAuthornb=0;
     structureBase_t structureBase;
     unsigned int max=0;
+    unsigned int min=hash((unsigned char *)structureBase.author[0]);
     while (1){
         initStructure(&structureBase, precAuthornb);
         structureBase = readEntryBin(options, -1);
@@ -37,32 +40,44 @@ unsigned int showALlAuthors(options_t * options){
         if (structureBase.authornb==0)
             break;
         for (int k=0; k<structureBase.authornb; k++){
-                printf(" - %s : %u\n", structureBase.author[k], hash((unsigned char *)structureBase.author[k]));
+                //printf(" - %s : %u\n", structureBase.author[k], hash((unsigned char *)structureBase.author[k]));
                 //printf("%lu\n", hash((unsigned char *)structureBase.author[k]));
                 max=MAX(max, hash((unsigned char *)structureBase.author[k]));
+                min=MIN(min, hash((unsigned char *)structureBase.author[k]));
         }
         if (interruptFlag==1)
             break;
         precAuthornb=structureBase.authornb;
     }
-    return max;
+    printf("max : %u\n", max);
+    printf("min : %u\n", min);
+
+    return OK;
 }
 
 int main()
 {
-    options_t options;
+    /* options_t options;
     options.inputFilename=NULL;
     options.outputFilename=NULL;
     options.inputFile=NULL;
     options.outputFile=fopen("../database/dblp.bin", "r");
     options.action=ACTION_UNKNOWN;
     options.authorNames[0]=NULL;
-    options.authorNames[1]=NULL;
+    options.authorNames[1]=NULL; */
 
-    showALlAuthors(&options);
+    //showALlAuthors(&options);
 
+    char * tab = malloc(50000000*sizeof(unsigned int)*sizeof(char *));
+    //50000000*sizeof(unsigned int)*sizeof(char *)=1600000000
+    if (tab==NULL){
+        printf("nok\n");
+        return 6;
+    }
+    sleep(10);
     //printf("max : %u\n", showALlAuthors(&options));
-    //printf("sizeof lu : %zu\n", sizeof(unsigned long int));
+    printf("sizeof lu : %zu\n", sizeof(unsigned int));
+    printf("%lu\n", 50000000*sizeof(unsigned int)*sizeof(char *));
     return 0;
 }
 
