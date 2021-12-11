@@ -151,7 +151,6 @@ int appendEdge(int n1,int n2,node *node0)
 {   edge *edge0=node0->nodeEdge;
     node *Node1=GoToNode(n1,node0);
     node *Node2=GoToNode(n2,node0);
-    //cas de la 1ére arrête deu nodeO
     if((n1==0 || n2==0) && edge0->otherNode==NULL){
         if(n1==0){
             edge0->otherNode=Node2;
@@ -246,6 +245,10 @@ void printListEdge(node * node0){
     edge *currentEdge=node0->nodeEdge;
     printf("\n");
     printf("liste arretes:\n");
+    if(currentEdge->otherNode==NULL){
+        printf(" %i :personne -> %i|",currentEdge->edgeNumber,currentEdge->linkNode->nodeNumber);
+        currentEdge=currentEdge->nextEdge;
+    }
     while(currentEdge->nextEdge !=NULL){
         printf(" %i :%i -> %i|",currentEdge->edgeNumber, currentEdge->otherNode->nodeNumber,currentEdge->linkNode->nodeNumber);
         //printf(" %i |",currentEdge->otherNode->nodeNumber);

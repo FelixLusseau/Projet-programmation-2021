@@ -9,6 +9,7 @@
 #include "fonctionsMatrice.h"
 #include "readBinary.h"
 #include "searchingFunctions.h"
+#include "fonctionsMatricesHash.h"
 
 int interruptFlag = 0;
 
@@ -50,13 +51,11 @@ int main(int argc, char ** argv){
             printStruct(&structureBase);
         } while (curseur!=200); */
         break;
-    case ACTION_MAT:
-        
+    case ACTION_MAT:        
         exitCode=openFiles(&options, "r");
-        node0=DoListAdjDeBin(&options,&taille);
-        printListAdj(node0);
-        Dijkstra(0,node0,taille);
-        //printDistance(0,node0);
+        node0=DoListAdjDeBinHash(&options,&taille);
+        printListNode(node0);
+        printListEdge(node0);
         freeListAdj(node0);
         break;
     case ACTION_SHOW_ARTICLES:

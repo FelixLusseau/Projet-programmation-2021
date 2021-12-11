@@ -69,7 +69,7 @@ void extractTitle1(structureBase_t *structureBase, char *line, int *titleEndOfLi
             *titleEndOfLine = 2;
             break;
         }
-        if (line[0] == '<' && line[i] == '<')
+        if (line[0] == '<' && line[i] == '<' && line[i+2]=='t')
         {
             *titleEndOfLine = 1;
             structureBase->titleLength = i - 7;
@@ -88,7 +88,7 @@ void extractTitle2(structureBase_t *structureBase, char *line, int titleEndOfLin
     titleEndOfLine = 0;
     while (titleEndOfLine == 0)
     {
-        if (line[i - structureBase->titleLength] == '<' || line[i - structureBase->titleLength] == '\n')
+        if ((line[i - structureBase->titleLength] == '<' && line[i - structureBase->titleLength+2] == 't') || line[i - structureBase->titleLength] == '\n')
         {
             structureBase->titleLength = i;
             titleEndOfLine++;
