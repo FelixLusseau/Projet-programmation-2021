@@ -347,7 +347,7 @@ node* DoListAdjDeBin(options_t *option,int *taille){
                 *taille+=1;
                 n2=*taille;
             }
-            appendEdge(n1,n2,node0);
+            //appendEdge(n1,n2,node0);
         }
     }
     int L[100];
@@ -375,7 +375,7 @@ node* DoListAdjDeBin(options_t *option,int *taille){
             }
             for(int i=0;L[i]>-1 && i<100;i++){
                 for(int k=i+1;L[k]>-1 && k<100;k++){
-                    appendEdge(L[i],L[k],node0);
+                    //appendEdge(L[i],L[k],node0);
                 }
             }
         }

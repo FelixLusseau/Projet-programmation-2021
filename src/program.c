@@ -51,8 +51,7 @@ int main(int argc, char ** argv){
             printStruct(&structureBase);
         } while (curseur!=200); */
         break;
-    case ACTION_MAT:
-        
+    case ACTION_MAT:        
         exitCode=openFiles(&options, "r");
         node0=DoListAdjDeBinHash(&options,&taille);
         printListNode(node0);
