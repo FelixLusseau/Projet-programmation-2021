@@ -29,18 +29,9 @@ int AuthorInListHash(char *author, node **hashTable)
         return hashTable[authorHashed]->nodeNumber;
 }
 
-node *GoToNodeHash(int n, node *node0)
+node *GoToNodeHash(node ** hashTable, unsigned int hash)
 {
-    node *currentNode = node0;
-    for (int k = 0; currentNode->nodeNumber < n; k++)
-    {
-        if(currentNode->nextNode==NULL){
-            fprintf(stderr, " dépassement de list:index trop grand ");
-            return currentNode;
-        }
-        currentNode = currentNode->nextNode;
-    }
-    return currentNode;
+    return hashTable[hash];
 }
 
 void appendEdgeSousHash(edge *newEdge,int n1,edge *edge0){
@@ -89,11 +80,12 @@ void appendEdgeSousHash(edge *newEdge,int n1,edge *edge0){
         currentEdge->edgeNumber=inter->edgeNumber+1;
     }
 }
-int appendEdgeHash(int n1,int n2,node *node0)
+int appendEdgeHash(int n1, unsigned int hash1, int n2, unsigned int hash2, node *node0, node ** hashTable)
 {   edge *edge0=node0->nodeEdge;
-    node *Node1=GoToNodeHash(n1,node0);
-    node *Node2=GoToNodeHash(n2,node0);
-
+    node *Node1=GoToNodeHash(hashTable, hash1);
+    node *Node2=GoToNodeHash(hashTable, hash2);
+    //printf("author 1 : %s\n", Node1->author);
+    //printf("author 2 : %s\n", Node2->author);
     if((n1==0 || n2==0) && edge0->indexNode==-1){
         if(n1==0){
             edge0->indexNode=n2;
@@ -136,12 +128,12 @@ int appendEdgeHash(int n1,int n2,node *node0)
     if(Node1->nodeEdge==NULL){
         Node1->nodeEdge=newEdge1;
     }
-    appendEdgeSous(newEdge1,n1,edge0);
+    appendEdgeSousHash(newEdge1,n1,edge0);
 
     if(Node2->nodeEdge==NULL){
         Node2->nodeEdge=newEdge2;
     }
-    appendEdgeSous(newEdge2,n2,edge0);
+    appendEdgeSousHash(newEdge2,n2,edge0);
     
     node *currentNode;
     if(n1<n2){
@@ -187,29 +179,32 @@ node *DoListAdjDeBinHash(options_t *option, int *taille)
     for (int k = 1; k < Entree.authornb; k++)
     {
         char *author1 = Entree.author[k];
+        unsigned int hash1 = hash((unsigned char *)author1);
         n1 = AuthorInListHash(author1, hashTable);
         if (n1 == -1)
         {
             end = appendNode(author1, end);
-            hashTable[hash((unsigned char *)author1)]=end;
+            hashTable[hash1]=end;
             *taille += 1;
             n1 = *taille;
         }
         for (int i = k + 1; i < Entree.authornb; i++)
         {
             char *author2 = Entree.author[i];
+            unsigned int hash2 = hash((unsigned char *)author2);
             n2 = AuthorInListHash(author2, hashTable);
             if (n2 == -1)
             {
                 end = appendNode(author2, end);
-                hashTable[hash((unsigned char *)author2)]=end;
+                hashTable[hash2]=end;
                 *taille += 1;
                 n2 = *taille;
             }
-            //appendEdge(n1, n2, node0);
+            appendEdgeHash(n1, hash1, n2, hash2, node0, hashTable);
         }
     }
     int L[100];
+    unsigned int LH[100];
     while (Entree.authornb != 0)
     {
         if (interruptFlag == 1)
@@ -223,15 +218,17 @@ node *DoListAdjDeBinHash(options_t *option, int *taille)
             for (int k = 0; k < Entree.authornb; k++)
             {
                 char *author1 = Entree.author[k];
+                unsigned int hash1 = hash((unsigned char *)author1);
                 n1 = AuthorInListHash(author1, hashTable);
                 if (n1 == -1)
                 {
                     end = appendNode(author1, end);
-                    hashTable[hash((unsigned char *)author1)] = end;
+                    hashTable[hash1] = end;
                     *taille += 1;
                     n1 = *taille;
                 }
                 L[index] = n1;
+                LH[index]=hash1;
                 index++;
                 L[index] = -1;
             }
@@ -239,7 +236,7 @@ node *DoListAdjDeBinHash(options_t *option, int *taille)
             {
                 for (int k = i + 1; L[k] > -1 && k < 100; k++)
                 {
-                    //appendEdge(L[i], L[k], node0);
+                    appendEdgeHash(L[i], LH[i], L[k], LH[k], node0, hashTable);
                 }
             }
         }

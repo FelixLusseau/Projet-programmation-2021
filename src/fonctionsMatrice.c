@@ -153,7 +153,8 @@ int appendEdge(int n1,int n2,node *node0)
 {   edge *edge0=node0->nodeEdge;
     node *Node1=GoToNode(n1,node0);
     node *Node2=GoToNode(n2,node0);
-
+    //printf("author 1 : %s\n", Node1->author);
+    //printf("author 2 : %s\n", Node2->author);
     if((n1==0 || n2==0) && edge0->indexNode==-1){
         if(n1==0){
             edge0->indexNode=n2;
@@ -347,7 +348,7 @@ node* DoListAdjDeBin(options_t *option,int *taille){
                 *taille+=1;
                 n2=*taille;
             }
-            //appendEdge(n1,n2,node0);
+            appendEdge(n1,n2,node0);
         }
     }
     int L[100];
@@ -375,7 +376,7 @@ node* DoListAdjDeBin(options_t *option,int *taille){
             }
             for(int i=0;L[i]>-1 && i<100;i++){
                 for(int k=i+1;L[k]>-1 && k<100;k++){
-                    //appendEdge(L[i],L[k],node0);
+                    appendEdge(L[i],L[k],node0);
                 }
             }
         }
