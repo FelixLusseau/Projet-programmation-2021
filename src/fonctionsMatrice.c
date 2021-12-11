@@ -246,15 +246,15 @@ void printListEdge(node * node0){
     printf("\n");
     printf("liste arretes:\n");
     if(currentEdge->otherNode==NULL){
-        printf(" %i :personne -> %i|",currentEdge->edgeNumber,currentEdge->linkNode->nodeNumber);
+        printf(" %i :%i -> persone|",currentEdge->edgeNumber,currentEdge->linkNode->nodeNumber);
         currentEdge=currentEdge->nextEdge;
     }
     while(currentEdge->nextEdge !=NULL){
-        printf(" %i :%i -> %i|",currentEdge->edgeNumber, currentEdge->otherNode->nodeNumber,currentEdge->linkNode->nodeNumber);
+        printf(" %i :%i -> %i|",currentEdge->edgeNumber,currentEdge->linkNode->nodeNumber, currentEdge->otherNode->nodeNumber);
         //printf(" %i |",currentEdge->otherNode->nodeNumber);
         currentEdge=currentEdge->nextEdge;
     }
-    printf(" %i :%i -> %i|\n",currentEdge->edgeNumber,currentEdge->otherNode->nodeNumber,currentEdge->linkNode->nodeNumber);
+    printf(" %i :%i -> %i|\n",currentEdge->edgeNumber,currentEdge->linkNode->nodeNumber,currentEdge->otherNode->nodeNumber);
     //printf(" %i |\n",currentEdge->otherNode->nodeNumber);
 }
 
@@ -278,6 +278,7 @@ int AuthorInList(char *author, node *node0)
 
 
 node* DoListAdjDeBin(options_t *option,int *taille){
+    int nbrarrete=0;
     printf("************Debut DoListAdjDeBin************\n");
     *taille=0;
     int curseur=1;
@@ -342,12 +343,14 @@ node* DoListAdjDeBin(options_t *option,int *taille){
             for(int i=0;L[i]>-1 && i<100;i++){
                 for(int k=i+1;L[k]>-1 && k<100;k++){
                     appendEdge(L[i],L[k],node0);
+                    nbrarrete++;
                 }
             }
         }
         Entree = readEntryBin(option, -1);
         curseur++;
     }
+    printf("normal nbr arret:%i\n",nbrarrete*2);
     printf("************Fin DoListAdjDeBin************\n");
     return node0;
 }

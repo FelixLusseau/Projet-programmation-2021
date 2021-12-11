@@ -84,44 +84,44 @@ int appendEdgeHash(int n1, unsigned int hash1, int n2, unsigned int hash2, node 
 {   edge *edge0=node0->nodeEdge;
     node *Node1=GoToNodeHash(hashTable, hash1);
     node *Node2=GoToNodeHash(hashTable, hash2);
-    printf("author 1 : %s\n", Node1->author);
-    printf("author 2 : %s\n", Node2->author);
+    //printf("author 1 : %s\n",Node1->author);
+    //printf("author 2 :%s\n",Node2->author);
     if((n1==0 || n2==0) && edge0->otherNode==NULL){
         if(n1==0){
-            edge0->otherNode->nodeNumber=n2;
+            edge0->otherNode=Node2;
             edge *newEdge2 = (edge *)malloc(sizeof(edge));
             if(newEdge2==NULL){
-                fprintf(stderr, "appendEdge:erreur malloc edge = NULL");
+                printf("appendEdge:erreur malloc edge = NULL");
             }
-            newEdge2->otherNode->nodeNumber=n1;
+            newEdge2->otherNode=Node1;
             newEdge2->linkNode=Node2;
-            appendEdgeSousHash(newEdge2,n2,edge0);
+            appendEdgeSous(newEdge2,n2,edge0);
         }
         else{
-            edge0->otherNode->nodeNumber=n1;
+            edge0->otherNode=Node1;
             edge *newEdge1 = (edge *)malloc(sizeof(edge));
             if(newEdge1==NULL){
-                fprintf(stderr, "appendEdge:erreur malloc edge = NULL");
+                printf("appendEdge:erreur malloc edge = NULL");
             }
-            newEdge1->otherNode->nodeNumber=n2;
+            newEdge1->otherNode=Node2;
             newEdge1->linkNode=Node1;
-            appendEdgeSousHash(newEdge1,n1,edge0);
+            appendEdgeSous(newEdge1,n1,edge0);
         }
         return 0;
     }
-
     edge *newEdge1 = (edge *)malloc(sizeof(edge));
-     if(newEdge1==NULL){
+    if(newEdge1==NULL){
         fprintf(stderr, "appendEdge:erreur malloc edge = NULL");
     }
-    newEdge1->otherNode->nodeNumber=n2;
+    edge *newEdge2 = (edge *)malloc(sizeof(edge));
+    if(newEdge2==NULL){
+        fprintf(stderr, "appendEdge:erreur malloc edge = NULL");
+    }
+    newEdge1->otherNode=Node2;
     newEdge1->linkNode=Node1;
     newEdge1->edgeNumber=0;
-    edge *newEdge2 = (edge *)malloc(sizeof(edge));
-     if(newEdge2==NULL){
-        fprintf(stderr, "appendEdge:erreur malloc edge = NULL");
-    }
-    newEdge2->otherNode->nodeNumber=n1;
+
+    newEdge2->otherNode=Node1;
     newEdge2->linkNode=Node2;
     newEdge2->edgeNumber=0;
 
@@ -134,28 +134,11 @@ int appendEdgeHash(int n1, unsigned int hash1, int n2, unsigned int hash2, node 
         Node2->nodeEdge=newEdge2;
     }
     appendEdgeSousHash(newEdge2,n2,edge0);
-    
-    node *currentNode;
-    if(n1<n2){
-        currentNode=Node1;
-    }
-    else{
-        currentNode=Node2;
-    }
-    while(currentNode->nextNode!=NULL){
-        if(currentNode->nodeEdge!=NULL){
-            currentNode->nodeEdge->otherNode->nodeNumber=currentNode->nodeEdge->edgeNumber;
-        }
-        currentNode=currentNode->nextNode;
-    }
-    if(currentNode->nodeEdge!=NULL){
-        currentNode->nodeEdge->otherNode->nodeNumber=currentNode->nodeEdge->edgeNumber;
-    }
     return 0;
 }
 
 node *DoListAdjDeBinHash(options_t *option, int *taille)
-{
+{   int nbrarrete=0;
     printf("************Debut DoListAdjDeBinHash************\n");
     node **hashTable = malloc(50000000 * sizeof(unsigned int) * sizeof(char *));
     if (hashTable == NULL)
@@ -211,17 +194,14 @@ node *DoListAdjDeBinHash(options_t *option, int *taille)
         {
             break;
         }
-        if (Entree.authornb > 1)
-        {
+        if (Entree.authornb > 1){
             L[0] = -1;
             int index = 0;
-            for (int k = 0; k < Entree.authornb; k++)
-            {
+            for (int k = 0; k < Entree.authornb; k++){
                 char *author1 = Entree.author[k];
                 unsigned int hash1 = hash((unsigned char *)author1);
                 n1 = AuthorInListHash(author1, hashTable);
-                if (n1 == -1)
-                {
+                if (n1 == -1){
                     end = appendNode(author1, end);
                     hashTable[hash1] = end;
                     *taille += 1;
@@ -232,11 +212,10 @@ node *DoListAdjDeBinHash(options_t *option, int *taille)
                 index++;
                 L[index] = -1;
             }
-            for (int i = 0; L[i] > -1 && i < 100; i++)
-            {
-                for (int k = i + 1; L[k] > -1 && k < 100; k++)
-                {
+            for (int i = 0; L[i] > -1 && i < 100; i++){
+                for (int k = i + 1; L[k] > -1 && k < 100; k++){
                     appendEdgeHash(L[i], LH[i], L[k], LH[k], node0, hashTable);
+                    nbrarrete++;
                 }
             }
         }
@@ -248,6 +227,7 @@ node *DoListAdjDeBinHash(options_t *option, int *taille)
             printf("%s\n", hashTable[m]->author);
         }
     } */
+    printf("hash nbr arret:%i\n",nbrarrete*2);
     printf("************Fin DoListAdjDeBinHash************\n");
     free(hashTable);
     return node0;
