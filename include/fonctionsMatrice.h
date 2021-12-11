@@ -10,7 +10,6 @@
 typedef struct node{
     char author[100];
     int nodeNumber;
-    int indexEdge;
     int distance;
     int flag;
     struct edge *nodeEdge;
@@ -18,8 +17,8 @@ typedef struct node{
 }node;
 
 typedef struct edge{
-    int indexNode;
     int edgeNumber;
+    struct node *otherNode;
     struct node *linkNode;
     struct edge *nextEdge;
 }edge;
@@ -62,5 +61,10 @@ int AuthorInList(char *author, node *node0);
 void AuthorSAppend(char **authorS,node *node0,int*taille);
 
 node* DoListAdjDeBin(options_t *option,int *taille);
+
+/**calcul de la plus petite distance par rapport à un author*/
+void Dijkstra(int n1,node *node0,int taille);
+
+void printDistance(int n1,node *node0);
 
 #endif

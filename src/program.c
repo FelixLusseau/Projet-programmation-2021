@@ -54,8 +54,9 @@ int main(int argc, char ** argv){
         
         exitCode=openFiles(&options, "r");
         node0=DoListAdjDeBin(&options,&taille);
-        printListNode(node0);
-        printListEdge(node0);
+        printListAdj(node0);
+        Dijkstra(0,node0,taille);
+        //printDistance(0,node0);
         freeListAdj(node0);
         break;
     case ACTION_SHOW_ARTICLES:
