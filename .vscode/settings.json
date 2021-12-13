@@ -6,6 +6,13 @@
         "unordered_map": "c",
         "vector": "c",
         "string_view": "c",
-        "initializer_list": "c"
+<<<<<<< HEAD
+        "initializer_list": "c",
+        "types.h": "c"
     }
+=======
+        "initializer_list": "c"
+    },
+    "cmake.configureOnOpen": false
+>>>>>>> a00863586564f155fe4ad97142d1cdc51fbf22b5
 }
