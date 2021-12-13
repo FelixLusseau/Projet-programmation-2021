@@ -3,3 +3,5 @@
 vérifier condition détection multilignes titre
 
 tests.c et test.sh
+
+hash function : http://www.cse.yorku.ca/~oz/hash.html
