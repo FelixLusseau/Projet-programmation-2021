@@ -95,7 +95,7 @@ int appendEdgeHash(int n1, unsigned int hash1, int n2, unsigned int hash2, node 
             }
             newEdge2->otherNode=Node1;
             newEdge2->linkNode=Node2;
-            appendEdgeSous(newEdge2,n2,edge0);
+            appendEdgeSousHash(newEdge2,n2,edge0);
         }
         else{
             edge0->otherNode=Node1;
@@ -105,7 +105,7 @@ int appendEdgeHash(int n1, unsigned int hash1, int n2, unsigned int hash2, node 
             }
             newEdge1->otherNode=Node2;
             newEdge1->linkNode=Node1;
-            appendEdgeSous(newEdge1,n1,edge0);
+            appendEdgeSousHash(newEdge1,n1,edge0);
         }
         return 0;
     }
@@ -164,7 +164,8 @@ node *DoListAdjDeBinHash(options_t *option, int *taille)
         char *author1 = Entree.author[k];
         unsigned int hash1 = hash((unsigned char *)author1);
         n1 = AuthorInListHash(author1, hashTable);
-        if (n1 == -1)
+        //printf("n1 : %i\n", n1);
+        if (n1<0)
         {
             end = appendNode(author1, end);
             hashTable[hash1]=end;
@@ -176,7 +177,8 @@ node *DoListAdjDeBinHash(options_t *option, int *taille)
             char *author2 = Entree.author[i];
             unsigned int hash2 = hash((unsigned char *)author2);
             n2 = AuthorInListHash(author2, hashTable);
-            if (n2 == -1)
+            //printf("n2 : %i\n", n2);
+            if (n2<0)
             {
                 end = appendNode(author2, end);
                 hashTable[hash2]=end;
@@ -186,6 +188,7 @@ node *DoListAdjDeBinHash(options_t *option, int *taille)
             appendEdgeHash(n1, hash1, n2, hash2, node0, hashTable);
         }
     }
+    //printf("OK");
     int L[100];
     unsigned int LH[100];
     while (Entree.authornb != 0)
@@ -197,25 +200,33 @@ node *DoListAdjDeBinHash(options_t *option, int *taille)
         if (Entree.authornb > 1){
             L[0] = -1;
             int index = 0;
-            for (int k = 0; k < Entree.authornb; k++){
+            for (int k = 0; k <= Entree.authornb; k++)
+            {
                 char *author1 = Entree.author[k];
                 unsigned int hash1 = hash((unsigned char *)author1);
-                n1 = AuthorInListHash(author1, hashTable);
-                if (n1 == -1){
-                    end = appendNode(author1, end);
-                    hashTable[hash1] = end;
-                    *taille += 1;
-                    n1 = *taille;
+                if (strcmp(author1, "") != 0)
+                {
+                    n1 = AuthorInListHash(author1, hashTable);
+                    //printf("n1 : %i\n", n1);
+                    if (n1 < 0)
+                    {
+                        end = appendNode(author1, end);
+                        hashTable[hash1] = end;
+                        *taille += 1;
+                        n1 = *taille;
+                        //printf("n1 = *taille : %i\n", n1);
+                    }
+                    L[index] = n1;
+                    LH[index] = hash1;
+                    index++;
+                    L[index] = -1;
                 }
-                L[index] = n1;
-                LH[index]=hash1;
-                index++;
-                L[index] = -1;
             }
             for (int i = 0; L[i] > -1 && i < 100; i++){
                 for (int k = i + 1; L[k] > -1 && k < 100; k++){
                     appendEdgeHash(L[i], LH[i], L[k], LH[k], node0, hashTable);
                     nbrarrete++;
+                    //printf("Li : %i Lk : %i\n", L[i], L[k]);
                 }
             }
         }
