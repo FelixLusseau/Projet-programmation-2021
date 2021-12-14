@@ -103,7 +103,7 @@ node *appendNode(char * author,node *end){
 
 void appendEdgeSous(edge *newEdge,int n1,edge *edge0){
     edge *currentEdge=edge0;
-    edge *inter;
+    edge *inter=currentEdge;
     
     while(currentEdge->linkNode->nodeNumber<n1 && currentEdge->nextEdge!=NULL){
         inter=currentEdge;
@@ -370,7 +370,7 @@ node* DoListAdjDeBin(options_t *option,int *taille){
 }
 
 
-void Dijkstra(int n1,node *node0,int taille){
+/* void Dijkstra(int n1,node *node0,int taille){
     // une distance de -1 représente une distance infini
     node *node1=GoToNode(n1,node0);
     node *currentNode=node1;
@@ -462,7 +462,7 @@ void Dijkstra(int n1,node *node0,int taille){
         }
         k++;
     }
-}
+} */
 
 void printDistance(int n1,node *node0){
     node *currentNode=node0;

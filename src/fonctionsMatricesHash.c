@@ -36,7 +36,7 @@ node *GoToNodeHash(node ** hashTable, unsigned int hash)
 
 void appendEdgeSousHash(edge *newEdge,int n1,edge *edge0){
     edge *currentEdge=edge0;
-    edge *inter;
+    edge *inter=currentEdge;
     
     while(currentEdge->linkNode->nodeNumber<n1 && currentEdge->nextEdge!=NULL){
         inter=currentEdge;
@@ -172,7 +172,7 @@ node *DoListAdjDeBinHash(options_t *option, int *taille)
         unsigned int hash1 = hash((unsigned char *)author1);
         n1 = AuthorInListHash(author1, hashTable);
         //printf("n1 : %i\n", n1);
-        if (n1<0)
+        if (n1 == -1)
         {
             end = appendNode(author1, end);
             hashTable[hash1]=end;
@@ -185,7 +185,7 @@ node *DoListAdjDeBinHash(options_t *option, int *taille)
             unsigned int hash2 = hash((unsigned char *)author2);
             n2 = AuthorInListHash(author2, hashTable);
             //printf("n2 : %i\n", n2);
-            if (n2<0)
+            if (n2 == -1)
             {
                 end = appendNode(author2, end);
                 hashTable[hash2]=end;
@@ -215,7 +215,7 @@ node *DoListAdjDeBinHash(options_t *option, int *taille)
                 unsigned int hash1 = hash((unsigned char *)author1);
                     n1 = AuthorInListHash(author1, hashTable);
                     //printf("n1 : %i\n", n1);
-                    if (n1 < 0)
+                    if (n1 == -1)
                     {
                         end = appendNode(author1, end);
                         hashTable[hash1] = end;

@@ -9,7 +9,9 @@ extern int interruptFlag;
 void handleSignal(){
     int carac;
     fprintf(stderr, "\nCTRL+C pressed !\nDo you want to save and exit ? [Y=1/N=0]\nRép : ");
-    scanf("%i", &carac);
+    int exitCode = scanf("%i", &carac);
+    if (exitCode == -1)
+        return ;
     if (carac==1){
         interruptFlag=1;
         fprintf(stderr, "Exit !\n");
@@ -28,7 +30,9 @@ void initSigaction(){
 
 int isXML(FILE * file){
     char docType[5];
-    fread(&docType, 1, 5, file);
+    int exitCode = fread(&docType, 1, 5, file);
+    if (exitCode == -1)
+        return ERROR_XML;
     if (strcmp("<?xml", docType)!=0){
         return ERROR_XML;
     }
@@ -59,7 +63,7 @@ int openFiles(options_t * options, char * openMode){
 int closeFiles(options_t * options){
     fclose(options->inputFile);
     fclose(options->outputFile);
-    return 0;
+    return OK;
 }
 
 const char * errorToString(error_t err) 
