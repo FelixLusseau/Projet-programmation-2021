@@ -371,10 +371,16 @@ node* DoListAdjDeBin(options_t *option,int *taille){
 
 
 void Dijkstra(int n1,node *node0,int taille){
+    // une distance de -1 représente une distance infini
     node *node1=GoToNode(n1,node0);
     node *currentNode=node1;
     edge *currentEdge=currentNode->nodeEdge;
     node *voisin=currentEdge->otherNode;
+    //liste des nodes non marqué dont on a changé la distane (!=-1), elle permet 
+    //de trouver le prochain sommet avec la distance minimum
+    node nodeDistance0=*currentNode;
+    nodeDistance0.nextNode=NULL;
+    node *ListeDistance=&nodeDistance0;
 
     currentNode->distance=0;
     int k=0;
@@ -383,51 +389,78 @@ void Dijkstra(int n1,node *node0,int taille){
         voisin=GoToNode(currentEdge->otherNode->nodeNumber,node0);
 
         //exploration des voisins de currentNode et mise a jour de leur distance
-        while(1){
+        while(currentEdge->linkNode->nodeNumber==currentNode->nodeNumber){
+
             if(voisin->flag==0){
                 if(voisin->distance==-1 || voisin->distance > (currentNode->distance +1)){
                     voisin->distance=currentNode->distance +1;
+                    
+                    if(ListeDistance==NULL){
+                        node newDistance0=*voisin;
+                        newDistance0.nextNode=NULL;
+                        ListeDistance=&newDistance0;
+                    }
+                    int n=AuthorInList(voisin->author,ListeDistance);
+                    if(n==-1){
+                        node newDistance =*voisin;
+                        node *next=ListeDistance->nextNode;
+                        ListeDistance->nextNode=ListeDistance;
+                        newDistance.nextNode=next;
+                    }
+                    else{
+                        node *nodeDistance=GoToNode(n,ListeDistance);
+                        nodeDistance->distance=voisin->distance;
+                    }
                 }
             }
 
             if(currentEdge->nextEdge==NULL){
                 break;
             }
-
             currentEdge=currentEdge->nextEdge;
-            if(currentEdge->linkNode->nodeNumber!=currentNode->nodeNumber){
-                break;
-            }
-            voisin=GoToNode(currentEdge->otherNode->nodeNumber,node0);
-        }
-
-        currentEdge=currentNode->nodeEdge;
-        voisin=currentEdge->otherNode;
-        node *minVoisin=voisin;
-        int mindistance=minVoisin->distance;
-        //recherche du voisin avec la plus petit distance
-        while(1){
-            if(voisin->flag==0 && voisin->distance>0 && voisin->distance < mindistance ){
-                minVoisin=voisin;
-                mindistance=minVoisin->distance;
-            }
-
-            if(currentEdge->nextEdge==NULL){
-                break;
-            }
-
-            currentEdge=currentEdge->nextEdge;
-
-            if(currentEdge->linkNode->nodeNumber!=currentNode->nodeNumber){
-                break;
-            }
-
             voisin=currentEdge->otherNode;
         }
+        //cas ListeDistance non NULL donc il existe une distance minimal
+        if(ListeDistance!=NULL){
+            //recherche du sommet avec la plus petit distance
+            node *nodeDistance=ListeDistance;
+            node *minNode=nodeDistance;
+            int minDistance=nodeDistance->distance;
 
+            while(nodeDistance->nextNode!=NULL){
+                if(nodeDistance->distance<minDistance){
+                    minDistance=nodeDistance->distance;
+                    minNode=nodeDistance;
+                }
+                nodeDistance=nodeDistance->nextNode;
+            }
+            currentNode->flag=1;
+            //on enlève currentNode de la liste nodeDistance0 car il est maintenant marqué
+            //cas du premier node
+            if(currentNode->nodeNumber==ListeDistance->nodeNumber){
+                ListeDistance=ListeDistance->nextNode;
+            }
+            //cas d'un node au mileu ou à la fins
+            else{
+                node *currentDistance=ListeDistance;
+                node *previousNode=ListeDistance;
+                while(currentDistance->nodeNumber=currentNode->nodeNumber && currentNode->nextNode!=NULL){
+                    previousNode=currentNode;
+                    currentNode->nextNode;
+                }
+                previousNode->nextNode=currentNode->nextNode;
+            }
+            currentNode=minNode;
+        }
+        //liste distance NULL, la distance minimale est l'infinie 
+        // on prend le 1er Node non marqué de distance infine
+        else{
+            currentNode=node0;
+            while(currentNode->flag!=0 && currentNode->distance!=-1){
+                currentNode=currentNode->nextNode;
+            }
+        }
         k++;
-        currentNode->flag=1;
-        currentNode=minVoisin;
     }
 }
 
