@@ -151,6 +151,8 @@ int appendEdge(int n1,int n2,node *node0)
 {   edge *edge0=node0->nodeEdge;
     node *Node1=GoToNode(n1,node0);
     node *Node2=GoToNode(n2,node0);
+
+    //cas node0->edge0 non initialiser
     if((n1==0 || n2==0) && edge0->otherNode==NULL){
         if(n1==0){
             edge0->otherNode=Node2;
@@ -174,32 +176,41 @@ int appendEdge(int n1,int n2,node *node0)
         }
         return 0;
     }
+
     //initalisation des nouveau edges
     edge *newEdge1 = (edge *)malloc(sizeof(edge));
      if(newEdge1==NULL){
         printf("appendEdge:erreur malloc edge = NULL");
     }
-    newEdge1->otherNode=Node2;
-    newEdge1->linkNode=Node1;
-    newEdge1->edgeNumber=0;
 
     edge *newEdge2 = (edge *)malloc(sizeof(edge));
      if(newEdge2==NULL){
         printf("appendEdge:erreur malloc edge = NULL");
     }
+
+    newEdge1->otherNode=Node2;
+    newEdge1->linkNode=Node1;
+    newEdge1->edgeNumber=0;
+
     newEdge2->otherNode=Node1;
     newEdge2->linkNode=Node2;
     newEdge2->edgeNumber=0;
 
     if(Node1->nodeEdge==NULL){
         Node1->nodeEdge=newEdge1;
+        appendEdgeSous(newEdge1,n1,edge0);
     }
-    appendEdgeSous(newEdge1,n1,edge0);
+    else{
+        appendEdgeSous(newEdge1,n1,Node1->nodeEdge);
+    }
 
     if(Node2->nodeEdge==NULL){
         Node2->nodeEdge=newEdge2;
+        appendEdgeSous(newEdge2,n2,edge0);
     }
-    appendEdgeSous(newEdge2,n2,edge0);
+    else{
+        appendEdgeSous(newEdge2,n2,Node2->nodeEdge);
+    }
     return 0;
 }
 

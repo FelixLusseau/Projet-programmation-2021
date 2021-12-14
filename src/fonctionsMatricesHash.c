@@ -127,13 +127,19 @@ int appendEdgeHash(int n1, unsigned int hash1, int n2, unsigned int hash2, node 
 
     if(Node1->nodeEdge==NULL){
         Node1->nodeEdge=newEdge1;
+        appendEdgeSousHash(newEdge1,n1,edge0);
     }
-    appendEdgeSousHash(newEdge1,n1,edge0);
+    else{
+        appendEdgeSousHash(newEdge1,n1,Node1->nodeEdge);
+    }
 
     if(Node2->nodeEdge==NULL){
         Node2->nodeEdge=newEdge2;
+        appendEdgeSousHash(newEdge2,n2,edge0);
     }
-    appendEdgeSousHash(newEdge2,n2,edge0);
+    else{
+        appendEdgeSousHash(newEdge2,n2,Node2->nodeEdge);
+    }
     return 0;
 }
 
@@ -159,6 +165,7 @@ node *DoListAdjDeBinHash(options_t *option, int *taille)
     int n1 = 0;
     int n2 = 0;
     node *end = node0;
+    //première boucle si il y a des auteur après author n°0
     for (int k = 1; k < Entree.authornb; k++)
     {
         char *author1 = Entree.author[k];
@@ -191,8 +198,9 @@ node *DoListAdjDeBinHash(options_t *option, int *taille)
     //printf("OK");
     int L[100];
     unsigned int LH[100];
+    int curseur=0;
     while (Entree.authornb != 0)
-    {
+    {   printf("curseur:%i",curseur);
         if (interruptFlag == 1)
         {
             break;
@@ -231,6 +239,7 @@ node *DoListAdjDeBinHash(options_t *option, int *taille)
             }
         }
         Entree = readEntryBin(option, -1);
+        curseur++;
     }
     /* for (int m=0; m<50000000; m++){
         if (hashTable[m]!=NULL){
@@ -238,7 +247,7 @@ node *DoListAdjDeBinHash(options_t *option, int *taille)
             printf("%s\n", hashTable[m]->author);
         }
     } */
-    printf("hash nbr arret:%i\n",nbrarrete*2);
+    //printf("hash nbr arret:%i\n",nbrarrete*2);
     printf("************Fin DoListAdjDeBinHash************\n");
     free(hashTable);
     return node0;
