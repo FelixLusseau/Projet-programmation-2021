@@ -300,6 +300,7 @@ node* DoListAdjDeBin(options_t *option,int *taille){
     for(int k=1; k<Entree.authornb;k++){
         char *author1=Entree.author[k];
         n1 = AuthorInList(author1,node0);
+        //printf("n1 : %i\n", n1);
         if(n1<0){
             end=appendNode(author1,end);
             *taille+=1;
@@ -308,6 +309,7 @@ node* DoListAdjDeBin(options_t *option,int *taille){
         for(int i=k+1; i<Entree.authornb;i++){
             char *author2=Entree.author[i];
             n2 = AuthorInList(author2,node0);
+            printf("n2 : %i\n", n2);
             if(n2<0){
                 end=appendNode(author2,end);
                 *taille+=1;
@@ -316,7 +318,7 @@ node* DoListAdjDeBin(options_t *option,int *taille){
             appendEdge(n1,n2,node0);
         }
     }
-    
+    //printf("OK");
     int L[100];
     while(Entree.authornb!=0){
         //printf("curseur:%i ",curseur);
@@ -330,10 +332,12 @@ node* DoListAdjDeBin(options_t *option,int *taille){
                 char *author1=Entree.author[k];
                 if(strcmp(author1,"")!=0){
                     n1 = AuthorInList(author1,node0);
+                    //printf("n1 : %i\n", n1);
                     if(n1<0){
                         end=appendNode(author1,end);
                         *taille+=1;
                         n1=*taille; 
+                        //printf("n1 = *taille : %i\n", n1);
                     }
                     L[index]=n1;
                     index++;
@@ -344,6 +348,7 @@ node* DoListAdjDeBin(options_t *option,int *taille){
                 for(int k=i+1;L[k]>-1 && k<100;k++){
                     appendEdge(L[i],L[k],node0);
                     nbrarrete++;
+                    //printf("Li : %i Lk : %i\n", L[i], L[k]);
                 }
             }
         }

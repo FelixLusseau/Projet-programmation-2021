@@ -53,8 +53,8 @@ int main(int argc, char ** argv){
         break;
     case ACTION_MAT:        
         exitCode=openFiles(&options, "r");
-        node0=DoListAdjDeBin(&options,&taille);
-        //printListNode(node0);
+        node0=DoListAdjDeBinHash(&options,&taille);
+        printListNode(node0);
         printListEdge(node0);
         freeListAdj(node0);
         break;
