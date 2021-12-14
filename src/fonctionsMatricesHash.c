@@ -200,7 +200,8 @@ node *DoListAdjDeBinHash(options_t *option, int *taille)
     unsigned int LH[100];
     int curseur=0;
     while (Entree.authornb != 0)
-    {   //printf("curseur:%i",curseur);
+    {   
+        printf("\rcurseur:%i", curseur);
         if (interruptFlag == 1)
         {
             break;
