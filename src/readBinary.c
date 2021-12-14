@@ -13,14 +13,18 @@ extern int interruptFlag;
 
 void readStructure(options_t *options, structureBase_t *structureBase, int16_t precAuthornb)
 {
+    int code;
     initStructure(structureBase, precAuthornb);
-    fread(structureBase, 2 * sizeof(int16_t), 1, options->outputFile);
-    fread(&structureBase->title, structureBase->titleLength + 1, 1, options->outputFile);
-    fread(&structureBase->authornb, sizeof(int16_t), 1, options->outputFile);
-    fread(&structureBase->authorlengths, structureBase->authornb * sizeof(int8_t), 1, options->outputFile);
+    code = fread(structureBase, 2 * sizeof(int16_t), 1, options->outputFile);
+    code = fread(&structureBase->title, structureBase->titleLength + 1, 1, options->outputFile);
+    code = fread(&structureBase->authornb, sizeof(int16_t), 1, options->outputFile);
+    code = fread(&structureBase->authorlengths, structureBase->authornb * sizeof(int8_t), 1, options->outputFile);
     for (int m = 0; m < structureBase->authornb; m++)
     {
-        fread(structureBase->author[m], structureBase->authorlengths[m] + 1, 1, options->outputFile);
+        code = fread(structureBase->author[m], structureBase->authorlengths[m] + 1, 1, options->outputFile);
+    }
+    if (code==0){
+        return ;
     }
     //printStruct(structureBase);
 }
@@ -36,7 +40,8 @@ int readEntireBin(options_t * options){
         if (structureBase.authornb==0 || interruptFlag==1)
             break;
         precAuthornb=structureBase.authornb;
-        printStruct(&structureBase);
+       /*  if (compteur>2980000 && compteur<3000000)
+            printStruct(&structureBase); */
         compteur++;
     }
     //printf("%i\n", compteur);

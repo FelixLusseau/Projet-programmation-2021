@@ -332,7 +332,7 @@ node* DoListAdjDeBin(options_t *option,int *taille){
     //printf("OK");
     int L[100];
     while(Entree.authornb!=0){
-        //printf("curseur:%i ",curseur);
+        printf("\rcurseur:%i ",curseur);
         if(interruptFlag==1){
             break;
         }
