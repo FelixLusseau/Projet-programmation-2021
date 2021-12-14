@@ -339,9 +339,8 @@ node* DoListAdjDeBin(options_t *option,int *taille){
         if(Entree.authornb>1){
             L[0]=-1;
             int index=0;
-            for(int k=0; k<=Entree.authornb;k++){
+            for(int k=0; k<Entree.authornb;k++){
                 char *author1=Entree.author[k];
-                if(strcmp(author1,"")!=0){
                     n1 = AuthorInList(author1,node0);
                     //printf("n1 : %i\n", n1);
                     if(n1<0){
@@ -353,7 +352,6 @@ node* DoListAdjDeBin(options_t *option,int *taille){
                     L[index]=n1;
                     index++;
                     L[index]=-1; 
-                }
             }
             for(int i=0;L[i]>-1 && i<100;i++){
                 for(int k=i+1;L[k]>-1 && k<100;k++){

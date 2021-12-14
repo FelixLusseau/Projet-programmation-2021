@@ -149,8 +149,8 @@ node *DoListAdjDeBinHash(options_t *option, int *taille)
     node **hashTable = malloc(50000000 * sizeof(unsigned int) * sizeof(char *));
     if (hashTable == NULL)
         return NULL;
-    /* for (int i = 0; i < 50000000; i++)
-        hashTable[i] = NULL; */
+    for (int i = 0; i < 50000000; i++)
+        hashTable[i] = NULL;
     *taille = 0;
     structureBase_t Entree;
     initStructure(&Entree, 0);
@@ -200,7 +200,7 @@ node *DoListAdjDeBinHash(options_t *option, int *taille)
     unsigned int LH[100];
     int curseur=0;
     while (Entree.authornb != 0)
-    {   printf("curseur:%i",curseur);
+    {   //printf("curseur:%i",curseur);
         if (interruptFlag == 1)
         {
             break;
@@ -208,12 +208,10 @@ node *DoListAdjDeBinHash(options_t *option, int *taille)
         if (Entree.authornb > 1){
             L[0] = -1;
             int index = 0;
-            for (int k = 0; k <= Entree.authornb; k++)
+            for (int k = 0; k < Entree.authornb; k++)
             {
                 char *author1 = Entree.author[k];
                 unsigned int hash1 = hash((unsigned char *)author1);
-                if (strcmp(author1, "") != 0)
-                {
                     n1 = AuthorInListHash(author1, hashTable);
                     //printf("n1 : %i\n", n1);
                     if (n1 < 0)
@@ -228,7 +226,6 @@ node *DoListAdjDeBinHash(options_t *option, int *taille)
                     LH[index] = hash1;
                     index++;
                     L[index] = -1;
-                }
             }
             for (int i = 0; L[i] > -1 && i < 100; i++){
                 for (int k = i + 1; L[k] > -1 && k < 100; k++){
