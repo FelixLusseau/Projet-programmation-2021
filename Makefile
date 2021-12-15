@@ -1,6 +1,6 @@
-CC ?= gcc
-CFLAGS ?= -O3 -pipe -march=native -mtune=native -Wall -Wextra -Werror -g 
-LDLIBS?=-lm -ltps -lSDL2 -lSDL2_ttf
+CC = gcc
+CFLAGS ?= -O3 -pipe -march=native -mtune=native -Wall -Wextra -Werror -g
+LDLIBS?= 
 
 INCLUDE_PATH = ./include
 

@@ -1,7 +1,11 @@
 2 args diff en plus de -i et -o ?
 
-vérifier condition détection multilignes titre
-
 tests.c et test.sh
 
 hash function : http://www.cse.yorku.ca/~oz/hash.html
+
+tests.c fonction inverse de hash
+
+"table de hash" pour noms auteurs -a
+
+partir de 4 millions ?
