@@ -18,27 +18,33 @@ int main(int argc, char **argv) {
     initSigaction();
     int exitCode;
     options_t options;
-    exitCode = parseArgs(argc, argv, &options);
     node *node0;
+    exitCode = parseArgs(argc, argv, &options);
     if (exitCode)
         goto error;
-    switch (options.action) {
-    case ACTION_PARSE:
-        exitCode = openFiles(&options, "w");
+    /* A activer plus tard */
+    /* if (openFiles(&options, "r", 1) == ERROR_OPEN_BIN) {
+        exitCode = openFiles(&options, "w", 0);
         if (exitCode)
             goto error;
         exitCode = parseBase(&options);
         if (exitCode)
             goto error;
         printf("Database parsing ok ! \n");
-        /* char * line = malloc(1000);
-        int i=0;
-        while (fgets(line, 1000, options.inputFile) != NULL){
-            i++;
-        } */
+    } else
+        closeFiles(&options); */
+    switch (options.action) {
+    case ACTION_PARSE:
+        exitCode = openFiles(&options, "w", 0);
+        if (exitCode)
+            goto error;
+        exitCode = parseBase(&options);
+        if (exitCode)
+            goto error;
+        printf("Database parsing ok ! \n");
         break;
     case ACTION_READ:
-        exitCode = openFiles(&options, "r");
+        exitCode = openFiles(&options, "r", 0);
         if (exitCode)
             goto error;
         exitCode = readEntireBin(&options);
@@ -56,14 +62,14 @@ int main(int argc, char **argv) {
         } while (curseur!=200); */
         break;
     case ACTION_MAT:
-        exitCode = openFiles(&options, "r");
+        exitCode = openFiles(&options, "r", 0);
         node0 = DoListAdjDeBinHash(&options, &taille);
         printListNode(node0);
         printListEdge(node0);
         freeListAdj(node0);
         break;
     case ACTION_SHOW_ARTICLES:
-        exitCode = openFiles(&options, "r");
+        exitCode = openFiles(&options, "r", 0);
         if (exitCode)
             goto error;
         exitCode = showArticles(&options);
@@ -71,7 +77,7 @@ int main(int argc, char **argv) {
             goto error;
         break;
     case ACTION_SHOW_AUTHORS:
-        exitCode = openFiles(&options, "r");
+        exitCode = openFiles(&options, "r", 0);
         if (exitCode)
             goto error;
         exitCode = showAuthors(&options);

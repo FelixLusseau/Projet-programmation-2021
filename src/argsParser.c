@@ -23,7 +23,8 @@ void printUsage(void) {
            "between these authors\n"
            "\t-h                       show this help\n\n\n"
            "Examples:\n"
-           "./bin/program -i database/dblp.xml -o database/dblp.bin -x\n");
+           "./bin/program -i database/dblp.xml -o database/dblp.bin -a "
+           "\"Quentin Bramas\"\n");
 }
 
 int parseArgs(int argc, char **argv, options_t *options) {

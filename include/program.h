@@ -1,9 +1,9 @@
-# ifndef PROGRAM_H
-# define PROGRAM_H
+#ifndef PROGRAM_H
+#define PROGRAM_H
 
-# include <stdio.h>
-# include <signal.h>
-# include <stdint.h>
+#include <signal.h>
+#include <stdint.h>
+#include <stdio.h>
 
 typedef enum action_t {
     ACTION_UNKNOWN,
@@ -14,7 +14,7 @@ typedef enum action_t {
     ACTION_SHOW_AUTHORS
 } action_t;
 
-typedef struct structureBase_t{
+typedef struct structureBase_t {
     int16_t year;
     int16_t titleLength;
     char title[2000];
@@ -23,7 +23,7 @@ typedef struct structureBase_t{
     char author[500][100];
 } structureBase_t;
 
-typedef struct options_t{
+typedef struct options_t {
     action_t action;
     char *inputFilename;
     char *outputFilename;
@@ -37,7 +37,8 @@ typedef enum error_t {
     OK,
     ERROR_ARGS_PARSE,
     ERROR_MISSING_ACTION,
-    ERROR_OPEN_FILES,
+    ERROR_OPEN_DATABASE,
+    ERROR_OPEN_BIN,
     ERROR_XML,
     ERROR_BASE_PARSE,
     ERROR_READ,
@@ -47,4 +48,4 @@ typedef enum error_t {
     ERROR_GRAPH
 } error_t;
 
-# endif
+#endif

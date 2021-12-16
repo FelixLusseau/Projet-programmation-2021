@@ -68,5 +68,7 @@ int showAuthors(options_t *options) {
             break;
         precAuthornb = structureBase.authornb;
     }
+    if (options->action == ACTION_SHOW_AUTHORS)
+        free(hashTable);
     return OK;
 }

@@ -19,6 +19,11 @@ unsigned hash(unsigned char *str) {
     return hash;
 }
 
+unsigned char *unhash(unsigned int authorHashed) {
+    (void)authorHashed;
+    return (unsigned char *)"ok";
+}
+
 int AuthorInListHash(char *author, node **hashTable) {
     unsigned int authorHashed = hash((unsigned char *)author);
     if (hashTable[authorHashed] == NULL)
@@ -188,7 +193,7 @@ node *DoListAdjDeBinHash(options_t *option, int *taille) {
     unsigned int LH[100];
     int curseur = 0;
     while (Entree.authornb != 0) {
-        printf("\rcurseur:%i", curseur);
+        printf("\33[?25l\rcurseur:%i\33[?25h", curseur);
         if (interruptFlag == 1) {
             break;
         }
