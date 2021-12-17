@@ -14,6 +14,8 @@ extern int interruptFlag;
 
 int showArticles(options_t *options) {
     initSigaction();
+    /* showAuthors(options);
+    fseek(options->outputFile, 0, SEEK_SET); */
     int16_t precAuthornb = 0;
     int authorWritten = 0;
     structureBase_t structureBase;

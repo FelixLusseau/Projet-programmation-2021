@@ -8,9 +8,8 @@ extern int interruptFlag;
 
 void handleSignal() {
     // int carac;
-    fprintf(
-        stdout,
-        "\nCTRL+C pressed !\nDo you want to save and exit ? [Y / N]\nAns : ");
+    fprintf(stdout, "\n\33[0;33mCTRL+C pressed !\33[0m\nDo you want to save "
+                    "and exit ? [Y / N]\nAns : ");
     int carac = getc(stdin);
     if (carac == 'Y' || carac == 'y') {
         interruptFlag = 1;
@@ -24,7 +23,8 @@ void initSigaction() {
     sa.sa_flags = SA_RESTART;
     sigfillset(&sa.sa_mask);
     if (sigaction(SIGINT, &sa, NULL) == -1) {
-        perror("Error: cannot handle SIGINT"); // Should not happen
+        perror(
+            "\33[0;31mError:\33[0m cannot handle SIGINT"); // Should not happen
     }
 }
 
@@ -43,13 +43,16 @@ int isXML(FILE *file) {
 
 int openFiles(options_t *options, char *openMode, int test) {
     errno = 0;
-    options->inputFile = fopen(options->inputFilename, "r");
-    if (options->inputFile == NULL) {
-        fprintf(stderr, "%s : %s.\n", strerror(errno), options->inputFilename);
-        return ERROR_OPEN_DATABASE;
-    }
-    if (isXML(options->inputFile) == ERROR_XML) {
-        return ERROR_XML;
+    if (options->inputFilename != NULL) {
+        options->inputFile = fopen(options->inputFilename, "r");
+        if (options->inputFile == NULL) {
+            fprintf(stderr, "%s : %s.\n", strerror(errno),
+                    options->inputFilename);
+            return ERROR_OPEN_DATABASE;
+        }
+        if (isXML(options->inputFile) == ERROR_XML) {
+            return ERROR_XML;
+        }
     }
     options->outputFile = fopen(options->outputFilename, openMode);
     if (options->outputFile == NULL) {
