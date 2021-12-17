@@ -6,4 +6,3 @@ hash function : http://www.cse.yorku.ca/~oz/hash.html
 
 tests.c fonction inverse de hash
 
-partir de 4 millions ?

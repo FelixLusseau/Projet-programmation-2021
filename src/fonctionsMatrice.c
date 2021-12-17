@@ -82,15 +82,9 @@ node *appendNode(char *author, node *end) {
     newNode->author[k] = '\0';
     return newNode;
 }
-<<<<<<< HEAD
-int appendEdge(int n1,int n2,node *node0){
-    node *Node1=GoToNode(n1,node0);
-    node *Node2=GoToNode(n2,node0);
-=======
 int appendEdge(int n1, int n2, node *node0) {
     node *Node1 = GoToNode(n1, node0);
     node *Node2 = GoToNode(n2, node0);
->>>>>>> d6521c693aa3ef208d10b9e68925bca205ba1e0e
 
     edge *newEdge1 = (edge *)malloc(sizeof(edge));
     if (newEdge1 == NULL) {

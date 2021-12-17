@@ -13,22 +13,23 @@ extern int interruptFlag;
 
 void readStructure(options_t *options, structureBase_t *structureBase,
                    int16_t precAuthornb) {
-    int code;
+    int exitCode;
     initStructure(structureBase, precAuthornb);
-    code = fread(structureBase, 2 * sizeof(int16_t), 1, options->outputFile);
-    code = fread(&structureBase->title, structureBase->titleLength + 1, 1,
-                 options->outputFile);
-    code = fread(&structureBase->authornb, sizeof(int16_t), 1,
-                 options->outputFile);
-    code =
+    exitCode =
+        fread(structureBase, 2 * sizeof(int16_t), 1, options->outputFile);
+    exitCode = fread(&structureBase->title, structureBase->titleLength + 1, 1,
+                     options->outputFile);
+    exitCode = fread(&structureBase->authornb, sizeof(int16_t), 1,
+                     options->outputFile);
+    exitCode =
         fread(&structureBase->authorlengths,
               structureBase->authornb * sizeof(int8_t), 1, options->outputFile);
     for (int m = 0; m < structureBase->authornb; m++) {
-        code =
+        exitCode =
             fread(structureBase->author[m], structureBase->authorlengths[m] + 1,
                   1, options->outputFile);
     }
-    if (code == 0) {
+    if (exitCode == 0) {
         return;
     }
     // printStruct(structureBase);
