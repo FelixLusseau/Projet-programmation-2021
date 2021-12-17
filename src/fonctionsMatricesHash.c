@@ -56,7 +56,7 @@ int appendEdgeHash(unsigned int hash1, unsigned int hash2, node **hashTable) {
         newEdge1->nextEdge = NULL;
         Node1->nodeEdge = newEdge1;
     } else {
-        newEdge1->nextEdge = Node1->nodeEdge->nextEdge;
+        newEdge1->nextEdge = Node1->nodeEdge;
         Node1->nodeEdge = newEdge1;
     }
 
@@ -64,10 +64,10 @@ int appendEdgeHash(unsigned int hash1, unsigned int hash2, node **hashTable) {
     newEdge2->linkNode = Node2;
     if (Node2->nodeEdge == NULL) {
         newEdge2->nextEdge = NULL;
-        Node2->nodeEdge = newEdge1;
+        Node2->nodeEdge = newEdge2;
     } else {
-        newEdge2->nextEdge = Node1->nodeEdge->nextEdge;
-        Node2->nodeEdge = newEdge1;
+        newEdge2->nextEdge = Node2->nodeEdge;
+        Node2->nodeEdge = newEdge2;
     }
 
     return 0;

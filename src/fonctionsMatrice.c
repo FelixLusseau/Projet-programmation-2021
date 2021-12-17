@@ -102,7 +102,7 @@ int appendEdge(int n1, int n2, node *node0) {
         newEdge1->nextEdge = NULL;
         Node1->nodeEdge = newEdge1;
     } else {
-        newEdge1->nextEdge = Node1->nodeEdge->nextEdge;
+        newEdge1->nextEdge = Node1->nodeEdge;
         Node1->nodeEdge = newEdge1;
     }
 
@@ -110,10 +110,10 @@ int appendEdge(int n1, int n2, node *node0) {
     newEdge2->linkNode = Node2;
     if (Node2->nodeEdge == NULL) {
         newEdge2->nextEdge = NULL;
-        Node2->nodeEdge = newEdge1;
+        Node2->nodeEdge = newEdge2;
     } else {
-        newEdge2->nextEdge = Node1->nodeEdge->nextEdge;
-        Node2->nodeEdge = newEdge1;
+        newEdge2->nextEdge = Node2->nodeEdge;
+        Node2->nodeEdge = newEdge2;
     }
 
     return 0;
@@ -123,21 +123,30 @@ void freeEdge(node *currentNode) {
     edge *currentEdge = currentNode->nodeEdge;
     edge *inter;
     while (currentEdge->nextEdge != NULL) {
+        printf("    cuE:%i\n",currentEdge->otherNode->nodeNumber);
         inter = currentEdge;
         currentEdge = currentEdge->nextEdge;
         free(inter);
     }
+    printf("    cuE:%i\n",currentEdge->otherNode->nodeNumber);
     free(currentEdge);
 }
 void freeListAdj(node *node0) {
     node *currentNode = node0;
     node *interN;
     while (currentNode->nextNode != NULL) {
-        freeEdge(currentNode);
+        printf("cuN:%s\n",currentNode->author);
+        if(currentNode->nodeEdge!=NULL){
+            freeEdge(currentNode);
+        }
         interN = currentNode;
         currentNode = currentNode->nextNode;
         free(interN);
     }
+    if(currentNode->nodeEdge!=NULL){
+        freeEdge(currentNode);
+    }
+    printf("cuN:%s\n",currentNode->author);
     free(currentNode);
 }
 
@@ -159,22 +168,25 @@ void printListNode(node *node0) {
     printf("  %s:%i |", currentNode->author, currentNode->nodeNumber);
 }
 void printListEdge(node *node0) {
-    edge *currentEdge = node0->nodeEdge;
+    node *currentNode = node0;
+    edge *currentEdge=currentNode->nodeEdge;
     printf("\n");
     printf("liste arretes:\n");
-    if (currentEdge->otherNode == NULL) {
-        printf(" %i -> persone|", currentEdge->linkNode->nodeNumber);
+    while (currentNode->nextNode!= NULL) {
+        currentEdge=currentNode->nodeEdge;
+        while(currentEdge!=NULL && currentEdge->nextEdge!=NULL){
+            printf(" %i -> %i|", currentEdge->linkNode->nodeNumber,currentEdge->otherNode->nodeNumber);
+            currentEdge = currentEdge->nextEdge;
+        }
+        printf(" %i -> %i|", currentEdge->linkNode->nodeNumber,currentEdge->otherNode->nodeNumber);
+        currentNode=currentNode->nextNode;
+    }
+    printf("dernier\n");
+    while(currentEdge!=NULL && currentEdge->nextEdge!=NULL){
+        printf(" %i -> %i|", currentEdge->linkNode->nodeNumber,currentEdge->otherNode->nodeNumber);
         currentEdge = currentEdge->nextEdge;
     }
-    while (currentEdge->nextEdge != NULL) {
-        printf(" %i -> %i|", currentEdge->linkNode->nodeNumber,
-               currentEdge->otherNode->nodeNumber);
-        // printf(" %i |",currentEdge->otherNode->nodeNumber);
-        currentEdge = currentEdge->nextEdge;
-    }
-    printf(" %i -> %i|\n", currentEdge->linkNode->nodeNumber,
-           currentEdge->otherNode->nodeNumber);
-    // printf(" %i |\n",currentEdge->otherNode->nodeNumber);
+    printf("\n");
 }
 
 int AuthorInList(char *author, node *node0) {

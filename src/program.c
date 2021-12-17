@@ -54,8 +54,11 @@ int main(int argc, char **argv) {
     case ACTION_MAT:
         exitCode = openFiles(&options, "r", 0);
         node0 = DoListAdjDeBinHash(&options, &taille);
+<<<<<<< HEAD
         // printListNode(node0);
         // printListEdge(node0);
+=======
+>>>>>>> 122d227949e6a8567650133980af8f9ec67f8e2e
         freeListAdj(node0);
         break;
     case ACTION_SHOW_ARTICLES:
