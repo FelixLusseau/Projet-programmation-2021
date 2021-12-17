@@ -17,9 +17,8 @@ typedef struct node{
 }node;
 
 typedef struct edge{
-    int edgeNumber;
-    struct node *otherNode;
     struct node *linkNode;
+    struct node *otherNode;
     struct edge *nextEdge;
 }edge;
 
@@ -29,19 +28,14 @@ node *GoToNode(int n, node *node0);
 
 node *GoToEndNode(node *node0);
 
-edge *GoToEndEdge(node *node0);
-
 edge * GoToEdge(int n, node *node0);
 
 node * appendNode(char * author,node *end);
 
-/**Fonction utile pour appendEdge. Evite de des repétitions.
- * prend un sommet et ajout n1 et n2 a la liste de ses aretes.
-*/
-void appendEdgeSous(edge *newEdge,int n1,edge *edge0);
-
 /** Prend le numéros de sommets liés et augmente le graphe.*/
 int appendEdge(int n1,int n2,node *node0);
+
+void freeEdge(node *currentNode);
 
 void freeListAdj(node *node0);
 
