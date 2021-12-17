@@ -50,17 +50,29 @@ int appendEdgeHash(unsigned int hash1,unsigned int hash2, node ** hashTable)
      if(newEdge2==NULL){
         printf("appendEdge:erreur malloc edge = NULL");
     }
-
-    newEdge1->otherNode=Node2;
-    newEdge1->linkNode=Node1;
-    newEdge1->nextEdge=Node1->nodeEdge->nextEdge;
-    Node1->nodeEdge->nextEdge=newEdge1;
+    
+    newEdge1->otherNode = Node2;
+    newEdge1->linkNode = Node1;
+    if(Node1->nodeEdge==NULL){
+        newEdge1->nextEdge = NULL;
+        Node1->nodeEdge = newEdge1;
+    }
+    else{
+        newEdge1->nextEdge = Node1->nodeEdge->nextEdge;
+        Node1->nodeEdge = newEdge1;
+    }
 
 
     newEdge2->otherNode=Node1;
     newEdge2->linkNode=Node2;
-    newEdge2->nextEdge=Node2->nodeEdge->nextEdge;
-    Node2->nodeEdge->nextEdge=newEdge2;
+    if(Node2->nodeEdge==NULL){
+        newEdge2->nextEdge = NULL;
+        Node2->nodeEdge = newEdge1;
+    }
+    else{
+        newEdge2->nextEdge = Node1->nodeEdge->nextEdge;
+        Node2->nodeEdge = newEdge1;
+    }
 
     return 0;
 }
