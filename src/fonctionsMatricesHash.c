@@ -50,7 +50,7 @@ int appendEdgeHash(unsigned int hash1,unsigned int hash2, node ** hashTable)
      if(newEdge2==NULL){
         printf("appendEdge:erreur malloc edge = NULL");
     }
-    
+
     newEdge1->otherNode = Node2;
     newEdge1->linkNode = Node1;
     if(Node1->nodeEdge==NULL){
@@ -79,7 +79,7 @@ int appendEdgeHash(unsigned int hash1,unsigned int hash2, node ** hashTable)
 
 node *DoListAdjDeBinHash(options_t *option, int *taille) {
     int nbrarrete = 0;
-    printf("************Debut DoListAdjDeBinHash************\n");
+    printf("\n************Debut de la fonction graphe************\n");
     node **hashTable = malloc(50000000 * sizeof(unsigned int) * sizeof(char *));
     if (hashTable == NULL)
         return NULL;
@@ -125,7 +125,7 @@ node *DoListAdjDeBinHash(options_t *option, int *taille) {
         }
     }
     // printf("OK");
-    int L[100];
+    int L[500];
     unsigned int LH[100];
     int curseur = 0;
     while (Entree.authornb != 0) {
@@ -173,7 +173,7 @@ node *DoListAdjDeBinHash(options_t *option, int *taille) {
         }
     } */
     // printf("hash nbr arret:%i\n",nbrarrete*2);
-    printf("************Fin DoListAdjDeBinHash************\n");
+    printf("\n************Fin de la fonction graphe************\n");
     free(hashTable);
     return node0;
 }

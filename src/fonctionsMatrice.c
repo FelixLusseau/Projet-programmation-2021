@@ -83,11 +83,8 @@ node *appendNode(char *author, node *end) {
     return newNode;
 }
 int appendEdge(int n1,int n2,node *node0){
-    printf("n1, n2:%i, %i\n",n1,n2);
     node *Node1=GoToNode(n1,node0);
     node *Node2=GoToNode(n2,node0);
-    printf("%p %p\n",Node1,Node2);
-    printf("test %s %s\n",Node1->author,Node2->author);
 
     edge *newEdge1 = (edge *)malloc(sizeof(edge));
     if (newEdge1 == NULL) {
