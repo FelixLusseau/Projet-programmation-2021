@@ -41,7 +41,7 @@ int main(int argc, char **argv) {
         exitCode = parseBase(&options);
         if (exitCode)
             goto error;
-        printf("Database parsing ok ! \n");
+        printf("\33[0;32mDatabase parsing ok ! \33[0m\n");
         break;
     case ACTION_READ:
         exitCode = openFiles(&options, "r", 0);
@@ -50,20 +50,10 @@ int main(int argc, char **argv) {
         exitCode = readEntireBin(&options);
         if (exitCode)
             goto error;
-        /* structureBase_t structureBase;
-        //initStructure(&structureBase, 0);
-        int curseur=0;
-        structureBase = readEntryBin(&options, 45);
-        printStruct(&structureBase);
-        do{
-            structureBase = readEntryBin(&options, -1);
-            curseur++;
-            printStruct(&structureBase);
-        } while (curseur!=200); */
         break;
     case ACTION_MAT:
         exitCode = openFiles(&options, "r", 0);
-        node0 = DoListAdjDeBin(&options, &taille);
+        node0 = DoListAdjDeBinHash(&options, &taille);
         printListNode(node0);
         printListEdge(node0);
         freeListAdj(node0);
@@ -100,19 +90,3 @@ error:
     }
     return OK;
 }
-
-/* int main(int argc, char ** argv){
-    options_t options;
-    parseArgs(argc, argv, &options);
-    openFiles(&options);
-    parseBase(&options);
-    structureBase_t structureBase;
-    initStructure(&structureBase, 0);
-    structureBase = readEntryBin(&options, 0);
-    node *node0 =DoListAdjDeBin(&options);
-    printListNode(node0);
-    printListEdge(node0);
-    freeListAdj(node0);
-    closeFiles(&options);
-    return 0;
-}    */
