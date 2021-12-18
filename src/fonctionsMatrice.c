@@ -123,30 +123,30 @@ void freeEdge(node *currentNode) {
     edge *currentEdge = currentNode->nodeEdge;
     edge *inter;
     while (currentEdge->nextEdge != NULL) {
-        printf("    cuE:%i\n",currentEdge->otherNode->nodeNumber);
+        // printf("    cuE:%i\n",currentEdge->otherNode->nodeNumber);
         inter = currentEdge;
         currentEdge = currentEdge->nextEdge;
         free(inter);
     }
-    printf("    cuE:%i\n",currentEdge->otherNode->nodeNumber);
+    // printf("    cuE:%i\n",currentEdge->otherNode->nodeNumber);
     free(currentEdge);
 }
 void freeListAdj(node *node0) {
     node *currentNode = node0;
     node *interN;
     while (currentNode->nextNode != NULL) {
-        printf("cuN:%s\n",currentNode->author);
-        if(currentNode->nodeEdge!=NULL){
+        // printf("cuN:%s\n", currentNode->author);
+        if (currentNode->nodeEdge != NULL) {
             freeEdge(currentNode);
         }
         interN = currentNode;
         currentNode = currentNode->nextNode;
         free(interN);
     }
-    if(currentNode->nodeEdge!=NULL){
+    if (currentNode->nodeEdge != NULL) {
         freeEdge(currentNode);
     }
-    printf("cuN:%s\n",currentNode->author);
+    // printf("cuN:%s\n", currentNode->author);
     free(currentNode);
 }
 
@@ -169,21 +169,24 @@ void printListNode(node *node0) {
 }
 void printListEdge(node *node0) {
     node *currentNode = node0;
-    edge *currentEdge=currentNode->nodeEdge;
+    edge *currentEdge = currentNode->nodeEdge;
     printf("\n");
     printf("liste arretes:\n");
-    while (currentNode->nextNode!= NULL) {
-        currentEdge=currentNode->nodeEdge;
-        while(currentEdge!=NULL && currentEdge->nextEdge!=NULL){
-            printf(" %i -> %i|", currentEdge->linkNode->nodeNumber,currentEdge->otherNode->nodeNumber);
+    while (currentNode->nextNode != NULL) {
+        currentEdge = currentNode->nodeEdge;
+        while (currentEdge != NULL && currentEdge->nextEdge != NULL) {
+            printf(" %i -> %i|", currentEdge->linkNode->nodeNumber,
+                   currentEdge->otherNode->nodeNumber);
             currentEdge = currentEdge->nextEdge;
         }
-        printf(" %i -> %i|", currentEdge->linkNode->nodeNumber,currentEdge->otherNode->nodeNumber);
-        currentNode=currentNode->nextNode;
+        printf(" %i -> %i|", currentEdge->linkNode->nodeNumber,
+               currentEdge->otherNode->nodeNumber);
+        currentNode = currentNode->nextNode;
     }
     printf("dernier\n");
-    while(currentEdge!=NULL && currentEdge->nextEdge!=NULL){
-        printf(" %i -> %i|", currentEdge->linkNode->nodeNumber,currentEdge->otherNode->nodeNumber);
+    while (currentEdge != NULL && currentEdge->nextEdge != NULL) {
+        printf(" %i -> %i|", currentEdge->linkNode->nodeNumber,
+               currentEdge->otherNode->nodeNumber);
         currentEdge = currentEdge->nextEdge;
     }
     printf("\n");
@@ -251,7 +254,7 @@ node *DoListAdjDeBin(options_t *option, int *taille) {
     // printf("OK");
 
     while (Entree.authornb != 0) {
-        // printf("\rcurseur:%i ", curseur);
+        // printf("\33[?25l\rcurseur:%i\33[?25h", curseur);
         if (interruptFlag == 1) {
             break;
         }
