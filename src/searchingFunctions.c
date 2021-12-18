@@ -7,7 +7,7 @@
 #include "baseParser.h"
 #include "fonctionsMatricesHash.h"
 #include "io-utils.h"
-#include "readBinary.h"
+#include "readFunctions.h"
 #include "searchingFunctions.h"
 
 extern int interruptFlag;
@@ -37,6 +37,7 @@ int showArticles(options_t *options) {
         }
         precAuthornb = structureBase.authornb;
     }
+    options->action[ACTION_SHOW_ARTICLES] = DONE_SUCCESSFULLY;
     return OK;
 }
 
@@ -70,7 +71,8 @@ int showAuthors(options_t *options) {
             break;
         precAuthornb = structureBase.authornb;
     }
-    if (options->action == ACTION_SHOW_AUTHORS)
+    if (options->action[ACTION_SHOW_AUTHORS] == 1)
         free(hashTable);
+    options->action[ACTION_SHOW_AUTHORS] = DONE_SUCCESSFULLY;
     return OK;
 }

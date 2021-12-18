@@ -6,6 +6,7 @@
 
 #include "baseParser.h"
 #include "io-utils.h"
+#include "readFunctions.h"
 
 extern int interruptFlag;
 
@@ -93,6 +94,7 @@ void extractTitle2(structureBase_t *structureBase, char *line,
 int parseBase(options_t *options) {
     initSigaction();
     errno = 0;
+    // readEntireXML(options);
     unsigned long long int linenb = 0;
     char *line = malloc(1500);
     if (line == NULL) {
@@ -113,15 +115,6 @@ int parseBase(options_t *options) {
             extractTitle2(&structureBase, line, titleEndOfLine);
         else if (line[0] == '<' && line[1] == 'y' && line[2] == 'e')
             extractYear(&structureBase, line);
-        // else if(strstr(line, "</article>")!=NULL
-        //    || strstr(line, "</inproceedings>")!=NULL
-        //    || strstr(line, "</proceedings>")!=NULL
-        //    || strstr(line, "</book>")!=NULL
-        //    || strstr(line, "</incollection>")!=NULL
-        //    || strstr(line, "</phdthesis>")!=NULL
-        //    || strstr(line, "</mastersthesis>")!=NULL
-        //    || strstr(line, "</www>")!=NULL){
-
         else if (line[0] == '<' && line[1] == '/') {
             if (structureBase.authornb != 0) {
                 fwrite(&structureBase,
@@ -137,10 +130,6 @@ int parseBase(options_t *options) {
                            structureBase.authorlengths[m] + 1, 1,
                            options->outputFile);
                 }
-                // printf("write :\nauthor 0 : %s\nauthor 1 : %s\ntitle :
-                // %s\nyear : %i\n\n", structureBase.author[0],
-                // structureBase.author[1], structureBase.title,
-                // structureBase.year);
             }
             if (interruptFlag == 1) {
                 break;
@@ -150,5 +139,6 @@ int parseBase(options_t *options) {
         }
     }
     free(line);
+    options->action[ACTION_PARSE] = DONE_SUCCESSFULLY;
     return OK;
 }

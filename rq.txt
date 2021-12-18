@@ -1,8 +1,19 @@
-2 args diff en plus de -i et -o ?
-
 tests.c et test.sh
 
 hash function : http://www.cse.yorku.ca/~oz/hash.html
 
-tests.c fonction inverse de hash
+utiliser la table de hash et le graphe tout du long (show authors, articles etc...)
 
+Barres de prog
+
+automatiser (ou presque) parsage et graphe au début du prog
+
+option -N
+
+harmoniser ang / fr, error codes etc
+
+Interface ?
+
+done successfully utile ?
+
+test existence bin -> parsage ailleurs ?

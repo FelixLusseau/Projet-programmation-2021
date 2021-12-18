@@ -9,11 +9,11 @@ void printUsage(void) {
            "options:\n"
            "\t-i FICHIER               indicate the xml to read\n"
            "\t-o FICHIER               indicate the binary to write\n"
-           "\t-x                       parse the input xml file into the "
-           "binary output file\n"
+           "\t-x                       generate the binary file from the xml "
+           "database\n"
            "\t-r                       read and print the binary structure for "
            "each document\n"
-           "\t-m                       make the adjacence matrix from the "
+           "\t-m                       make the adjacence list from the "
            "binary file\n"
            "\t-a AUTHOR                show all the titles of the document "
            "where the author has participated\n"
@@ -32,7 +32,9 @@ int parseArgs(int argc, char **argv, options_t *options) {
     options->outputFilename = NULL;
     options->inputFile = NULL;
     options->outputFile = NULL;
-    options->action = ACTION_UNKNOWN;
+    options->action[ACTION_UNKNOWN] = 1;
+    for (int a = 1; a < 6; a++)
+        options->action[a] = NOT_TO_DO;
     options->authorNames[0] = NULL;
     options->authorNames[1] = NULL;
 
@@ -46,20 +48,22 @@ int parseArgs(int argc, char **argv, options_t *options) {
             options->outputFilename = optarg;
             break;
         case 'x':
-            options->action = ACTION_PARSE;
+            options->action[ACTION_PARSE] = TO_DO;
             break;
         case 'r':
-            options->action = ACTION_READ;
+            options->action[ACTION_READ] = TO_DO;
             break;
         case 'm':
-            options->action = ACTION_MAT;
+            options->action[ACTION_MAT] = TO_DO;
             break;
         case 'a':
-            options->action = ACTION_SHOW_ARTICLES;
+            options->action[ACTION_MAT] = TO_DO;
+            options->action[ACTION_SHOW_ARTICLES] = TO_DO;
             options->authorNames[0] = optarg;
             break;
         case 'l':
-            options->action = ACTION_SHOW_AUTHORS;
+            options->action[ACTION_MAT] = TO_DO;
+            options->action[ACTION_SHOW_AUTHORS] = TO_DO;
             options->authorNames[0] = optarg;
             break;
         case 'p':
@@ -70,7 +74,7 @@ int parseArgs(int argc, char **argv, options_t *options) {
             if (options->authorNames[0] == NULL ||
                 options->authorNames[1] == NULL) {
                 fprintf(stderr,
-                        "One or two authors are missing ! Usage : "
+                        "One or two authors missing ! Usage : "
                         "./bin/program -i ... -o ... -p AUTHOR1 -p AUTHOR2\n");
                 return ERROR_ARGS_PARSE;
             }
@@ -89,6 +93,11 @@ int parseArgs(int argc, char **argv, options_t *options) {
             return ERROR_ARGS_PARSE;
         default:
             return ERROR_ARGS_PARSE;
+        }
+    }
+    for (int k = 0; k < 6; k++) {
+        if (options->action[k] != NOT_TO_DO) {
+            options->action[ACTION_UNKNOWN] = 0;
         }
     }
     return OK;

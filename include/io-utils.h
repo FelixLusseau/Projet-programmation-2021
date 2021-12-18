@@ -51,4 +51,6 @@ int closeFiles(options_t *options);
  */
 const char *errorToString(error_t err);
 
+void progressBar(int n);
+
 #endif

@@ -4,8 +4,9 @@
 
 #include "baseParser.h"
 #include "fonctionsMatrice.h"
+#include "io-utils.h"
 #include "program.h"
-#include "readBinary.h"
+#include "readFunctions.h"
 
 extern int interruptFlag;
 
@@ -73,14 +74,13 @@ int appendEdgeHash(unsigned int hash1, unsigned int hash2, node **hashTable) {
     return 0;
 }
 
-node *DoListAdjDeBinHash(options_t *option, int *taille) {
+node *DoListAdjDeBinHash(options_t *option, int *taille, node **hashTable) {
+    int nbEntries = readEntireBin(option, 0);
     int nbrarrete = 0;
-    printf("\n************Debut de la fonction graphe************\n");
-    node **hashTable = malloc(50000000 * sizeof(unsigned int) * sizeof(char *));
-    if (hashTable == NULL)
-        return NULL;
-    for (int i = 0; i < 50000000; i++)
-        hashTable[i] = NULL;
+    printf("\n*************************************Debut de la fonction "
+           "graphe*************************************\n\n");
+    printf("\33[?25l");
+
     *taille = 0;
     structureBase_t Entree;
     initStructure(&Entree, 0);
@@ -94,12 +94,11 @@ node *DoListAdjDeBinHash(options_t *option, int *taille) {
     int n1 = 0;
     int n2 = 0;
     node *end = node0;
-    // première boucle si il y a des auteur après author n°0
+    /* première boucle si il y a des auteur après author n°0 */
     for (int k = 1; k < Entree.authornb; k++) {
         char *author1 = Entree.author[k];
         unsigned int hash1 = hash((unsigned char *)author1);
         n1 = AuthorInListHash(author1, hashTable);
-        // printf("n1 : %i\n", n1);
         if (n1 == -1) {
             end = appendNode(author1, end);
             hashTable[hash1] = end;
@@ -110,7 +109,6 @@ node *DoListAdjDeBinHash(options_t *option, int *taille) {
             char *author2 = Entree.author[i];
             unsigned int hash2 = hash((unsigned char *)author2);
             n2 = AuthorInListHash(author2, hashTable);
-            // printf("n2 : %i\n", n2);
             if (n2 == -1) {
                 end = appendNode(author2, end);
                 hashTable[hash2] = end;
@@ -120,12 +118,11 @@ node *DoListAdjDeBinHash(options_t *option, int *taille) {
             appendEdgeHash(hash1, hash2, hashTable);
         }
     }
-    // printf("OK");
     int L[500];
     unsigned int LH[100];
-    int curseur = 0;
+    int curseur = 1;
     while (Entree.authornb != 0) {
-        printf("\33[?25l\rcurseur:%i\33[?25h", curseur);
+        // printf("\33[?25l\rcurseur:%i\33[?25h", curseur);
         if (interruptFlag == 1) {
             break;
         }
@@ -136,13 +133,11 @@ node *DoListAdjDeBinHash(options_t *option, int *taille) {
                 char *author1 = Entree.author[k];
                 unsigned int hash1 = hash((unsigned char *)author1);
                 n1 = AuthorInListHash(author1, hashTable);
-                // printf("n1 : %i\n", n1);
                 if (n1 == -1) {
                     end = appendNode(author1, end);
                     hashTable[hash1] = end;
                     *taille += 1;
                     n1 = *taille;
-                    // printf("n1 = *taille : %i\n", n1);
                 }
                 L[index] = n1;
                 LH[index] = hash1;
@@ -153,23 +148,20 @@ node *DoListAdjDeBinHash(options_t *option, int *taille) {
                 for (int k = i + 1; L[k] > -1 && k < 100; k++) {
                     appendEdgeHash(LH[i], LH[k], hashTable);
                     nbrarrete++;
-                    // printf("Li : %i Lk : %i\n", L[i], L[k]);
                 }
             }
         }
         Entree = readEntryBin(option, -1);
         curseur++;
-        /* if (curseur==1000)
-            break; */
-    }
-    /* for (int m=0; m<50000000; m++){
-        if (hashTable[m]!=NULL){
-            printf("%p\n", hashTable[m]);
-            printf("%s\n", hashTable[m]->author);
+        if (curseur % 50000 == 0) {
+            progressBar(curseur * 100 / nbEntries);
         }
-    } */
+    }
     // printf("hash nbr arret:%i\n",nbrarrete*2);
-    printf("\n************Fin de la fonction graphe************\n");
-    free(hashTable);
+    progressBar(100);
+    printf("\33[?25h");
+    printf("\n\n**************************************Fin de la fonction "
+           "graphe**************************************\n");
+    option->action[ACTION_MAT] = DONE_SUCCESSFULLY;
     return node0;
 }

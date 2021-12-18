@@ -8,7 +8,7 @@
 #include "fonctionsMatricesHash.h"
 #include "io-utils.h"
 #include "program.h"
-#include "readBinary.h"
+#include "readFunctions.h"
 #include "searchingFunctions.h"
 
 int interruptFlag = 0;
@@ -18,11 +18,10 @@ int main(int argc, char **argv) {
     initSigaction();
     int exitCode;
     options_t options;
-    node *node0;
+    node *node0 = NULL;
     exitCode = parseArgs(argc, argv, &options);
     if (exitCode)
         goto error;
-    /* A activer plus tard */
     /* if (openFiles(&options, "r", 1) == ERROR_OPEN_BIN) {
         exitCode = openFiles(&options, "w", 0);
         if (exitCode)
@@ -30,11 +29,16 @@ int main(int argc, char **argv) {
         exitCode = parseBase(&options);
         if (exitCode)
             goto error;
-        printf("Database parsing ok ! \n");
+        printf("\33[0;32mDatabase parsing ok ! \33[0m\n");
     } else
-        closeFiles(&options); */
-    switch (options.action) {
-    case ACTION_PARSE:
+        closeFiles(&options);
+    exitCode = openFiles(&options, "r", 0); */
+    node **hashTable = malloc(50000000 * sizeof(unsigned int) * sizeof(char *));
+    if (hashTable == NULL)
+        return ERROR_GRAPH;
+    for (int i = 0; i < 50000000; i++)
+        hashTable[i] = NULL;
+    if (options.action[ACTION_PARSE] == TO_DO) {
         exitCode = openFiles(&options, "w", 0);
         if (exitCode)
             goto error;
@@ -42,43 +46,38 @@ int main(int argc, char **argv) {
         if (exitCode)
             goto error;
         printf("\33[0;32mDatabase parsing ok ! \33[0m\n");
-        break;
-    case ACTION_READ:
+    }
+    if (options.action[ACTION_READ] == TO_DO) {
         exitCode = openFiles(&options, "r", 0);
         if (exitCode)
             goto error;
-        exitCode = readEntireBin(&options);
+        exitCode = readEntireBin(&options, 1);
         if (exitCode)
             goto error;
-        break;
-    case ACTION_MAT:
+    }
+    if (options.action[ACTION_MAT] == TO_DO) {
         exitCode = openFiles(&options, "r", 0);
-        node0 = DoListAdjDeBinHash(&options, &taille);
-        freeListAdj(node0);
-        break;
-    case ACTION_SHOW_ARTICLES:
-        exitCode = openFiles(&options, "r", 0);
-        if (exitCode)
-            goto error;
+        node0 = DoListAdjDeBinHash(&options, &taille, hashTable);
+    }
+    if (options.action[ACTION_SHOW_ARTICLES] == TO_DO) {
         exitCode = showArticles(&options);
         if (exitCode)
             goto error;
-        break;
-    case ACTION_SHOW_AUTHORS:
-        exitCode = openFiles(&options, "r", 0);
-        if (exitCode)
-            goto error;
+    }
+    if (options.action[ACTION_SHOW_AUTHORS] == TO_DO) {
         exitCode = showAuthors(&options);
         if (exitCode)
             goto error;
-        break;
-    default:
+    }
+    if (options.action[ACTION_UNKNOWN] == 1) {
         fprintf(stderr, "Action is missing !\n");
         printUsage();
         exitCode = ERROR_MISSING_ACTION;
         goto error;
-        break;
     }
+    if (node0 != NULL)
+        freeListAdj(node0);
+    free(hashTable);
     closeFiles(&options);
 
 error:

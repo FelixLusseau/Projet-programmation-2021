@@ -8,8 +8,8 @@
 typedef enum action_t {
     ACTION_UNKNOWN,
     ACTION_PARSE,
-    ACTION_READ,
     ACTION_MAT,
+    ACTION_READ,
     ACTION_SHOW_ARTICLES,
     ACTION_SHOW_AUTHORS
 } action_t;
@@ -24,14 +24,20 @@ typedef struct structureBase_t {
 } structureBase_t;
 
 typedef struct options_t {
-    action_t action;
     char *inputFilename;
     char *outputFilename;
+    int action[6];
     char *authorNames[2];
 
     FILE *inputFile;
     FILE *outputFile;
 } options_t;
+
+typedef enum action_status_t {
+    NOT_TO_DO,
+    TO_DO,
+    DONE_SUCCESSFULLY
+} action_status_t;
 
 typedef enum error_t {
     OK,
