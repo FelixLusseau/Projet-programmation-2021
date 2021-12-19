@@ -58,6 +58,9 @@ int main(int argc, char **argv) {
     if (options.action[ACTION_MAT] == TO_DO) {
         exitCode = openFiles(&options, "r", 0);
         node0 = DoListAdjDeBinHash(&options, &taille, hashTable);
+        // printListNode(node0);
+        /* for (int s = 0; s < 50000000; s++)
+            printf("%s\n", &(*hashTable[s]).author); */
     }
     if (options.action[ACTION_SHOW_ARTICLES] == TO_DO) {
         exitCode = showArticles(&options);
@@ -65,7 +68,7 @@ int main(int argc, char **argv) {
             goto error;
     }
     if (options.action[ACTION_SHOW_AUTHORS] == TO_DO) {
-        exitCode = showAuthors(&options);
+        exitCode = showAuthors(&options, hashTable);
         if (exitCode)
             goto error;
     }

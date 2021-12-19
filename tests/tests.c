@@ -15,35 +15,34 @@
 
 int interruptFlag = 0;
 
-/* unsigned int showALlAuthors(options_t * options){
+unsigned int showALlAuthors(options_t *options) {
     initSigaction();
-    int16_t precAuthornb=0;
+    int16_t precAuthornb = 0;
     structureBase_t structureBase;
-    unsigned int max=0;
-    unsigned int min=hash((unsigned char *)structureBase.author[0]);
-    while (1){
+    /*  unsigned int max = 0;
+     unsigned int min = hash((unsigned char *)structureBase.author[0]); */
+    while (1) {
         initStructure(&structureBase, precAuthornb);
         structureBase = readEntryBin(options, -1);
-        //printStruct(&structureBase);
-        if (structureBase.authornb==0)
+        // printStruct(&structureBase);
+        if (structureBase.authornb == 0)
             break;
-        for (int k=0; k<structureBase.authornb; k++){
-                //printf(" - %s : %u\n", structureBase.author[k], hash((unsigned
-char *)structureBase.author[k]));
-                //printf("%lu\n", hash((unsigned char
-*)structureBase.author[k])); max=MAX(max, hash((unsigned char
-*)structureBase.author[k])); min=MIN(min, hash((unsigned char
-*)structureBase.author[k]));
+        for (int k = 0; k < structureBase.authornb; k++) {
+            printf(" - %s\n", structureBase.author[k]);
+            /* hash((unsigned char *)structureBase.author[k]));
+     printf("%lu\n", hash((unsigned char *)structureBase.author[k]));
+     max = MAX(max, hash((unsigned char *)structureBase.author[k]));
+     min = MIN(min, hash((unsigned char *)structureBase.author[k])); */
         }
-        if (interruptFlag==1)
+        if (interruptFlag == 1)
             break;
-        precAuthornb=structureBase.authornb;
+        precAuthornb = structureBase.authornb;
     }
-    printf("max : %u\n", max);
-    printf("min : %u\n", min);
+    /* printf("max : %u\n", max);
+    printf("min : %u\n", min); */
 
     return OK;
-} */
+}
 
 void testCreateListeAdj(void) {
     char c0[] = "author0";
@@ -86,19 +85,19 @@ void testCreateListeAdj(void) {
     freeListAdj(node0);
 }
 int main() {
-    testCreateListeAdj();
-    /* options_t options;
-    options.inputFilename=NULL;
-    options.outputFilename=NULL;
-    options.inputFile=NULL;
-    options.outputFile=fopen("../database/dblp.bin", "r");
-    options.action=ACTION_UNKNOWN;
-    options.authorNames[0]=NULL;
-    options.authorNames[1]=NULL; */
+    // testCreateListeAdj();
+    options_t options;
+    options.inputFilename = NULL;
+    options.outputFilename = NULL;
+    options.inputFile = NULL;
+    options.outputFile = fopen("../database/dblp.bin", "r");
+    options.action[0] = 1;
+    options.authorNames[0] = NULL;
+    options.authorNames[1] = NULL;
 
-    // showALlAuthors(&options);
+    showALlAuthors(&options);
 
-    char *tab = malloc(50000000 * sizeof(unsigned int) * sizeof(char *));
+    /* char *tab = malloc(50000000 * sizeof(unsigned int) * sizeof(char *));
     // 50000000*sizeof(unsigned int)*sizeof(char *)=1600000000
     if (tab == NULL) {
         printf("nok\n");
@@ -107,6 +106,6 @@ int main() {
     sleep(10);
     // printf("max : %u\n", showALlAuthors(&options));
     printf("sizeof lu : %zu\n", sizeof(unsigned int));
-    printf("%lu\n", 50000000 * sizeof(unsigned int) * sizeof(char *));
+    printf("%lu\n", 50000000 * sizeof(unsigned int) * sizeof(char *)); */
     return 0;
 }

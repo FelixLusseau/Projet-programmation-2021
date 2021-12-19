@@ -28,6 +28,7 @@ typedef struct options_t {
     char *outputFilename;
     int action[6];
     char *authorNames[2];
+    int N;
 
     FILE *inputFile;
     FILE *outputFile;

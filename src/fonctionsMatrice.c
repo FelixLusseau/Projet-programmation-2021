@@ -162,7 +162,7 @@ void printListNode(node *node0) {
     printf("\n");
     printf("liste sommet:\n");
     while (currentNode->nextNode != NULL) {
-        printf("  %s:%i |", currentNode->author, currentNode->nodeNumber);
+        printf("  %s:%i |\n", currentNode->author, currentNode->nodeNumber);
         currentNode = currentNode->nextNode;
     }
     printf("  %s:%i |", currentNode->author, currentNode->nodeNumber);
@@ -245,7 +245,7 @@ node *DoListAdjDeBin(options_t *option, int *taille) {
         }
         for (int i = 0; L[i] > -1 && i < 100; i++) {
             for (int k = i + 1; L[k] > -1 && k < 100; k++) {
-                appendEdge(L[i], L[k], node0);
+                // appendEdge(L[i], L[k], node0);
                 nbrarrete++;
                 // printf("Li : %i Lk : %i\n", L[i], L[k]);
             }
@@ -258,7 +258,7 @@ node *DoListAdjDeBin(options_t *option, int *taille) {
         if (interruptFlag == 1) {
             break;
         }
-        if (Entree.authornb > 1) {
+        if (Entree.authornb >= 1) {
             L[0] = -1;
             int index = 0;
             for (int k = 0; k < Entree.authornb; k++) {
@@ -278,7 +278,7 @@ node *DoListAdjDeBin(options_t *option, int *taille) {
             for (int i = 0; L[i] > -1 && i < 100; i++) {
                 for (int k = i + 1; L[k] > -1 && k < 100; k++) {
                     // printf("Li : %i Lk : %i\n", L[i], L[k]);
-                    appendEdge(L[i], L[k], node0);
+                    // appendEdge(L[i], L[k], node0);
                     nbrarrete++;
                 }
             }

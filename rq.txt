@@ -17,3 +17,7 @@ Interface ?
 done successfully utile ?
 
 test existence bin -> parsage ailleurs ?
+
+segfault quand pas un bin en sortie
+
+Russell Gomersall pb ? -> manquait 4 millions d'auteurs

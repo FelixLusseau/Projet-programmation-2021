@@ -39,7 +39,7 @@ int parseArgs(int argc, char **argv, options_t *options) {
     options->authorNames[1] = NULL;
 
     int c;
-    while ((c = getopt(argc, argv, "i:o:xrma:l:hp:")) != -1) {
+    while ((c = getopt(argc, argv, "i:o:xrma:l:hp:N:")) != -1) {
         switch (c) {
         case 'i':
             options->inputFilename = optarg;
@@ -60,6 +60,9 @@ int parseArgs(int argc, char **argv, options_t *options) {
             options->action[ACTION_MAT] = TO_DO;
             options->action[ACTION_SHOW_ARTICLES] = TO_DO;
             options->authorNames[0] = optarg;
+            break;
+        case 'N':
+            options->N = atoi(optarg);
             break;
         case 'l':
             options->action[ACTION_MAT] = TO_DO;
@@ -84,7 +87,7 @@ int parseArgs(int argc, char **argv, options_t *options) {
             return ERROR_ARGS_PARSE;
         case '?':
             if (optopt == 'i' || optopt == 'o' || optopt == 'a' ||
-                optopt == 'l' || optopt == 'p')
+                optopt == 'l' || optopt == 'p' || optopt == 'N')
                 fprintf(stderr, "Option -%c requires an argument.\n", optopt);
             else if (isprint(optopt))
                 fprintf(stderr, "Unknown option `-%c'.\n", optopt);

@@ -97,6 +97,7 @@ node *DoListAdjDeBinHash(options_t *option, int *taille, node **hashTable) {
     /* première boucle si il y a des auteur après author n°0 */
     for (int k = 1; k < Entree.authornb; k++) {
         char *author1 = Entree.author[k];
+        // printf("%s\n", author1);
         unsigned int hash1 = hash((unsigned char *)author1);
         n1 = AuthorInListHash(author1, hashTable);
         if (n1 == -1) {
@@ -107,6 +108,7 @@ node *DoListAdjDeBinHash(options_t *option, int *taille, node **hashTable) {
         }
         for (int i = k + 1; i < Entree.authornb; i++) {
             char *author2 = Entree.author[i];
+            // printf("%s\n", author2);
             unsigned int hash2 = hash((unsigned char *)author2);
             n2 = AuthorInListHash(author2, hashTable);
             if (n2 == -1) {
@@ -124,21 +126,25 @@ node *DoListAdjDeBinHash(options_t *option, int *taille, node **hashTable) {
     while (Entree.authornb != 0) {
         // printf("\33[?25l\rcurseur:%i\33[?25h", curseur);
         if (interruptFlag == 1) {
+            printf("\33[?25h");
             break;
         }
-        if (Entree.authornb > 1) {
+        if (Entree.authornb >= 1) {
             L[0] = -1;
             int index = 0;
             for (int k = 0; k < Entree.authornb; k++) {
                 char *author1 = Entree.author[k];
+                // printf("%s\n", author1);
                 unsigned int hash1 = hash((unsigned char *)author1);
                 n1 = AuthorInListHash(author1, hashTable);
                 if (n1 == -1) {
                     end = appendNode(author1, end);
                     hashTable[hash1] = end;
+                    // printf("%p\n", hashTable[hash1]);
                     *taille += 1;
                     n1 = *taille;
                 }
+                // printf("%s\n", hashTable[hash1]->author);
                 L[index] = n1;
                 LH[index] = hash1;
                 index++;
@@ -161,7 +167,7 @@ node *DoListAdjDeBinHash(options_t *option, int *taille, node **hashTable) {
     progressBar(100);
     printf("\33[?25h");
     printf("\n\n**************************************Fin de la fonction "
-           "graphe**************************************\n");
+           "graphe**************************************\n\n");
     option->action[ACTION_MAT] = DONE_SUCCESSFULLY;
     return node0;
 }

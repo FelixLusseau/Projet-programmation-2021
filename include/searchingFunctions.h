@@ -5,18 +5,18 @@
 
 /**
  * @brief print the articles written by the author given in argument
- * 
- * @param options 
- * @return int 
+ *
+ * @param options
+ * @return int
  */
-int showArticles(options_t * options);
+int showArticles(options_t *options);
 
 /**
  * @brief print the authors' names containing the string given in argument
- * 
- * @param options 
- * @return int 
+ *
+ * @param options
+ * @return int
  */
-int showAuthors(options_t * options);
+int showAuthors(options_t *options, node **hashTable);
 
-# endif
+#endif
