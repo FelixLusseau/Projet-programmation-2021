@@ -1,4 +1,5 @@
 #include "io-utils.h"
+#include <ctype.h>
 #include <errno.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -62,6 +63,16 @@ int openFiles(options_t *options, char *openMode, int test) {
         }
         return ERROR_OPEN_BIN;
     }
+    /* char docType[2];
+    int exitCode = fread(&docType, 2, 1, options->outputFile);
+    if (exitCode == -1)
+        return ERROR_OPEN_BIN;
+    printf("%c\n", docType[0]);
+    printf("%i\n", !isdigit(docType[0]));
+    if (strcmp(openMode, "r") && !isdigit(docType[0])) {
+        return ERROR_BIN;
+    }
+    fseek(options->outputFile, 0, SEEK_SET); */
     return OK;
 }
 
@@ -83,6 +94,8 @@ const char *errorToString(error_t err) {
         return "=> \33[0;31mError\33[0m while opening binary !";
     case ERROR_XML:
         return "=> The input file isn't a XML database !";
+    case ERROR_BIN:
+        return "=> The output file is not a binary file !";
     case ERROR_BASE_PARSE:
         return "=> \33[0;31mError\33[0m while parsing base !";
     case ERROR_READ:

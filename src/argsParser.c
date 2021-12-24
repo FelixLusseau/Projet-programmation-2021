@@ -37,7 +37,7 @@ int parseArgs(int argc, char **argv, options_t *options) {
         options->action[a] = NOT_TO_DO;
     options->authorNames[0] = NULL;
     options->authorNames[1] = NULL;
-
+    int countAuthorsArguments = 0;
     int c;
     while ((c = getopt(argc, argv, "i:o:xrma:l:hp:N:")) != -1) {
         switch (c) {
@@ -74,13 +74,11 @@ int parseArgs(int argc, char **argv, options_t *options) {
                 options->authorNames[0] = optarg;
             else
                 options->authorNames[1] = optarg;
-            if (options->authorNames[0] == NULL ||
-                options->authorNames[1] == NULL) {
-                fprintf(stderr,
-                        "One or two authors missing ! Usage : "
-                        "./bin/program -i ... -o ... -p AUTHOR1 -p AUTHOR2\n");
-                return ERROR_ARGS_PARSE;
-            }
+            countAuthorsArguments++;
+            printf("%i\n", countAuthorsArguments);
+
+            options->action[ACTION_MAT] = TO_DO;
+            options->action[ACTION_DIJKSTRA] = TO_DO;
             break;
         case 'h':
             printUsage();
@@ -97,6 +95,13 @@ int parseArgs(int argc, char **argv, options_t *options) {
         default:
             return ERROR_ARGS_PARSE;
         }
+    }
+    if ((countAuthorsArguments == 2 && (options->authorNames[0] == NULL ||
+                                        options->authorNames[1] == NULL)) ||
+        countAuthorsArguments == 1) {
+        fprintf(stderr, "One or two authors missing ! Usage : "
+                        "./bin/program -i ... -o ... -p AUTHOR1 -p AUTHOR2\n");
+        return ERROR_ARGS_PARSE;
     }
     for (int k = 0; k < 6; k++) {
         if (options->action[k] != NOT_TO_DO) {

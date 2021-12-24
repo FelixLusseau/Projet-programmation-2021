@@ -11,7 +11,8 @@ typedef enum action_t {
     ACTION_MAT,
     ACTION_READ,
     ACTION_SHOW_ARTICLES,
-    ACTION_SHOW_AUTHORS
+    ACTION_SHOW_AUTHORS,
+    ACTION_DIJKSTRA
 } action_t;
 
 typedef struct structureBase_t {
@@ -26,7 +27,7 @@ typedef struct structureBase_t {
 typedef struct options_t {
     char *inputFilename;
     char *outputFilename;
-    int action[6];
+    int action[7];
     char *authorNames[2];
     int N;
 
@@ -47,6 +48,7 @@ typedef enum error_t {
     ERROR_OPEN_DATABASE,
     ERROR_OPEN_BIN,
     ERROR_XML,
+    ERROR_BIN,
     ERROR_BASE_PARSE,
     ERROR_READ,
     ERROR_MAT,

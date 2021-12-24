@@ -59,16 +59,18 @@ int main(int argc, char **argv) {
         exitCode = openFiles(&options, "r", 0);
         node0 = DoListAdjDeBinHash(&options, &taille, hashTable);
         // printListNode(node0);
-        /* for (int s = 0; s < 50000000; s++)
-            printf("%s\n", &(*hashTable[s]).author); */
     }
     if (options.action[ACTION_SHOW_ARTICLES] == TO_DO) {
-        exitCode = showArticles(&options);
+        exitCode = showArticles(&options, hashTable, node0);
         if (exitCode)
             goto error;
     }
     if (options.action[ACTION_SHOW_AUTHORS] == TO_DO) {
-        exitCode = showAuthors(&options, hashTable);
+        // exitCode = showAuthors(&options, hashTable);
+        showAuthorsGraph(&options, hashTable, node0);
+    }
+    if (options.action[ACTION_DIJKSTRA] == TO_DO) {
+        exitCode = dijkstra(6, node0, taille);
         if (exitCode)
             goto error;
     }

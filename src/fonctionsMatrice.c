@@ -291,7 +291,7 @@ node *DoListAdjDeBin(options_t *option, int *taille) {
     return node0;
 }
 
-void Dijkstra(int n1, node *node0, int taille) {
+int dijkstra(int n1, node *node0, int taille) {
     // une distance de -1 représente une distance infini
     node *node1 = GoToNode(n1, node0);
     node *currentNode = node1;
@@ -318,7 +318,7 @@ void Dijkstra(int n1, node *node0, int taille) {
                     voisin->distance > (currentNode->distance + 1)) {
                     voisin->distance = currentNode->distance + 1;
 
-                    // on doit aussi changé la distance dans ListeDistance
+                    // on doit aussi changer la distance dans ListeDistance
                     if (ListeDistance == NULL) {
                         node newDistance0 = *voisin;
                         newDistance0.nextNode = NULL;
@@ -384,6 +384,7 @@ void Dijkstra(int n1, node *node0, int taille) {
         }
         k++;
     }
+    return OK;
 }
 
 void printDistance(int n1, node *node0) {
