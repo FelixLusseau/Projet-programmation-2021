@@ -15,11 +15,13 @@ extern int interruptFlag;
 
 int showArticles(options_t *options, node **hashTable, node *node0) {
     initSigaction();
-    int count = showAuthorsGraph(options, hashTable, node0);
+    int count = showAuthorsGraph(options, hashTable, node0, 0);
     // printf("%i\n", count);
     char *exitCode = "Ok";
     fseek(options->outputFile, 0, SEEK_SET);
-    if (count != 1) {
+    if (count == 0) {
+        return OK;
+    } else if (count != 1) {
         printf("\n%i authors found ! Which one do you want to browse the "
                "articles ?\n"
                "Enter his complete name : ",
@@ -59,7 +61,7 @@ int showArticles(options_t *options, node **hashTable, node *node0) {
     return OK;
 }
 
-int showAuthors(options_t *options, node **hashTable) {
+int showAuthors(options_t *options, node **hashTable, int author0or1) {
     initSigaction();
     fseek(options->outputFile, 0, SEEK_SET);
     int nbEntries = readEntireBin(options, 0);
@@ -78,7 +80,8 @@ int showAuthors(options_t *options, node **hashTable) {
         if (structureBase.authornb == 0)
             break;
         for (int k = 0; k < structureBase.authornb; k++) {
-            if (strstr(structureBase.author[k], options->authorNames[0])) {
+            if (strstr(structureBase.author[k],
+                       options->authorNames[author0or1])) {
                 authorHash = hash((unsigned char *)structureBase.author[k]);
                 /* if (hashTablePositions[authorHash] == 0) {
                     printf(" - %s\n", hashTable[authorHash]->author);
@@ -108,13 +111,15 @@ int showAuthors(options_t *options, node **hashTable) {
     return OK;
 }
 
-int showAuthorsGraph(options_t *options, node **hashTable, node *node0) {
+int showAuthorsGraph(options_t *options, node **hashTable, node *node0,
+                     int author0or1) {
     initSigaction();
     fseek(options->outputFile, 0, SEEK_SET);
     if (node0 == NULL) {
         return 4;
     }
     node *currentNode = node0;
+    char *authortmp = currentNode->author;
     int counter = 0;
     int *hashTablePositions = calloc(50000000, sizeof(int));
     if (hashTablePositions == NULL)
@@ -122,7 +127,8 @@ int showAuthorsGraph(options_t *options, node **hashTable, node *node0) {
     unsigned int authorHash = 0;
     printf("Searching...\n\n");
     while (currentNode->nextNode != NULL) {
-        if (strstr(currentNode->author, options->authorNames[0])) {
+        if (strstr(currentNode->author, options->authorNames[author0or1])) {
+            authortmp = currentNode->author;
             authorHash = hash((unsigned char *)currentNode->author);
             if (hashTablePositions[authorHash] == 0) {
                 // printf(" - %s\n", hashTable[authorHash]->author);
@@ -136,7 +142,7 @@ int showAuthorsGraph(options_t *options, node **hashTable, node *node0) {
     }
     if (counter != 0) {
         printf("Authors containing \"%s\" in their name : \n",
-               options->authorNames[0]);
+               options->authorNames[author0or1]);
         for (unsigned int s = 0; s < 50000000; s++) {
             if (hashTablePositions[s] == 1) {
                 printf(" - %s\n", hashTable[s]->author);
@@ -144,9 +150,11 @@ int showAuthorsGraph(options_t *options, node **hashTable, node *node0) {
         }
     } else {
         printf("No author containing \"\33[0;31m%s\33[0m\" in his name ! \n",
-               options->authorNames[0]);
+               options->authorNames[author0or1]);
     }
-
+    if (counter == 1) {
+        options->authorNames[author0or1] = authortmp;
+    }
     free(hashTablePositions);
     options->action[ACTION_SHOW_AUTHORS] = DONE_SUCCESSFULLY;
     return counter;

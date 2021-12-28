@@ -28,7 +28,7 @@ unsigned int showALlAuthors(options_t *options) {
         if (structureBase.authornb == 0)
             break;
         for (int k = 0; k < structureBase.authornb; k++) {
-            printf(" - %s\n", structureBase.author[k]);
+            // printf(" - %s\n", structureBase.author[k]);
             /* hash((unsigned char *)structureBase.author[k]));
      printf("%lu\n", hash((unsigned char *)structureBase.author[k]));
      max = MAX(max, hash((unsigned char *)structureBase.author[k]));

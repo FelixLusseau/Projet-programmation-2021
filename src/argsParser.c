@@ -103,7 +103,7 @@ int parseArgs(int argc, char **argv, options_t *options) {
                         "./bin/program -i ... -o ... -p AUTHOR1 -p AUTHOR2\n");
         return ERROR_ARGS_PARSE;
     }
-    for (int k = 0; k < 6; k++) {
+    for (int k = 1; k < 6; k++) {
         if (options->action[k] != NOT_TO_DO) {
             options->action[ACTION_UNKNOWN] = 0;
         }

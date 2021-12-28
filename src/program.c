@@ -19,6 +19,7 @@ int main(int argc, char **argv) {
     int exitCode;
     options_t options;
     node *node0 = NULL;
+    node **hashTable = malloc(50000000 * sizeof(unsigned int) * sizeof(char *));
     exitCode = parseArgs(argc, argv, &options);
     if (exitCode)
         goto error;
@@ -33,7 +34,6 @@ int main(int argc, char **argv) {
     } else
         closeFiles(&options);
     exitCode = openFiles(&options, "r", 0); */
-    node **hashTable = malloc(50000000 * sizeof(unsigned int) * sizeof(char *));
     if (hashTable == NULL)
         return ERROR_GRAPH;
     for (int i = 0; i < 50000000; i++)
@@ -67,13 +67,13 @@ int main(int argc, char **argv) {
     }
     if (options.action[ACTION_SHOW_AUTHORS] == TO_DO) {
         // exitCode = showAuthors(&options, hashTable);
-        showAuthorsGraph(&options, hashTable, node0);
+        showAuthorsGraph(&options, hashTable, node0, 0);
     }
-    if (options.action[ACTION_DIJKSTRA] == TO_DO) {
+    /* if (options.action[ACTION_DIJKSTRA] == TO_DO) {
         exitCode = dijkstra(6, node0, taille);
         if (exitCode)
             goto error;
-    }
+    } */
     if (options.action[ACTION_UNKNOWN] == 1) {
         fprintf(stderr, "Action is missing !\n");
         printUsage();
@@ -83,10 +83,16 @@ int main(int argc, char **argv) {
     if (node0 != NULL)
         freeListAdj(node0);
     free(hashTable);
-    closeFiles(&options);
+    if (options.inputFile != NULL || options.outputFile != NULL)
+        closeFiles(&options);
 
 error:
     if (exitCode) {
+        if (node0 != NULL)
+            freeListAdj(node0);
+        free(hashTable);
+        if (options.inputFile != NULL || options.outputFile != NULL)
+            closeFiles(&options);
         fprintf(stderr, "%s\n", errorToString(exitCode));
         return exitCode;
     }

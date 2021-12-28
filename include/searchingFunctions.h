@@ -17,7 +17,7 @@ int showArticles(options_t *options, node **hashTable, node *node0);
  * @param options
  * @return int
  */
-int showAuthors(options_t *options, node **hashTable);
+int showAuthors(options_t *options, node **hashTable, int author0or1);
 
 /**
  * @brief print the authors' names containing the string given in argument using
@@ -28,6 +28,7 @@ int showAuthors(options_t *options, node **hashTable);
  * @param node0
  * @return int
  */
-int showAuthorsGraph(options_t *options, node **hashTable, node *node0);
+int showAuthorsGraph(options_t *options, node **hashTable, node *node0,
+                     int author0or1);
 
 #endif

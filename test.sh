@@ -31,7 +31,7 @@ make $TARGET >> $LOG 2>&1 || fail
 coloredEcho "OK" green
 
 
-annoncer "Execution erreur"
+annoncer "Erreur pas d'arguments"
 $VALGRIND ./$TARGET >> $LOG 2>&1 && fail
 coloredEcho "OK" green
 
@@ -50,16 +50,17 @@ then
 fi
 coloredEcho "OK" green
 
-#annoncer "Execution erreur 2"
-#$VALGRIND ./$TARGET -i tests/cat.bmp -o /NEXSTEPAS/OUT.TXT >> $LOG 2>&1 && fail
-#coloredEcho "OK" green
+annoncer "Erreur entrée non XML"
+$VALGRIND ./$TARGET -i tests/sample.bin -o tests/out >> $LOG 2>&1 && fail
+coloredEcho "OK" green
 
+annoncer "Execution graphe sample"
+$VALGRIND ./$TARGET -o tests/sample.bin -m >> $LOG 2>&1 || fail
+coloredEcho "OK" green
 
-#annoncer "Execution erreur 3"
-#$VALGRIND ./$TARGET -e -i tests/cat.bmp >> $LOG 2>&1 && fail
-#coloredEcho "OK" green
-
-
+annoncer "Execution recherche articles (et auteurs)"
+$VALGRIND ./$TARGET -o tests/sample.bin -a "Russell Turpin" >> $LOG 2>&1 || fail
+coloredEcho "OK" green
 
 #annoncer "Execution encode"
 #$VALGRIND ./$TARGET -e -m "$(cat tests/message.txt)" -i tests/cat.bmp -o tests/out.bmp >> $LOG 2>&1 || fail

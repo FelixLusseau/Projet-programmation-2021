@@ -2,10 +2,6 @@ tests.c et test.sh
 
 hash function : http://www.cse.yorku.ca/~oz/hash.html
 
-utiliser la table de hash et le graphe tout du long (show authors, articles etc...)
-
-Barres de prog
-
 automatiser (ou presque) parsage et graphe au début du prog
 
 option -N
@@ -17,7 +13,6 @@ Interface ?
 done successfully utile ?
 
 test existence bin -> parsage ailleurs ?
-
 segfault quand pas un bin en sortie
 
-Russell Gomersall pb ? -> manquait 4 millions d'auteurs
+fonction de free program.c

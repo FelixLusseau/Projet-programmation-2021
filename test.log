@@ -3,21 +3,27 @@
 #### Compilation
 ####
 mkdir -p obj
-cc -o obj/argsParser.o -c src/argsParser.c -Wall -Wextra -Werror -g -I./include
+gcc -o obj/fonctionsMatricesHash.o -c src/fonctionsMatricesHash.c -O3 -pipe -march=native -mtune=native -Wall -Wextra -Werror -g -I./include
 mkdir -p obj
-cc -o obj/io-utils.o -c src/io-utils.c -Wall -Wextra -Werror -g -I./include
+gcc -o obj/readFunctions.o -c src/readFunctions.c -O3 -pipe -march=native -mtune=native -Wall -Wextra -Werror -g -I./include
 mkdir -p obj
-cc -o obj/program.o -c src/program.c -Wall -Wextra -Werror -g -I./include
+gcc -o obj/argsParser.o -c src/argsParser.c -O3 -pipe -march=native -mtune=native -Wall -Wextra -Werror -g -I./include
 mkdir -p obj
-cc -o obj/baseParser.o -c src/baseParser.c -Wall -Wextra -Werror -g -I./include
+gcc -o obj/io-utils.o -c src/io-utils.c -O3 -pipe -march=native -mtune=native -Wall -Wextra -Werror -g -I./include
 mkdir -p obj
-cc -o obj/fonctionsMatrice.o -c src/fonctionsMatrice.c -Wall -Wextra -Werror -g -I./include
+gcc -o obj/searchingFunctions.o -c src/searchingFunctions.c -O3 -pipe -march=native -mtune=native -Wall -Wextra -Werror -g -I./include
+mkdir -p obj
+gcc -o obj/program.o -c src/program.c -O3 -pipe -march=native -mtune=native -Wall -Wextra -Werror -g -I./include
+mkdir -p obj
+gcc -o obj/baseParser.o -c src/baseParser.c -O3 -pipe -march=native -mtune=native -Wall -Wextra -Werror -g -I./include
+mkdir -p obj
+gcc -o obj/fonctionsMatrice.o -c src/fonctionsMatrice.c -O3 -pipe -march=native -mtune=native -Wall -Wextra -Werror -g -I./include
 mkdir -p bin
-cc -o bin/program obj/argsParser.o obj/io-utils.o obj/program.o obj/baseParser.o obj/fonctionsMatrice.o -Wall -Wextra -Werror -g -lm -ltps -lSDL2 -lSDL2_ttf
+gcc -o bin/program obj/fonctionsMatricesHash.o obj/readFunctions.o obj/argsParser.o obj/io-utils.o obj/searchingFunctions.o obj/program.o obj/baseParser.o obj/fonctionsMatrice.o -O3 -pipe -march=native -mtune=native -Wall -Wextra -Werror -g 
 Linking complete!
 
 ####
-#### Execution erreur
+#### Erreur pas d'arguments
 ####
 Action is missing !
 
@@ -25,9 +31,9 @@ usage: ./bin/program OPTIONS
 options:
 	-i FICHIER               indicate the xml to read
 	-o FICHIER               indicate the binary to write
-	-x                       parse the input xml file into the binary output file
+	-x                       generate the binary file from the xml database
 	-r                       read and print the binary structure for each document
-	-m                       make the adjacence matrix from the binary file
+	-m                       make the adjacence list from the binary file
 	-a AUTHOR                show all the titles of the document where the author has participated
 	-l WORD                  show all the authors containing WORD in their name
 	-p AUTHOR1 -p AUTHOR2    make the graph of the shortest way between these authors
@@ -35,14 +41,66 @@ options:
 
 
 Examples:
-./bin/program -i database/dblp.xml -o database/dblp.bin -x
+./bin/program -i database/dblp.xml -o database/dblp.bin -a "Quentin Bramas"
 
 ####
 #### Execution parsing base sample
 ####
-Database parsing ok ! 
+[0;32mDatabase parsing ok ! [0m
 
 ####
 #### Execution parse base sample1ref et affichage structure
 ####
 ===DIFF===
+
+####
+#### Erreur entrée non XML
+####
+Action is missing !
+
+usage: ./bin/program OPTIONS
+options:
+	-i FICHIER               indicate the xml to read
+	-o FICHIER               indicate the binary to write
+	-x                       generate the binary file from the xml database
+	-r                       read and print the binary structure for each document
+	-m                       make the adjacence list from the binary file
+	-a AUTHOR                show all the titles of the document where the author has participated
+	-l WORD                  show all the authors containing WORD in their name
+	-p AUTHOR1 -p AUTHOR2    make the graph of the shortest way between these authors
+	-h                       show this help
+
+
+Examples:
+./bin/program -i database/dblp.xml -o database/dblp.bin -a "Quentin Bramas"
+
+####
+#### Execution graphe sample
+####
+
+*************************************Debut de la fonction graphe*************************************
+
+[?25l[[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m][?25h
+
+**************************************Fin de la fonction graphe**************************************
+
+
+####
+#### Execution recherche articles (et auteurs)
+####
+
+*************************************Debut de la fonction graphe*************************************
+
+[?25l[[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m][?25h
+
+**************************************Fin de la fonction graphe**************************************
+
+Searching...
+
+Authors containing "Russell Turpin" in their name : 
+ - Russell Turpin
+
+Articles of Russell Turpin : 
+ - Programming Data Structures in Logic.
+
+[0;32mComplete ! [0m
