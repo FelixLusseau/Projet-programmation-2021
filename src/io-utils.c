@@ -5,6 +5,9 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "fonctionsMatrice.h"
+#include "program.h"
+
 extern int interruptFlag;
 
 void handleSignal() {
@@ -80,6 +83,15 @@ int closeFiles(options_t *options) {
     if (options->inputFile != NULL)
         fclose(options->inputFile);
     fclose(options->outputFile);
+    return OK;
+}
+
+int endOfProgram(options_t *options, node *node0, node **hashTable) {
+    if (node0 != NULL)
+        freeListAdj(node0);
+    free(hashTable);
+    if (options->inputFile != NULL || options->outputFile != NULL)
+        closeFiles(options);
     return OK;
 }
 

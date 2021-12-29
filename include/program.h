@@ -54,6 +54,7 @@ typedef enum error_t {
     ERROR_MAT,
     ERROR_SHOW_ARTICLES,
     ERROR_SHOW_AUTHORS,
+    ERROR_NO_AUTHOR,
     ERROR_GRAPH
 } error_t;
 

@@ -15,104 +15,41 @@ extern int interruptFlag;
 
 int showArticles(options_t *options, node **hashTable, node *node0) {
     initSigaction();
-    int count = showAuthorsGraph(options, hashTable, node0, 0);
-    // printf("%i\n", count);
-    char *exitCode = "Ok";
-    fseek(options->outputFile, 0, SEEK_SET);
-    if (count == 0) {
+    int exitCode = chooseAuthor(options, hashTable, node0, 0);
+    if (exitCode == ERROR_SHOW_ARTICLES)
+        return ERROR_SHOW_ARTICLES;
+    else if (exitCode == ERROR_NO_AUTHOR) {
         return OK;
-    } else if (count != 1) {
-        printf("\n%i authors found ! Which one do you want to browse the "
-               "articles ?\n"
-               "Enter his complete name : ",
-               count);
-        // options->authorNames[0] = NULL;
-        exitCode = fgets(options->authorNames[0], 100, stdin);
-        if (exitCode == NULL) {
-            return ERROR_SHOW_ARTICLES;
-        }
-        // printf("%s\n", options->authorNames[0]);
-        // printf("%zu\n", strlen(options->authorNames[0]));
-
-        options->authorNames[0][strlen(options->authorNames[0]) - 1] = '\0';
-        // printf("%s\n", options->authorNames[0]);
-        // printf("%zu\n", strlen(options->authorNames[0]));
     }
+    int count = 0;
     int16_t precAuthornb = 0;
     structureBase_t structureBase;
-    // return 2;
     printf("\nArticles of %s : \n", options->authorNames[0]);
     while (1) {
         initStructure(&structureBase, precAuthornb);
         structureBase = readEntryBin(options, -1);
-        // printStruct(&structureBase);
         if (structureBase.authornb == 0 || interruptFlag == 1)
             break;
         for (int k = 0; k < structureBase.authornb; k++) {
             if (strstr(structureBase.author[k], options->authorNames[0])) {
                 printf(" - %s\n", structureBase.title);
+                count++;
                 break;
             }
         }
         precAuthornb = structureBase.authornb;
+    }
+    if (count == 0) {
+        fprintf(stderr, "\nInvalid author name given ! \n");
+        return ERROR_SHOW_ARTICLES;
     }
     printf("\n\33[0;32mComplete ! \33[0m\n");
     options->action[ACTION_SHOW_ARTICLES] = DONE_SUCCESSFULLY;
     return OK;
 }
 
-int showAuthors(options_t *options, node **hashTable, int author0or1) {
-    initSigaction();
-    fseek(options->outputFile, 0, SEEK_SET);
-    int nbEntries = readEntireBin(options, 0);
-    int counter = 0;
-    int *hashTablePositions = calloc(50000000, sizeof(int));
-    if (hashTablePositions == NULL)
-        return 4;
-    int16_t precAuthornb = 0;
-    structureBase_t structureBase;
-    unsigned int authorHash = 0;
-    printf("Searching...\n\n");
-    while (1) {
-        initStructure(&structureBase, precAuthornb);
-        structureBase = readEntryBin(options, -1);
-        // printStruct(&structureBase);
-        if (structureBase.authornb == 0)
-            break;
-        for (int k = 0; k < structureBase.authornb; k++) {
-            if (strstr(structureBase.author[k],
-                       options->authorNames[author0or1])) {
-                authorHash = hash((unsigned char *)structureBase.author[k]);
-                /* if (hashTablePositions[authorHash] == 0) {
-                    printf(" - %s\n", hashTable[authorHash]->author);
-                } */
-                hashTablePositions[authorHash] = 1;
-            }
-        }
-        if (interruptFlag == 1)
-            break;
-        precAuthornb = structureBase.authornb;
-        counter++;
-        if (counter % 50000 == 0) {
-            progressBar(counter * 100 / nbEntries);
-        }
-    }
-    progressBar(100);
-    printf("\n\n");
-    printf("Authors containing \"%s\" in their name : \n",
-           options->authorNames[0]);
-    for (unsigned int s = 0; s < 50000000; s++) {
-        if (hashTablePositions[s] == 1)
-            printf(" - %s\n", hashTable[s]->author);
-    }
-    // if (options->action[ACTION_SHOW_AUTHORS] == 1)
-    free(hashTablePositions);
-    options->action[ACTION_SHOW_AUTHORS] = DONE_SUCCESSFULLY;
-    return OK;
-}
-
-int showAuthorsGraph(options_t *options, node **hashTable, node *node0,
-                     int author0or1) {
+int showAuthors(options_t *options, node **hashTable, node *node0,
+                int author0or1) {
     initSigaction();
     fseek(options->outputFile, 0, SEEK_SET);
     if (node0 == NULL) {
@@ -158,4 +95,24 @@ int showAuthorsGraph(options_t *options, node **hashTable, node *node0,
     free(hashTablePositions);
     options->action[ACTION_SHOW_AUTHORS] = DONE_SUCCESSFULLY;
     return counter;
+}
+
+int chooseAuthor(options_t *options, node **hashTable, node *node0,
+                 int author0or1) {
+    int count = showAuthors(options, hashTable, node0, author0or1);
+    fseek(options->outputFile, 0, SEEK_SET);
+    char *exitChar = "Ok";
+    if (count == 0) {
+        return ERROR_NO_AUTHOR;
+    } else if (count != 1) {
+        printf("\n%i authors found ! Which one do you want to see ?\n"
+               "Enter his complete name : ",
+               count);
+        exitChar = fgets(options->authorNames[0], 100, stdin);
+        if (exitChar == NULL) {
+            return ERROR_SHOW_ARTICLES;
+        }
+        options->authorNames[0][strlen(options->authorNames[0]) - 1] = '\0';
+    }
+    return OK;
 }

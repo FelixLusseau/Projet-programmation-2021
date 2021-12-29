@@ -1,6 +1,7 @@
 #ifndef IO_UTILS_H
 #define IO_UTILS_H
 
+#include "fonctionsMatrice.h"
 #include "program.h"
 
 /**
@@ -42,6 +43,8 @@ int openFiles(options_t *options, char *openMode, int test);
  */
 
 int closeFiles(options_t *options);
+
+int endOfProgram(options_t *options, node *node0, node **hashTable);
 
 /**
  * @brief convert error from error_t to string

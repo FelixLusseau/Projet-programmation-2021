@@ -67,7 +67,7 @@ int main(int argc, char **argv) {
     }
     if (options.action[ACTION_SHOW_AUTHORS] == TO_DO) {
         // exitCode = showAuthors(&options, hashTable);
-        showAuthorsGraph(&options, hashTable, node0, 0);
+        showAuthors(&options, hashTable, node0, 0);
     }
     /* if (options.action[ACTION_DIJKSTRA] == TO_DO) {
         exitCode = dijkstra(6, node0, taille);
@@ -80,19 +80,11 @@ int main(int argc, char **argv) {
         exitCode = ERROR_MISSING_ACTION;
         goto error;
     }
-    if (node0 != NULL)
-        freeListAdj(node0);
-    free(hashTable);
-    if (options.inputFile != NULL || options.outputFile != NULL)
-        closeFiles(&options);
+    endOfProgram(&options, node0, hashTable);
 
 error:
     if (exitCode) {
-        if (node0 != NULL)
-            freeListAdj(node0);
-        free(hashTable);
-        if (options.inputFile != NULL || options.outputFile != NULL)
-            closeFiles(&options);
+        endOfProgram(&options, node0, hashTable);
         fprintf(stderr, "%s\n", errorToString(exitCode));
         return exitCode;
     }
