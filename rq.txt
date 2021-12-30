@@ -15,4 +15,6 @@ done successfully utile ?
 test existence bin -> parsage ailleurs ?
 segfault quand pas un bin en sortie
 
-fonction de free program.c
+exit dans showAuthors ?
+
+vérif de l'auteur dans chooseAuthor ?

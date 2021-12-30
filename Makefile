@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS ?= -O3 -pipe -march=native -mtune=native -Wall -Wextra -Werror -g
+CFLAGS ?= -O3 -pipe -march=native -mtune=native -Wall -Wextra -Werror -g 
 LDLIBS?= 
 
 INCLUDE_PATH = ./include

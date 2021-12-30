@@ -1,6 +1,7 @@
 #include "io-utils.h"
 #include <ctype.h>
 #include <errno.h>
+#include <signal.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -120,6 +121,8 @@ const char *errorToString(error_t err) {
         return "=> \33[0;31mError\33[0m while showing the authors !";
     case ERROR_GRAPH:
         return "=> \33[0;31mError\33[0m while generating the graph !";
+    case ERROR_NODE_EQ_NULL:
+        return "=> \33[0;31mError\33[0m graph is empty !";
     default:
     case OK:
         return "";

@@ -15,14 +15,9 @@ unsigned hash(unsigned char *str) {
     int c;
     while ((c = *str++))
         hash = ((hash << 5) + hash) + c;
-    hash %= 50000000;
+    hash %= HT_SIZE;
     // printf("%u\n", hash);
     return hash;
-}
-
-unsigned char *unhash(unsigned int authorHashed) {
-    (void)authorHashed;
-    return (unsigned char *)"ok";
 }
 
 int AuthorInListHash(char *author, node **hashTable) {
@@ -168,6 +163,27 @@ node *DoListAdjDeBinHash(options_t *option, int *taille, node **hashTable) {
     printf("\33[?25h");
     printf("\n\n**************************************Fin de la fonction "
            "graphe**************************************\n\n");
-    option->action[ACTION_MAT] = DONE_SUCCESSFULLY;
+    option->action[ACTION_GRAPH] = DONE_SUCCESSFULLY;
     return node0;
+}
+
+int authorNameToNodeNumber(char *authorName, node **hashTable) {
+    unsigned int authorHash = hash((unsigned char *)authorName);
+    return hashTable[authorHash]->nodeNumber;
+}
+
+int printAuthorAtDist(options_t *options, node *node0) {
+    if (node0 == NULL) {
+        return ERROR_NODE_EQ_NULL;
+    }
+    node *currentNode = node0;
+    while (currentNode->nextNode != NULL) {
+        if (currentNode->nodeNumber == options->N) {
+            printf(" - %s\n", currentNode->author);
+        }
+        currentNode = currentNode->nextNode;
+        if (interruptFlag == 1)
+            break;
+    }
+    return OK;
 }

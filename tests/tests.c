@@ -15,7 +15,7 @@
 
 int interruptFlag = 0;
 
-unsigned int showALlAuthors(options_t *options) {
+unsigned int showAllAuthors(options_t *options) {
     initSigaction();
     int16_t precAuthornb = 0;
     structureBase_t structureBase;
@@ -28,7 +28,7 @@ unsigned int showALlAuthors(options_t *options) {
         if (structureBase.authornb == 0)
             break;
         for (int k = 0; k < structureBase.authornb; k++) {
-            // printf(" - %s\n", structureBase.author[k]);
+            printf(" - %s\n", structureBase.author[k]);
             /* hash((unsigned char *)structureBase.author[k]));
      printf("%lu\n", hash((unsigned char *)structureBase.author[k]));
      max = MAX(max, hash((unsigned char *)structureBase.author[k]));
@@ -79,33 +79,28 @@ void testCreateListeAdj(void) {
     int test2 = AuthorInList(author2, node0);
     printf("test présence author: %i\n", test2);
 
-    // Dijkstra(6,node0,taille);
-    // printDistance(6,node0);
+    // dijkstra(6, node0, 6);
+    // printDistance(6, node0);
 
     freeListAdj(node0);
 }
 int main() {
-    // testCreateListeAdj();
+    testCreateListeAdj();
     options_t options;
-    options.inputFilename = NULL;
-    options.outputFilename = NULL;
+    options.inputFilename = "../database/dblp.xml";
+    options.outputFilename = "../database/dblp.bin";
     options.inputFile = NULL;
-    options.outputFile = fopen("../database/dblp.bin", "r");
-    options.action[0] = 1;
+    options.outputFile = NULL;
+    options.action[ACTION_UNKNOWN] = 1;
+    for (int a = 1; a < 6; a++)
+        options.action[a] = NOT_TO_DO;
     options.authorNames[0] = NULL;
     options.authorNames[1] = NULL;
 
-    showALlAuthors(&options);
+    openFiles(&options, "r", 0);
+    closeFiles(&options);
 
-    /* char *tab = malloc(50000000 * sizeof(unsigned int) * sizeof(char *));
-    // 50000000*sizeof(unsigned int)*sizeof(char *)=1600000000
-    if (tab == NULL) {
-        printf("nok\n");
-        return 6;
-    }
-    sleep(10);
-    // printf("max : %u\n", showALlAuthors(&options));
-    printf("sizeof lu : %zu\n", sizeof(unsigned int));
-    printf("%lu\n", 50000000 * sizeof(unsigned int) * sizeof(char *)); */
+    // showAllAuthors(&options);
+
     return 0;
 }

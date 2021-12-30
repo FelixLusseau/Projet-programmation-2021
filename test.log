@@ -3,23 +3,23 @@
 #### Compilation
 ####
 mkdir -p obj
-gcc -o obj/fonctionsMatricesHash.o -c src/fonctionsMatricesHash.c -O3 -pipe -march=native -mtune=native -Wall -Wextra -Werror -g -I./include
+gcc -o obj/fonctionsMatricesHash.o -c src/fonctionsMatricesHash.c -O3 -pipe -march=native -mtune=native -Wall -Wextra -Werror -g  -I./include
 mkdir -p obj
-gcc -o obj/readFunctions.o -c src/readFunctions.c -O3 -pipe -march=native -mtune=native -Wall -Wextra -Werror -g -I./include
+gcc -o obj/readFunctions.o -c src/readFunctions.c -O3 -pipe -march=native -mtune=native -Wall -Wextra -Werror -g  -I./include
 mkdir -p obj
-gcc -o obj/argsParser.o -c src/argsParser.c -O3 -pipe -march=native -mtune=native -Wall -Wextra -Werror -g -I./include
+gcc -o obj/argsParser.o -c src/argsParser.c -O3 -pipe -march=native -mtune=native -Wall -Wextra -Werror -g  -I./include
 mkdir -p obj
-gcc -o obj/io-utils.o -c src/io-utils.c -O3 -pipe -march=native -mtune=native -Wall -Wextra -Werror -g -I./include
+gcc -o obj/io-utils.o -c src/io-utils.c -O3 -pipe -march=native -mtune=native -Wall -Wextra -Werror -g  -I./include
 mkdir -p obj
-gcc -o obj/searchingFunctions.o -c src/searchingFunctions.c -O3 -pipe -march=native -mtune=native -Wall -Wextra -Werror -g -I./include
+gcc -o obj/searchingFunctions.o -c src/searchingFunctions.c -O3 -pipe -march=native -mtune=native -Wall -Wextra -Werror -g  -I./include
 mkdir -p obj
-gcc -o obj/program.o -c src/program.c -O3 -pipe -march=native -mtune=native -Wall -Wextra -Werror -g -I./include
+gcc -o obj/program.o -c src/program.c -O3 -pipe -march=native -mtune=native -Wall -Wextra -Werror -g  -I./include
 mkdir -p obj
-gcc -o obj/baseParser.o -c src/baseParser.c -O3 -pipe -march=native -mtune=native -Wall -Wextra -Werror -g -I./include
+gcc -o obj/baseParser.o -c src/baseParser.c -O3 -pipe -march=native -mtune=native -Wall -Wextra -Werror -g  -I./include
 mkdir -p obj
-gcc -o obj/fonctionsMatrice.o -c src/fonctionsMatrice.c -O3 -pipe -march=native -mtune=native -Wall -Wextra -Werror -g -I./include
+gcc -o obj/fonctionsMatrice.o -c src/fonctionsMatrice.c -O3 -pipe -march=native -mtune=native -Wall -Wextra -Werror -g  -I./include
 mkdir -p bin
-gcc -o bin/program obj/fonctionsMatricesHash.o obj/readFunctions.o obj/argsParser.o obj/io-utils.o obj/searchingFunctions.o obj/program.o obj/baseParser.o obj/fonctionsMatrice.o -O3 -pipe -march=native -mtune=native -Wall -Wextra -Werror -g 
+gcc -o bin/program obj/fonctionsMatricesHash.o obj/readFunctions.o obj/argsParser.o obj/io-utils.o obj/searchingFunctions.o obj/program.o obj/baseParser.o obj/fonctionsMatrice.o -O3 -pipe -march=native -mtune=native -Wall -Wextra -Werror -g  
 Linking complete!
 
 ####
@@ -100,7 +100,10 @@ Searching...
 Authors containing "Russell Turpin" in their name : 
  - Russell Turpin
 
+
+
 Articles of Russell Turpin : 
  - Programming Data Structures in Logic.
+
 
 [0;32mComplete ! [0m
