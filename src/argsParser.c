@@ -1,4 +1,6 @@
 #include "argsParser.h"
+#include "io-utils.h"
+
 #include <ctype.h>
 #include <getopt.h>
 #include <stdio.h>
@@ -29,15 +31,7 @@ void printUsage(void) {
 }
 
 int parseArgs(int argc, char **argv, options_t *options) {
-    options->inputFilename = NULL;
-    options->outputFilename = NULL;
-    options->inputFile = NULL;
-    options->outputFile = NULL;
-    options->action[ACTION_UNKNOWN] = 1;
-    for (int a = 1; a < ACTIONS_NB + 1; a++)
-        options->action[a] = NOT_TO_DO;
-    options->authorNames[0] = NULL;
-    options->authorNames[1] = NULL;
+    initOptions(options);
     int countAuthorsArguments = 0;
     int c;
     while ((c = getopt(argc, argv, "i:o:xrma:l:hp:N:")) != -1) {

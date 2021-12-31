@@ -6,12 +6,17 @@
 #include "argsParser.h"
 #include "baseParser.h"
 #include "fonctionsMatrice.h"
+#include "fonctionsMatricesHash.h"
 #include "io-utils.h"
 #include "program.h"
 #include "readFunctions.h"
+#include "searchingFunctions.h"
+#include "tps_unit_test.h"
 
 #define MAX(X, Y) (((X) > (Y)) ? (X) : (Y))
 #define MIN(X, Y) (((X) < (Y)) ? (X) : (Y))
+
+TEST_INIT_GLOBAL
 
 int interruptFlag = 0;
 
@@ -84,8 +89,68 @@ void testCreateListeAdj(void) {
 
     freeListAdj(node0);
 }
-int main() {
-    testCreateListeAdj();
+
+void testParse() {
+    options_t options;
+    initOptions(&options);
+    options.inputFilename = "sample.xml";
+    options.outputFilename = "outsampletest.bin";
+    options.action[ACTION_PARSE] = 1;
+    openFiles(&options, "w", 0);
+    tps_assert(options.inputFile != NULL);
+    tps_assert(options.outputFile != NULL);
+    tps_assert(parseBase(&options) == OK);
+    closeFiles(&options);
+}
+
+void testRead() {
+    options_t options;
+    initOptions(&options);
+    options.outputFilename = "outsampletest.bin";
+    options.action[ACTION_PARSE] = 0;
+    openFiles(&options, "r", 0);
+    tps_assert(readEntireBin(&options, 1) == OK);
+    closeFiles(&options);
+}
+
+void testGraph() {
+    int taille = 0;
+    node *node0 = NULL;
+    node **hashTable = malloc(HT_SIZE * sizeof(unsigned int) * sizeof(char *));
+    tps_assert(hashTable != NULL);
+    for (int i = 0; i < HT_SIZE; i++)
+        hashTable[i] = NULL;
+    options_t options;
+    initOptions(&options);
+    options.outputFilename = "outsampletest.bin";
+    options.action[ACTION_PARSE] = 0;
+    openFiles(&options, "r", 0);
+    node0 = DoListAdjDeBinHash(&options, &taille, hashTable);
+    tps_assert(node0 != NULL);
+    endOfProgram(&options, node0, hashTable);
+}
+
+void testArticles() {
+    int taille = 0;
+    node *node0 = NULL;
+    node **hashTable = malloc(HT_SIZE * sizeof(unsigned int) * sizeof(char *));
+    tps_assert(hashTable != NULL);
+    for (int i = 0; i < HT_SIZE; i++)
+        hashTable[i] = NULL;
+    options_t options;
+    initOptions(&options);
+    options.outputFilename = "outsampletest.bin";
+    options.action[ACTION_PARSE] = 0;
+    options.authorNames[0] = "Russell Turpin";
+    openFiles(&options, "r", 0);
+    node0 = DoListAdjDeBinHash(&options, &taille, hashTable);
+    tps_assert(node0 != NULL);
+    tps_assert(showArticles(&options, hashTable, node0) == OK);
+    endOfProgram(&options, node0, hashTable);
+}
+
+int main(void) {
+    /* testCreateListeAdj();
     options_t options;
     options.inputFilename = "../database/dblp.xml";
     options.outputFilename = "../database/dblp.bin";
@@ -98,7 +163,12 @@ int main() {
     options.authorNames[1] = NULL;
 
     openFiles(&options, "r", 0);
-    closeFiles(&options);
+    closeFiles(&options); */
+
+    TEST(testParse);
+    TEST(testRead);
+    TEST(testGraph);
+    TEST(testArticles);
 
     // showAllAuthors(&options);
 

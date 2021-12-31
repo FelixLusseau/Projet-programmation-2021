@@ -17,6 +17,13 @@ void handleSignal();
 void initSigaction();
 
 /**
+ * @brief Initialise the Options structure
+ *
+ * @param options
+ */
+void initOptions(options_t *options);
+
+/**
  * @brief Verify that the input file is a xml base
  *
  * @param file

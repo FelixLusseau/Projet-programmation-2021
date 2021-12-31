@@ -85,7 +85,8 @@ node *appendNode(char *author, node *end) {
     return newNode;
 }
 
-/* int appendEdge(int n1, int n2, node *node0) {
+/* Utilisée dans tests.c uniquement */
+int appendEdge(int n1, int n2, node *node0) {
     node *Node1 = GoToNode(n1, node0);
     node *Node2 = GoToNode(n2, node0);
 
@@ -120,7 +121,7 @@ node *appendNode(char *author, node *end) {
     }
 
     return 0;
-} */
+}
 
 void freeEdge(node *currentNode) {
     edge *currentEdge = currentNode->nodeEdge;

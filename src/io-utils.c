@@ -33,6 +33,18 @@ void initSigaction() {
     }
 }
 
+void initOptions(options_t *options) {
+    options->inputFilename = NULL;
+    options->outputFilename = NULL;
+    options->inputFile = NULL;
+    options->outputFile = NULL;
+    options->action[ACTION_UNKNOWN] = 1;
+    for (int a = 1; a < ACTIONS_NB + 1; a++)
+        options->action[a] = NOT_TO_DO;
+    options->authorNames[0] = NULL;
+    options->authorNames[1] = NULL;
+}
+
 int isXML(FILE *file) {
     char docType[6];
     int exitCode = fread(&docType, 1, 5, file);

@@ -56,11 +56,11 @@ int main(int argc, char **argv) {
         // printf("%i\n", authorNameToNodeNumber("Russell Turpin", hashTable));
         // printf("%i\n", authorNameToNodeNumber("Dimitar Ruscev", hashTable));
     }
-    if (options.action[ACTION_SHOW_ARTICLES] == TO_DO) {
-        testExitCode(showArticles(&options, hashTable, node0));
-    }
     if (options.action[ACTION_SHOW_AUTHORS] == TO_DO) {
         showAuthors(&options, hashTable, node0, 0);
+    }
+    if (options.action[ACTION_SHOW_ARTICLES] == TO_DO) {
+        testExitCode(showArticles(&options, hashTable, node0));
     }
     if (options.action[ACTION_DIJKSTRA] == TO_DO) {
         testExitCode(chooseAuthor(&options, hashTable, node0, 0));
