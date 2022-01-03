@@ -59,6 +59,7 @@ node *DoListAdjDeBin(options_t *option, int *taille);
 /**calcul de la plus petite distance par rapport à un author*/
 int dijkstra(int n1, node *node0, int taille);
 
+/** affiche les noeud dont la distance de n1 est positive*/
 void printDistance(int n1, node *node0);
 
 #endif
