@@ -166,10 +166,10 @@ void printListNode(node *node0) {
     printf("\n");
     printf("liste sommet:\n");
     while (currentNode->nextNode != NULL) {
-        printf("  %i:%s|\n", currentNode->nodeNumber, currentNode->author);
+        printf("  %i:%s\n", currentNode->nodeNumber, currentNode->author);
         currentNode = currentNode->nextNode;
     }
-    printf("  %i:%s|\n", currentNode->nodeNumber, currentNode->author);
+    printf("  %i:%s\n", currentNode->nodeNumber, currentNode->author);
 }
 void printListEdge(node *node0) {
     node *currentNode = node0;
@@ -178,13 +178,15 @@ void printListEdge(node *node0) {
     printf("liste arretes:\n");
     while (currentNode->nextNode != NULL) {
         currentEdge = currentNode->nodeEdge;
-        while (currentEdge != NULL && currentEdge->nextEdge != NULL) {
-            printf(" %i -> %i|", currentEdge->linkNode->nodeNumber,
+        if (currentEdge != NULL) {
+            while (currentEdge->nextEdge != NULL) {
+                printf(" %i -> %i|", currentEdge->linkNode->nodeNumber,
+                       currentEdge->otherNode->nodeNumber);
+                currentEdge = currentEdge->nextEdge;
+            }
+            printf(" %i -> %i|\n", currentEdge->linkNode->nodeNumber,
                    currentEdge->otherNode->nodeNumber);
-            currentEdge = currentEdge->nextEdge;
         }
-        printf(" %i -> %i|\n", currentEdge->linkNode->nodeNumber,
-               currentEdge->otherNode->nodeNumber);
         currentNode = currentNode->nextNode;
     }
     while (currentEdge != NULL && currentEdge->nextEdge != NULL) {
@@ -355,6 +357,7 @@ int dijkstra(int n1, node *node0, int taille) {
             voisin = currentEdge->otherNode;
         }
         // liste distance=NULL, la distance minimale est l'infinie
+        // le graphe n'est pas connexe
         // on arrete djikstra
         if (ListeDistance == NULL) {
             break;
@@ -406,8 +409,10 @@ int dijkstra(int n1, node *node0, int taille) {
 void printDistance(int n1, node *node0) {
     node *currentNode = node0;
     while (currentNode->nextNode != NULL) {
-        printf("author:%s distance de %i:%i\n", currentNode->author, n1,
-               currentNode->distance);
+        if (currentNode->distance != -1) {
+            printf("author:%i distance de %i:%i\n", currentNode->nodeNumber, n1,
+                   currentNode->distance);
+        }
         currentNode = currentNode->nextNode;
     }
     printf("author:%s distance de %i:%i\n", currentNode->author, n1,
