@@ -84,7 +84,7 @@ void testCreateListeAdj(void) {
     int test2 = AuthorInList(author2, node0);
     printf("test présence author: %i\n", test2);
 
-    /dijkstra(6, node0, 6);
+    dijkstra(6, node0, 6);
     printDistance(6, node0);
 
     freeListAdj(node0);
