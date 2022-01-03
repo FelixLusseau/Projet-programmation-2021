@@ -54,12 +54,14 @@ void testCreateListeAdj(void) {
     char *c3 = "3";
     char *c4 = "4";
     char *c5 = "5";
+    char *c6 = "isolé";
     node *end = node0;
     end = appendNode(c1, end);
     end = appendNode(c2, end);
     end = appendNode(c3, end);
     end = appendNode(c4, end);
     end = appendNode(c5, end);
+    end = appendNode(c6, end);
 
     appendEdge(5, 0, node0);
     appendEdge(5, 4, node0);
@@ -78,14 +80,15 @@ void testCreateListeAdj(void) {
     char author2[] = "z";
     int test2 = AuthorInList(author2, node0);
     printf("test présence author: %i\n", test2);
-
-    // Dijkstra(6,node0,taille);
-    // printDistance(6,node0);
+    int taille=7;
+    dijkstra(2,node0,taille);
+    printDistance(2,node0);
 
     freeListAdj(node0);
 }
 int main() {
-    // testCreateListeAdj();
+    testCreateListeAdj();
+    /*
     options_t options;
     options.inputFilename = NULL;
     options.outputFilename = NULL;
@@ -95,7 +98,7 @@ int main() {
     options.authorNames[0] = NULL;
     options.authorNames[1] = NULL;
 
-    showALlAuthors(&options);
+    showALlAuthors(&options);*/
 
     /* char *tab = malloc(50000000 * sizeof(unsigned int) * sizeof(char *));
     // 50000000*sizeof(unsigned int)*sizeof(char *)=1600000000

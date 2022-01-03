@@ -162,10 +162,10 @@ void printListNode(node *node0) {
     printf("\n");
     printf("liste sommet:\n");
     while (currentNode->nextNode != NULL) {
-        printf("  %s:%i |\n", currentNode->author, currentNode->nodeNumber);
+        printf("  %i:%s|\n", currentNode->nodeNumber,currentNode->author);
         currentNode = currentNode->nextNode;
     }
-    printf("  %s:%i |", currentNode->author, currentNode->nodeNumber);
+    printf("  %i:%s|\n", currentNode->nodeNumber,currentNode->author);
 }
 void printListEdge(node *node0) {
     node *currentNode = node0;
@@ -179,11 +179,10 @@ void printListEdge(node *node0) {
                    currentEdge->otherNode->nodeNumber);
             currentEdge = currentEdge->nextEdge;
         }
-        printf(" %i -> %i|", currentEdge->linkNode->nodeNumber,
+        printf(" %i -> %i|\n", currentEdge->linkNode->nodeNumber,
                currentEdge->otherNode->nodeNumber);
         currentNode = currentNode->nextNode;
     }
-    printf("dernier\n");
     while (currentEdge != NULL && currentEdge->nextEdge != NULL) {
         printf(" %i -> %i|", currentEdge->linkNode->nodeNumber,
                currentEdge->otherNode->nodeNumber);
@@ -195,11 +194,13 @@ void printListEdge(node *node0) {
 int AuthorInList(char *author, node *node0) {
     node *currentNode = node0;
     while (currentNode->nextNode != NULL) {
+        printf("test présence:%s %s\n",author,currentNode->author);
         if (strcmp(currentNode->author, author) == 0) {
             return currentNode->nodeNumber;
         }
         currentNode = currentNode->nextNode;
     }
+    printf("test présence:%s %s\n",author,currentNode->author);
     if (strcmp(currentNode->author, author) == 0) {
         return currentNode->nodeNumber;
     }
@@ -305,36 +306,45 @@ int dijkstra(int n1, node *node0, int taille) {
 
     currentNode->distance = 0;
     int k = 0;
-    while (k < taille && currentNode->distance >= 0) {
+    while (k < taille) {
+        /*printf("\n\nk:%i\n",k);
+        printf("tour\n");
+        printf("cuurentNode:%s\n",currentNode->author);*/
         currentEdge = currentNode->nodeEdge;
-        voisin = GoToNode(currentEdge->otherNode->nodeNumber, node0);
+        voisin = currentEdge->otherNode;
 
         // exploration des voisins de currentNode et mise a jour de leur
         // distance
-        while (currentEdge->linkNode->nodeNumber == currentNode->nodeNumber) {
+        while (1){
+            //printf("avant if:%i=>%i\n",voisin->nodeNumber,voisin->distance);
+            if (voisin->distance == -1 ||
+                voisin->distance > (currentNode->distance + 1)) {
+                voisin->distance = currentNode->distance + 1;
+                //printf("après if:%i=>%i\n",voisin->nodeNumber,voisin->distance);
 
-            if (voisin->flag == 0) {
-                if (voisin->distance == -1 ||
-                    voisin->distance > (currentNode->distance + 1)) {
-                    voisin->distance = currentNode->distance + 1;
-
-                    // on doit aussi changer la distance dans ListeDistance
-                    if (ListeDistance == NULL) {
-                        node newDistance0 = *voisin;
-                        newDistance0.nextNode = NULL;
-                        ListeDistance = &newDistance0;
+                // si voisin non marqué il faut le rajouté dans ListeDistance
+                // ou changer sa distance dans la Liste si il y est déjà
+                if(voisin->flag==0){
+                    node newDistance = *voisin;
+                    newDistance.nextNode=NULL;
+                    if(ListeDistance==NULL){
+                        ListeDistance=&newDistance;
                     }
-                    int n = AuthorInList(voisin->author, ListeDistance);
-                    if (n == -1) {
-                        node newDistance = *voisin;
-                        newDistance.nextNode = ListeDistance->nextNode;
-                        ListeDistance->nextNode = &newDistance;
-                    } else {
-                        node *nodeDistance = GoToNode(n, ListeDistance);
-                        nodeDistance->distance = voisin->distance;
+                    else{
+                        printf("recherche:%s\n",voisin->author);
+                        int n = AuthorInList(voisin->author, ListeDistance);
+                        if (n == -1) {
+                            newDistance.nextNode = ListeDistance;
+                            ListeDistance = &newDistance;  
+                        } 
+                        else {
+                            node *nodeDistance = GoToNode(n, ListeDistance);
+                            nodeDistance->distance = voisin->distance;
+                        }
                     }
                 }
             }
+        
 
             if (currentEdge->nextEdge == NULL) {
                 break;
@@ -342,8 +352,14 @@ int dijkstra(int n1, node *node0, int taille) {
             currentEdge = currentEdge->nextEdge;
             voisin = currentEdge->otherNode;
         }
+        // liste distance=NULL, la distance minimale est l'infinie
+        // on arrete djikstra
+        if (ListeDistance == NULL) {
+            break;
+        }
+        
         // cas ListeDistance non NULL donc il existe une distance minimal
-        if (ListeDistance != NULL) {
+        else {
             // recherche du sommet avec la plus petit distance
             node *nodeDistance = ListeDistance;
             node *minNode = nodeDistance;
@@ -357,30 +373,29 @@ int dijkstra(int n1, node *node0, int taille) {
                 nodeDistance = nodeDistance->nextNode;
             }
             currentNode->flag = 1;
-            // on enlève currentNode de la liste nodeDistance0 car il est
-            // maintenant marqué cas du premier node
+            // on enlève currentNode de la ListeDistance car il est
+            // maintenant marqué 
+            // cas du premier node
             if (currentNode->nodeNumber == ListeDistance->nodeNumber) {
                 ListeDistance = ListeDistance->nextNode;
             }
             // cas d'un node au mileu ou à la fin
             else {
                 node *currentDistance = ListeDistance;
-                node *previousNode = ListeDistance;
-                while (currentDistance->nodeNumber != currentNode->nodeNumber &&
-                       currentNode->nextNode != NULL) {
-                    previousNode = currentNode;
+                node *previousDistance= ListeDistance;
+                while (currentDistance->nextNode != NULL &&
+                       currentDistance->nodeNumber != currentNode->nodeNumber) {
+                    previousDistance = currentDistance;
+                    currentDistance=currentDistance->nextNode;
                 }
-                previousNode->nextNode = currentNode->nextNode;
+                if(currentDistance->nextNode==NULL){
+                    previousDistance->nextNode=NULL;
+                }
+                else{
+                    previousDistance->nextNode = currentDistance->nextNode;
+                }
             }
             currentNode = minNode;
-        }
-        // liste distance NULL, la distance minimale est l'infinie
-        // on prend le 1er Node non marqué de distance infinie
-        else {
-            currentNode = node0;
-            while (currentNode->flag != 0 && currentNode->distance != -1) {
-                currentNode = currentNode->nextNode;
-            }
         }
         k++;
     }
@@ -397,3 +412,4 @@ void printDistance(int n1, node *node0) {
     printf("author:%s distance de %i:%i\n", currentNode->author, n1,
            currentNode->distance);
 }
+
