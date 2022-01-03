@@ -59,7 +59,8 @@ int main(int argc, char **argv) {
     if (options.action[ACTION_SHOW_AUTHORS] == TO_DO) {
         showAuthors(&options, hashTable, node0, 0);
     }
-    if (options.action[ACTION_SHOW_ARTICLES] == TO_DO) {
+    if (options.action[ACTION_SHOW_ARTICLES] == TO_DO &&
+        options.action[ACTION_NEIGHBOURS] != TO_DO) {
         testExitCode(showArticles(&options, hashTable, node0));
     }
     if (options.action[ACTION_DIJKSTRA] == TO_DO) {

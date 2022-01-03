@@ -42,6 +42,16 @@ int showAuthors(options_t *options, node **hashTable, node *node0,
         if (interruptFlag == 1)
             break;
     }
+    /* Take the last author */
+    if (strstr(currentNode->author, options->authorNames[author0or1])) {
+        authortmp = currentNode->author;
+        authorHash = hash((unsigned char *)currentNode->author);
+        if (hashTablePositions[authorHash] == 0) {
+            // printf(" - %s\n", hashTable[authorHash]->author);
+            counter++;
+        }
+        hashTablePositions[authorHash] = 1;
+    }
     if (counter != 0) {
         printf("Authors containing \"%s\" in their name : \n",
                options->authorNames[author0or1]);

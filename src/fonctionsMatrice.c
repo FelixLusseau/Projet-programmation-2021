@@ -166,10 +166,10 @@ void printListNode(node *node0) {
     printf("\n");
     printf("liste sommet:\n");
     while (currentNode->nextNode != NULL) {
-        printf("  %i:%s|\n", currentNode->nodeNumber,currentNode->author);
+        printf("  %i:%s|\n", currentNode->nodeNumber, currentNode->author);
         currentNode = currentNode->nextNode;
     }
-    printf("  %i:%s|\n", currentNode->nodeNumber,currentNode->author);
+    printf("  %i:%s|\n", currentNode->nodeNumber, currentNode->author);
 }
 void printListEdge(node *node0) {
     node *currentNode = node0;
@@ -198,13 +198,13 @@ void printListEdge(node *node0) {
 int AuthorInList(char *author, node *node0) {
     node *currentNode = node0;
     while (currentNode->nextNode != NULL) {
-        printf("test présence:%s %s\n",author,currentNode->author);
+        // printf("test présence:%s %s\n",author,currentNode->author);
         if (strcmp(currentNode->author, author) == 0) {
             return currentNode->nodeNumber;
         }
         currentNode = currentNode->nextNode;
     }
-    printf("test présence:%s %s\n",author,currentNode->author);
+    // printf("test présence:%s %s\n",author,currentNode->author);
     if (strcmp(currentNode->author, author) == 0) {
         return currentNode->nodeNumber;
     }
@@ -319,36 +319,34 @@ int dijkstra(int n1, node *node0, int taille) {
 
         // exploration des voisins de currentNode et mise a jour de leur
         // distance
-        while (1){
-            //printf("avant if:%i=>%i\n",voisin->nodeNumber,voisin->distance);
+        while (1) {
+            // printf("avant if:%i=>%i\n",voisin->nodeNumber,voisin->distance);
             if (voisin->distance == -1 ||
                 voisin->distance > (currentNode->distance + 1)) {
                 voisin->distance = currentNode->distance + 1;
-                //printf("après if:%i=>%i\n",voisin->nodeNumber,voisin->distance);
+                // printf("après
+                // if:%i=>%i\n",voisin->nodeNumber,voisin->distance);
 
                 // si voisin non marqué il faut le rajouté dans ListeDistance
                 // ou changer sa distance dans la Liste si il y est déjà
-                if(voisin->flag==0){
+                if (voisin->flag == 0) {
                     node newDistance = *voisin;
-                    newDistance.nextNode=NULL;
-                    if(ListeDistance==NULL){
-                        ListeDistance=&newDistance;
-                    }
-                    else{
-                        printf("recherche:%s\n",voisin->author);
+                    newDistance.nextNode = NULL;
+                    if (ListeDistance == NULL) {
+                        ListeDistance = &newDistance;
+                    } else {
+                        // printf("recherche:%s\n",voisin->author);
                         int n = AuthorInList(voisin->author, ListeDistance);
                         if (n == -1) {
                             newDistance.nextNode = ListeDistance;
-                            ListeDistance = &newDistance;  
-                        } 
-                        else {
+                            ListeDistance = &newDistance;
+                        } else {
                             node *nodeDistance = GoToNode(n, ListeDistance);
                             nodeDistance->distance = voisin->distance;
                         }
                     }
                 }
             }
-        
 
             if (currentEdge->nextEdge == NULL) {
                 break;
@@ -361,7 +359,7 @@ int dijkstra(int n1, node *node0, int taille) {
         if (ListeDistance == NULL) {
             break;
         }
-        
+
         // cas ListeDistance non NULL donc il existe une distance minimal
         else {
             // recherche du sommet avec la plus petit distance
@@ -378,7 +376,7 @@ int dijkstra(int n1, node *node0, int taille) {
             }
             currentNode->flag = 1;
             // on enlève currentNode de la ListeDistance car il est
-            // maintenant marqué 
+            // maintenant marqué
             // cas du premier node
             if (currentNode->nodeNumber == ListeDistance->nodeNumber) {
                 ListeDistance = ListeDistance->nextNode;
@@ -386,16 +384,15 @@ int dijkstra(int n1, node *node0, int taille) {
             // cas d'un node au mileu ou à la fin
             else {
                 node *currentDistance = ListeDistance;
-                node *previousDistance= ListeDistance;
+                node *previousDistance = ListeDistance;
                 while (currentDistance->nextNode != NULL &&
                        currentDistance->nodeNumber != currentNode->nodeNumber) {
                     previousDistance = currentDistance;
-                    currentDistance=currentDistance->nextNode;
+                    currentDistance = currentDistance->nextNode;
                 }
-                if(currentDistance->nextNode==NULL){
-                    previousDistance->nextNode=NULL;
-                }
-                else{
+                if (currentDistance->nextNode == NULL) {
+                    previousDistance->nextNode = NULL;
+                } else {
                     previousDistance->nextNode = currentDistance->nextNode;
                 }
             }
@@ -416,4 +413,3 @@ void printDistance(int n1, node *node0) {
     printf("author:%s distance de %i:%i\n", currentNode->author, n1,
            currentNode->distance);
 }
-

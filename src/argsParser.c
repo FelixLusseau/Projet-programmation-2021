@@ -24,6 +24,8 @@ void printUsage(void) {
            "their name\n"
            "\t-p AUTHOR1 -p AUTHOR2    make the graph of the shortest way "
            "between these authors\n"
+           "\t-a AUTHOR -n N           show all the authors at the distance N "
+           "of the author given\n"
            "\t-h                       show this help\n\n\n"
            "Examples:\n"
            "./bin/program -i database/dblp.xml -o database/dblp.bin -a "
@@ -34,7 +36,7 @@ int parseArgs(int argc, char **argv, options_t *options) {
     initOptions(options);
     int countAuthorsArguments = 0;
     int c;
-    while ((c = getopt(argc, argv, "i:o:xrma:l:hp:N:")) != -1) {
+    while ((c = getopt(argc, argv, "i:o:xrma:l:hp:n:")) != -1) {
         switch (c) {
         case 'i':
             options->inputFilename = optarg;
@@ -56,7 +58,7 @@ int parseArgs(int argc, char **argv, options_t *options) {
             options->action[ACTION_SHOW_ARTICLES] = TO_DO;
             options->authorNames[0] = optarg;
             break;
-        case 'N':
+        case 'n':
             options->action[ACTION_GRAPH] = TO_DO;
             options->action[ACTION_DIJKSTRA] = TO_DO;
             options->action[ACTION_NEIGHBOURS] = TO_DO;
@@ -73,7 +75,7 @@ int parseArgs(int argc, char **argv, options_t *options) {
             else
                 options->authorNames[1] = optarg;
             countAuthorsArguments++;
-            printf("%i\n", countAuthorsArguments);
+            // printf("%i\n", countAuthorsArguments);
 
             options->action[ACTION_GRAPH] = TO_DO;
             options->action[ACTION_DIJKSTRA] = TO_DO;
