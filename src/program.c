@@ -11,69 +11,72 @@
 #include "readFunctions.h"
 #include "searchingFunctions.h"
 
+#define testExitCode(op)                                                       \
+    {                                                                          \
+        if ((exitCode = op))                                                   \
+            goto error;                                                        \
+    }
+
 int interruptFlag = 0;
 
 int main(int argc, char **argv) {
     int taille = 0;
+    int exitCode = OK;
     initSigaction();
-    int exitCode;
     options_t options;
     node *node0 = NULL;
-    node **hashTable = malloc(50000000 * sizeof(unsigned int) * sizeof(char *));
-    exitCode = parseArgs(argc, argv, &options);
-    if (exitCode)
+    node **hashTable = malloc(HT_SIZE * sizeof(unsigned int) * sizeof(char *));
+    if (hashTable == NULL) {
+        exitCode = ERROR_GRAPH;
         goto error;
+    }
+    for (int i = 0; i < HT_SIZE; i++)
+        hashTable[i] = NULL;
+    testExitCode(parseArgs(argc, argv, &options));
     /* if (openFiles(&options, "r", 1) == ERROR_OPEN_BIN) {
-        exitCode = openFiles(&options, "w", 0);
-        if (exitCode)
-            goto error;
-        exitCode = parseBase(&options);
-        if (exitCode)
-            goto error;
+        testExitCode(openFiles(&options, "w", 0));
+        testExitCode(parseBase(&options));
         printf("\33[0;32mDatabase parsing ok ! \33[0m\n");
     } else
         closeFiles(&options);
-    exitCode = openFiles(&options, "r", 0); */
-    if (hashTable == NULL)
-        return ERROR_GRAPH;
-    for (int i = 0; i < 50000000; i++)
-        hashTable[i] = NULL;
+    testExitCode(openFiles(&options, "r", 0)); */
     if (options.action[ACTION_PARSE] == TO_DO) {
-        exitCode = openFiles(&options, "w", 0);
-        if (exitCode)
-            goto error;
-        exitCode = parseBase(&options);
-        if (exitCode)
-            goto error;
+        testExitCode(openFiles(&options, "w", 0));
+        testExitCode(parseBase(&options));
         printf("\33[0;32mDatabase parsing ok ! \33[0m\n");
     }
     if (options.action[ACTION_READ] == TO_DO) {
-        exitCode = openFiles(&options, "r", 0);
-        if (exitCode)
-            goto error;
-        exitCode = readEntireBin(&options, 1);
-        if (exitCode)
-            goto error;
+        testExitCode(openFiles(&options, "r", 0));
+        testExitCode(readEntireBin(&options, 1));
     }
-    if (options.action[ACTION_MAT] == TO_DO) {
-        exitCode = openFiles(&options, "r", 0);
+    if (options.action[ACTION_GRAPH] == TO_DO) {
+        testExitCode(openFiles(&options, "r", 0));
         node0 = DoListAdjDeBinHash(&options, &taille, hashTable);
-        // printListNode(node0);
-    }
-    if (options.action[ACTION_SHOW_ARTICLES] == TO_DO) {
-        exitCode = showArticles(&options, hashTable, node0);
-        if (exitCode)
-            goto error;
+        // printListAdj(node0);
+        // printf("%i\n", authorNameToNodeNumber("Russell Turpin", hashTable));
+        // printf("%i\n", authorNameToNodeNumber("Dimitar Ruscev", hashTable));
     }
     if (options.action[ACTION_SHOW_AUTHORS] == TO_DO) {
-        // exitCode = showAuthors(&options, hashTable);
         showAuthors(&options, hashTable, node0, 0);
     }
-    /* if (options.action[ACTION_DIJKSTRA] == TO_DO) {
-        exitCode = dijkstra(6, node0, taille);
-        if (exitCode)
-            goto error;
-    } */
+    if (options.action[ACTION_SHOW_ARTICLES] == TO_DO) {
+        testExitCode(showArticles(&options, hashTable, node0));
+    }
+    if (options.action[ACTION_DIJKSTRA] == TO_DO) {
+        testExitCode(chooseAuthor(&options, hashTable, node0, 0));
+        testExitCode(
+            dijkstra(authorNameToNodeNumber(options.authorNames[0], hashTable),
+                     node0, taille));
+        if (options.authorNames[1] != NULL) {
+            testExitCode(chooseAuthor(&options, hashTable, node0, 1));
+            printDistance(
+                authorNameToNodeNumber(options.authorNames[1], hashTable),
+                node0);
+        }
+    }
+    if (options.action[ACTION_NEIGHBOURS] == TO_DO) {
+        testExitCode(printAuthorAtDist(&options, node0));
+    }
     if (options.action[ACTION_UNKNOWN] == 1) {
         fprintf(stderr, "Action is missing !\n");
         printUsage();
@@ -84,8 +87,8 @@ int main(int argc, char **argv) {
 
 error:
     if (exitCode) {
-        endOfProgram(&options, node0, hashTable);
         fprintf(stderr, "%s\n", errorToString(exitCode));
+        endOfProgram(&options, node0, hashTable);
         return exitCode;
     }
     return OK;

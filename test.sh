@@ -62,19 +62,11 @@ annoncer "Execution recherche articles (et auteurs)"
 $VALGRIND ./$TARGET -o tests/sample.bin -a "Russell Turpin" >> $LOG 2>&1 || fail
 coloredEcho "OK" green
 
-#annoncer "Execution encode"
-#$VALGRIND ./$TARGET -e -m "$(cat tests/message.txt)" -i tests/cat.bmp -o tests/out.bmp >> $LOG 2>&1 || fail
-#coloredEcho "OK" green
-
-#annoncer "Execution dencode"
-#$VALGRIND ./$TARGET -d -i tests/out.bmp > tests/out.txt || fail
-#echo "===DIFF===" >> $LOG
-#diff tests/out.txt tests/message.txt >> $LOG 2>&1
-#if [ $? -ne 0 ]
-#then
-#    fail
-#fi
-#coloredEcho "OK" green
-
+annoncer "Execution tests.c + cov"
+cd tests/
+make cov  >> ../$LOG 2>&1 || fail
+coloredEcho "OK" green
+echo "Rapport de couverture disponible ici : ./tests/rapport/index.html"
+cd ..
 
 exit 0

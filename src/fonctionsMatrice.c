@@ -29,6 +29,7 @@ node *CreateListAdj(char *author) {
 
     return node0;
 }
+
 node *GoToNode(int n, node *node0) {
     node *currentNode = node0;
     for (int k = 0; currentNode->nodeNumber != n; k++) {
@@ -40,7 +41,8 @@ node *GoToNode(int n, node *node0) {
     }
     return currentNode;
 }
-node *GoToEndNode(node *node0) {
+
+/* node *GoToEndNode(node *node0) {
     if (node0 == NULL) {
         return NULL;
     }
@@ -49,9 +51,9 @@ node *GoToEndNode(node *node0) {
         currentNode = currentNode->nextNode;
     }
     return currentNode;
-}
+} */
 
-edge *GoToEndEdge(node *node0) {
+/* edge *GoToEndEdge(node *node0) {
     edge *currentEdge = node0->nodeEdge;
     if (currentEdge == NULL) {
         return NULL;
@@ -60,7 +62,7 @@ edge *GoToEndEdge(node *node0) {
         currentEdge = currentEdge->nextEdge;
     }
     return currentEdge;
-}
+} */
 
 node *appendNode(char *author, node *end) {
     node *newNode = malloc(sizeof(node));
@@ -82,6 +84,8 @@ node *appendNode(char *author, node *end) {
     newNode->author[k] = '\0';
     return newNode;
 }
+
+/* Utilisée dans tests.c uniquement */
 int appendEdge(int n1, int n2, node *node0) {
     node *Node1 = GoToNode(n1, node0);
     node *Node2 = GoToNode(n2, node0);
@@ -156,7 +160,7 @@ void printListAdj(node *node0) {
 }
 void printListNode(node *node0) {
     if (node0 == NULL) {
-        exit(0);
+        exit(ERROR_NODE_EQ_NULL);
     }
     node *currentNode = node0;
     printf("\n");
@@ -207,7 +211,7 @@ int AuthorInList(char *author, node *node0) {
     return -1;
 }
 
-node *DoListAdjDeBin(options_t *option, int *taille) {
+/* node *DoListAdjDeBin(options_t *option, int *taille) {
     int nbrarrete = 0;
     printf("************Debut DoListAdjDeBin************\n");
     *taille = 0;
@@ -290,7 +294,7 @@ node *DoListAdjDeBin(options_t *option, int *taille) {
     // printf("normal nbr arret:%i\n", nbrarrete * 2);
     printf("************Fin DoListAdjDeBin************\n");
     return node0;
-}
+} */
 
 int dijkstra(int n1, node *node0, int taille) {
     // une distance de -1 représente une distance infini

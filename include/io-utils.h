@@ -17,6 +17,13 @@ void handleSignal();
 void initSigaction();
 
 /**
+ * @brief Initialise the Options structure
+ *
+ * @param options
+ */
+void initOptions(options_t *options);
+
+/**
  * @brief Verify that the input file is a xml base
  *
  * @param file
@@ -44,6 +51,14 @@ int openFiles(options_t *options, char *openMode, int test);
 
 int closeFiles(options_t *options);
 
+/**
+ * @brief Close the files and free the table and graph at the end of the program
+ *
+ * @param options
+ * @param node0
+ * @param hashTable
+ * @return int
+ */
 int endOfProgram(options_t *options, node *node0, node **hashTable);
 
 /**
@@ -54,6 +69,11 @@ int endOfProgram(options_t *options, node *node0, node **hashTable);
  */
 const char *errorToString(error_t err);
 
+/**
+ * @brief Print a magenta progress bar of 100 symbols
+ *
+ * @param n
+ */
 void progressBar(int n);
 
 #endif

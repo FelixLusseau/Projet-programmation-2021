@@ -1,5 +1,8 @@
 #include "argsParser.h"
+#include "io-utils.h"
+
 #include <ctype.h>
+#include <getopt.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -28,15 +31,7 @@ void printUsage(void) {
 }
 
 int parseArgs(int argc, char **argv, options_t *options) {
-    options->inputFilename = NULL;
-    options->outputFilename = NULL;
-    options->inputFile = NULL;
-    options->outputFile = NULL;
-    options->action[ACTION_UNKNOWN] = 1;
-    for (int a = 1; a < 6; a++)
-        options->action[a] = NOT_TO_DO;
-    options->authorNames[0] = NULL;
-    options->authorNames[1] = NULL;
+    initOptions(options);
     int countAuthorsArguments = 0;
     int c;
     while ((c = getopt(argc, argv, "i:o:xrma:l:hp:N:")) != -1) {
@@ -54,18 +49,21 @@ int parseArgs(int argc, char **argv, options_t *options) {
             options->action[ACTION_READ] = TO_DO;
             break;
         case 'm':
-            options->action[ACTION_MAT] = TO_DO;
+            options->action[ACTION_GRAPH] = TO_DO;
             break;
         case 'a':
-            options->action[ACTION_MAT] = TO_DO;
+            options->action[ACTION_GRAPH] = TO_DO;
             options->action[ACTION_SHOW_ARTICLES] = TO_DO;
             options->authorNames[0] = optarg;
             break;
         case 'N':
+            options->action[ACTION_GRAPH] = TO_DO;
+            options->action[ACTION_DIJKSTRA] = TO_DO;
+            options->action[ACTION_NEIGHBOURS] = TO_DO;
             options->N = atoi(optarg);
             break;
         case 'l':
-            options->action[ACTION_MAT] = TO_DO;
+            options->action[ACTION_GRAPH] = TO_DO;
             options->action[ACTION_SHOW_AUTHORS] = TO_DO;
             options->authorNames[0] = optarg;
             break;
@@ -77,7 +75,7 @@ int parseArgs(int argc, char **argv, options_t *options) {
             countAuthorsArguments++;
             printf("%i\n", countAuthorsArguments);
 
-            options->action[ACTION_MAT] = TO_DO;
+            options->action[ACTION_GRAPH] = TO_DO;
             options->action[ACTION_DIJKSTRA] = TO_DO;
             break;
         case 'h':
@@ -103,7 +101,7 @@ int parseArgs(int argc, char **argv, options_t *options) {
                         "./bin/program -i ... -o ... -p AUTHOR1 -p AUTHOR2\n");
         return ERROR_ARGS_PARSE;
     }
-    for (int k = 1; k < 6; k++) {
+    for (int k = 1; k < ACTIONS_NB + 1; k++) {
         if (options->action[k] != NOT_TO_DO) {
             options->action[ACTION_UNKNOWN] = 0;
         }

@@ -2,9 +2,10 @@
 
 TARGET   = tests
 
-CFLAGS=-Wall -Wextra -Werror -g -fprofile-arcs -ftest-coverage
+CC = gcc
+CFLAGS = -O3 -pipe -march=native -mtune=native -Wall -Wextra -Werror -g -fprofile-arcs -ftest-coverage
 
-LDLIBS=-lm
+LDLIBS= -lm
 
 
 INCLUDE_PATH = ../include
@@ -31,6 +32,10 @@ cov: clean tests
 	genhtml -o rapport -t "Couverture" rapport.info
 
 
+check: clean tests
+	time valgrind --leak-check=full -q ./$(TARGET)
+
+
 $(OBJECTS): $(OBJDIR)/%.o : $(SRCDIR)/%.c
 	mkdir -p $(OBJDIR)
 	$(CC) -o $@ -c $< $(CFLAGS) -I$(INCLUDE_PATH)
@@ -45,3 +50,5 @@ clean:
 	rm -f $(OBJDIR)/*.gcda
 	rm -f $(OBJDIR)/*.gcno
 	rm -f $(BINDIR)/$(TARGET)
+	rm -rf rapport/
+	rm -f rapport.info

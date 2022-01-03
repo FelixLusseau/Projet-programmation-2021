@@ -5,14 +5,18 @@
 #include <stdint.h>
 #include <stdio.h>
 
+#define ACTIONS_NB 7
+#define HT_SIZE 50000000
+
 typedef enum action_t {
     ACTION_UNKNOWN,
     ACTION_PARSE,
-    ACTION_MAT,
+    ACTION_GRAPH,
     ACTION_READ,
-    ACTION_SHOW_ARTICLES,
     ACTION_SHOW_AUTHORS,
-    ACTION_DIJKSTRA
+    ACTION_SHOW_ARTICLES,
+    ACTION_DIJKSTRA,
+    ACTION_NEIGHBOURS
 } action_t;
 
 typedef struct structureBase_t {
@@ -27,7 +31,7 @@ typedef struct structureBase_t {
 typedef struct options_t {
     char *inputFilename;
     char *outputFilename;
-    int action[7];
+    int action[ACTIONS_NB + 1];
     char *authorNames[2];
     int N;
 
@@ -55,7 +59,8 @@ typedef enum error_t {
     ERROR_SHOW_ARTICLES,
     ERROR_SHOW_AUTHORS,
     ERROR_NO_AUTHOR,
-    ERROR_GRAPH
+    ERROR_GRAPH,
+    ERROR_NODE_EQ_NULL
 } error_t;
 
 #endif

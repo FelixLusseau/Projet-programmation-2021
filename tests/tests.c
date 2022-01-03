@@ -6,16 +6,19 @@
 #include "argsParser.h"
 #include "baseParser.h"
 #include "fonctionsMatrice.h"
+#include "fonctionsMatricesHash.h"
 #include "io-utils.h"
 #include "program.h"
 #include "readFunctions.h"
+#include "searchingFunctions.h"
+#include "tps_unit_test.h"
 
 #define MAX(X, Y) (((X) > (Y)) ? (X) : (Y))
 #define MIN(X, Y) (((X) < (Y)) ? (X) : (Y))
 
 int interruptFlag = 0;
 
-unsigned int showALlAuthors(options_t *options) {
+unsigned int showAllAuthors(options_t *options) {
     initSigaction();
     int16_t precAuthornb = 0;
     structureBase_t structureBase;
@@ -28,7 +31,7 @@ unsigned int showALlAuthors(options_t *options) {
         if (structureBase.authornb == 0)
             break;
         for (int k = 0; k < structureBase.authornb; k++) {
-            // printf(" - %s\n", structureBase.author[k]);
+            printf(" - %s\n", structureBase.author[k]);
             /* hash((unsigned char *)structureBase.author[k]));
      printf("%lu\n", hash((unsigned char *)structureBase.author[k]));
      max = MAX(max, hash((unsigned char *)structureBase.author[k]));
@@ -80,35 +83,96 @@ void testCreateListeAdj(void) {
     char author2[] = "z";
     int test2 = AuthorInList(author2, node0);
     printf("test présence author: %i\n", test2);
-    int taille=7;
-    dijkstra(2,node0,taille);
-    printDistance(2,node0);
+
+    // dijkstra(6, node0, 6);
+    // printDistance(6, node0);
 
     freeListAdj(node0);
 }
-int main() {
-    testCreateListeAdj();
-    /*
+
+TEST_INIT_GLOBAL
+
+void testParse() {
     options_t options;
-    options.inputFilename = NULL;
-    options.outputFilename = NULL;
+    initOptions(&options);
+    options.inputFilename = "sample.xml";
+    options.outputFilename = "outsampletest.bin";
+    options.action[ACTION_PARSE] = 1;
+    openFiles(&options, "w", 0);
+    tps_assert(options.inputFile != NULL);
+    tps_assert(options.outputFile != NULL);
+    tps_assert(parseBase(&options) == OK);
+    closeFiles(&options);
+}
+
+void testRead() {
+    options_t options;
+    initOptions(&options);
+    options.outputFilename = "outsampletest.bin";
+    options.action[ACTION_PARSE] = 0;
+    openFiles(&options, "r", 0);
+    tps_assert(readEntireBin(&options, 1) == OK);
+    closeFiles(&options);
+}
+
+void testGraph() {
+    int taille = 0;
+    node *node0 = NULL;
+    node **hashTable = malloc(HT_SIZE * sizeof(unsigned int) * sizeof(char *));
+    tps_assert(hashTable != NULL);
+    for (int i = 0; i < HT_SIZE; i++)
+        hashTable[i] = NULL;
+    options_t options;
+    initOptions(&options);
+    options.outputFilename = "outsampletest.bin";
+    options.action[ACTION_PARSE] = 0;
+    openFiles(&options, "r", 0);
+    node0 = DoListAdjDeBinHash(&options, &taille, hashTable);
+    tps_assert(node0 != NULL);
+    endOfProgram(&options, node0, hashTable);
+}
+
+void testArticles() {
+    int taille = 0;
+    node *node0 = NULL;
+    node **hashTable = malloc(HT_SIZE * sizeof(unsigned int) * sizeof(char *));
+    tps_assert(hashTable != NULL);
+    for (int i = 0; i < HT_SIZE; i++)
+        hashTable[i] = NULL;
+    options_t options;
+    initOptions(&options);
+    options.outputFilename = "outsampletest.bin";
+    options.action[ACTION_PARSE] = 0;
+    options.authorNames[0] = "Russell Turpin";
+    openFiles(&options, "r", 0);
+    node0 = DoListAdjDeBinHash(&options, &taille, hashTable);
+    tps_assert(node0 != NULL);
+    tps_assert(showArticles(&options, hashTable, node0) == OK);
+    endOfProgram(&options, node0, hashTable);
+}
+
+int main(void) {
+    /* testCreateListeAdj();
+    options_t options;
+    options.inputFilename = "../database/dblp.xml";
+    options.outputFilename = "../database/dblp.bin";
     options.inputFile = NULL;
-    options.outputFile = fopen("../database/dblp.bin", "r");
-    options.action[0] = 1;
+    options.outputFile = NULL;
+    options.action[ACTION_UNKNOWN] = 1;
+    for (int a = 1; a < 6; a++)
+        options.action[a] = NOT_TO_DO;
     options.authorNames[0] = NULL;
     options.authorNames[1] = NULL;
 
-    showALlAuthors(&options);*/
+    openFiles(&options, "r", 0);
+    closeFiles(&options); */
 
-    /* char *tab = malloc(50000000 * sizeof(unsigned int) * sizeof(char *));
-    // 50000000*sizeof(unsigned int)*sizeof(char *)=1600000000
-    if (tab == NULL) {
-        printf("nok\n");
-        return 6;
-    }
-    sleep(10);
-    // printf("max : %u\n", showALlAuthors(&options));
-    printf("sizeof lu : %zu\n", sizeof(unsigned int));
-    printf("%lu\n", 50000000 * sizeof(unsigned int) * sizeof(char *)); */
+    TEST(testParse);
+    TEST(testRead);
+    TEST(testGraph);
+    TEST(testArticles);
+
+    // showAllAuthors(&options);
+
     return 0;
 }

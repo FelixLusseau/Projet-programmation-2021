@@ -1,3 +1,5 @@
 database/
 obj/
 bin/
+tests/obj/
+tests/rapport/
