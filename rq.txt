@@ -4,8 +4,6 @@ hash function : http://www.cse.yorku.ca/~oz/hash.html
 
 automatiser (ou presque) parsage et graphe au début du prog
 
-option -N
-
 harmoniser ang / fr, error codes etc
 
 Interface ?
@@ -18,3 +16,5 @@ segfault quand pas un bin en sortie
 exit dans showAuthors ?
 
 vérif de l'auteur dans chooseAuthor ?
+
+test de malloc ?

@@ -67,5 +67,6 @@ cd tests/
 make cov  >> ../$LOG 2>&1 || fail
 coloredEcho "OK" green
 echo "Rapport de couverture disponible ici : ./tests/rapport/index.html"
+cd ..
 
 exit 0

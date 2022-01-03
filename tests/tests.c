@@ -16,8 +16,6 @@
 #define MAX(X, Y) (((X) > (Y)) ? (X) : (Y))
 #define MIN(X, Y) (((X) < (Y)) ? (X) : (Y))
 
-TEST_INIT_GLOBAL
-
 int interruptFlag = 0;
 
 unsigned int showAllAuthors(options_t *options) {
@@ -89,6 +87,8 @@ void testCreateListeAdj(void) {
 
     freeListAdj(node0);
 }
+
+TEST_INIT_GLOBAL
 
 void testParse() {
     options_t options;
