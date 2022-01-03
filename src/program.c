@@ -52,7 +52,7 @@ int main(int argc, char **argv) {
     if (options.action[ACTION_GRAPH] == TO_DO) {
         testExitCode(openFiles(&options, "r", 0));
         node0 = DoListAdjDeBinHash(&options, &taille, hashTable);
-        printListAdj(node0);
+        // printListAdj(node0);
         // printf("%i\n", authorNameToNodeNumber("Russell Turpin", hashTable));
         // printf("%i\n", authorNameToNodeNumber("Dimitar Ruscev", hashTable));
     }
@@ -66,8 +66,8 @@ int main(int argc, char **argv) {
     if (options.action[ACTION_DIJKSTRA] == TO_DO) {
         testExitCode(chooseAuthor(&options, hashTable, node0, 0));
         testExitCode(
-            //authorNameToNodeNumber(options.authorNames[0]
-            //2864737
+            // authorNameToNodeNumber(options.authorNames[0]
+            // 2864737
             //
             dijkstra(authorNameToNodeNumber(options.authorNames[0], hashTable),
                      node0, taille));
@@ -87,11 +87,11 @@ int main(int argc, char **argv) {
         exitCode = ERROR_MISSING_ACTION;
         goto error;
     }
-    testExitCode(endOfProgram(&options, node0, hashTable));
+    endOfProgram(&options, node0, hashTable);
 
 error:
     if (exitCode) {
-        testExitCode(endOfProgram(&options, node0, hashTable));
+        endOfProgram(&options, node0, hashTable);
         fprintf(stderr, "%s\n", errorToString(exitCode));
         return exitCode;
     }

@@ -37,6 +37,7 @@ options:
 	-a AUTHOR                show all the titles of the document where the author has participated
 	-l WORD                  show all the authors containing WORD in their name
 	-p AUTHOR1 -p AUTHOR2    make the graph of the shortest way between these authors
+	-a AUTHOR -n N           show all the authors at the distance N of the author given
 	-h                       show this help
 
 
@@ -68,6 +69,7 @@ options:
 	-a AUTHOR                show all the titles of the document where the author has participated
 	-l WORD                  show all the authors containing WORD in their name
 	-p AUTHOR1 -p AUTHOR2    make the graph of the shortest way between these authors
+	-a AUTHOR -n N           show all the authors at the distance N of the author given
 	-h                       show this help
 
 
@@ -50892,17 +50894,17 @@ Found 10 entries.
 Found common filename prefix "/home/felixlusseau/Documents/Cours/ProjetProgrammation2021"
 Writing .css and .png files.
 Generating output.
-Processing file src/fonctionsMatrice.c
-Processing file src/io-utils.c
-Processing file src/searchingFunctions.c
-Processing file src/fonctionsMatricesHash.c
-Processing file src/argsParser.c
 Processing file src/readFunctions.c
+Processing file src/searchingFunctions.c
+Processing file src/fonctionsMatrice.c
 Processing file src/baseParser.c
+Processing file src/io-utils.c
+Processing file src/argsParser.c
+Processing file src/fonctionsMatricesHash.c
 Processing file tests/tests.c
 Processing file /usr/include/stdlib.h
 Processing file /usr/include/x86_64-linux-gnu/bits/stdio2.h
 Writing directory view page.
 Overall coverage rate:
-  lines......: 55.3% (439 of 794 lines)
+  lines......: 54.8% (440 of 803 lines)
   functions..: 62.0% (31 of 50 functions)

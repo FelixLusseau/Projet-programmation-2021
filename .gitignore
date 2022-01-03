@@ -3,3 +3,4 @@ obj/
 bin/
 tests/obj/
 tests/rapport/
+test.log
