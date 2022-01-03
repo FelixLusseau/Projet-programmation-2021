@@ -83,12 +83,12 @@ int main(int argc, char **argv) {
         exitCode = ERROR_MISSING_ACTION;
         goto error;
     }
-    endOfProgram(&options, node0, hashTable);
+    testExitCode(endOfProgram(&options, node0, hashTable));
 
 error:
     if (exitCode) {
+        testExitCode(endOfProgram(&options, node0, hashTable));
         fprintf(stderr, "%s\n", errorToString(exitCode));
-        endOfProgram(&options, node0, hashTable);
         return exitCode;
     }
     return OK;
