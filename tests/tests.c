@@ -57,12 +57,14 @@ void testCreateListeAdj(void) {
     char *c3 = "3";
     char *c4 = "4";
     char *c5 = "5";
+    char *c6 = "isolé";
     node *end = node0;
     end = appendNode(c1, end);
     end = appendNode(c2, end);
     end = appendNode(c3, end);
     end = appendNode(c4, end);
     end = appendNode(c5, end);
+    end = appendNode(c6, end);
 
     appendEdge(5, 0, node0);
     appendEdge(5, 4, node0);

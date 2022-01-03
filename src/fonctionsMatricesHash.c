@@ -127,6 +127,7 @@ node *DoListAdjDeBinHash(options_t *option, int *taille, node **hashTable) {
         if (Entree.authornb >= 1) {
             L[0] = -1;
             int index = 0;
+            //on récupère les numéros des co auteur de l'article et on les mets dans une liste
             for (int k = 0; k < Entree.authornb; k++) {
                 char *author1 = Entree.author[k];
                 // printf("%s\n", author1);
@@ -145,6 +146,7 @@ node *DoListAdjDeBinHash(options_t *option, int *taille, node **hashTable) {
                 index++;
                 L[index] = -1;
             }
+            //on utilise la liste pour append le graphe
             for (int i = 0; L[i] > -1 && i < 100; i++) {
                 for (int k = i + 1; L[k] > -1 && k < 100; k++) {
                     appendEdgeHash(LH[i], LH[k], hashTable);
