@@ -17,4 +17,4 @@ exit dans showAuthors ?
 
 vérif de l'auteur dans chooseAuthor ?
 
-test de malloc ?
+test de malloc et autres erreurs ?
