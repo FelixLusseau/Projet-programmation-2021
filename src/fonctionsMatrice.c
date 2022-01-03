@@ -422,3 +422,23 @@ void printDistance(int n1, node *node0) {
            currentNode->distance);
 }
 
+void plusCourtChemin(int n1,int n2,node *node0,int taille){
+    dijkstra(n1,node0,taille);
+    printf("plus court chemin entre %i et %i:\n",n1,n2);
+    node *currentNode=GoToNode(n2,node0);
+    printf("n2:%s\n",currentNode->author);
+    edge *currentEdge=currentNode->nodeEdge;
+    node *minVoisin=currentEdge->otherNode;
+    while(currentNode->nodeNumber!=n1){
+        while(currentEdge!=NULL){
+            if(currentEdge->otherNode->distance < minVoisin->distance){
+                minVoisin=currentEdge->otherNode;
+            }
+        }
+        currentNode=minVoisin;
+        currentEdge=currentNode->nodeEdge;
+        printf("%s\n",currentNode->author);
+    }
+    printf("n1:%s\n",currentNode->author);
+}
+
