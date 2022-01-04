@@ -155,7 +155,7 @@ void testArticles() {
 }
 
 int main(void) {
-    testCreateListeAdj();/*
+    /*testCreateListeAdj();
     options_t options;
     options.inputFilename = "../database/dblp.xml";
     options.outputFilename = "../database/dblp.bin";
@@ -169,12 +169,10 @@ int main(void) {
 
     openFiles(&options, "r", 0);
     closeFiles(&options); */
-    /*
     TEST(testParse);
     TEST(testRead);
     TEST(testGraph);
     TEST(testArticles);
-    */
     // showAllAuthors(&options);
 
     return 0;

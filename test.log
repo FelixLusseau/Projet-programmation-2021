@@ -36,7 +36,8 @@ options:
 	-m                       make the adjacence list from the binary file
 	-a AUTHOR                show all the titles of the document where the author has participated
 	-l WORD                  show all the authors containing WORD in their name
-	-p AUTHOR1 -p AUTHOR2    make the graph of the shortest way between these authors
+	-p AUTHOR1 -p AUTHOR2    return the shortest way between these authors
+	-p AUTHOR1 -p AUTHOR2 -d return the shortest distance between these authors
 	-a AUTHOR -n N           show all the authors at the distance N of the author given
 	-h                       show this help
 
@@ -68,7 +69,8 @@ options:
 	-m                       make the adjacence list from the binary file
 	-a AUTHOR                show all the titles of the document where the author has participated
 	-l WORD                  show all the authors containing WORD in their name
-	-p AUTHOR1 -p AUTHOR2    make the graph of the shortest way between these authors
+	-p AUTHOR1 -p AUTHOR2    return the shortest way between these authors
+	-p AUTHOR1 -p AUTHOR2 -d return the shortest distance between these authors
 	-a AUTHOR -n N           show all the authors at the distance N of the author given
 	-h                       show this help
 
@@ -50881,30 +50883,30 @@ Scanning obj for .gcda files ...
 Found 8 data files in obj
 Processing obj/searchingFunctions.gcda
 Processing obj/fonctionsMatricesHash.gcda
-Processing obj/baseParser.gcda
-Processing obj/argsParser.gcda
 Processing obj/io-utils.gcda
-Processing obj/fonctionsMatrice.gcda
-Processing obj/readFunctions.gcda
 Processing obj/tests.gcda
+Processing obj/baseParser.gcda
+Processing obj/fonctionsMatrice.gcda
+Processing obj/argsParser.gcda
+Processing obj/readFunctions.gcda
 Finished .info-file creation
 genhtml -o rapport -t "Couverture" rapport.info
 Reading data file rapport.info
 Found 10 entries.
-Found common filename prefix "/home/felixlusseau/Documents/Cours/ProjetProgrammation2021"
+Found common filename prefix "/home/couture/Projet_program/ProjetProgrammation2021"
 Writing .css and .png files.
 Generating output.
-Processing file src/readFunctions.c
-Processing file src/searchingFunctions.c
-Processing file src/fonctionsMatrice.c
-Processing file src/baseParser.c
-Processing file src/io-utils.c
-Processing file src/argsParser.c
 Processing file src/fonctionsMatricesHash.c
+Processing file src/fonctionsMatrice.c
+Processing file src/searchingFunctions.c
+Processing file src/io-utils.c
+Processing file src/baseParser.c
+Processing file src/readFunctions.c
+Processing file src/argsParser.c
 Processing file tests/tests.c
 Processing file /usr/include/stdlib.h
 Processing file /usr/include/x86_64-linux-gnu/bits/stdio2.h
 Writing directory view page.
 Overall coverage rate:
-  lines......: 54.8% (440 of 803 lines)
-  functions..: 62.0% (31 of 50 functions)
+  lines......: 51.4% (432 of 840 lines)
+  functions..: 58.9% (33 of 56 functions)

@@ -105,9 +105,10 @@ node *DoListAdjDeBinHash(options_t *option, int *taille, node **hashTable) {
     }
     node *node0 = CreateListAdj(Entree.author[0]);
     node *end = node0;
-    if (Entree.authornb >= 1){
+    if (Entree.authornb > 1){
         end= sousListeAdj(end,taille,&Entree,hashTable);
     }
+    Entree = readEntryBin(option, -1);
     int curseur = 1;
     while (Entree.authornb != 0) {
         if (interruptFlag == 1) {

@@ -144,6 +144,8 @@ void freeEdge(node *currentNode) {
     free(currentEdge);
 }
 void freeListAdj(node *node0) {
+    printf("\n\n*********************************Libération de "
+           "l'espace**************************************\n\n");
     node *currentNode = node0;
     node *interN;
     while (currentNode->nextNode != NULL) {
@@ -326,7 +328,7 @@ void printDistance(int n1, node *node0) {
     node *currentNode = node0;
     while (currentNode != NULL) {
         if (currentNode->distance != -1) {
-            printf("distance entre %i et %i:%i\n", n1, currentNode->nodeNumber,
+            printf("distance entre %i et %s:%i\n", n1, currentNode->author,
                    currentNode->distance);
         }
         currentNode = currentNode->nextNode;
@@ -337,13 +339,17 @@ int plusCourtChemin(int n1, int n2, node *node0, int taille) {
     int exitCode = dijkstra(n1, node0, taille);
     if (exitCode)
         return exitCode;
-    printf("plus court chemin entre %i et %i:\n", n2, n1);
-    node *currentNode = GoToNode(n2, node0);
+    
+    node *Node1 = GoToNode(n1, node0);
+    node *Node2 = GoToNode(n2, node0);
+    printf("\nPlus court chemin entre %s et %s:\n", Node1->author, Node2->author);
+    node *currentNode=Node2;
     int distance = currentNode->distance;
     if (distance == -1) {
-        fprintf(stderr, "pas de chemin entre %i et %i:\n", n2, n1);
+        fprintf(stderr, "pas de chemin entre %i et %i\n", n2, n1);
         return ERROR_PATH;
     }
+
     edge *currentEdge = currentNode->nodeEdge;
     node *minVoisin = currentEdge->otherNode;
     while (currentNode->nodeNumber != n1) {
@@ -358,23 +364,27 @@ int plusCourtChemin(int n1, int n2, node *node0, int taille) {
         currentEdge = currentNode->nodeEdge;
     }
     printf("%s\n", currentNode->author);
-    printf("distance entre %i et %i: %i\n", n2, n1, distance);
+    printf("distance entre %s et %s: %i\n", Node1->author, Node2->author, distance);
     return OK;
 }
 
-void explorationGraphe(node *node0, int *isole) {
+int explorationGraphe(node *node0, int *isole) {
     node0->flag = 1;
     if (node0->nodeEdge == NULL) {
+        printf("isolé\n");
         *isole += 1;
     }
-    edge *currentEdge = node0->nodeEdge;
-    while (currentEdge != NULL) {
-        node0 = currentEdge->otherNode;
-        if (node0->flag == 0) {
-            explorationGraphe(node0, isole);
+    else{
+        edge *currentEdge=node0->nodeEdge;
+        node *voisin=currentEdge->otherNode;
+        while(currentEdge!=NULL){
+            if(voisin->flag==0){
+                explorationGraphe(voisin,isole);
+            }
+            currentEdge=currentEdge->nextEdge;
         }
-        currentEdge = currentEdge->nextEdge;
     }
+    return 0;
 }
 void nbrComposanteConnexe(node *node0) {
     node *currentNode = node0;
