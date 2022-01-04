@@ -369,6 +369,9 @@ void explorationGraphe(node *node0, int *isole) {
     }
     edge *currentEdge = node0->nodeEdge;
     while (currentEdge != NULL) {
+        if (interruptFlag == 1) {
+            break;
+        }
         node0 = currentEdge->otherNode;
         if (node0->flag == 0) {
             explorationGraphe(node0, isole);
