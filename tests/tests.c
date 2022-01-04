@@ -18,31 +18,56 @@
 
 int interruptFlag = 0;
 
-unsigned int showAllAuthors(options_t *options) {
+int readEntireBintest(options_t *options, int print) {
+    initSigaction();
+    fseek(options->outputFile, 14, SEEK_SET);
+    int counter = 0;
+    int ct = 0;
+    int16_t precAuthornb = 0;
+    structureBase_t structureBase;
+    while (1) {
+        readStructure(options, &structureBase, precAuthornb);
+        if (structureBase.authornb == 0 || interruptFlag == 1)
+            break;
+        for (int k = 0; k < structureBase.authornb; k++) {
+            ct++;
+        }
+        precAuthornb = structureBase.authornb;
+        if (print == 1)
+            printStruct(&structureBase);
+        counter++;
+    }
+    if (print == 0) {
+        fseek(options->outputFile, 14, SEEK_SET);
+        return counter;
+    }
+    return OK;
+}
+
+structureBase_t readEntryBintest(options_t *options) {
+    int16_t precAuthornb = 0;
+    structureBase_t structureBase;
+    readStructure(options, &structureBase, precAuthornb);
+    return structureBase;
+}
+
+int showAllAuthors(options_t *options) {
     initSigaction();
     int16_t precAuthornb = 0;
     structureBase_t structureBase;
-    /*  unsigned int max = 0;
-     unsigned int min = hash((unsigned char *)structureBase.author[0]); */
     while (1) {
         initStructure(&structureBase, precAuthornb);
-        structureBase = readEntryBin(options, -1);
+        structureBase = readEntryBintest(options);
         // printStruct(&structureBase);
         if (structureBase.authornb == 0)
             break;
-        for (int k = 0; k < structureBase.authornb; k++) {
-            printf(" - %s\n", structureBase.author[k]);
-            /* hash((unsigned char *)structureBase.author[k]));
-     printf("%lu\n", hash((unsigned char *)structureBase.author[k]));
-     max = MAX(max, hash((unsigned char *)structureBase.author[k]));
-     min = MIN(min, hash((unsigned char *)structureBase.author[k])); */
-        }
+        // for (int k = 0; k < structureBase.authornb; k++) {
+        // printf(" - %s\n", structureBase.author[k]);
+        //}
         if (interruptFlag == 1)
             break;
         precAuthornb = structureBase.authornb;
     }
-    /* printf("max : %u\n", max);
-    printf("min : %u\n", min); */
 
     return OK;
 }
@@ -86,9 +111,9 @@ void testCreateListeAdj(void) {
 
     /*dijkstra(6, node0, 6);
     printDistance(6, node0);*/
-    plusCourtChemin(3,2,node0,6);
-    //int rs=nbrComposanteConnexe(node0);
-    //printf("nbr Connexe:%i\n",rs);
+    plusCourtChemin(3, 2, node0, 6);
+    // int rs=nbrComposanteConnexe(node0);
+    // printf("nbr Connexe:%i\n",rs);
 
     freeListAdj(node0);
 }
@@ -155,10 +180,11 @@ void testArticles() {
 }
 
 int main(void) {
-    /*testCreateListeAdj();
+    // testCreateListeAdj();
     options_t options;
     options.inputFilename = "../database/dblp.xml";
-    options.outputFilename = "../database/dblp.bin";
+    // options.outputFilename = "../database/dblp.bin";
+    options.outputFilename = "../tests/sample.bin";
     options.inputFile = NULL;
     options.outputFile = NULL;
     options.action[ACTION_UNKNOWN] = 1;
@@ -168,12 +194,14 @@ int main(void) {
     options.authorNames[1] = NULL;
 
     openFiles(&options, "r", 0);
-    closeFiles(&options); */
-    TEST(testParse);
+    // readEntireBintest(&options, 0);
+    showAllAuthors(&options);
+    closeFiles(&options);
+
+    /* TEST(testParse);
     TEST(testRead);
     TEST(testGraph);
-    TEST(testArticles);
-    // showAllAuthors(&options);
+    TEST(testArticles); */
 
     return 0;
 }
