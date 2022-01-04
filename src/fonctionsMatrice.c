@@ -30,6 +30,9 @@ node *CreateListAdj(char *author) {
     return node0;
 }
 
+void reinitialiseFlag(node *node0){
+    node *currentNode=node0;
+}
 node *GoToNode(int n, node *node0) {
     node *currentNode = node0;
     for (int k = 0; currentNode->nodeNumber != n; k++) {
@@ -213,90 +216,6 @@ int AuthorInList(char *author, node *node0) {
     return -1;
 }
 
-/* node *DoListAdjDeBin(options_t *option, int *taille) {
-    int nbrarrete = 0;
-    printf("************Debut DoListAdjDeBin************\n");
-    *taille = 0;
-    int curseur = 1;
-    structureBase_t Entree;
-    initStructure(&Entree, 0);
-    Entree = readEntryBin(option, -1);
-    curseur++;
-
-    if (Entree.author[0] == NULL) {
-        printf("Erreur 1er livre author[0]=NULL");
-        return NULL;
-    }
-
-    node *node0 = CreateListAdj(Entree.author[0]);
-    int n1 = 0;
-    node *end = node0;
-
-    int L[100];
-    L[0] = -1;
-    int index = 0;
-    if (Entree.authornb > 1) {
-        for (int k = 0; k < Entree.authornb; k++) {
-            char *author1 = Entree.author[k];
-            n1 = AuthorInList(author1, node0);
-            // printf("n1 : %i\n", n1);
-            if (n1 < 0) {
-                end = appendNode(author1, end);
-                *taille += 1;
-                n1 = *taille;
-                // printf("n1 = *taille : %i\n", n1);
-            }
-            L[index] = n1;
-            index++;
-            L[index] = -1;
-        }
-        for (int i = 0; L[i] > -1 && i < 100; i++) {
-            for (int k = i + 1; L[k] > -1 && k < 100; k++) {
-                // appendEdge(L[i], L[k], node0);
-                nbrarrete++;
-                // printf("Li : %i Lk : %i\n", L[i], L[k]);
-            }
-        }
-    }
-    // printf("OK");
-
-    while (Entree.authornb != 0) {
-        // printf("\33[?25l\rcurseur:%i\33[?25h", curseur);
-        if (interruptFlag == 1) {
-            break;
-        }
-        if (Entree.authornb >= 1) {
-            L[0] = -1;
-            int index = 0;
-            for (int k = 0; k < Entree.authornb; k++) {
-                char *author1 = Entree.author[k];
-                n1 = AuthorInList(author1, node0);
-                // printf("n1 : %i\n", n1);
-                if (n1 < 0) {
-                    end = appendNode(author1, end);
-                    *taille += 1;
-                    n1 = *taille;
-                    // printf("n1 = *taille : %i\n", n1);
-                }
-                L[index] = n1;
-                index++;
-                L[index] = -1;
-            }
-            for (int i = 0; L[i] > -1 && i < 100; i++) {
-                for (int k = i + 1; L[k] > -1 && k < 100; k++) {
-                    // printf("Li : %i Lk : %i\n", L[i], L[k]);
-                    // appendEdge(L[i], L[k], node0);
-                    nbrarrete++;
-                }
-            }
-        }
-        Entree = readEntryBin(option, -1);
-        curseur++;
-    }
-    // printf("normal nbr arret:%i\n", nbrarrete * 2);
-    printf("************Fin DoListAdjDeBin************\n");
-    return node0;
-} */
 
 int dijkstra(int n1, node *node0, int taille) {
     // une distance de -1 représente une distance infini
@@ -418,27 +337,56 @@ void printDistance(int n1, node *node0) {
     printf("author:%s distance de %i:%i\n", currentNode->author, n1,
            currentNode->distance);
 }
-<<<<<<< HEAD
 
 void plusCourtChemin(int n1,int n2,node *node0,int taille){
     dijkstra(n1,node0,taille);
-    printf("plus court chemin entre %i et %i:\n",n1,n2);
+    printf("plus court chemin entre %i et %i:\n",n2,n1);
     node *currentNode=GoToNode(n2,node0);
-    printf("n2:%s\n",currentNode->author);
+    int distance=currentNode->distance;
+    if(distance==-1){
+        printf("pas de chemin entre %i et %i:\n",n2,n1);
+        exit(1);
+    }
     edge *currentEdge=currentNode->nodeEdge;
     node *minVoisin=currentEdge->otherNode;
     while(currentNode->nodeNumber!=n1){
+        printf("%s\n",currentNode->author);
         while(currentEdge!=NULL){
             if(currentEdge->otherNode->distance < minVoisin->distance){
                 minVoisin=currentEdge->otherNode;
             }
+            currentEdge=currentEdge->nextEdge;
         }
         currentNode=minVoisin;
         currentEdge=currentNode->nodeEdge;
-        printf("%s\n",currentNode->author);
     }
-    printf("n1:%s\n",currentNode->author);
+    printf("%s\n",currentNode->author);
+    printf("distance entre %i et %i: %i\n",n2,n1,distance);
 }
 
-=======
->>>>>>> fcc995f4c91a2fb5344a577e07680be43e302f3b
+void explorationGraphe(node *node0){
+    node0->flag=1;
+    edge *currentEdge=node0->nodeEdge;
+    while(currentEdge!=NULL){
+        node0=currentEdge->otherNode;
+        if(node0->flag==0){
+            printf("%i\n",node0->nodeNumber);
+            explorationGraphe(node0);
+        }
+        currentEdge=currentEdge->nextEdge;
+    }
+}
+int nbrComposanteConnexe(node *node0){
+    node *currentNode=node0;
+    int nbrConnexe=0;
+    while(currentNode!=NULL){
+        if(currentNode->flag==0){
+            explorationGraphe(currentNode);
+            printf("+1\n");
+            nbrConnexe+=1;
+        }
+        currentNode=currentNode->nextNode;
+    }
+    return nbrConnexe;
+}
+

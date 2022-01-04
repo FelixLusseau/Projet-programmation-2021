@@ -69,8 +69,9 @@ int main(int argc, char **argv) {
             // authorNameToNodeNumber(options.authorNames[0]
             // 2864737
             //
-            dijkstra(authorNameToNodeNumber(options.authorNames[0], hashTable),
-                     node0, taille));
+            //dijkstra(authorNameToNodeNumber(options.authorNames[0], hashTable),
+            //         node0, taille));
+            
         if (options.authorNames[1] != NULL) {
             testExitCode(chooseAuthor(&options, hashTable, node0, 1));
             printDistance(

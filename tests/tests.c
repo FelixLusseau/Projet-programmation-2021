@@ -84,8 +84,11 @@ void testCreateListeAdj(void) {
     int test2 = AuthorInList(author2, node0);
     printf("test présence author: %i\n", test2);
 
-    dijkstra(6, node0, 6);
-    printDistance(6, node0);
+    /*dijkstra(6, node0, 6);
+    printDistance(6, node0);*/
+    plusCourtChemin(2,0,node0,6);
+    //int rs=nbrComposanteConnexe(node0);
+    //printf("nbr Connexe:%i\n",rs);
 
     freeListAdj(node0);
 }
@@ -152,7 +155,7 @@ void testArticles() {
 }
 
 int main(void) {
-    /* testCreateListeAdj();
+    testCreateListeAdj();/*
     options_t options;
     options.inputFilename = "../database/dblp.xml";
     options.outputFilename = "../database/dblp.bin";
@@ -166,12 +169,12 @@ int main(void) {
 
     openFiles(&options, "r", 0);
     closeFiles(&options); */
-
+    /*
     TEST(testParse);
     TEST(testRead);
     TEST(testGraph);
     TEST(testArticles);
-
+    */
     // showAllAuthors(&options);
 
     return 0;
