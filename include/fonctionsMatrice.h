@@ -62,7 +62,7 @@ int dijkstra(int n1, node *node0, int taille);
 /** affiche les noeud dont la distance de n1 est positive*/
 void printDistance(int n1, node *node0);
 
-void plusCourtChemin(int n1,int n2,node *node0,int taille);
+int plusCourtChemin(int n1, int n2, node *node0, int taille);
 
 void explorationGraphe(node *node0);
 

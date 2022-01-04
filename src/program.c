@@ -63,6 +63,14 @@ int main(int argc, char **argv) {
         options.action[ACTION_NEIGHBOURS] != TO_DO) {
         testExitCode(showArticles(&options, hashTable, node0));
     }
+    if (options.action[ACTION_SHORTEST_PATH] == TO_DO) {
+        testExitCode(chooseAuthor(&options, hashTable, node0, 0));
+        testExitCode(chooseAuthor(&options, hashTable, node0, 1));
+        testExitCode(plusCourtChemin(
+            authorNameToNodeNumber(options.authorNames[0], hashTable),
+            authorNameToNodeNumber(options.authorNames[1], hashTable), node0,
+            taille));
+    }
     if (options.action[ACTION_DIJKSTRA] == TO_DO) {
         testExitCode(chooseAuthor(&options, hashTable, node0, 0));
         testExitCode(

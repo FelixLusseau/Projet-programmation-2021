@@ -135,6 +135,8 @@ const char *errorToString(error_t err) {
         return "=> \33[0;31mError\33[0m while generating the graph !";
     case ERROR_NODE_EQ_NULL:
         return "=> \33[0;31mError\33[0m graph is empty !";
+    case ERROR_PATH:
+        return "=> \33[0;31mError\33[0m making the path !";
     default:
     case OK:
         return "";

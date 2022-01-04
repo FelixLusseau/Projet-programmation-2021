@@ -5,7 +5,7 @@
 #include <stdint.h>
 #include <stdio.h>
 
-#define ACTIONS_NB 9
+#define ACTIONS_NB 10
 #define HT_SIZE 50000000
 
 typedef enum action_t {
@@ -16,6 +16,7 @@ typedef enum action_t {
     ACTION_SHOW_AUTHORS,
     ACTION_SHOW_ARTICLES,
     ACTION_DIJKSTRA,
+    ACTION_SHORTEST_PATH,
     ACTION_DISTANCE,
     ACTION_NEIGHBOURS,
     ACTION_CONNECTED
@@ -61,7 +62,8 @@ typedef enum error_t {
     ERROR_SHOW_AUTHORS,
     ERROR_NO_AUTHOR,
     ERROR_GRAPH,
-    ERROR_NODE_EQ_NULL
+    ERROR_NODE_EQ_NULL,
+    ERROR_PATH
 } error_t;
 
 #endif
