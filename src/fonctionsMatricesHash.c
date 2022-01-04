@@ -32,44 +32,31 @@ node *GoToNodeHash(node **hashTable, unsigned int hash) {
     return hashTable[hash];
 }
 
-int appendEdgeHash(unsigned int hash1, unsigned int hash2, node **hashTable) {
-    node *Node1 = GoToNodeHash(hashTable, hash1);
-    node *Node2 = GoToNodeHash(hashTable, hash2);
-
+void sousAppendEdge(node *Node1,node *Node2){
     edge *newEdge1 = (edge *)malloc(sizeof(edge));
     if (newEdge1 == NULL) {
-        printf("appendEdge:erreur malloc edge = NULL");
+        fprintf(stderr,"appendEdge:erreur malloc edge = NULL");
     }
-
-    edge *newEdge2 = (edge *)malloc(sizeof(edge));
-    if (newEdge2 == NULL) {
-        printf("appendEdge:erreur malloc edge = NULL");
-    }
-
     newEdge1->otherNode = Node2;
     newEdge1->linkNode = Node1;
     if (Node1->nodeEdge == NULL) {
         newEdge1->nextEdge = NULL;
         Node1->nodeEdge = newEdge1;
-    } else {
+    } 
+    else {
         newEdge1->nextEdge = Node1->nodeEdge;
         Node1->nodeEdge = newEdge1;
     }
+}
+void appendEdgeHash(unsigned int hash1, unsigned int hash2, node **hashTable) {
+    node *Node1 = GoToNodeHash(hashTable, hash1);
+    node *Node2 = GoToNodeHash(hashTable, hash2);
 
-    newEdge2->otherNode = Node1;
-    newEdge2->linkNode = Node2;
-    if (Node2->nodeEdge == NULL) {
-        newEdge2->nextEdge = NULL;
-        Node2->nodeEdge = newEdge2;
-    } else {
-        newEdge2->nextEdge = Node2->nodeEdge;
-        Node2->nodeEdge = newEdge2;
-    }
-
-    return 0;
+    sousAppendEdge(Node1,Node2);
+    sousAppendEdge(Node2,Node1);
 }
 
-node * sousListeAdj(node *end,int *taille,structureBase_t *Entree,node **hashTable){
+node *sousListeAdj(node *end,int *taille,structureBase_t *Entree,node **hashTable){
     int n1 = 0;
     int L[500];
     L[0] = -1;
