@@ -79,11 +79,12 @@ int parseArgs(int argc, char **argv, options_t *options) {
                 options->authorNames[1] = optarg;
             countAuthorsArguments++;
             // printf("%i\n", countAuthorsArguments);
-
             options->action[ACTION_GRAPH] = TO_DO;
-            options->action[ACTION_DIJKSTRA] = TO_DO;
+            options->action[ACTION_SHORTEST_PATH] = TO_DO;
             break;
         case 'd':
+            options->action[ACTION_SHORTEST_PATH] = NOT_TO_DO;
+            options->action[ACTION_DIJKSTRA] = TO_DO;
             options->action[ACTION_DISTANCE] = TO_DO;
             break;
         case 'c':

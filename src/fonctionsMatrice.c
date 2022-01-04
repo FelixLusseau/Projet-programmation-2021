@@ -30,12 +30,12 @@ node *CreateListAdj(char *author) {
     return node0;
 }
 
-void reinitialise(node *node0){
-    node *currentNode=node0;
-    while(currentNode!=NULL){
-        currentNode->flag=0;
-        currentNode->distance=0;
-        currentNode=currentNode->nextNode;
+void reinitialise(node *node0) {
+    node *currentNode = node0;
+    while (currentNode != NULL) {
+        currentNode->flag = 0;
+        currentNode->distance = 0;
+        currentNode = currentNode->nextNode;
     }
 }
 node *GoToNode(int n, node *node0) {
@@ -221,7 +221,6 @@ int AuthorInList(char *author, node *node0) {
     return -1;
 }
 
-
 int dijkstra(int n1, node *node0, int taille) {
     // une distance de -1 représente une distance infini
     node *node1 = GoToNode(n1, node0);
@@ -343,53 +342,63 @@ void printDistance(int n1, node *node0) {
            currentNode->distance);
 }
 
-void plusCourtChemin(int n1,int n2,node *node0,int taille){
-    dijkstra(n1,node0,taille);
-    printf("plus court chemin entre %i et %i:\n",n2,n1);
-    node *currentNode=GoToNode(n2,node0);
-    int distance=currentNode->distance;
-    if(distance==-1){
-        printf("pas de chemin entre %i et %i:\n",n2,n1);
-        exit(1);
+int plusCourtChemin(int n1, int n2, node *node0, int taille) {
+    int exitCode = dijkstra(n1, node0, taille);
+    if (exitCode)
+        return exitCode;
+    printf("plus court chemin entre %i et %i:\n", n2, n1);
+    node *currentNode = GoToNode(n2, node0);
+    int distance = currentNode->distance;
+    if (distance == -1) {
+        fprintf(stderr, "pas de chemin entre %i et %i:\n", n2, n1);
+        return ERROR_PATH;
     }
-    edge *currentEdge=currentNode->nodeEdge;
-    node *minVoisin=currentEdge->otherNode;
-    while(currentNode->nodeNumber!=n1){
-        printf("%s\n",currentNode->author);
-        while(currentEdge!=NULL){
-            if(currentEdge->otherNode->distance < minVoisin->distance){
-                minVoisin=currentEdge->otherNode;
+    edge *currentEdge = currentNode->nodeEdge;
+    node *minVoisin = currentEdge->otherNode;
+    while (currentNode->nodeNumber != n1) {
+        printf("%s\n", currentNode->author);
+        while (currentEdge != NULL) {
+            if (currentEdge->otherNode->distance < minVoisin->distance) {
+                minVoisin = currentEdge->otherNode;
             }
-            currentEdge=currentEdge->nextEdge;
+            currentEdge = currentEdge->nextEdge;
         }
-        currentNode=minVoisin;
-        currentEdge=currentNode->nodeEdge;
+        currentNode = minVoisin;
+        currentEdge = currentNode->nodeEdge;
     }
-    printf("%s\n",currentNode->author);
-    printf("distance entre %i et %i: %i\n",n2,n1,distance);
+    printf("%s\n", currentNode->author);
+    printf("distance entre %i et %i: %i\n", n2, n1, distance);
+    return OK;
 }
 
-void explorationGraphe(node *node0){
-    node0->flag=1;
-    edge *currentEdge=node0->nodeEdge;
-    while(currentEdge!=NULL){
-        node0=currentEdge->otherNode;
-        if(node0->flag==0){
-            explorationGraphe(node0);
+void explorationGraphe(node *node0,int *isolé) {
+    node0->flag = 1;
+    if(node0->nodeEdge==NULL){
+        *isolé+=1;
+    }
+    edge *currentEdge = node0->nodeEdge;
+    while (currentEdge != NULL) {
+        node0 = currentEdge->otherNode;
+        if(node0->nodeEdge==NULL){
+            *isolé+=1;
         }
-        currentEdge=currentEdge->nextEdge;
+        if (node0->flag == 0) {
+            explorationGraphe(node0,isolé);
+        }
+        currentEdge = currentEdge->nextEdge;
     }
 }
-int nbrComposanteConnexe(node *node0){
-    node *currentNode=node0;
-    int nbrConnexe=0;
-    while(currentNode!=NULL){
-        if(currentNode->flag==0){
-            explorationGraphe(currentNode);
-            nbrConnexe+=1;
+void nbrComposanteConnexe(node *node0) {
+    node *currentNode = node0;
+    int nbrConnexe = 0;
+    int isolé=0;
+    while (currentNode != NULL) {   
+        if (currentNode->flag == 0) {
+            explorationGraphe(currentNode,&isolé);
+            nbrConnexe += 1;
         }
-        currentNode=currentNode->nextNode;
+        currentNode = currentNode->nextNode;
     }
-    return nbrConnexe;
+    printf("nombre de composante connexe:%i\nnombre de sommets isolé parmis les composantes connexes:%i\n"
+            ,nbrConnexe,isolé);
 }
-
