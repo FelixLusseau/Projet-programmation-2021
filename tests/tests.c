@@ -73,16 +73,16 @@ int showAllAuthors(options_t *options) {
 }
 
 void testCreateListeAdj(void) {
-    char c0[] = "author0";
+    char c0[] = "g";
 
     node *node0 = CreateListAdj(c0);
 
-    char *c1 = "1";
-    char *c2 = "2";
-    char *c3 = "3";
-    char *c4 = "4";
-    char *c5 = "5";
-    char *c6 = "isolé";
+    char *c1 = "a";
+    char *c2 = "b";
+    char *c3 = "c";
+    char *c4 = "d";
+    char *c5 = "e";
+    char *c6 = "f";
     node *end = node0;
     end = appendNode(c1, end);
     end = appendNode(c2, end);
@@ -91,17 +91,18 @@ void testCreateListeAdj(void) {
     end = appendNode(c5, end);
     end = appendNode(c6, end);
 
-    appendEdge(5, 0, node0);
-    appendEdge(5, 4, node0);
-    appendEdge(5, 1, node0);
-    appendEdge(1, 4, node0);
-    appendEdge(4, 3, node0);
-    appendEdge(3, 2, node0);
+    appendEdge(1, 2, node0);
+    appendEdge(1, 3, node0);
+    appendEdge(1, 5, node0);
+    appendEdge(2, 4, node0);
+    appendEdge(2, 6, node0);
+    appendEdge(3, 0, node0);
+    appendEdge(5, 6, node0);
 
     printListNode(node0);
     printListEdge(node0);
 
-    char author[] = "3";
+    char author[] = "d";
     int test = AuthorInList(author, node0);
     printf("test présence author: %i\n", test);
 
@@ -109,9 +110,12 @@ void testCreateListeAdj(void) {
     int test2 = AuthorInList(author2, node0);
     printf("test présence author: %i\n", test2);
 
-    /*dijkstra(6, node0, 6);
-    printDistance(6, node0);*/
-    plusCourtChemin(3, 2, node0, 6);
+    options_t options;
+    initOptions(&options);
+    options.authorNames[0] = "a";
+    dijkstra(1, node0, 6);
+    printDistances(&options, node0);
+    // plusCourtChemin(3,2,node0,6);
     // int rs=nbrComposanteConnexe(node0);
     // printf("nbr Connexe:%i\n",rs);
 
