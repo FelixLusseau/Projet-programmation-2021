@@ -18,60 +18,6 @@
 
 int interruptFlag = 0;
 
-int readEntireBintest(options_t *options, int print) {
-    initSigaction();
-    fseek(options->outputFile, 14, SEEK_SET);
-    int counter = 0;
-    int ct = 0;
-    int16_t precAuthornb = 0;
-    structureBase_t structureBase;
-    while (1) {
-        readStructure(options, &structureBase, precAuthornb);
-        if (structureBase.authornb == 0 || interruptFlag == 1)
-            break;
-        for (int k = 0; k < structureBase.authornb; k++) {
-            ct++;
-        }
-        precAuthornb = structureBase.authornb;
-        if (print == 1)
-            printStruct(&structureBase);
-        counter++;
-    }
-    if (print == 0) {
-        fseek(options->outputFile, 14, SEEK_SET);
-        return counter;
-    }
-    return OK;
-}
-
-structureBase_t readEntryBintest(options_t *options) {
-    int16_t precAuthornb = 0;
-    structureBase_t structureBase;
-    readStructure(options, &structureBase, precAuthornb);
-    return structureBase;
-}
-
-int showAllAuthors(options_t *options) {
-    initSigaction();
-    int16_t precAuthornb = 0;
-    structureBase_t structureBase;
-    while (1) {
-        initStructure(&structureBase, precAuthornb);
-        structureBase = readEntryBintest(options);
-        // printStruct(&structureBase);
-        if (structureBase.authornb == 0)
-            break;
-        // for (int k = 0; k < structureBase.authornb; k++) {
-        // printf(" - %s\n", structureBase.author[k]);
-        //}
-        if (interruptFlag == 1)
-            break;
-        precAuthornb = structureBase.authornb;
-    }
-
-    return OK;
-}
-
 void testCreateListeAdj(void) {
     char c0[] = "g";
 
@@ -185,7 +131,7 @@ void testArticles() {
 
 int main(void) {
     // testCreateListeAdj();
-    options_t options;
+    /* options_t options;
     options.inputFilename = "../database/dblp.xml";
     // options.outputFilename = "../database/dblp.bin";
     options.outputFilename = "../tests/sample.bin";
@@ -198,14 +144,13 @@ int main(void) {
     options.authorNames[1] = NULL;
 
     openFiles(&options, "r", 0);
-    // readEntireBintest(&options, 0);
-    showAllAuthors(&options);
-    closeFiles(&options);
 
-    /* TEST(testParse);
+    closeFiles(&options); */
+
+    TEST(testParse);
     TEST(testRead);
     TEST(testGraph);
-    TEST(testArticles); */
+    TEST(testArticles);
 
     return 0;
 }

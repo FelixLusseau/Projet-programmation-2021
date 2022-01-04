@@ -29,6 +29,7 @@ void printUsage(void) {
         "authors\n"
         "\t-a AUTHOR -n N           show all the authors at the distance N "
         "of the author given\n"
+        "\t-c                       count the number of connected components "
         "\t-h                       show this help\n\n\n"
         "Examples:\n"
         "./bin/program -i database/dblp.xml -o database/dblp.bin -a "

@@ -15,4 +15,3 @@ vérif de l'auteur dans chooseAuthor ?
 
 test de malloc et autres erreurs ?
 
-Ne pas envoyer options en entier ?

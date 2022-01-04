@@ -98,7 +98,9 @@ node *DoListAdjDeBinHash(options_t *options, int *taille, node **hashTable) {
     int16_t precAuthornb = 0;
     structureBase_t Entree;
     initStructure(&Entree, 0);
-    Entree = readEntryBin(options, -1);
+    // Entree = readEntryBin(options, -1);
+    readStructure(options, &Entree, precAuthornb);
+    precAuthornb = Entree.authornb;
 
     if (Entree.author[0] == NULL) {
         printf("Erreur 1er livre author[0]=NULL");
@@ -109,7 +111,9 @@ node *DoListAdjDeBinHash(options_t *options, int *taille, node **hashTable) {
     if (Entree.authornb > 1) {
         end = sousListeAdj(end, taille, &Entree, hashTable);
     }
-    Entree = readEntryBin(options, -1);
+    // Entree = readEntryBin(options, -1);
+    readStructure(options, &Entree, precAuthornb);
+    precAuthornb = Entree.authornb;
     int curseur = 1;
     while (Entree.authornb != 0) {
         if (interruptFlag == 1) {
@@ -139,7 +143,7 @@ int authorNameToNodeNumber(char *authorName, node **hashTable) {
     return hashTable[authorHash]->nodeNumber;
 }
 
-char *nodeNumberToAuthorName(int nodeNumber, node *node0) {
+/* char *nodeNumberToAuthorName(int nodeNumber, node *node0) {
     node *currentNode = node0;
     while (currentNode->nextNode != NULL) {
         if (currentNode->nodeNumber == nodeNumber) {
@@ -150,7 +154,7 @@ char *nodeNumberToAuthorName(int nodeNumber, node *node0) {
             break;
     }
     return NULL;
-}
+} */
 
 int printAuthorAtDist(options_t *options, node *node0) {
     if (node0 == NULL) {
