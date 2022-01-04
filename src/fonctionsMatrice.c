@@ -12,7 +12,7 @@ extern int interruptFlag;
 node *CreateListAdj(char *author) {
     node *node0 = (node *)malloc(sizeof(node));
     if (node0 == NULL) {
-        printf("creatListAdj:erreur malloc node = NULL");
+        fprintf(stderr,"creatListAdj:erreur malloc node = NULL");
         return NULL;
     }
     int k = 0;
@@ -75,7 +75,7 @@ node *GoToNode(int n, node *node0) {
 node *appendNode(char *author, node *end) {
     node *newNode = malloc(sizeof(node));
     if (newNode == NULL) {
-        printf(" appendNode:erreur malloc node = NULL ");
+        fprintf(stderr,"appendNode:erreur malloc node = NULL ");
     }
     node *currentNode = end;
     currentNode->nextNode = newNode;
@@ -100,12 +100,12 @@ int appendEdge(int n1, int n2, node *node0) {
 
     edge *newEdge1 = (edge *)malloc(sizeof(edge));
     if (newEdge1 == NULL) {
-        printf("appendEdge:erreur malloc edge = NULL");
+        fprintf(stderr,"appendEdge:erreur malloc edge = NULL");
     }
 
     edge *newEdge2 = (edge *)malloc(sizeof(edge));
     if (newEdge2 == NULL) {
-        printf("appendEdge:erreur malloc edge = NULL");
+        fprintf(stderr,"appendEdge:erreur malloc edge = NULL");
     }
 
     newEdge1->otherNode = Node2;
@@ -375,7 +375,6 @@ void explorationGraphe(node *node0){
     while(currentEdge!=NULL){
         node0=currentEdge->otherNode;
         if(node0->flag==0){
-            printf("%i\n",node0->nodeNumber);
             explorationGraphe(node0);
         }
         currentEdge=currentEdge->nextEdge;
@@ -387,7 +386,6 @@ int nbrComposanteConnexe(node *node0){
     while(currentNode!=NULL){
         if(currentNode->flag==0){
             explorationGraphe(currentNode);
-            printf("+1\n");
             nbrConnexe+=1;
         }
         currentNode=currentNode->nextNode;
