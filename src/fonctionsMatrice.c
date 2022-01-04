@@ -12,7 +12,7 @@ extern int interruptFlag;
 node *CreateListAdj(char *author) {
     node *node0 = (node *)malloc(sizeof(node));
     if (node0 == NULL) {
-        fprintf(stderr,"creatListAdj:erreur malloc node = NULL");
+        fprintf(stderr, "creatListAdj:erreur malloc node = NULL");
         return NULL;
     }
     int k = 0;
@@ -75,7 +75,7 @@ node *GoToNode(int n, node *node0) {
 node *appendNode(char *author, node *end) {
     node *newNode = malloc(sizeof(node));
     if (newNode == NULL) {
-        fprintf(stderr,"appendNode:erreur malloc node = NULL ");
+        fprintf(stderr, "appendNode:erreur malloc node = NULL ");
     }
     node *currentNode = end;
     currentNode->nextNode = newNode;
@@ -100,12 +100,12 @@ int appendEdge(int n1, int n2, node *node0) {
 
     edge *newEdge1 = (edge *)malloc(sizeof(edge));
     if (newEdge1 == NULL) {
-        fprintf(stderr,"appendEdge:erreur malloc edge = NULL");
+        fprintf(stderr, "appendEdge:erreur malloc edge = NULL");
     }
 
     edge *newEdge2 = (edge *)malloc(sizeof(edge));
     if (newEdge2 == NULL) {
-        fprintf(stderr,"appendEdge:erreur malloc edge = NULL");
+        fprintf(stderr, "appendEdge:erreur malloc edge = NULL");
     }
 
     newEdge1->otherNode = Node2;
@@ -324,9 +324,9 @@ int dijkstra(int n1, node *node0, int taille) {
 
 void printDistance(int n1, node *node0) {
     node *currentNode = node0;
-    while (currentNode!= NULL) {
+    while (currentNode != NULL) {
         if (currentNode->distance != -1) {
-            printf("distance entre %i et %i:%i\n",n1,currentNode->nodeNumber,
+            printf("distance entre %i et %i:%i\n", n1, currentNode->nodeNumber,
                    currentNode->distance);
         }
         currentNode = currentNode->nextNode;
@@ -362,16 +362,16 @@ int plusCourtChemin(int n1, int n2, node *node0, int taille) {
     return OK;
 }
 
-void explorationGraphe(node *node0,int *isole) {
+void explorationGraphe(node *node0, int *isole) {
     node0->flag = 1;
-    if(node0->nodeEdge==NULL){
-        *isole+=1;
+    if (node0->nodeEdge == NULL) {
+        *isole += 1;
     }
     edge *currentEdge = node0->nodeEdge;
     while (currentEdge != NULL) {
         node0 = currentEdge->otherNode;
         if (node0->flag == 0) {
-            explorationGraphe(node0,isole);
+            explorationGraphe(node0, isole);
         }
         currentEdge = currentEdge->nextEdge;
     }
@@ -379,14 +379,18 @@ void explorationGraphe(node *node0,int *isole) {
 void nbrComposanteConnexe(node *node0) {
     node *currentNode = node0;
     int nbrConnexe = 0;
-    int isole=0;
-    while (currentNode != NULL) {   
+    int isole = 0;
+    while (currentNode != NULL) {
+        if (interruptFlag == 1) {
+            break;
+        }
         if (currentNode->flag == 0) {
-            explorationGraphe(currentNode,&isole);
+            explorationGraphe(currentNode, &isole);
             nbrConnexe += 1;
         }
         currentNode = currentNode->nextNode;
     }
-    printf("nombre de composante connexe:%i\nnombre de sommets isolé parmis les composantes connexes:%i\n"
-            ,nbrConnexe,isole);
+    printf("nombre de composante connexe:%i\nnombre de sommets isolé parmis "
+           "les composantes connexes:%i\n",
+           nbrConnexe, isole);
 }

@@ -88,6 +88,7 @@ int parseArgs(int argc, char **argv, options_t *options) {
             options->action[ACTION_DISTANCE] = TO_DO;
             break;
         case 'c':
+            options->action[ACTION_GRAPH] = TO_DO;
             options->action[ACTION_CONNECTED] = TO_DO;
             break;
         case 'h':
