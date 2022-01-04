@@ -24,6 +24,8 @@ typedef struct edge {
 
 node *CreateListAdj();
 
+void reinitialise(node *node0);
+
 node *GoToNode(int n, node *node0);
 
 node *GoToEndNode(node *node0);

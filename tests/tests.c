@@ -86,7 +86,7 @@ void testCreateListeAdj(void) {
 
     /*dijkstra(6, node0, 6);
     printDistance(6, node0);*/
-    plusCourtChemin(2,0,node0,6);
+    plusCourtChemin(3,2,node0,6);
     //int rs=nbrComposanteConnexe(node0);
     //printf("nbr Connexe:%i\n",rs);
 

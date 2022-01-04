@@ -30,8 +30,13 @@ node *CreateListAdj(char *author) {
     return node0;
 }
 
-void reinitialiseFlag(node *node0){
+void reinitialise(node *node0){
     node *currentNode=node0;
+    while(currentNode!=NULL){
+        currentNode->flag=0;
+        currentNode->distance=0;
+        currentNode=currentNode->nextNode;
+    }
 }
 node *GoToNode(int n, node *node0) {
     node *currentNode = node0;

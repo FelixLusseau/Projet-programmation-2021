@@ -69,9 +69,40 @@ int appendEdgeHash(unsigned int hash1, unsigned int hash2, node **hashTable) {
     return 0;
 }
 
+node * sousListeAdj(node *end,int *taille,structureBase_t *Entree,node **hashTable){
+    int n1 = 0;
+    int L[500];
+    L[0] = -1;
+    unsigned int LH[100];
+    int index = 0;
+    // on récupère les numéros des co auteur de l'article et on les mets
+    // dans une liste
+    for (int k = 0; k < Entree->authornb; k++) {
+        char *author1 = Entree->author[k];
+        unsigned int hash1 = hash((unsigned char *)author1);
+        n1 = AuthorInListHash(author1, hashTable);
+        if (n1 == -1) {
+            end = appendNode(author1, end);
+            hashTable[hash1] = end;
+            *taille += 1;
+            n1 = *taille;
+        }
+        L[index] = n1;
+        LH[index] = hash1;
+        index++;
+        L[index] = -1;
+    }
+    // on utilise la liste pour append le graphe
+    for (int i = 0; L[i] > -1 && i < 100; i++) {
+        for (int k = i + 1; L[k] > -1 && k < 100; k++) {
+            appendEdgeHash(LH[i], LH[k], hashTable);
+        }
+    }
+    return end;
+}
+
 node *DoListAdjDeBinHash(options_t *option, int *taille, node **hashTable) {
     int nbEntries = readEntireBin(option, 0);
-    int nbrarrete = 0;
     printf("\n*************************************Debut de la fonction "
            "graphe*************************************\n\n");
     printf("\33[?25l");
@@ -86,74 +117,18 @@ node *DoListAdjDeBinHash(options_t *option, int *taille, node **hashTable) {
         return NULL;
     }
     node *node0 = CreateListAdj(Entree.author[0]);
-    int n1 = 0;
-    int n2 = 0;
     node *end = node0;
-    /* première boucle si il y a des auteur après author n°0 */
-    for (int k = 1; k < Entree.authornb; k++) {
-        char *author1 = Entree.author[k];
-        // printf("%s\n", author1);
-        unsigned int hash1 = hash((unsigned char *)author1);
-        n1 = AuthorInListHash(author1, hashTable);
-        if (n1 == -1) {
-            end = appendNode(author1, end);
-            hashTable[hash1] = end;
-            *taille += 1;
-            n1 = *taille;
-        }
-        for (int i = k + 1; i < Entree.authornb; i++) {
-            char *author2 = Entree.author[i];
-            // printf("%s\n", author2);
-            unsigned int hash2 = hash((unsigned char *)author2);
-            n2 = AuthorInListHash(author2, hashTable);
-            if (n2 == -1) {
-                end = appendNode(author2, end);
-                hashTable[hash2] = end;
-                *taille += 1;
-                n2 = *taille;
-            }
-            appendEdgeHash(hash1, hash2, hashTable);
-        }
+    if (Entree.authornb >= 1){
+        end= sousListeAdj(end,taille,&Entree,hashTable);
     }
-    int L[500];
-    unsigned int LH[100];
     int curseur = 1;
     while (Entree.authornb != 0) {
-        // printf("\33[?25l\rcurseur:%i\33[?25h", curseur);
         if (interruptFlag == 1) {
             printf("\33[?25h");
             break;
         }
         if (Entree.authornb >= 1) {
-            L[0] = -1;
-            int index = 0;
-            // on récupère les numéros des co auteur de l'article et on les mets
-            // dans une liste
-            for (int k = 0; k < Entree.authornb; k++) {
-                char *author1 = Entree.author[k];
-                // printf("%s\n", author1);
-                unsigned int hash1 = hash((unsigned char *)author1);
-                n1 = AuthorInListHash(author1, hashTable);
-                if (n1 == -1) {
-                    end = appendNode(author1, end);
-                    hashTable[hash1] = end;
-                    // printf("%p\n", hashTable[hash1]);
-                    *taille += 1;
-                    n1 = *taille;
-                }
-                // printf("%s\n", hashTable[hash1]->author);
-                L[index] = n1;
-                LH[index] = hash1;
-                index++;
-                L[index] = -1;
-            }
-            // on utilise la liste pour append le graphe
-            for (int i = 0; L[i] > -1 && i < 100; i++) {
-                for (int k = i + 1; L[k] > -1 && k < 100; k++) {
-                    appendEdgeHash(LH[i], LH[k], hashTable);
-                    nbrarrete++;
-                }
-            }
+            end= sousListeAdj(end,taille,&Entree,hashTable);
         }
         Entree = readEntryBin(option, -1);
         curseur++;
@@ -161,7 +136,6 @@ node *DoListAdjDeBinHash(options_t *option, int *taille, node **hashTable) {
             progressBar(curseur * 100 / nbEntries);
         }
     }
-    // printf("hash nbr arret:%i\n",nbrarrete*2);
     progressBar(100);
     printf("\33[?25h");
     printf("\n\n**************************************Fin de la fonction "
