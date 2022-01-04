@@ -88,16 +88,17 @@ node *sousListeAdj(node *end, int *taille, structureBase_t *Entree,
     return end;
 }
 
-node *DoListAdjDeBinHash(options_t *option, int *taille, node **hashTable) {
-    int nbEntries = readEntireBin(option, 0);
+node *DoListAdjDeBinHash(options_t *options, int *taille, node **hashTable) {
+    int nbEntries = readEntireBin(options, 0);
     printf("\n*************************************Debut de la fonction "
            "graphe*************************************\n\n");
     printf("\33[?25l");
 
     *taille = 0;
+    int16_t precAuthornb = 0;
     structureBase_t Entree;
     initStructure(&Entree, 0);
-    Entree = readEntryBin(option, -1);
+    Entree = readEntryBin(options, -1);
 
     if (Entree.author[0] == NULL) {
         printf("Erreur 1er livre author[0]=NULL");
@@ -105,10 +106,10 @@ node *DoListAdjDeBinHash(options_t *option, int *taille, node **hashTable) {
     }
     node *node0 = CreateListAdj(Entree.author[0]);
     node *end = node0;
-    if (Entree.authornb > 1){
-        end= sousListeAdj(end,taille,&Entree,hashTable);
+    if (Entree.authornb > 1) {
+        end = sousListeAdj(end, taille, &Entree, hashTable);
     }
-    Entree = readEntryBin(option, -1);
+    Entree = readEntryBin(options, -1);
     int curseur = 1;
     while (Entree.authornb != 0) {
         if (interruptFlag == 1) {
@@ -118,7 +119,9 @@ node *DoListAdjDeBinHash(options_t *option, int *taille, node **hashTable) {
         if (Entree.authornb >= 1) {
             end = sousListeAdj(end, taille, &Entree, hashTable);
         }
-        Entree = readEntryBin(option, -1);
+        // Entree = readEntryBin(options, -1);
+        readStructure(options, &Entree, precAuthornb);
+        precAuthornb = Entree.authornb;
         curseur++;
         if (curseur % 50000 == 0) {
             progressBar(curseur * 100 / nbEntries);

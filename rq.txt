@@ -2,14 +2,11 @@ tests.c et test.sh
 
 hash function : http://www.cse.yorku.ca/~oz/hash.html
 
-automatiser (ou presque) parsage et graphe au début du prog
+automatiser (ou presque) parsage et graphe au début du prog ?
 
 harmoniser ang / fr, error codes etc
 
 Interface ?
-
-test existence bin -> parsage ailleurs ?
-segfault quand pas un bin en sortie
 
 exit dans showAuthors ?
 nom demandé ne se complète pas
@@ -17,3 +14,5 @@ nom demandé ne se complète pas
 vérif de l'auteur dans chooseAuthor ?
 
 test de malloc et autres erreurs ?
+
+Ne pas envoyer options en entier ?

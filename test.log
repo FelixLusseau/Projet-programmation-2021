@@ -89,6 +89,10 @@ Examples:
 **************************************Fin de la fonction graphe**************************************
 
 
+
+*********************************Libération de l'espace**************************************
+
+
 ####
 #### Execution recherche articles (et auteurs)
 ####
@@ -102,7 +106,7 @@ Examples:
 Searching...
 
 Authors containing "Russell Turpin" in their name : 
- - Russell Turpin
+ - (null)
 
 
 
@@ -111,6 +115,10 @@ Articles of Russell Turpin :
 
 
 [0;32mComplete ! [0m
+
+
+*********************************Libération de l'espace**************************************
+
 
 ####
 #### Execution tests.c + cov
@@ -139,30 +147,6 @@ gcc -o obj/tests.o -c tests.c -O3 -pipe -march=native -mtune=native -Wall -Wextr
 gcc -o tests obj/fonctionsMatricesHash.o obj/readFunctions.o obj/argsParser.o obj/io-utils.o obj/searchingFunctions.o obj/baseParser.o obj/fonctionsMatrice.o obj/tests.o -O3 -pipe -march=native -mtune=native -Wall -Wextra -Werror -g -fprofile-arcs -ftest-coverage -lm
 Linking complete!
 valgrind --leak-check=full -q ./tests
-plus court chemin entre 2 et 3:
-
-liste sommet:
-  0:author0
-  1:1
-  2:2
-  3:3
-  4:4
-  5:5
-  6:isolé
-
-liste arretes:
- 0 -> 5|
- 1 -> 4| 1 -> 5|
- 2 -> 3|
- 3 -> 2| 3 -> 4|
- 4 -> 3| 4 -> 1| 4 -> 5|
- 5 -> 1| 5 -> 4| 5 -> 0|
-
-test présence author: 3
-test présence author: -1
-2
-3
-distance entre 2 et 3: 1
 lcov -d obj -c -o rapport.info
 Capturing coverage data from obj
 Found gcov version: 9.3.0
@@ -171,44 +155,30 @@ Scanning obj for .gcda files ...
 Found 8 data files in obj
 Processing obj/searchingFunctions.gcda
 Processing obj/fonctionsMatricesHash.gcda
-Processing obj/io-utils.gcda
-Processing obj/tests.gcda
 Processing obj/baseParser.gcda
-Processing obj/fonctionsMatrice.gcda
 Processing obj/argsParser.gcda
+Processing obj/io-utils.gcda
+Processing obj/fonctionsMatrice.gcda
 Processing obj/readFunctions.gcda
+Processing obj/tests.gcda
 Finished .info-file creation
 genhtml -o rapport -t "Couverture" rapport.info
 Reading data file rapport.info
 Found 10 entries.
-Found common filename prefix "/home/couture/Projet_program/ProjetProgrammation2021"
+Found common filename prefix "/home/felixlusseau/Documents/Cours/ProjetProgrammation2021"
 Writing .css and .png files.
 Generating output.
-<<<<<<< HEAD
-Processing file src/fonctionsMatricesHash.c
-Processing file src/fonctionsMatrice.c
-Processing file src/searchingFunctions.c
-Processing file src/io-utils.c
-Processing file src/baseParser.c
-Processing file src/readFunctions.c
-=======
-Processing file src/searchingFunctions.c
 Processing file src/fonctionsMatrice.c
 Processing file src/io-utils.c
-Processing file src/readFunctions.c
 Processing file src/baseParser.c
 Processing file src/fonctionsMatricesHash.c
->>>>>>> 9fd2827198f54e7fa1a55e552df9c2a130d3e125
+Processing file src/searchingFunctions.c
+Processing file src/readFunctions.c
 Processing file src/argsParser.c
 Processing file tests/tests.c
 Processing file /usr/include/stdlib.h
 Processing file /usr/include/x86_64-linux-gnu/bits/stdio2.h
 Writing directory view page.
 Overall coverage rate:
-<<<<<<< HEAD
-  lines......: 51.4% (432 of 840 lines)
-  functions..: 58.9% (33 of 56 functions)
-=======
-  lines......: 25.0% (213 of 852 lines)
-  functions..: 20.7% (12 of 58 functions)
->>>>>>> 9fd2827198f54e7fa1a55e552df9c2a130d3e125
+  lines......: 9.1% (82 of 898 lines)
+  functions..: 13.3% (8 of 60 functions)
