@@ -4,6 +4,8 @@
 
 #include "baseParser.h"
 #include "fonctionsMatrice.h"
+#include "fonctionsMatricesHash.h"
+
 #include "program.h"
 #include "readFunctions.h"
 
@@ -322,12 +324,13 @@ int dijkstra(int n1, node *node0, int taille) {
     return OK;
 }
 
-void printDistance(int n1, node *node0) {
+void printDistances(options_t *options, node *node0) {
     node *currentNode = node0;
+    printf("Distances : \n");
     while (currentNode != NULL) {
         if (currentNode->distance != -1) {
-            printf("distance entre %i et %i:%i\n", n1, currentNode->nodeNumber,
-                   currentNode->distance);
+            printf("%s - %s : %i\n", options->authorNames[0],
+                   currentNode->author, currentNode->distance);
         }
         currentNode = currentNode->nextNode;
     }
@@ -337,7 +340,7 @@ int plusCourtChemin(int n1, int n2, node *node0, int taille) {
     int exitCode = dijkstra(n1, node0, taille);
     if (exitCode)
         return exitCode;
-    printf("plus court chemin entre %i et %i:\n", n2, n1);
+    fprintf(stderr, "plus court chemin entre %i et %i:\n", n2, n1);
     node *currentNode = GoToNode(n2, node0);
     int distance = currentNode->distance;
     if (distance == -1) {
@@ -393,7 +396,6 @@ void nbrComposanteConnexe(node *node0) {
         }
         currentNode = currentNode->nextNode;
     }
-    printf("nombre de composante connexe:%i\nnombre de sommets isolé parmis "
-           "les composantes connexes:%i\n",
+    printf("Nombre de composantes connexes : %i\nDont sommets isolés : %i\n",
            nbrConnexe, isole);
 }

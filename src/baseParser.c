@@ -94,7 +94,7 @@ void extractTitle2(structureBase_t *structureBase, char *line,
 int parseBase(options_t *options) {
     initSigaction();
     errno = 0;
-    // readEntireXML(options);
+    fprintf(options->outputFile, "<binary file>\n");
     unsigned long long int linenb = 0;
     char *line = malloc(1500);
     if (line == NULL) {

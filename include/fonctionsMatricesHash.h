@@ -59,6 +59,8 @@ node *DoListAdjDeBinHash(options_t *option, int *taille, node **hashTable);
  */
 int authorNameToNodeNumber(char *authorName, node **hashTable);
 
+char *nodeNumberToAuthorName(int nodeNumber, node *node0);
+
 /**
  * @brief print all the authors at the distance N of the author given
  *
