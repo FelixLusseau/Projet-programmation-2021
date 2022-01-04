@@ -52,6 +52,7 @@ int main(int argc, char **argv) {
     if (options.action[ACTION_GRAPH] == TO_DO) {
         testExitCode(openFiles(&options, "r", 0));
         node0 = DoListAdjDeBinHash(&options, &taille, hashTable);
+        printListNode(node0);
         // printListAdj(node0);
         // printf("%i\n", authorNameToNodeNumber("Russell Turpin", hashTable));
         // printf("%i\n", authorNameToNodeNumber("Dimitar Ruscev", hashTable));
