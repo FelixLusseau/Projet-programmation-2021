@@ -5,7 +5,7 @@
 #include <stdint.h>
 #include <stdio.h>
 
-#define ACTIONS_NB 7
+#define ACTIONS_NB 9
 #define HT_SIZE 50000000
 
 typedef enum action_t {
@@ -16,7 +16,9 @@ typedef enum action_t {
     ACTION_SHOW_AUTHORS,
     ACTION_SHOW_ARTICLES,
     ACTION_DIJKSTRA,
-    ACTION_NEIGHBOURS
+    ACTION_DISTANCE,
+    ACTION_NEIGHBOURS,
+    ACTION_CONNECTED
 } action_t;
 
 typedef struct structureBase_t {
@@ -42,7 +44,6 @@ typedef struct options_t {
 typedef enum action_status_t {
     NOT_TO_DO,
     TO_DO,
-    DONE_SUCCESSFULLY
 } action_status_t;
 
 typedef enum error_t {

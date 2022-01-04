@@ -166,7 +166,6 @@ node *DoListAdjDeBinHash(options_t *option, int *taille, node **hashTable) {
     printf("\33[?25h");
     printf("\n\n**************************************Fin de la fonction "
            "graphe**************************************\n\n");
-    option->action[ACTION_GRAPH] = DONE_SUCCESSFULLY;
     return node0;
 }
 

@@ -139,6 +139,5 @@ int parseBase(options_t *options) {
         }
     }
     free(line);
-    options->action[ACTION_PARSE] = DONE_SUCCESSFULLY;
     return OK;
 }

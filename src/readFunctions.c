@@ -72,7 +72,6 @@ int readEntireBin(options_t *options, int print) {
         fseek(options->outputFile, 0, SEEK_SET);
         return counter;
     }
-    options->action[ACTION_READ] = DONE_SUCCESSFULLY;
     return OK;
 }
 
