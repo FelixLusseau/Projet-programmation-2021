@@ -333,7 +333,7 @@ void printDistance(int n1, node *node0) {
     node *currentNode = node0;
     while (currentNode->nextNode != NULL) {
         if (currentNode->distance != -1) {
-            printf("author:%i distance de %i:%i\n", currentNode->nodeNumber, n1,
+            printf("distance entre %i et %i:%i\n",n1,currentNode->nodeNumber,
                    currentNode->distance);
         }
         currentNode = currentNode->nextNode;
