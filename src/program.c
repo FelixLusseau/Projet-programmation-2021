@@ -81,8 +81,7 @@ int main(int argc, char **argv) {
     }
     if (options.action[ACTION_DISTANCE] == TO_DO) {
         testExitCode(chooseAuthor(&options, hashTable, node0, 1));
-        printDistance(authorNameToNodeNumber(options.authorNames[1], hashTable),
-                      node0);
+        printDistances(&options, node0);
     }
     if (options.action[ACTION_NEIGHBOURS] == TO_DO) {
         testExitCode(printAuthorAtDist(&options, node0));

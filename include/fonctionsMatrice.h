@@ -62,7 +62,7 @@ node *DoListAdjDeBin(options_t *option, int *taille);
 int dijkstra(int n1, node *node0, int taille);
 
 /** affiche les noeud dont la distance de n1 est positive*/
-void printDistance(int n1, node *node0);
+void printDistances(options_t *options, node *node0);
 
 int plusCourtChemin(int n1, int n2, node *node0, int taille);
 

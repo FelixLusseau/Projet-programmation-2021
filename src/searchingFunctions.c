@@ -16,7 +16,7 @@ extern int interruptFlag;
 int showAuthors(options_t *options, node **hashTable, node *node0,
                 int author0or1) {
     initSigaction();
-    fseek(options->outputFile, 0, SEEK_SET);
+    fseek(options->outputFile, 14, SEEK_SET);
     if (node0 == NULL) {
         return ERROR_NODE_EQ_NULL;
     }
@@ -75,7 +75,7 @@ int showAuthors(options_t *options, node **hashTable, node *node0,
 int chooseAuthor(options_t *options, node **hashTable, node *node0,
                  int author0or1) {
     int count = showAuthors(options, hashTable, node0, author0or1);
-    fseek(options->outputFile, 0, SEEK_SET);
+    fseek(options->outputFile, 14, SEEK_SET);
     char *exitChar = "Ok";
     if (count == 0) {
         return ERROR_NO_AUTHOR;

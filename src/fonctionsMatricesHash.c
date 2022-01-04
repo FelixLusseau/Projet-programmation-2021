@@ -32,18 +32,17 @@ node *GoToNodeHash(node **hashTable, unsigned int hash) {
     return hashTable[hash];
 }
 
-void sousAppendEdge(node *Node1,node *Node2){
+void sousAppendEdge(node *Node1, node *Node2) {
     edge *newEdge1 = (edge *)malloc(sizeof(edge));
     if (newEdge1 == NULL) {
-        fprintf(stderr,"appendEdge:erreur malloc edge = NULL");
+        fprintf(stderr, "appendEdge:erreur malloc edge = NULL");
     }
     newEdge1->otherNode = Node2;
     newEdge1->linkNode = Node1;
     if (Node1->nodeEdge == NULL) {
         newEdge1->nextEdge = NULL;
         Node1->nodeEdge = newEdge1;
-    } 
-    else {
+    } else {
         newEdge1->nextEdge = Node1->nodeEdge;
         Node1->nodeEdge = newEdge1;
     }
@@ -52,11 +51,12 @@ void appendEdgeHash(unsigned int hash1, unsigned int hash2, node **hashTable) {
     node *Node1 = GoToNodeHash(hashTable, hash1);
     node *Node2 = GoToNodeHash(hashTable, hash2);
 
-    sousAppendEdge(Node1,Node2);
-    sousAppendEdge(Node2,Node1);
+    sousAppendEdge(Node1, Node2);
+    sousAppendEdge(Node2, Node1);
 }
 
-node *sousListeAdj(node *end,int *taille,structureBase_t *Entree,node **hashTable){
+node *sousListeAdj(node *end, int *taille, structureBase_t *Entree,
+                   node **hashTable) {
     int n1 = 0;
     int L[500];
     L[0] = -1;
@@ -116,7 +116,7 @@ node *DoListAdjDeBinHash(options_t *option, int *taille, node **hashTable) {
             break;
         }
         if (Entree.authornb >= 1) {
-            end= sousListeAdj(end,taille,&Entree,hashTable);
+            end = sousListeAdj(end, taille, &Entree, hashTable);
         }
         Entree = readEntryBin(option, -1);
         curseur++;
@@ -134,6 +134,19 @@ node *DoListAdjDeBinHash(options_t *option, int *taille, node **hashTable) {
 int authorNameToNodeNumber(char *authorName, node **hashTable) {
     unsigned int authorHash = hash((unsigned char *)authorName);
     return hashTable[authorHash]->nodeNumber;
+}
+
+char *nodeNumberToAuthorName(int nodeNumber, node *node0) {
+    node *currentNode = node0;
+    while (currentNode->nextNode != NULL) {
+        if (currentNode->nodeNumber == nodeNumber) {
+            return currentNode->author;
+        }
+        currentNode = currentNode->nextNode;
+        if (interruptFlag == 1)
+            break;
+    }
+    return NULL;
 }
 
 int printAuthorAtDist(options_t *options, node *node0) {
