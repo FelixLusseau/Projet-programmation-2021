@@ -66,7 +66,7 @@ void printDistance(int n1, node *node0);
 
 int plusCourtChemin(int n1, int n2, node *node0, int taille);
 
-void explorationGraphe(node *node0,int *isolé);
+void explorationGraphe(node *node0, int *isole);
 
 void nbrComposanteConnexe(node *node0);
 

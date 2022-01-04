@@ -236,21 +236,15 @@ int dijkstra(int n1, node *node0, int taille) {
     currentNode->distance = 0;
     int k = 0;
     while (k < taille) {
-        /*printf("\n\nk:%i\n",k);
-        printf("tour\n");
-        printf("cuurentNode:%s\n",currentNode->author);*/
         currentEdge = currentNode->nodeEdge;
         voisin = currentEdge->otherNode;
 
         // exploration des voisins de currentNode et mise a jour de leur
         // distance
         while (1) {
-            // printf("avant if:%i=>%i\n",voisin->nodeNumber,voisin->distance);
             if (voisin->distance == -1 ||
                 voisin->distance > (currentNode->distance + 1)) {
                 voisin->distance = currentNode->distance + 1;
-                // printf("après
-                // if:%i=>%i\n",voisin->nodeNumber,voisin->distance);
 
                 // si voisin non marqué il faut le rajouté dans ListeDistance
                 // ou changer sa distance dans la Liste si il y est déjà
@@ -260,7 +254,6 @@ int dijkstra(int n1, node *node0, int taille) {
                     if (ListeDistance == NULL) {
                         ListeDistance = &newDistance;
                     } else {
-                        // printf("recherche:%s\n",voisin->author);
                         int n = AuthorInList(voisin->author, ListeDistance);
                         if (n == -1) {
                             newDistance.nextNode = ListeDistance;
@@ -369,19 +362,19 @@ int plusCourtChemin(int n1, int n2, node *node0, int taille) {
     return OK;
 }
 
-void explorationGraphe(node *node0, int *isolé) {
+void explorationGraphe(node *node0, int *isole) {
     node0->flag = 1;
     if (node0->nodeEdge == NULL) {
-        *isolé += 1;
+        *isole += 1;
     }
     edge *currentEdge = node0->nodeEdge;
     while (currentEdge != NULL) {
         node0 = currentEdge->otherNode;
         if (node0->nodeEdge == NULL) {
-            *isolé += 1;
+            *isole += 1;
         }
         if (node0->flag == 0) {
-            explorationGraphe(node0, isolé);
+            explorationGraphe(node0, isole);
         }
         currentEdge = currentEdge->nextEdge;
     }
@@ -389,18 +382,18 @@ void explorationGraphe(node *node0, int *isolé) {
 void nbrComposanteConnexe(node *node0) {
     node *currentNode = node0;
     int nbrConnexe = 0;
-    int isolé = 0;
+    int isole = 0;
     while (currentNode != NULL) {
         if (interruptFlag == 1) {
             break;
         }
         if (currentNode->flag == 0) {
-            explorationGraphe(currentNode, &isolé);
+            explorationGraphe(currentNode, &isole);
             nbrConnexe += 1;
         }
         currentNode = currentNode->nextNode;
     }
     printf("nombre de composante connexe:%i\nnombre de sommets isolé parmis "
            "les composantes connexes:%i\n",
-           nbrConnexe, isolé);
+           nbrConnexe, isole);
 }
