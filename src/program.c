@@ -87,7 +87,7 @@ int main(int argc, char **argv) {
         testExitCode(printAuthorAtDist(&options, node0));
     }
     if (options.action[ACTION_CONNECTED] == TO_DO) {
-        testExitCode(nbrComposanteConnexe(node0));
+        nbrComposanteConnexe(node0);
     }
     if (options.action[ACTION_UNKNOWN] == 1) {
         fprintf(stderr, "Action is missing !\n");
