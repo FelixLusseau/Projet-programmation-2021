@@ -68,7 +68,6 @@ int showAuthors(options_t *options, node **hashTable, node *node0,
         options->authorNames[author0or1] = authortmp;
     }
     free(hashTablePositions);
-    options->action[ACTION_SHOW_AUTHORS] = DONE_SUCCESSFULLY;
     printf("\n\n");
     return counter;
 }
@@ -124,6 +123,5 @@ int showArticles(options_t *options, node **hashTable, node *node0) {
         return ERROR_SHOW_ARTICLES;
     }
     printf("\n\n\33[0;32mComplete ! \33[0m\n");
-    options->action[ACTION_SHOW_ARTICLES] = DONE_SUCCESSFULLY;
     return OK;
 }

@@ -8,13 +8,12 @@ harmoniser ang / fr, error codes etc
 
 Interface ?
 
-done successfully utile ?
-
 test existence bin -> parsage ailleurs ?
 segfault quand pas un bin en sortie
 
 exit dans showAuthors ?
+nom demandé ne se complète pas
 
 vérif de l'auteur dans chooseAuthor ?
 
-test de malloc ?
+test de malloc et autres erreurs ?

@@ -66,21 +66,18 @@ int main(int argc, char **argv) {
     if (options.action[ACTION_DIJKSTRA] == TO_DO) {
         testExitCode(chooseAuthor(&options, hashTable, node0, 0));
         testExitCode(
-            // authorNameToNodeNumber(options.authorNames[0]
-            // 2864737
-            //
-            //dijkstra(authorNameToNodeNumber(options.authorNames[0], hashTable),
-            //         node0, taille));
-            
-        if (options.authorNames[1] != NULL) {
-            testExitCode(chooseAuthor(&options, hashTable, node0, 1));
-            printDistance(
-                authorNameToNodeNumber(options.authorNames[1], hashTable),
-                node0);
-        }
+            dijkstra(authorNameToNodeNumber(options.authorNames[0], hashTable),
+                     node0, taille));
+    }
+    if (options.action[ACTION_DISTANCE] == TO_DO) {
+        testExitCode(chooseAuthor(&options, hashTable, node0, 1));
+        printDistance(authorNameToNodeNumber(options.authorNames[1], hashTable),
+                      node0);
     }
     if (options.action[ACTION_NEIGHBOURS] == TO_DO) {
         testExitCode(printAuthorAtDist(&options, node0));
+    }
+    if (options.action[ACTION_CONNECTED] == TO_DO) {
     }
     if (options.action[ACTION_UNKNOWN] == 1) {
         fprintf(stderr, "Action is missing !\n");
