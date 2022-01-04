@@ -377,7 +377,7 @@ void explorationGraphe(node *node0) {
     while (currentEdge != NULL) {
         node0 = currentEdge->otherNode;
         if (node0->flag == 0) {
-            printf("%i\n", node0->nodeNumber);
+            // printf("%i\n", node0->nodeNumber);
             explorationGraphe(node0);
         }
         currentEdge = currentEdge->nextEdge;
@@ -387,12 +387,16 @@ int nbrComposanteConnexe(node *node0) {
     node *currentNode = node0;
     int nbrConnexe = 0;
     while (currentNode != NULL) {
+        if (interruptFlag == 1) {
+            break;
+        }
         if (currentNode->flag == 0) {
             explorationGraphe(currentNode);
-            printf("+1\n");
+            // printf("+1\n");
             nbrConnexe += 1;
         }
         currentNode = currentNode->nextNode;
     }
-    return nbrConnexe;
+    printf("Number of linked components : %i\n", nbrConnexe);
+    return OK;
 }

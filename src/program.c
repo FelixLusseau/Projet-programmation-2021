@@ -52,7 +52,7 @@ int main(int argc, char **argv) {
     if (options.action[ACTION_GRAPH] == TO_DO) {
         testExitCode(openFiles(&options, "r", 0));
         node0 = DoListAdjDeBinHash(&options, &taille, hashTable);
-        printListNode(node0);
+        // printListNode(node0);
         // printListAdj(node0);
         // printf("%i\n", authorNameToNodeNumber("Russell Turpin", hashTable));
         // printf("%i\n", authorNameToNodeNumber("Dimitar Ruscev", hashTable));
@@ -87,6 +87,7 @@ int main(int argc, char **argv) {
         testExitCode(printAuthorAtDist(&options, node0));
     }
     if (options.action[ACTION_CONNECTED] == TO_DO) {
+        testExitCode(nbrComposanteConnexe(node0));
     }
     if (options.action[ACTION_UNKNOWN] == 1) {
         fprintf(stderr, "Action is missing !\n");
