@@ -331,15 +331,13 @@ int dijkstra(int n1, node *node0, int taille) {
 
 void printDistance(int n1, node *node0) {
     node *currentNode = node0;
-    while (currentNode->nextNode != NULL) {
+    while (currentNode!= NULL) {
         if (currentNode->distance != -1) {
             printf("distance entre %i et %i:%i\n",n1,currentNode->nodeNumber,
                    currentNode->distance);
         }
         currentNode = currentNode->nextNode;
     }
-    printf("author:%s distance de %i:%i\n", currentNode->author, n1,
-           currentNode->distance);
 }
 
 int plusCourtChemin(int n1, int n2, node *node0, int taille) {
