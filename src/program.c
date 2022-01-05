@@ -71,13 +71,13 @@ int main(int argc, char **argv) {
         testExitCode(plusCourtChemin(
             authorNameToNodeNumber(options.authorNames[0], hashTable),
             authorNameToNodeNumber(options.authorNames[1], hashTable), node0,
-            taille));
+            taille,hashTable));
     }
     if (options.action[ACTION_DIJKSTRA] == TO_DO) {
         testExitCode(chooseAuthor(&options, hashTable, node0, 0));
         testExitCode(
             dijkstra(authorNameToNodeNumber(options.authorNames[0], hashTable),
-                     node0, taille));
+                     node0, taille,hashTable));
     }
     if (options.action[ACTION_DISTANCE] == TO_DO) {
         testExitCode(chooseAuthor(&options, hashTable, node0, 1));

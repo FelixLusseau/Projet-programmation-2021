@@ -62,8 +62,8 @@ node *sousListeAdj(node *end, int *taille, structureBase_t *Entree,
     L[0] = -1;
     unsigned int LH[100];
     int index = 0;
-    // on récupère les numéros des co auteur de l'article et on les mets
-    // dans une liste
+    /*on récupère les numéros des co auteur de l'article et on les mets
+     dans une liste*/
     for (int k = 0; k < Entree->authornb; k++) {
         char *author1 = Entree->author[k];
         unsigned int hash1 = hash((unsigned char *)author1);

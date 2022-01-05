@@ -84,12 +84,12 @@ void testCreateListeAdj(void) {
     char author2[] = "z";
     int test2 = AuthorInList(author2, node0);
     printf("test présence author: %i\n", test2);
-
+    /*
     options_t options;
     initOptions(&options);
     options.authorNames[0]="a";
     dijkstra(1, node0, 6);
-    printDistances(&options, node0);
+    printDistances(&options, node0);*/
     //plusCourtChemin(3,2,node0,6);
     //int rs=nbrComposanteConnexe(node0);
     //printf("nbr Connexe:%i\n",rs);

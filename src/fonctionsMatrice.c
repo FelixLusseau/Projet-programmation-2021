@@ -44,7 +44,7 @@ node *GoToNode(int n, node *node0) {
     node *currentNode = node0;
     for (int k = 0; currentNode->nodeNumber != n; k++) {
         if (currentNode->nextNode == NULL) {
-            printf(" dépassement de list:index trop grand ");
+            printf(" dépassement de list:index trop grand\n ");
             return currentNode;
         }
         currentNode = currentNode->nextNode;
@@ -225,101 +225,115 @@ int AuthorInList(char *author, node *node0) {
     return -1;
 }
 
-int dijkstra(int n1, node *node0, int taille) {
+int dijkstra(int n1, node *node0, int taille,node **hashTable) {
     // une distance de -1 représente une distance infini
     node *node1 = GoToNode(n1, node0);
     node *currentNode = node1;
+    currentNode->distance = 0;
     edge *currentEdge = currentNode->nodeEdge;
     node *voisin = currentEdge->otherNode;
-    // liste des nodes non marqué dont on a changé la distane (!=-1), elle
-    // permet de trouver le prochain sommet avec la distance minimum
-    node nodeDistance0 = *currentNode;
-    nodeDistance0.nextNode = NULL;
-    node *ListeDistance = &nodeDistance0;
+    int flag=voisin->distance;
 
-    currentNode->distance = 0;
+    /* liste des nodes non marqué dont on a changé la distane (!=-1), elle
+    permet de trouver le prochain sommet avec la distance minimum*/
+    node *ListeDistance=CreateListAdj(currentNode->author);
+    node *end=ListeDistance;
+    ListeDistance->nodeNumber=currentNode->nodeNumber;
+    ListeDistance->distance=currentNode->distance;
     int k = 0;
+
     while (k < taille) {
         currentEdge = currentNode->nodeEdge;
         voisin = currentEdge->otherNode;
-
-        // exploration des voisins de currentNode et mise a jour de leur
-        // distance
+        /* exploration des voisins non marqué de currentNode 
+        et mise a jour de leur distance*/
         while (1) {
+            flag=voisin->distance;
             if (voisin->distance == -1 ||
-                voisin->distance > (currentNode->distance + 1)) {
-                voisin->distance = currentNode->distance + 1;
+                 (voisin->distance > (currentNode->distance + 1) &&
+                  voisin->flag==0) ) {
 
-                // si voisin non marqué il faut le rajouté dans ListeDistance
-                // ou changer sa distance dans la Liste si il y est déjà
-                if (voisin->flag == 0) {
-                    node newDistance = *voisin;
-                    newDistance.nextNode = NULL;
+                voisin->distance = currentNode->distance + 1;
+                /* si le voisin avait une distance -1 précedemment
+                il n'était pas dans la Liste, on le rajoute*/
+                if (flag == -1) {
                     if (ListeDistance == NULL) {
-                        ListeDistance = &newDistance;
-                    } else {
-                        int n = AuthorInList(voisin->author, ListeDistance);
-                        if (n == -1) {
-                            newDistance.nextNode = ListeDistance;
-                            ListeDistance = &newDistance;
-                        } else {
-                            node *nodeDistance = GoToNode(n, ListeDistance);
-                            nodeDistance->distance = voisin->distance;
-                        }
+                        node *ListeDistance=CreateListAdj(voisin->author);
+                        end=ListeDistance;
                     }
+                    else{
+                        end=appendNode(voisin->author,end);
+                    }
+                    end->nodeNumber=voisin->nodeNumber;
+                    end->distance=voisin->distance;
+                }
+                /* sinon c'est qu'il y est déjà, on met à jour sa
+                distance*/
+                else {
+                    int n = AuthorInList(voisin->author, ListeDistance);
+                    node *nodeDistance = GoToNode(n, ListeDistance);
+                    nodeDistance->distance = voisin->distance;
                 }
             }
-
             if (currentEdge->nextEdge == NULL) {
                 break;
             }
             currentEdge = currentEdge->nextEdge;
             voisin = currentEdge->otherNode;
         }
-        // liste distance=NULL, la distance minimale est l'infinie
-        // le graphe n'est pas connexe
-        // on arrete djikstra
+        /*liste distance=NULL, la distance minimale est l'infinie:
+        le graphe n'est pas connexe,on arrete djikstra*/
         if (ListeDistance == NULL) {
             break;
         }
 
         // cas ListeDistance non NULL donc il existe une distance minimal
         else {
+            currentNode->flag = 1;
+            // on enlève currentNode de la ListeDistance car il est maintenant marqué
+            // cas du premier node
+            if (currentNode->nodeNumber == ListeDistance->nodeNumber) {
+                node *inter=ListeDistance;
+                ListeDistance = ListeDistance->nextNode;
+                free(inter);
+            }
+            // cas d'un node au mileu ou à la fin
+            else {
+                node *currentDistance=ListeDistance;
+                node *previousDistance=currentDistance;
+
+                while(currentDistance->nodeNumber != currentNode->nodeNumber){
+                    previousDistance=currentDistance;
+                    currentDistance=currentDistance->nextNode;
+                }
+                //node à la fin
+                if (currentDistance->nextNode == NULL) {
+                    previousDistance->nextNode = NULL;
+                } 
+                //node au milieu
+                else {
+                    previousDistance->nextNode = currentDistance->nextNode;
+                }
+                free(currentNode);
+            }
+
             // recherche du sommet avec la plus petit distance
             node *nodeDistance = ListeDistance;
             node *minNode = nodeDistance;
             int minDistance = nodeDistance->distance;
 
-            while (nodeDistance->nextNode != NULL) {
+            while (1) {
                 if (nodeDistance->distance < minDistance) {
                     minDistance = nodeDistance->distance;
                     minNode = nodeDistance;
                 }
+                if(nodeDistance->nextNode == NULL){
+                    break;
+                }
                 nodeDistance = nodeDistance->nextNode;
             }
-            currentNode->flag = 1;
-            // on enlève currentNode de la ListeDistance car il est
-            // maintenant marqué
-            // cas du premier node
-            if (currentNode->nodeNumber == ListeDistance->nodeNumber) {
-                ListeDistance = ListeDistance->nextNode;
-            }
-            // cas d'un node au mileu ou à la fin
-            else {
-                node *currentDistance = ListeDistance;
-                node *previousDistance = ListeDistance;
-                while (currentDistance->nextNode != NULL &&
-                       currentDistance->nodeNumber != currentNode->nodeNumber) {
-                    previousDistance = currentDistance;
-                    currentDistance = currentDistance->nextNode;
-                }
-                if (currentDistance->nextNode == NULL) {
-                    previousDistance->nextNode = NULL;
-                } else {
-                    previousDistance->nextNode = currentDistance->nextNode;
-                }
-            }
-            currentNode = minNode;
+            unsigned int authorHashed = hash((unsigned char *)minNode->author);
+            currentNode = hashTable[authorHashed];
         }
         k++;
     }
@@ -338,8 +352,8 @@ void printDistances(options_t *options, node *node0) {
     }
 }
 
-int plusCourtChemin(int n1, int n2, node *node0, int taille) {
-    int exitCode = dijkstra(n1, node0, taille);
+int plusCourtChemin(int n1, int n2, node *node0, int taille,node **hashTable) {
+    int exitCode = dijkstra(n1, node0, taille,hashTable);
     if (exitCode)
         return exitCode;
     
