@@ -25,7 +25,7 @@ int main(int argc, char **argv) {
     initSigaction();
     options_t options;
     node *node0 = NULL;
-    node **hashTable = malloc(HT_SIZE * sizeof(unsigned int) * sizeof(char *));
+    node **hashTable = malloc(HT_SIZE * sizeof(char *));
     if (hashTable == NULL) {
         exitCode = ERROR_GRAPH;
         goto error;
