@@ -18,35 +18,6 @@
 
 int interruptFlag = 0;
 
-unsigned int showAllAuthors(options_t *options) {
-    initSigaction();
-    int16_t precAuthornb = 0;
-    structureBase_t structureBase;
-    /*  unsigned int max = 0;
-     unsigned int min = hash((unsigned char *)structureBase.author[0]); */
-    while (1) {
-        initStructure(&structureBase, precAuthornb);
-        structureBase = readEntryBin(options, -1);
-        // printStruct(&structureBase);
-        if (structureBase.authornb == 0)
-            break;
-        for (int k = 0; k < structureBase.authornb; k++) {
-            printf(" - %s\n", structureBase.author[k]);
-            /* hash((unsigned char *)structureBase.author[k]));
-     printf("%lu\n", hash((unsigned char *)structureBase.author[k]));
-     max = MAX(max, hash((unsigned char *)structureBase.author[k]));
-     min = MIN(min, hash((unsigned char *)structureBase.author[k])); */
-        }
-        if (interruptFlag == 1)
-            break;
-        precAuthornb = structureBase.authornb;
-    }
-    /* printf("max : %u\n", max);
-    printf("min : %u\n", min); */
-
-    return OK;
-}
-
 void testCreateListeAdj(void) {
     char c0[] = "g";
 
@@ -66,13 +37,13 @@ void testCreateListeAdj(void) {
     end = appendNode(c5, end);
     end = appendNode(c6, end);
 
-    appendEdge(1,2, node0);
-    appendEdge(1,3, node0);
-    appendEdge(1,5, node0);
-    appendEdge(2,4, node0);
-    appendEdge(2,6, node0);
-    appendEdge(3,0, node0);
-    appendEdge(5,6, node0);
+    appendEdge(1, 2, node0);
+    appendEdge(1, 3, node0);
+    appendEdge(1, 5, node0);
+    appendEdge(2, 4, node0);
+    appendEdge(2, 6, node0);
+    appendEdge(3, 0, node0);
+    appendEdge(5, 6, node0);
 
     printListNode(node0);
     printListEdge(node0);
@@ -87,7 +58,7 @@ void testCreateListeAdj(void) {
     /*
     options_t options;
     initOptions(&options);
-    options.authorNames[0]="a";
+    options.authorNames[0] = "a";
     dijkstra(1, node0, 6);
     printDistances(&options, node0);*/
     //plusCourtChemin(3,2,node0,6);
@@ -159,10 +130,11 @@ void testArticles() {
 }
 
 int main(void) {
-    testCreateListeAdj();/*
-    options_t options;
+    // testCreateListeAdj();
+    /* options_t options;
     options.inputFilename = "../database/dblp.xml";
-    options.outputFilename = "../database/dblp.bin";
+    // options.outputFilename = "../database/dblp.bin";
+    options.outputFilename = "../tests/sample.bin";
     options.inputFile = NULL;
     options.outputFile = NULL;
     options.action[ACTION_UNKNOWN] = 1;
@@ -172,12 +144,13 @@ int main(void) {
     options.authorNames[1] = NULL;
 
     openFiles(&options, "r", 0);
-    closeFiles(&options); 
+
+    closeFiles(&options); */
+
     TEST(testParse);
     TEST(testRead);
     TEST(testGraph);
-    TEST(testArticles);*/
-    // showAllAuthors(&options);
+    TEST(testArticles);
 
     return 0;
 }

@@ -146,7 +146,7 @@ void freeEdge(node *currentNode) {
     free(currentEdge);
 }
 void freeListAdj(node *node0) {
-    printf("\n\n*********************************Libération de "
+    printf("\n\n************************************Libération de "
            "l'espace**************************************\n\n");
     node *currentNode = node0;
     node *interN;
@@ -226,6 +226,8 @@ int AuthorInList(char *author, node *node0) {
 }
 
 int dijkstra(int n1, node *node0, int taille,node **hashTable) {
+    printf("\n*************************************Debut dijkstra"
+           "*************************************\n\n");
     // une distance de -1 représente une distance infini
     node *node1 = GoToNode(n1, node0);
     node *currentNode = node1;
@@ -234,15 +236,27 @@ int dijkstra(int n1, node *node0, int taille,node **hashTable) {
     node *voisin = currentEdge->otherNode;
     int flag=voisin->distance;
 
+    int isole=0;
+    explorationGraphe(node1,&isole);
+    while(currentEdge->nextEdge!=NULL){
+        printf("voisins:%s-%i\n",currentEdge->otherNode->author,currentEdge->otherNode->nodeNumber);
+        currentEdge=currentEdge->nextEdge;
+    }
+    currentEdge=node0->nodeEdge;
     /* liste des nodes non marqué dont on a changé la distane (!=-1), elle
     permet de trouver le prochain sommet avec la distance minimum*/
     node *ListeDistance=CreateListAdj(currentNode->author);
     node *end=ListeDistance;
     ListeDistance->nodeNumber=currentNode->nodeNumber;
     ListeDistance->distance=currentNode->distance;
+    node **hashTableDistance = malloc(HT_SIZE * sizeof(unsigned int) * sizeof(char *));
+    unsigned int hash1 = hash((unsigned char *)ListeDistance->author);
+    hashTableDistance[hash1] = end;
+
     int k = 0;
 
-    while (k < taille) {
+    while (k < isole) {
+        printf("k:%i/%i--%i  NN:%i\n",k,taille,isole,currentNode->nodeNumber);
         currentEdge = currentNode->nodeEdge;
         voisin = currentEdge->otherNode;
         /* exploration des voisins non marqué de currentNode 
@@ -266,12 +280,14 @@ int dijkstra(int n1, node *node0, int taille,node **hashTable) {
                     }
                     end->nodeNumber=voisin->nodeNumber;
                     end->distance=voisin->distance;
+                    unsigned int hash1 = hash((unsigned char *)end->author);
+                    hashTableDistance[hash1] = end;
                 }
                 /* sinon c'est qu'il y est déjà, on met à jour sa
                 distance*/
                 else {
-                    int n = AuthorInList(voisin->author, ListeDistance);
-                    node *nodeDistance = GoToNode(n, ListeDistance);
+                    unsigned int authorHashed = hash((unsigned char *)voisin->author);
+                    node *nodeDistance = hashTableDistance[authorHashed];
                     nodeDistance->distance = voisin->distance;
                 }
             }
@@ -281,6 +297,33 @@ int dijkstra(int n1, node *node0, int taille,node **hashTable) {
             currentEdge = currentEdge->nextEdge;
             voisin = currentEdge->otherNode;
         }
+        currentNode->flag = 1;
+        // on enlève currentNode de la ListeDistance car il est maintenant marqué
+        // cas du premier node
+        if (currentNode->nodeNumber == ListeDistance->nodeNumber) {
+            node *inter=ListeDistance;
+            ListeDistance = ListeDistance->nextNode;
+            free(inter);
+        }
+        // cas d'un node au mileu ou à la fin
+        else {
+            node *currentDistance=ListeDistance;
+            node *previousDistance=currentDistance;
+
+            while(currentDistance->nodeNumber != currentNode->nodeNumber){
+                previousDistance=currentDistance;
+                currentDistance=currentDistance->nextNode;
+            }
+                //node à la fin
+            if (currentDistance->nextNode == NULL) {
+                previousDistance->nextNode = NULL;
+            } 
+            //node au milieu
+            else {
+                previousDistance->nextNode = currentDistance->nextNode;
+            }
+            free(currentNode);
+        }
         /*liste distance=NULL, la distance minimale est l'infinie:
         le graphe n'est pas connexe,on arrete djikstra*/
         if (ListeDistance == NULL) {
@@ -289,34 +332,6 @@ int dijkstra(int n1, node *node0, int taille,node **hashTable) {
 
         // cas ListeDistance non NULL donc il existe une distance minimal
         else {
-            currentNode->flag = 1;
-            // on enlève currentNode de la ListeDistance car il est maintenant marqué
-            // cas du premier node
-            if (currentNode->nodeNumber == ListeDistance->nodeNumber) {
-                node *inter=ListeDistance;
-                ListeDistance = ListeDistance->nextNode;
-                free(inter);
-            }
-            // cas d'un node au mileu ou à la fin
-            else {
-                node *currentDistance=ListeDistance;
-                node *previousDistance=currentDistance;
-
-                while(currentDistance->nodeNumber != currentNode->nodeNumber){
-                    previousDistance=currentDistance;
-                    currentDistance=currentDistance->nextNode;
-                }
-                //node à la fin
-                if (currentDistance->nextNode == NULL) {
-                    previousDistance->nextNode = NULL;
-                } 
-                //node au milieu
-                else {
-                    previousDistance->nextNode = currentDistance->nextNode;
-                }
-                free(currentNode);
-            }
-
             // recherche du sommet avec la plus petit distance
             node *nodeDistance = ListeDistance;
             node *minNode = nodeDistance;
@@ -337,6 +352,12 @@ int dijkstra(int n1, node *node0, int taille,node **hashTable) {
         }
         k++;
     }
+    free(hashTableDistance);
+    if(ListeDistance!=NULL){
+        free(ListeDistance);
+    }
+    printf("\n*************************************Fin dijkstra"
+           "*************************************\n\n");
     return OK;
 }
 
@@ -385,23 +406,25 @@ int plusCourtChemin(int n1, int n2, node *node0, int taille,node **hashTable) {
     return OK;
 }
 
-int explorationGraphe(node *node0, int *isole) {
+void explorationGraphe(node *node0, int *isole) {
     node0->flag = 1;
+    edge *currentEdge=node0->nodeEdge;
+    node *voisin=currentEdge->otherNode;
+    printf("exploration:%s\n",node0->author);
+    *isole+=1;
     if (node0->nodeEdge == NULL) {
         printf("isolé\n");
-        *isole += 1;
+        //*isole += 1;
     }
     else{
-        edge *currentEdge=node0->nodeEdge;
-        node *voisin=currentEdge->otherNode;
         while(currentEdge!=NULL){
             if(voisin->flag==0){
+                printf("entré recursif:%s-%s\n",node0->author,voisin->author);
                 explorationGraphe(voisin,isole);
             }
             currentEdge=currentEdge->nextEdge;
         }
     }
-    return 0;
 }
 void nbrComposanteConnexe(node *node0) {
     node *currentNode = node0;

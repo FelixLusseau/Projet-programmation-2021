@@ -52,8 +52,8 @@ int main(int argc, char **argv) {
     if (options.action[ACTION_GRAPH] == TO_DO) {
         testExitCode(openFiles(&options, "r", 0));
         node0 = DoListAdjDeBinHash(&options, &taille, hashTable);
-        //printListNode(node0);
-        //printListEdge(node0);
+        // printListNode(node0);
+        // printListEdge(node0);
         // printListAdj(node0);
         // printf("%i\n", authorNameToNodeNumber("Russell Turpin", hashTable));
         // printf("%i\n", authorNameToNodeNumber("Dimitar Ruscev", hashTable));
@@ -81,7 +81,7 @@ int main(int argc, char **argv) {
     }
     if (options.action[ACTION_DISTANCE] == TO_DO) {
         testExitCode(chooseAuthor(&options, hashTable, node0, 1));
-        printDistances(&options, node0);
+        //printDistances(&options, node0);
     }
     if (options.action[ACTION_NEIGHBOURS] == TO_DO) {
         testExitCode(printAuthorAtDist(&options, node0));

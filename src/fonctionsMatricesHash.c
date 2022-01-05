@@ -32,27 +32,43 @@ node *GoToNodeHash(node **hashTable, unsigned int hash) {
     return hashTable[hash];
 }
 
-void sousAppendEdge(node *Node1, node *Node2) {
+void sousAppendEdge(node *Node1, node *Node2,int *flagDejeLa,int *flagQuelNode) {
     edge *newEdge1 = (edge *)malloc(sizeof(edge));
     if (newEdge1 == NULL) {
         fprintf(stderr, "appendEdge:erreur malloc edge = NULL");
     }
     newEdge1->otherNode = Node2;
     newEdge1->linkNode = Node1;
-    if (Node1->nodeEdge == NULL) {
+
+    edge *currentEdge=Node1->nodeEdge;
+    if(*flagQuelNode==1){
+        while(currentEdge!=NULL){
+            if(currentEdge->otherNode->nodeNumber == Node2->nodeNumber){
+                *flagDejeLa=1;
+                break;
+            }
+            currentEdge=currentEdge->nextEdge;
+        }
+    }
+
+    if (Node1->nodeEdge == NULL && *flagDejeLa==0) {
         newEdge1->nextEdge = NULL;
         Node1->nodeEdge = newEdge1;
-    } else {
+    }
+    else if(*flagDejeLa==0){
         newEdge1->nextEdge = Node1->nodeEdge;
         Node1->nodeEdge = newEdge1;
     }
+    
 }
 void appendEdgeHash(unsigned int hash1, unsigned int hash2, node **hashTable) {
     node *Node1 = GoToNodeHash(hashTable, hash1);
     node *Node2 = GoToNodeHash(hashTable, hash2);
-
-    sousAppendEdge(Node1, Node2);
-    sousAppendEdge(Node2, Node1);
+    int flagDejeLa=0;
+    int flagQuelNode=1;
+    sousAppendEdge(Node1, Node2,&flagDejeLa,&flagQuelNode);
+    flagQuelNode=2;
+    sousAppendEdge(Node2, Node1,&flagDejeLa,&flagQuelNode);
 }
 
 node *sousListeAdj(node *end, int *taille, structureBase_t *Entree,
@@ -88,16 +104,19 @@ node *sousListeAdj(node *end, int *taille, structureBase_t *Entree,
     return end;
 }
 
-node *DoListAdjDeBinHash(options_t *option, int *taille, node **hashTable) {
-    int nbEntries = readEntireBin(option, 0);
+node *DoListAdjDeBinHash(options_t *options, int *taille, node **hashTable) {
+    int nbEntries = readEntireBin(options, 0);
     printf("\n*************************************Debut de la fonction "
            "graphe*************************************\n\n");
     printf("\33[?25l");
 
     *taille = 0;
+    int16_t precAuthornb = 0;
     structureBase_t Entree;
     initStructure(&Entree, 0);
-    Entree = readEntryBin(option, -1);
+    // Entree = readEntryBin(options, -1);
+    readStructure(options, &Entree, precAuthornb);
+    precAuthornb = Entree.authornb;
 
     if (Entree.author[0] == NULL) {
         printf("Erreur 1er livre author[0]=NULL");
@@ -105,10 +124,12 @@ node *DoListAdjDeBinHash(options_t *option, int *taille, node **hashTable) {
     }
     node *node0 = CreateListAdj(Entree.author[0]);
     node *end = node0;
-    if (Entree.authornb > 1){
-        end= sousListeAdj(end,taille,&Entree,hashTable);
+    if (Entree.authornb > 1) {
+        end = sousListeAdj(end, taille, &Entree, hashTable);
     }
-    Entree = readEntryBin(option, -1);
+    // Entree = readEntryBin(options, -1);
+    readStructure(options, &Entree, precAuthornb);
+    precAuthornb = Entree.authornb;
     int curseur = 1;
     while (Entree.authornb != 0) {
         if (interruptFlag == 1) {
@@ -118,7 +139,9 @@ node *DoListAdjDeBinHash(options_t *option, int *taille, node **hashTable) {
         if (Entree.authornb >= 1) {
             end = sousListeAdj(end, taille, &Entree, hashTable);
         }
-        Entree = readEntryBin(option, -1);
+        //Entree = readEntryBin(options, -1);
+        readStructure(options, &Entree, precAuthornb);
+        precAuthornb = Entree.authornb;
         curseur++;
         if (curseur % 50000 == 0) {
             progressBar(curseur * 100 / nbEntries);
@@ -136,7 +159,7 @@ int authorNameToNodeNumber(char *authorName, node **hashTable) {
     return hashTable[authorHash]->nodeNumber;
 }
 
-char *nodeNumberToAuthorName(int nodeNumber, node *node0) {
+/* char *nodeNumberToAuthorName(int nodeNumber, node *node0) {
     node *currentNode = node0;
     while (currentNode->nextNode != NULL) {
         if (currentNode->nodeNumber == nodeNumber) {
@@ -147,7 +170,7 @@ char *nodeNumberToAuthorName(int nodeNumber, node *node0) {
             break;
     }
     return NULL;
-}
+} */
 
 int printAuthorAtDist(options_t *options, node *node0) {
     if (node0 == NULL) {
