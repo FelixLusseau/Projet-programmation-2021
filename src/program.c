@@ -63,7 +63,10 @@ int main(int argc, char **argv) {
     }
     if (options.action[ACTION_SHOW_ARTICLES] == TO_DO &&
         options.action[ACTION_NEIGHBOURS] != TO_DO) {
-        testExitCode(showArticles(&options, hashTable, node0));
+        testExitCode(showArticles(&options, hashTable, node0, 0));
+    }
+    if (options.action[ACTION_SHOW_ARTICLES_YEAR] == TO_DO) {
+        testExitCode(showArticles(&options, hashTable, node0, options.year));
     }
     if (options.action[ACTION_SHORTEST_PATH] == TO_DO) {
         testExitCode(chooseAuthor(&options, hashTable, node0, 0));

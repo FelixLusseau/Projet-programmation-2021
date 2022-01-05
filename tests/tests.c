@@ -18,6 +18,31 @@
 
 int interruptFlag = 0;
 
+int readEntireBintest(options_t *options, int print) {
+    initSigaction();
+    fseek(options->outputFile, 14, SEEK_SET);
+    int counter = 0;
+    int16_t precAuthornb = 0;
+    structureBase_t structureBase;
+    while (1) {
+        readStructure(options, &structureBase, precAuthornb);
+        if (structureBase.authornb == 0 || interruptFlag == 1)
+            break;
+        for (int k = 0; k < structureBase.authornb; k++)
+            printf("%u %s\n", hash((unsigned char *)structureBase.author[k]),
+                   structureBase.author[k]);
+        precAuthornb = structureBase.authornb;
+        if (print == 1)
+            printStruct(&structureBase);
+        counter++;
+    }
+    if (print == 0) {
+        fseek(options->outputFile, 14, SEEK_SET);
+        return counter;
+    }
+    return OK;
+}
+
 void testCreateListeAdj(void) {
     char c0[] = "g";
 
@@ -125,16 +150,16 @@ void testArticles() {
     openFiles(&options, "r", 0);
     node0 = DoListAdjDeBinHash(&options, &taille, hashTable);
     tps_assert(node0 != NULL);
-    tps_assert(showArticles(&options, hashTable, node0) == OK);
+    tps_assert(showArticles(&options, hashTable, node0, 0) == OK);
     endOfProgram(&options, node0, hashTable);
 }
 
 int main(void) {
     // testCreateListeAdj();
-    /* options_t options;
+    options_t options;
     options.inputFilename = "../database/dblp.xml";
-    // options.outputFilename = "../database/dblp.bin";
-    options.outputFilename = "../tests/sample.bin";
+    options.outputFilename = "../database/dblp.bin";
+    // options.outputFilename = "../tests/sample.bin";
     options.inputFile = NULL;
     options.outputFile = NULL;
     options.action[ACTION_UNKNOWN] = 1;
@@ -144,13 +169,13 @@ int main(void) {
     options.authorNames[1] = NULL;
 
     openFiles(&options, "r", 0);
+    readEntireBintest(&options, 0);
+    closeFiles(&options);
 
-    closeFiles(&options); */
-
-    TEST(testParse);
+    /* TEST(testParse);
     TEST(testRead);
     TEST(testGraph);
-    TEST(testArticles);
+    TEST(testArticles); */
 
     return 0;
 }

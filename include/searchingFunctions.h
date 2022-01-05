@@ -33,6 +33,6 @@ int chooseAuthor(options_t *options, node **hashTable, node *node0,
  * @param options
  * @return int
  */
-int showArticles(options_t *options, node **hashTable, node *node0);
+int showArticles(options_t *options, node **hashTable, node *node0, int year);
 
 #endif

@@ -5,7 +5,7 @@
 #include <stdint.h>
 #include <stdio.h>
 
-#define ACTIONS_NB 10
+#define ACTIONS_NB 11
 #define HT_SIZE 50000000
 
 typedef enum action_t {
@@ -15,6 +15,7 @@ typedef enum action_t {
     ACTION_READ,
     ACTION_SHOW_AUTHORS,
     ACTION_SHOW_ARTICLES,
+    ACTION_SHOW_ARTICLES_YEAR,
     ACTION_DIJKSTRA,
     ACTION_SHORTEST_PATH,
     ACTION_DISTANCE,
@@ -37,6 +38,7 @@ typedef struct options_t {
     int action[ACTIONS_NB + 1];
     char *authorNames[2];
     int N;
+    int year;
 
     FILE *inputFile;
     FILE *outputFile;

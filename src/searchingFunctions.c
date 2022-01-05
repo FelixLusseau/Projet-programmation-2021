@@ -92,7 +92,7 @@ int chooseAuthor(options_t *options, node **hashTable, node *node0,
     return OK;
 }
 
-int showArticles(options_t *options, node **hashTable, node *node0) {
+int showArticles(options_t *options, node **hashTable, node *node0, int year) {
     initSigaction();
     int exitCode = chooseAuthor(options, hashTable, node0, 0);
     if (exitCode == ERROR_SHOW_ARTICLES)
@@ -103,7 +103,11 @@ int showArticles(options_t *options, node **hashTable, node *node0) {
     int count = 0;
     int16_t precAuthornb = 0;
     structureBase_t structureBase;
-    printf("\nArticles of %s : \n", options->authorNames[0]);
+    printf("\nArticles of %s", options->authorNames[0]);
+    if (year > 0) {
+        printf(" in %i", year);
+    }
+    printf(" : \n");
     while (1) {
         initStructure(&structureBase, precAuthornb);
         structureBase = readEntryBin(options, -1);
@@ -111,17 +115,23 @@ int showArticles(options_t *options, node **hashTable, node *node0) {
             break;
         for (int k = 0; k < structureBase.authornb; k++) {
             if (strstr(structureBase.author[k], options->authorNames[0])) {
-                printf(" - %s\n", structureBase.title);
+                if ((year > 0 && structureBase.year == year) || year == 0)
+                    printf(" - %s\n", structureBase.title);
                 count++;
                 break;
             }
         }
         precAuthornb = structureBase.authornb;
     }
-    if (count == 0) {
+    if (count == 0 && year == 0) {
         fprintf(stderr, "\nInvalid author name given ! \n");
         return ERROR_SHOW_ARTICLES;
     }
-    printf("\n\n\33[0;32mComplete ! \33[0m\n");
+    if (count == 0 && year != 0) {
+        fprintf(stderr, "\nInvalid author name or year given ! \n");
+        return ERROR_SHOW_ARTICLES;
+    }
+    if (interruptFlag != 1)
+        printf("\n\n\33[0;32mComplete ! \33[0m\n");
     return OK;
 }
