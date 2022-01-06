@@ -8,6 +8,7 @@
 #include "fonctionsMatrice.h"
 #include "fonctionsMatricesHash.h"
 #include "io-utils.h"
+#include "program.h"
 #include "readFunctions.h"
 #include "searchingFunctions.h"
 
@@ -31,7 +32,7 @@ int showAuthors(options_t *options, node **hashTable, node *node0,
     while (currentNode->nextNode != NULL) {
         if (strstr(currentNode->author, options->authorNames[author0or1])) {
             authortmp = currentNode->author;
-            authorHash = hash((unsigned char *)currentNode->author);
+            authorHash = hash((unsigned char *)currentNode->author, pr1);
             if (hashTablePositions[authorHash] == 0) {
                 // printf(" - %s\n", hashTable[authorHash]->author);
                 counter++;
@@ -45,7 +46,7 @@ int showAuthors(options_t *options, node **hashTable, node *node0,
     /* Take the last author */
     if (strstr(currentNode->author, options->authorNames[author0or1])) {
         authortmp = currentNode->author;
-        authorHash = hash((unsigned char *)currentNode->author);
+        authorHash = hash((unsigned char *)currentNode->author, pr1);
         if (hashTablePositions[authorHash] == 0) {
             // printf(" - %s\n", hashTable[authorHash]->author);
             counter++;

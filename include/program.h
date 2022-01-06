@@ -7,6 +7,9 @@
 
 #define ACTIONS_NB 11
 #define HT_SIZE 50000000
+#define pr1 6961
+#define pr2 10889
+#define pr3 14891
 
 typedef enum action_t {
     ACTION_UNKNOWN,

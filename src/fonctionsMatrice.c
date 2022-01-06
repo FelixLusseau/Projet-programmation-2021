@@ -178,6 +178,7 @@ void printListNode(node *node0) {
     printf("\n");
     printf("liste sommet:\n");
     while (currentNode->nextNode != NULL) {
+        // if (currentNode->nodeNumber > 2700000)
         printf("  %i:%s\n", currentNode->nodeNumber, currentNode->author);
         currentNode = currentNode->nextNode;
     }
@@ -342,11 +343,12 @@ int plusCourtChemin(int n1, int n2, node *node0, int taille) {
     int exitCode = dijkstra(n1, node0, taille);
     if (exitCode)
         return exitCode;
-    
+
     node *Node1 = GoToNode(n1, node0);
     node *Node2 = GoToNode(n2, node0);
-    printf("\nPlus court chemin entre %s et %s:\n", Node1->author, Node2->author);
-    node *currentNode=Node2;
+    printf("\nPlus court chemin entre %s et %s:\n", Node1->author,
+           Node2->author);
+    node *currentNode = Node2;
     int distance = currentNode->distance;
     if (distance == -1) {
         fprintf(stderr, "pas de chemin entre %i et %i\n", n2, n1);
@@ -367,7 +369,8 @@ int plusCourtChemin(int n1, int n2, node *node0, int taille) {
         currentEdge = currentNode->nodeEdge;
     }
     printf("%s\n", currentNode->author);
-    printf("distance entre %s et %s: %i\n", Node1->author, Node2->author, distance);
+    printf("distance entre %s et %s: %i\n", Node1->author, Node2->author,
+           distance);
     return OK;
 }
 
@@ -376,15 +379,14 @@ int explorationGraphe(node *node0, int *isole) {
     if (node0->nodeEdge == NULL) {
         printf("isolé\n");
         *isole += 1;
-    }
-    else{
-        edge *currentEdge=node0->nodeEdge;
-        node *voisin=currentEdge->otherNode;
-        while(currentEdge!=NULL){
-            if(voisin->flag==0){
-                explorationGraphe(voisin,isole);
+    } else {
+        edge *currentEdge = node0->nodeEdge;
+        node *voisin = currentEdge->otherNode;
+        while (currentEdge != NULL) {
+            if (voisin->flag == 0) {
+                explorationGraphe(voisin, isole);
             }
-            currentEdge=currentEdge->nextEdge;
+            currentEdge = currentEdge->nextEdge;
         }
     }
     return 0;

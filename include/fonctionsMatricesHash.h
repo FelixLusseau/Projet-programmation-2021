@@ -10,7 +10,7 @@
  * @param str
  * @return unsigned
  */
-unsigned hash(unsigned char *str);
+unsigned hash(unsigned char *str, int pr);
 
 /**
  * @brief Check if the author already is in the graph
@@ -19,7 +19,7 @@ unsigned hash(unsigned char *str);
  * @param hashTable
  * @return int
  */
-int AuthorInListHash(char *author, node **hashTable);
+int AuthorInListHash(char *author, node **hashTable, int pr);
 
 /**
  * @brief Make the given hash the current node

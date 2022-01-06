@@ -10,8 +10,8 @@
 
 extern int interruptFlag;
 
-unsigned hash(unsigned char *str) {
-    unsigned hash = 5381;
+unsigned hash(unsigned char *str, int pr) {
+    unsigned hash = pr;
     int c;
     while ((c = *str++))
         hash = ((hash << 5) + hash) + c;
@@ -20,10 +20,13 @@ unsigned hash(unsigned char *str) {
     return hash;
 }
 
-int AuthorInListHash(char *author, node **hashTable) {
-    unsigned int authorHashed = hash((unsigned char *)author);
+int AuthorInListHash(char *author, node **hashTable, int pr) {
+    unsigned int authorHashed = hash((unsigned char *)author, pr);
     if (hashTable[authorHashed] == NULL)
         return -1;
+    else if (hashTable[authorHashed] != NULL &&
+             strcmp(author, hashTable[authorHashed]->author))
+        return -2;
     else
         return hashTable[authorHashed]->nodeNumber;
 }
@@ -66,14 +69,34 @@ node *sousListeAdj(node *end, int *taille, structureBase_t *Entree,
     // dans une liste
     for (int k = 0; k < Entree->authornb; k++) {
         char *author1 = Entree->author[k];
-        unsigned int hash1 = hash((unsigned char *)author1);
-        n1 = AuthorInListHash(author1, hashTable);
+        unsigned int hash1 = hash((unsigned char *)author1, pr1);
+        n1 = AuthorInListHash(author1, hashTable, pr1);
         if (n1 == -1) {
             end = appendNode(author1, end);
             hashTable[hash1] = end;
             *taille += 1;
             n1 = *taille;
         }
+        /* if (n1 == -2) {
+            hash1 = hash((unsigned char *)author1, pr2);
+            n1 = AuthorInListHash(author1, hashTable, pr2);
+            if (n1 == -1) {
+                end = appendNode(author1, end);
+                hashTable[hash1] = end;
+                *taille += 1;
+                n1 = *taille;
+            }
+            if (n1 == -2) {
+                hash1 = hash((unsigned char *)author1, pr3);
+                n1 = AuthorInListHash(author1, hashTable, pr3);
+                if (n1 == -1) {
+                    end = appendNode(author1, end);
+                    hashTable[hash1] = end;
+                    *taille += 1;
+                    n1 = *taille;
+                }
+            }
+        } */
         L[index] = n1;
         LH[index] = hash1;
         index++;
@@ -139,7 +162,7 @@ node *DoListAdjDeBinHash(options_t *options, int *taille, node **hashTable) {
 }
 
 int authorNameToNodeNumber(char *authorName, node **hashTable) {
-    unsigned int authorHash = hash((unsigned char *)authorName);
+    unsigned int authorHash = hash((unsigned char *)authorName, pr1);
     return hashTable[authorHash]->nodeNumber;
 }
 
