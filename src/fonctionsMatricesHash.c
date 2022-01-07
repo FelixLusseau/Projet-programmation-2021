@@ -77,7 +77,7 @@ node *sousListeAdj(node *end, int *taille, structureBase_t *Entree,
             *taille += 1;
             n1 = *taille;
         }
-        /* if (n1 == -2) {
+        if (n1 == -2) {
             hash1 = hash((unsigned char *)author1, pr2);
             n1 = AuthorInListHash(author1, hashTable, pr2);
             if (n1 == -1) {
@@ -96,7 +96,7 @@ node *sousListeAdj(node *end, int *taille, structureBase_t *Entree,
                     n1 = *taille;
                 }
             }
-        } */
+        }
         L[index] = n1;
         LH[index] = hash1;
         index++;
