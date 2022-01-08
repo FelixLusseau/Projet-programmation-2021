@@ -151,12 +151,12 @@ void testArticles() {
     openFiles(&options, "r", 0);
     node0 = DoListAdjDeBinHash(&options, &taille, hashTable);
     tps_assert(node0 != NULL);
-    tps_assert(showArticles(&options, hashTable, node0, 0) == OK);
+    tps_assert(showArticles(&options, node0, 0) == OK);
     endOfProgram(&options, node0, hashTable);
 }
 
 int main(void) {
-    // testCreateListeAdj();
+    /*// testCreateListeAdj();
     options_t options;
     options.inputFilename = "../database/dblp.xml";
     // options.outputFilename = "../database/dblp.bin";
@@ -173,7 +173,7 @@ int main(void) {
 
     // openFiles(&options, "r", 0);
     options.outputFile = fopen(options.outputFilename, "r");
-    /* int tab[2000] = {
+    int tab[2000] = {
         5381,  5387,  5393,  5399,  5407,  5413,  5417,  5419,  5431,  5437,
         5441,  5443,  5449,  5471,  5477,  5479,  5483,  5501,  5503,  5507,
         5519,  5521,  5527,  5531,  5557,  5563,  5569,  5573,  5581,  5591,
@@ -282,17 +282,17 @@ int main(void) {
 
     for (int p = 1; p < 1050; p++) {
         fprintf(stderr, "premier : %i\n", tab[p]);
-    } */
+    }
     readEntireBintest(&options, 0);
     if (system("bash hashcount.sh") == -1)
         abort();
 
-    closeFiles(&options);
+    closeFiles(&options);*/
 
-    /* TEST(testParse);
+    TEST(testParse);
     TEST(testRead);
     TEST(testGraph);
-    TEST(testArticles); */
+    TEST(testArticles);
 
     return 0;
 }

@@ -7,10 +7,11 @@
 
 #define ACTIONS_NB 11
 #define HT_SIZE 50000000 * 2
+
 #define pr1 6961
-#define pr2 13337
-// 10889
-#define pr3 14983
+#define pr2 11239
+#define pr3 17293
+#define pr4 5381
 
 typedef enum action_t {
     ACTION_UNKNOWN,
@@ -66,6 +67,7 @@ typedef enum error_t {
     ERROR_MAT,
     ERROR_SHOW_ARTICLES,
     ERROR_SHOW_AUTHORS,
+    ERROR_CHOOSE_AUTHOR,
     ERROR_NO_AUTHOR,
     ERROR_GRAPH,
     ERROR_NODE_EQ_NULL,

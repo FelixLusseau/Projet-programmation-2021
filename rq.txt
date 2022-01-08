@@ -8,10 +8,8 @@ harmoniser ang / fr, error codes etc
 
 Interface ?
 
-exit dans showAuthors ?
-nom demandé ne se complète pas
-
-vérif de l'auteur dans chooseAuthor ?
+errno ?
 
 test de malloc et autres erreurs ?
 
+écrire le graphe dans un fichier ?

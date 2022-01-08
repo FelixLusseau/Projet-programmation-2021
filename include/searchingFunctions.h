@@ -12,8 +12,7 @@
  * @param node0
  * @return int
  */
-int showAuthors(options_t *options, node **hashTable, node *node0,
-                int author0or1);
+int showAuthors(options_t *options, node *node0, int author0or1);
 
 /**
  * @brief Calls showAuthors and ask for a unique author name
@@ -24,8 +23,7 @@ int showAuthors(options_t *options, node **hashTable, node *node0,
  * @param author0or1
  * @return int
  */
-int chooseAuthor(options_t *options, node **hashTable, node *node0,
-                 int author0or1);
+int chooseAuthor(options_t *options, node *node0, int author0or1);
 
 /**
  * @brief print the articles written by the author given in argument
@@ -33,6 +31,6 @@ int chooseAuthor(options_t *options, node **hashTable, node *node0,
  * @param options
  * @return int
  */
-int showArticles(options_t *options, node **hashTable, node *node0, int year);
+int showArticles(options_t *options, node *node0, int year);
 
 #endif

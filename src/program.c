@@ -52,7 +52,7 @@ int main(int argc, char **argv) {
     if (options.action[ACTION_GRAPH] == TO_DO) {
         testExitCode(openFiles(&options, "r", 0));
         node0 = DoListAdjDeBinHash(&options, &taille, hashTable);
-        printListNode(node0);
+        // printListNode(node0);
         // printf("nba : 2956966");
         // printListEdge(node0);
         // printListAdj(node0);
@@ -60,31 +60,31 @@ int main(int argc, char **argv) {
         // printf("%i\n", authorNameToNodeNumber("Dimitar Ruscev", hashTable));
     }
     if (options.action[ACTION_SHOW_AUTHORS] == TO_DO) {
-        showAuthors(&options, hashTable, node0, 0);
+        showAuthors(&options, node0, 0);
     }
     if (options.action[ACTION_SHOW_ARTICLES] == TO_DO &&
         options.action[ACTION_NEIGHBOURS] != TO_DO) {
-        testExitCode(showArticles(&options, hashTable, node0, 0));
+        testExitCode(showArticles(&options, node0, 0));
     }
     if (options.action[ACTION_SHOW_ARTICLES_YEAR] == TO_DO) {
-        testExitCode(showArticles(&options, hashTable, node0, options.year));
+        testExitCode(showArticles(&options, node0, options.year));
     }
     if (options.action[ACTION_SHORTEST_PATH] == TO_DO) {
-        testExitCode(chooseAuthor(&options, hashTable, node0, 0));
-        testExitCode(chooseAuthor(&options, hashTable, node0, 1));
+        testExitCode(chooseAuthor(&options, node0, 0));
+        testExitCode(chooseAuthor(&options, node0, 1));
         testExitCode(plusCourtChemin(
             authorNameToNodeNumber(options.authorNames[0], hashTable),
             authorNameToNodeNumber(options.authorNames[1], hashTable), node0,
             taille));
     }
     if (options.action[ACTION_DIJKSTRA] == TO_DO) {
-        testExitCode(chooseAuthor(&options, hashTable, node0, 0));
+        testExitCode(chooseAuthor(&options, node0, 0));
         testExitCode(
             dijkstra(authorNameToNodeNumber(options.authorNames[0], hashTable),
                      node0, taille));
     }
     if (options.action[ACTION_DISTANCE] == TO_DO) {
-        testExitCode(chooseAuthor(&options, hashTable, node0, 1));
+        testExitCode(chooseAuthor(&options, node0, 1));
         printDistances(&options, node0);
     }
     if (options.action[ACTION_NEIGHBOURS] == TO_DO) {

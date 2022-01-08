@@ -60,48 +60,37 @@ void appendEdgeHash(unsigned int hash1, unsigned int hash2, node **hashTable) {
 
 node *sousListeAdj(node *end, int *taille, structureBase_t *Entree,
                    node **hashTable) {
+    int pr[4] = {pr1, pr2, pr3, pr4};
     int n1 = 0;
     int L[500];
     L[0] = -1;
     unsigned int LH[100];
     int index = 0;
-    // on récupère les numéros des co auteur de l'article et on les mets
+    // on récupère les numéros des co auteur de l'article et on les met
     // dans une liste
     for (int k = 0; k < Entree->authornb; k++) {
         char *author1 = Entree->author[k];
-        unsigned int hash1 = hash((unsigned char *)author1, pr1);
-        n1 = AuthorInListHash(author1, hashTable, pr1);
-        if (n1 == -1) {
-            end = appendNode(author1, end);
-            hashTable[hash1] = end;
-            *taille += 1;
-            n1 = *taille;
-        }
-        if (n1 == -2) {
-            hash1 = hash((unsigned char *)author1, pr2);
-            n1 = AuthorInListHash(author1, hashTable, pr2);
+        unsigned int hash1 = 0;
+        for (int p = 0; p < 4; p++) {
+            hash1 = hash((unsigned char *)author1, pr[p]);
+            n1 = AuthorInListHash(author1, hashTable, pr[p]);
             if (n1 == -1) {
                 end = appendNode(author1, end);
                 hashTable[hash1] = end;
                 *taille += 1;
                 n1 = *taille;
-            }
-            if (n1 == -2) {
-                hash1 = hash((unsigned char *)author1, pr3);
-                n1 = AuthorInListHash(author1, hashTable, pr3);
-                if (n1 == -1) {
-                    end = appendNode(author1, end);
-                    hashTable[hash1] = end;
-                    *taille += 1;
-                    n1 = *taille;
-                }
-            }
+                break;
+            } else if (n1 == -2) {
+                continue;
+            } else
+                break;
         }
         L[index] = n1;
         LH[index] = hash1;
         index++;
         L[index] = -1;
     }
+
     // on utilise la liste pour append le graphe
     for (int i = 0; L[i] > -1 && i < 100; i++) {
         for (int k = i + 1; L[k] > -1 && k < 100; k++) {

@@ -14,8 +14,7 @@
 
 extern int interruptFlag;
 
-int showAuthors(options_t *options, node **hashTable, node *node0,
-                int author0or1) {
+int showAuthors(options_t *options, node *node0, int author0or1) {
     initSigaction();
     fseek(options->outputFile, 14, SEEK_SET);
     if (node0 == NULL) {
@@ -24,20 +23,13 @@ int showAuthors(options_t *options, node **hashTable, node *node0,
     node *currentNode = node0;
     char *authortmp = currentNode->author;
     int counter = 0;
-    int *hashTablePositions = calloc(HT_SIZE, sizeof(int));
-    if (hashTablePositions == NULL)
-        return ERROR_SHOW_AUTHORS;
-    unsigned int authorHash = 0;
-    printf("Searching...\n\n");
+    printf("Authors containing \"%s\" in their name : \n",
+           options->authorNames[author0or1]);
     while (currentNode->nextNode != NULL) {
         if (strstr(currentNode->author, options->authorNames[author0or1])) {
             authortmp = currentNode->author;
-            authorHash = hash((unsigned char *)currentNode->author, pr1);
-            if (hashTablePositions[authorHash] == 0) {
-                // printf(" - %s\n", hashTable[authorHash]->author);
-                counter++;
-            }
-            hashTablePositions[authorHash] = 1;
+            printf(" - %s\n", currentNode->author);
+            counter++;
         }
         currentNode = currentNode->nextNode;
         if (interruptFlag == 1)
@@ -46,65 +38,69 @@ int showAuthors(options_t *options, node **hashTable, node *node0,
     /* Take the last author */
     if (strstr(currentNode->author, options->authorNames[author0or1])) {
         authortmp = currentNode->author;
-        authorHash = hash((unsigned char *)currentNode->author, pr1);
-        if (hashTablePositions[authorHash] == 0) {
-            // printf(" - %s\n", hashTable[authorHash]->author);
-            counter++;
-        }
-        hashTablePositions[authorHash] = 1;
+        printf(" - %s\n", currentNode->author);
+        counter++;
     }
-    if (counter != 0) {
-        printf("Authors containing \"%s\" in their name : \n",
-               options->authorNames[author0or1]);
-        for (unsigned int s = 0; s < HT_SIZE; s++) {
-            if (hashTablePositions[s] == 1) {
-                printf(" - %s\n", hashTable[s]->author);
-            }
-        }
-    } else {
-        printf("No author containing \"\33[0;31m%s\33[0m\" in his name ! \n",
+    if (counter == 0) {
+        printf("\n\33[0;33mNo author containing \"\33[0;31m%s\33[0m\33[0;33m\" "
+               "in his name ! \33[0m",
                options->authorNames[author0or1]);
     }
     if (counter == 1) {
         options->authorNames[author0or1] = authortmp;
     }
-    free(hashTablePositions);
     printf("\n\n");
     return counter;
 }
 
-int chooseAuthor(options_t *options, node **hashTable, node *node0,
-                 int author0or1) {
-    int count = showAuthors(options, hashTable, node0, author0or1);
+int chooseAuthor(options_t *options, node *node0, int author0or1) {
+    int count;
+begin:
+    count = showAuthors(options, node0, author0or1);
+    int c;
     fseek(options->outputFile, 14, SEEK_SET);
     char *exitChar = "Ok";
     if (count == 0) {
         return ERROR_NO_AUTHOR;
     } else if (count != 1) {
-        printf("\n%i authors found ! Which one do you want to see ?\n"
+        printf("%i authors found ! Which one do you want to see ?\n"
                "Enter his complete name : ",
                count);
-        exitChar = fgets(options->authorNames[0], 100, stdin);
+        exitChar = fgets(options->authorNames[author0or1], 100, stdin);
+        printf("\n");
         if (exitChar == NULL) {
             return ERROR_SHOW_ARTICLES;
         }
-        options->authorNames[0][strlen(options->authorNames[0]) - 1] = '\0';
+        options->authorNames[author0or1]
+                            [strlen(options->authorNames[author0or1]) - 1] =
+            '\0';
+        c = showAuthors(options, node0, author0or1);
+        if (c > 1) {
+            fprintf(stderr,
+                    "This is not enough precise ! There are %i authors "
+                    "containing \"\33[0;31m%s\33[0m\" in their name !\n",
+                    c, options->authorNames[author0or1]);
+            goto begin;
+        } else if (c == 0) {
+            fprintf(stderr, "\33[0;31mInvalid answer !\33[0m\n");
+            return ERROR_CHOOSE_AUTHOR;
+        }
     }
     return OK;
 }
 
-int showArticles(options_t *options, node **hashTable, node *node0, int year) {
+int showArticles(options_t *options, node *node0, int year) {
     initSigaction();
-    int exitCode = chooseAuthor(options, hashTable, node0, 0);
-    if (exitCode == ERROR_SHOW_ARTICLES)
-        return ERROR_SHOW_ARTICLES;
+    int exitCode = chooseAuthor(options, node0, 0);
+    if (exitCode != OK)
+        return exitCode;
     else if (exitCode == ERROR_NO_AUTHOR) {
         return OK;
     }
     int count = 0;
     int16_t precAuthornb = 0;
     structureBase_t structureBase;
-    printf("\nArticles of %s", options->authorNames[0]);
+    printf("Articles of %s", options->authorNames[0]);
     if (year > 0) {
         printf(" in %i", year);
     }

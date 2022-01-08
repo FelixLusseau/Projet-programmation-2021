@@ -178,12 +178,16 @@ void printListNode(node *node0) {
     printf("\n");
     printf("liste sommet:\n");
     while (currentNode->nextNode != NULL) {
-        if (currentNode->nodeNumber > 2700000)
-            printf("  %i:%s\n", currentNode->nodeNumber, currentNode->author);
+        if (interruptFlag == 1) {
+            break;
+        }
+        // if (currentNode->nodeNumber > 2700000)
+        printf("  %i:%s\n", currentNode->nodeNumber, currentNode->author);
         currentNode = currentNode->nextNode;
     }
     printf("  %i:%s\n", currentNode->nodeNumber, currentNode->author);
-    printf("\nCollisions : %i\n", 2956966 - currentNode->nodeNumber);
+    /* printf("\ntotal : 2956966\nCollisions : %i\n",
+           2956966 - currentNode->nodeNumber); */
 }
 void printListEdge(node *node0) {
     node *currentNode = node0;
@@ -191,6 +195,9 @@ void printListEdge(node *node0) {
     printf("\n");
     printf("liste arretes:\n");
     while (currentNode->nextNode != NULL) {
+        if (interruptFlag == 1) {
+            break;
+        }
         currentEdge = currentNode->nodeEdge;
         if (currentEdge != NULL) {
             while (currentEdge->nextEdge != NULL) {

@@ -93,6 +93,7 @@ void extractTitle2(structureBase_t *structureBase, char *line,
 
 int parseBase(options_t *options) {
     initSigaction();
+    printf("Parsing...\n");
     errno = 0;
     fprintf(options->outputFile, "<binary file>\n");
     unsigned long long int linenb = 0;
