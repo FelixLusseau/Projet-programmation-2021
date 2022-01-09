@@ -69,15 +69,13 @@ int main(int argc, char **argv) {
         testExitCode(chooseAuthor(&options, hashTable, node0, 0));
         testExitCode(chooseAuthor(&options, hashTable, node0, 1));
         testExitCode(plusCourtChemin(
-            authorNameToNodeNumber(options.authorNames[0], hashTable),
-            authorNameToNodeNumber(options.authorNames[1], hashTable), node0,
-            taille,hashTable));
+            hashTable[options.authorNames[0]],
+            hashTable[options.authorNames[1]], node0,
+            taille));
     }
     if (options.action[ACTION_DIJKSTRA] == TO_DO) {
         testExitCode(chooseAuthor(&options, hashTable, node0, 0));
-        testExitCode(
-            dijkstra(authorNameToNodeNumber(options.authorNames[0], hashTable),
-                     node0, taille,hashTable));
+        testExitCode(dijkstra(hashTable[options.authorNames[0]],hashTable[options.authorNames[1]],node0, taille));
     }
     if (options.action[ACTION_DISTANCE] == TO_DO) {
         testExitCode(chooseAuthor(&options, hashTable, node0, 1));
