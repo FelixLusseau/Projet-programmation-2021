@@ -11,16 +11,18 @@ void printUsage(void) {
     printf(
         "usage: ./bin/program OPTIONS\n"
         "options:\n"
-        "\t-i FICHIER               indicate the xml to read\n"
-        "\t-o FICHIER               indicate the binary to write\n"
+        "\t-i FICHIER               indicate the xml to use\n"
+        "\t-o FICHIER               indicate the binary to use\n"
         "\t-x                       generate the binary file from the xml "
         "database\n"
         "\t-r                       read and print the binary structure for "
         "each document\n"
         "\t-m                       make the adjacence list from the "
         "binary file\n"
-        "\t-a AUTHOR                show all the titles of the document "
+        "\t-a AUTHOR                show the titles of all the documents "
         "where the author has participated\n"
+        "\t-a AUTHOR -y YEAR        show the titles of the documents where the "
+        "author has participated in the year given\n"
         "\t-l WORD                  show all the authors containing WORD in "
         "their name\n"
         "\t-p AUTHOR1 -p AUTHOR2    return the shortest way between these "
@@ -40,7 +42,7 @@ int parseArgs(int argc, char **argv, options_t *options) {
     initOptions(options);
     int countAuthorsArguments = 0;
     int c;
-    while ((c = getopt(argc, argv, "i:o:xrma:l:hp:dn:c")) != -1) {
+    while ((c = getopt(argc, argv, "i:o:xrma:y:l:hp:dn:c")) != -1) {
         switch (c) {
         case 'i':
             options->inputFilename = optarg;
@@ -61,6 +63,11 @@ int parseArgs(int argc, char **argv, options_t *options) {
             options->action[ACTION_GRAPH] = TO_DO;
             options->action[ACTION_SHOW_ARTICLES] = TO_DO;
             options->authorNames[0] = optarg;
+            break;
+        case 'y':
+            options->action[ACTION_SHOW_ARTICLES] = NOT_TO_DO;
+            options->action[ACTION_SHOW_ARTICLES_YEAR] = TO_DO;
+            options->year = atoi(optarg);
             break;
         case 'n':
             options->action[ACTION_GRAPH] = TO_DO;

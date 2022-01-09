@@ -41,8 +41,10 @@ void initOptions(options_t *options) {
     options->action[ACTION_UNKNOWN] = 1;
     for (int a = 1; a < ACTIONS_NB + 1; a++)
         options->action[a] = NOT_TO_DO;
-    options->authorNames[0] = NULL;
-    options->authorNames[1] = NULL;
+    for (int b = 0; b < 2; b++)
+        options->authorNames[b] = NULL;
+    options->N = 0;
+    options->year = 0;
 }
 
 int isXML(FILE *file) {
@@ -105,13 +107,14 @@ int closeFiles(options_t *options) {
     return OK;
 }
 
-int endOfProgram(options_t *options, node *node0, node **hashTable) {
+void endOfProgram(options_t *options, node *node0, node **hashTable) {
     if (node0 != NULL)
         freeListAdj(node0);
     free(hashTable);
     if (options->inputFile != NULL || options->outputFile != NULL)
         closeFiles(options);
-    return OK;
+    if (interruptFlag == 1)
+        fprintf(stderr, "\33[0;33mInterrupted !\33[0m");
 }
 
 const char *errorToString(error_t err) {
@@ -137,6 +140,8 @@ const char *errorToString(error_t err) {
         return "=> \33[0;31mError\33[0m while showing the articles !";
     case ERROR_SHOW_AUTHORS:
         return "=> \33[0;31mError\33[0m while showing the authors !";
+    case ERROR_CHOOSE_AUTHOR:
+        return "=> \33[0;31mError\33[0m while choosing the author(s) !";
     case ERROR_GRAPH:
         return "=> \33[0;31mError\33[0m while generating the graph !";
     case ERROR_NODE_EQ_NULL:

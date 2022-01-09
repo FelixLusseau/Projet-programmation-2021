@@ -180,10 +180,16 @@ void printListNode(node *node0) {
     printf("\n");
     printf("liste sommet:\n");
     while (currentNode->nextNode != NULL) {
+        if (interruptFlag == 1) {
+            break;
+        }
+        // if (currentNode->nodeNumber > 2700000)
         printf("  %i:%s\n", currentNode->nodeNumber, currentNode->author);
         currentNode = currentNode->nextNode;
     }
     printf("  %i:%s\n", currentNode->nodeNumber, currentNode->author);
+    /* printf("\ntotal : 2956966\nCollisions : %i\n",
+           2956966 - currentNode->nodeNumber); */
 }
 void printListEdge(node *node0) {
     node *currentNode = node0;
@@ -191,6 +197,9 @@ void printListEdge(node *node0) {
     printf("\n");
     printf("liste arretes:\n");
     while (currentNode->nextNode != NULL) {
+        if (interruptFlag == 1) {
+            break;
+        }
         currentEdge = currentNode->nodeEdge;
         if (currentEdge != NULL) {
             while (currentEdge->nextEdge != NULL) {
@@ -282,7 +291,7 @@ int dijkstra(node *node1, node *node2, int taille) {
     int k = 0;
     
     while (k < taille && node2->flag==0) {
-        printf("k:%i/%i--%i  NN:%i\n",k,2617596,taille,currentNode->nodeNumber);
+        printf("\rk:%i/%i--%i  NN:%i\n",k,2617596,taille,currentNode->nodeNumber);
         currentEdge = currentNode->nodeEdge;
         voisin = currentEdge->otherNode;
         /* exploration des voisins non marqué de currentNode 
@@ -339,6 +348,7 @@ int dijkstra(node *node1, node *node2, int taille) {
         }
         k++;
     }
+    printf("Distance: %i\n",node2->distance);
     freeListAdj(ListeDistance);
     printf("\n*************************************Fin dijkstra"
            "*************************************\n\n");
@@ -372,7 +382,7 @@ int plusCourtChemin(node *Node1, node *Node2, int taille) {
 
     edge *currentEdge = currentNode->nodeEdge;
     node *minVoisin = currentEdge->otherNode;
-    while (currentNode->nodeNumber != n1) {
+    while (currentNode->nodeNumber != Node1->nodeNumber) {
         printf("%s\n", currentNode->author);
         while (currentEdge != NULL) {
             if (currentEdge->linkNode->flag==1 &&
@@ -385,7 +395,8 @@ int plusCourtChemin(node *Node1, node *Node2, int taille) {
         currentEdge = currentNode->nodeEdge;
     }
     printf("%s\n", currentNode->author);
-    printf("distance entre %s et %s: %i\n", Node1->author, Node2->author, distance);
+    printf("distance entre %s et %s: %i\n", Node1->author, Node2->author,
+           distance);
     return OK;
 }
 
@@ -403,6 +414,7 @@ int explorationGraphe(node *node0, int *isole) {
     node *debutListe=CreateListAdj("0");
     appendListeEdge(debutListe,node0);
     while(debutListe->nodeEdge!=NULL){
+        printf("exploration: %s\n",node0->author);
         nbrNode+=1;
 
         node0=popListeEdge(debutListe);

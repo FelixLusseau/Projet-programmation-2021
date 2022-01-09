@@ -59,7 +59,7 @@ int closeFiles(options_t *options);
  * @param hashTable
  * @return int
  */
-int endOfProgram(options_t *options, node *node0, node **hashTable);
+void endOfProgram(options_t *options, node *node0, node **hashTable);
 
 /**
  * @brief convert error from error_t to string
