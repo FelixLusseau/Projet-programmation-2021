@@ -53,7 +53,6 @@ int main(int argc, char **argv) {
         testExitCode(openFiles(&options, "r", 0));
         node0 = DoListAdjDeBinHash(&options, &taille, hashTable);
         // printListNode(node0);
-        // printf("nba : 2956966");
         // printListEdge(node0);
         // printListAdj(node0);
         // printf("%i\n", authorNameToNodeNumber("Russell Turpin", hashTable));

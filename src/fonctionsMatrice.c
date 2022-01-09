@@ -145,7 +145,10 @@ void freeEdge(node *currentNode) {
     // printf("    cuE:%i\n",currentEdge->otherNode->nodeNumber);
     free(currentEdge);
 }
-void freeListAdj(node *node0) {
+void freeListAdj(node *node0, int print) {
+    if (print)
+        printf("\n\n************************************Libération de "
+               "l'espace**************************************\n\n");
     node *currentNode = node0;
     node *interN;
     while (currentNode->nextNode != NULL) {
@@ -353,7 +356,7 @@ int dijkstra(node *node1, node *node2, int taille) {
         k++;
     }
     printf("Distance: %i\n", node2->distance);
-    freeListAdj(ListeDistance);
+    freeListAdj(ListeDistance, 0);
     printf("\n*************************************Fin dijkstra"
            "*************************************\n\n");
     return OK;

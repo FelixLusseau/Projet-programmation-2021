@@ -85,6 +85,7 @@ int openFiles(options_t *options, char *openMode, int test) {
         if (isXML(options->inputFile) == ERROR_XML) {
             return ERROR_XML;
         }
+        remove(options->outputFilename);
     }
     options->outputFile = fopen(options->outputFilename, openMode);
     if (options->outputFile == NULL) {
@@ -108,10 +109,8 @@ int closeFiles(options_t *options) {
 }
 
 void endOfProgram(options_t *options, node *node0, node **hashTable) {
-    printf("\n\n************************************Libération de "
-           "l'espace**************************************\n\n");
     if (node0 != NULL)
-        freeListAdj(node0);
+        freeListAdj(node0, 1);
     free(hashTable);
     if (options->inputFile != NULL || options->outputFile != NULL)
         closeFiles(options);
@@ -150,8 +149,9 @@ const char *errorToString(error_t err) {
         return "=> \33[0;31mError\33[0m graph is empty !";
     case ERROR_PATH:
         return "=> \33[0;31mError\33[0m making the path !";
-    default:
     case OK:
+        return "";
+    default:
         return "";
     }
 }

@@ -1,4 +1,3 @@
-#include <errno.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -94,12 +93,10 @@ void extractTitle2(structureBase_t *structureBase, char *line,
 int parseBase(options_t *options) {
     initSigaction();
     printf("Parsing...\n");
-    errno = 0;
     fprintf(options->outputFile, "<binary file>\n");
     unsigned long long int linenb = 0;
     char *line = malloc(1500);
     if (line == NULL) {
-        fprintf(stderr, "%s.\n", strerror(errno));
         return ERROR_BASE_PARSE;
     }
     structureBase_t structureBase;

@@ -57,23 +57,6 @@ int readEntireBin(options_t *options, int print) {
     return OK;
 }
 
-structureBase_t readEntryBin(options_t *options, int curseur) {
-    int16_t precAuthornb = 0;
-    int count = 0;
-    structureBase_t structureBase;
-    if (curseur == -1) {
-        readStructure(options, &structureBase, precAuthornb);
-    } else if (curseur != 0) {
-        fseek(options->outputFile, 14, SEEK_SET);
-        while (count <= curseur) {
-            readStructure(options, &structureBase, precAuthornb);
-            count++;
-            precAuthornb = structureBase.authornb;
-        }
-    }
-    return structureBase;
-}
-
 void printStruct(structureBase_t *structureBase) {
     printf("title : %s\nyear : %i\n", structureBase->title,
            structureBase->year);

@@ -8,8 +8,6 @@ harmoniser ang / fr, error codes etc
 
 Interface ?
 
-errno ?
-
 test de malloc et autres erreurs ?
 
 écrire le graphe dans un fichier ?

@@ -107,7 +107,8 @@ int showArticles(options_t *options, node *node0, int year) {
     printf(" : \n");
     while (1) {
         initStructure(&structureBase, precAuthornb);
-        structureBase = readEntryBin(options, -1);
+        readStructure(options, &structureBase, precAuthornb);
+        precAuthornb = structureBase.authornb;
         if (structureBase.authornb == 0 || interruptFlag == 1)
             break;
         for (int k = 0; k < structureBase.authornb; k++) {
