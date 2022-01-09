@@ -108,6 +108,8 @@ int closeFiles(options_t *options) {
 }
 
 void endOfProgram(options_t *options, node *node0, node **hashTable) {
+    printf("\n\n************************************Libération de "
+           "l'espace**************************************\n\n");
     if (node0 != NULL)
         freeListAdj(node0);
     free(hashTable);

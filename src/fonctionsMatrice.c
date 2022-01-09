@@ -146,8 +146,6 @@ void freeEdge(node *currentNode) {
     free(currentEdge);
 }
 void freeListAdj(node *node0) {
-    printf("\n\n************************************Libération de "
-           "l'espace**************************************\n\n");
     node *currentNode = node0;
     node *interN;
     while (currentNode->nextNode != NULL) {
@@ -272,7 +270,7 @@ void appendListeEdge(node *debutListe, node *newNode) {
 }
 
 int dijkstra(node *node1, node *node2, int taille) {
-    printf("\n*************************************Debut dijkstra"
+    printf("*************************************Debut dijkstra"
            "*************************************\n\n");
 
     int flagGraphe = 0;
