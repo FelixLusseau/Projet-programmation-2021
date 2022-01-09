@@ -188,7 +188,6 @@ int main(void) {
     options_t options;
     options.inputFilename = "../database/dblp.xml";
     // options.outputFilename = "../database/dblp.bin";
-    // options.outputFilename = "/tmp/dblp.bin";
     // options.outputFilename = "../tests/sample.bin";
     options.inputFile = NULL;
     options.outputFile = NULL;
