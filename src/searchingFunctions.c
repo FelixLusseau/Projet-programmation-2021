@@ -17,6 +17,7 @@ extern int interruptFlag;
 int showAuthors(options_t *options, node *node0, int author0or1) {
     initSigaction();
     fseek(options->outputFile, 14, SEEK_SET);
+    int exact = 0;
     if (node0 == NULL) {
         return ERROR_NODE_EQ_NULL;
     }
@@ -27,6 +28,12 @@ int showAuthors(options_t *options, node *node0, int author0or1) {
            options->authorNames[author0or1]);
     while (currentNode->nextNode != NULL) {
         if (strstr(currentNode->author, options->authorNames[author0or1])) {
+            if (strcmp(currentNode->author, options->authorNames[author0or1]) ==
+                0) {
+                exact = 1;
+                authortmp = currentNode->author;
+                break;
+            }
             authortmp = currentNode->author;
             printf(" - %s\n", currentNode->author);
             counter++;
@@ -46,7 +53,7 @@ int showAuthors(options_t *options, node *node0, int author0or1) {
                "in his name ! \33[0m",
                options->authorNames[author0or1]);
     }
-    if (counter == 1) {
+    if (counter == 1 || exact == 1) {
         options->authorNames[author0or1] = authortmp;
     }
     printf("\n\n");
