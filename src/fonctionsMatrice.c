@@ -284,6 +284,10 @@ int dijkstra(node *node1, node *node2, int taille) {
     // une distance de -1 représente une distance infini
     node *currentNode = node1;
     currentNode->distance = 0;
+    if(currentNode->nodeEdge==NULL){
+        printf("l'auteur %s est isolé\n",node1->author);
+        return OK;
+    }
     edge *currentEdge = currentNode->nodeEdge;
     node *voisin = currentEdge->otherNode;
     int flag=voisin->distance;
@@ -295,7 +299,7 @@ int dijkstra(node *node1, node *node2, int taille) {
     int k = 0;
     
     while (k < taille ) {
-        //printf("\rk:%i/%i--%i  NN:%i\n",k,2617596,taille,currentNode->nodeNumber);
+        printf("\rk:%i/%i NN:%s\n",k,taille,currentNode->author);
         currentEdge = currentNode->nodeEdge;
         voisin = currentEdge->otherNode;
         /* exploration des voisins non marqué de currentNode 
