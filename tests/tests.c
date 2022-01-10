@@ -110,21 +110,6 @@ void testArgMissing() {
     tps_assert(parseArgs(argc, argv, &options) == ERROR_ARGS_PARSE);
 }
 
-void testMallocError() {
-    __remaining_alloc = 0;
-    int exitCode = OK;
-    options_t options;
-    initOptions(&options);
-    options.inputFilename = "sample.xml";
-    options.outputFilename = "outsampletest.bin";
-    options.action[ACTION_PARSE] = 1;
-    openFiles(&options, "w", 0);
-    tps_assert((exitCode = parseBase(&options)) == ERROR_BASE_PARSE);
-    fprintf(stderr, "%s\n", errorToString(exitCode));
-    closeFiles(&options);
-    __remaining_alloc = -1;
-}
-
 void testParseBase() {
     options_t options;
     initOptions(&options);
@@ -136,6 +121,21 @@ void testParseBase() {
     tps_assert(options.outputFile != NULL);
     tps_assert(parseBase(&options) == OK);
     closeFiles(&options);
+}
+
+void testMallocError() {
+    __remaining_alloc = 0;
+    int exitCode = OK;
+    options_t options;
+    initOptions(&options);
+    options.inputFilename = "sample.xml";
+    options.outputFilename = "out";
+    options.action[ACTION_PARSE] = 1;
+    openFiles(&options, "w", 0);
+    tps_assert((exitCode = parseBase(&options)) == ERROR_BASE_PARSE);
+    fprintf(stderr, "%s\n", errorToString(exitCode));
+    closeFiles(&options);
+    __remaining_alloc = -1;
 }
 
 void testRead() {
@@ -226,8 +226,8 @@ int main(void) {
 
     TEST(testParseArgs);
     // TEST(testArgMissing);
-    TEST(testMallocError);
     TEST(testParseBase);
+    TEST(testMallocError);
     TEST(testRead);
     TEST(testGraph);
     TEST(testArticles);
