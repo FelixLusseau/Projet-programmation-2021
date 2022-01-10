@@ -6,6 +6,7 @@
 #include "baseParser.h"
 #include "io-utils.h"
 #include "readFunctions.h"
+#include "tps_unit_test.h"
 
 extern int interruptFlag;
 
@@ -104,7 +105,6 @@ int parseBase(options_t *options) {
     int titleEndOfLine = 0;
     while (fgets(line, 1500, options->inputFile) != NULL) {
         linenb++;
-        // printf("line %lli : %s\n", linenb, line);
         if (line[0] == '<' && line[1] == 'a' && line[2] == 'u')
             extractAuthor(&structureBase, line);
         else if (line[0] == '<' && line[1] == 't' && line[2] == 'i')

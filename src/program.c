@@ -10,6 +10,9 @@
 #include "program.h"
 #include "readFunctions.h"
 #include "searchingFunctions.h"
+#include "tps_unit_test.h"
+
+TEST_INIT_GLOBAL
 
 #define testExitCode(op)                                                       \
     {                                                                          \

@@ -26,12 +26,14 @@ int showAuthors(options_t *options, node *node0, int author0or1) {
     int counter = 0;
     printf("Authors containing \"%s\" in their name : \n",
            options->authorNames[author0or1]);
-    while (currentNode->nextNode != NULL) {
+    while (currentNode != NULL) {
         if (strstr(currentNode->author, options->authorNames[author0or1])) {
             if (strcmp(currentNode->author, options->authorNames[author0or1]) ==
                 0) {
                 exact = 1;
                 authortmp = currentNode->author;
+                printf(" - %s\n", currentNode->author);
+                counter++;
                 break;
             }
             authortmp = currentNode->author;
@@ -41,12 +43,6 @@ int showAuthors(options_t *options, node *node0, int author0or1) {
         currentNode = currentNode->nextNode;
         if (interruptFlag == 1)
             break;
-    }
-    /* Take the last author */
-    if (strstr(currentNode->author, options->authorNames[author0or1])) {
-        authortmp = currentNode->author;
-        printf(" - %s\n", currentNode->author);
-        counter++;
     }
     if (counter == 0) {
         printf("\n\33[0;33mNo author containing \"\33[0;31m%s\33[0m\33[0;33m\" "

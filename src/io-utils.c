@@ -104,7 +104,8 @@ int openFiles(options_t *options, char *openMode, int test) {
 int closeFiles(options_t *options) {
     if (options->inputFile != NULL)
         fclose(options->inputFile);
-    fclose(options->outputFile);
+    if (options->outputFile != NULL)
+        fclose(options->outputFile);
     return OK;
 }
 

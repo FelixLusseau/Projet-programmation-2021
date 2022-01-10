@@ -202,7 +202,7 @@ void printListEdge(node *node0) {
         currentEdge = currentNode->nodeEdge;
         if (currentEdge != NULL) {
             while (currentEdge->nextEdge != NULL) {
-                printf(" %i -> %i|", currentEdge->linkNode->nodeNumber,
+                printf(" %i -> %i|\n", currentEdge->linkNode->nodeNumber,
                        currentEdge->otherNode->nodeNumber);
                 currentEdge = currentEdge->nextEdge;
             }
@@ -212,7 +212,7 @@ void printListEdge(node *node0) {
         currentNode = currentNode->nextNode;
     }
     while (currentEdge != NULL && currentEdge->nextEdge != NULL) {
-        printf(" %i -> %i|", currentEdge->linkNode->nodeNumber,
+        printf(" %i -> %i|\n", currentEdge->linkNode->nodeNumber,
                currentEdge->otherNode->nodeNumber);
         currentEdge = currentEdge->nextEdge;
     }

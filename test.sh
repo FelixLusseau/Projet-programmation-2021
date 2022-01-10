@@ -40,8 +40,8 @@ $VALGRIND ./$TARGET -i tests/sample.xml -o tests/out -x >> $LOG 2>&1 || fail
 coloredEcho "OK" green
 
 annoncer "Execution parse base sample1ref et affichage structure"
-$VALGRIND ./$TARGET -i tests/sample1ref.xml -o tests/out -x
-$VALGRIND ./$TARGET -i tests/sample1ref.xml -o tests/out -r > tests/out.txt || fail
+$VALGRIND ./$TARGET -i tests/sample1ref.xml -o tests/out -x >> $LOG 2>&1 || fail
+$VALGRIND ./$TARGET -i tests/sample1ref.xml -o tests/out -r > tests/out.txt 2>&1 || fail
 echo "===DIFF===" >> $LOG
 diff -Z tests/out.txt tests/sample1refresult.txt >> $LOG 2>&1
 if [ $? -ne 0 ]
@@ -51,15 +51,35 @@ fi
 coloredEcho "OK" green
 
 annoncer "Erreur entrée non XML"
-$VALGRIND ./$TARGET -i tests/sample.bin -o tests/out >> $LOG 2>&1 && fail
+$VALGRIND ./$TARGET -i tests/sample.bin -o tests/out -x > tests/out.txt 2>&1 && fail
+echo "===DIFF===" >> $LOG
+diff -Z tests/out.txt tests/testnonXMLresult.txt >> $LOG 2>&1
+if [ $? -ne 0 ]
+then
+    fail
+fi
 coloredEcho "OK" green
 
 annoncer "Execution graphe sample"
 $VALGRIND ./$TARGET -o tests/sample.bin -m >> $LOG 2>&1 || fail
 coloredEcho "OK" green
 
-annoncer "Execution recherche articles (et auteurs)"
-$VALGRIND ./$TARGET -o tests/sample.bin -a "Russell Turpin" >> $LOG 2>&1 || fail
+annoncer "Execution recherche auteurs"
+$VALGRIND ./$TARGET -o tests/sample.bin -l "Rus" >> $LOG 2>&1 || fail
+coloredEcho "OK" green
+
+annoncer "Execution recherche articles (et auteurs) de l'année 2012"
+$VALGRIND ./$TARGET -o tests/sample.bin -a "Yining Li" -y 2012 > tests/out.txt || fail
+echo "===DIFF===" >> $LOG
+diff -Z tests/out.txt tests/testarticles2012result.txt >> $LOG 2>&1
+if [ $? -ne 0 ]
+then
+    fail
+fi
+coloredEcho "OK" green
+
+annoncer "Execution composantes connexes sample"
+$VALGRIND ./$TARGET -o tests/sample.bin -c >> $LOG 2>&1 || fail
 coloredEcho "OK" green
 
 annoncer "Execution tests.c + cov"
