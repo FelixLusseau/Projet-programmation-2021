@@ -46,7 +46,8 @@ int main(int argc, char **argv) {
     if (options.action[ACTION_PARSE] == TO_DO) {
         testExitCode(openFiles(&options, "w", 0));
         testExitCode(parseBase(&options));
-        printf("\33[0;32mDatabase parsing ok ! \33[0m\n");
+        if (exitCode == OK && interruptFlag == 0)
+            printf("\33[0;32mDatabase parsing ok ! \33[0m\n");
     }
     if (options.action[ACTION_READ] == TO_DO) {
         testExitCode(openFiles(&options, "r", 0));
@@ -96,7 +97,7 @@ int main(int argc, char **argv) {
         testExitCode(dijkstra(node1, node2, taille));
     }
     if (options.action[ACTION_DISTANCE] == TO_DO) {
-        // printDistances(&options, node0);
+        printDistances(&options, node0);
     }
     if (options.action[ACTION_NEIGHBOURS] == TO_DO) {
         testExitCode(printAuthorAtDist(&options, node0));

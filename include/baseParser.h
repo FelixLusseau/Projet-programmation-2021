@@ -42,20 +42,7 @@ void extractYear(structureBase_t *structureBase, char *line);
  *
  * @param structureBase
  * @param line
- * @param titleEndOfLine
  */
-void extractTitle1(structureBase_t *structureBase, char *line,
-                   int *titleEndOfLine);
-
-/**
- * @brief extract the title from a line not beginning with a tag if the </title>
- * wasn't find
- *
- * @param structureBase
- * @param line
- * @param titleEndOfLine
- */
-void extractTitle2(structureBase_t *structureBase, char *line,
-                   int titleEndOfLine);
+void extractTitle(structureBase_t *structureBase, char *line);
 
 #endif

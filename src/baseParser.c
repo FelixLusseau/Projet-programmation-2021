@@ -51,17 +51,10 @@ void extractYear(structureBase_t *structureBase, char *line) {
     structureBase->year = atoi(yeartmp);
 }
 
-void extractTitle1(structureBase_t *structureBase, char *line,
-                   int *titleEndOfLine) {
+void extractTitle(structureBase_t *structureBase, char *line) {
     int i = 7;
-    while (*titleEndOfLine == 0) {
-        if (line[i] == '\n') {
-            structureBase->titleLength = i - 7;
-            *titleEndOfLine = 2;
-            break;
-        }
+    while (1) {
         if (line[0] == '<' && line[i] == '<' && line[i + 2] == 't') {
-            *titleEndOfLine = 1;
             structureBase->titleLength = i - 7;
             break;
         }
@@ -72,45 +65,21 @@ void extractTitle1(structureBase_t *structureBase, char *line,
     structureBase->title[i - 7] = '\0';
 }
 
-void extractTitle2(structureBase_t *structureBase, char *line,
-                   int titleEndOfLine) {
-    int i = structureBase->titleLength;
-    titleEndOfLine = 0;
-    while (titleEndOfLine == 0) {
-        if ((line[i - structureBase->titleLength] == '<' &&
-             line[i - structureBase->titleLength + 2] == 't') ||
-            line[i - structureBase->titleLength] == '\n') {
-            structureBase->titleLength = i;
-            titleEndOfLine++;
-            break;
-        }
-        structureBase->title[i] = line[i - structureBase->titleLength];
-        i++;
-    }
-    structureBase->titleLength = i;
-    structureBase->title[i] = '\0';
-}
-
 int parseBase(options_t *options) {
     initSigaction();
     printf("Parsing...\n");
     fprintf(options->outputFile, "<binary file>\n");
-    unsigned long long int linenb = 0;
     char *line = malloc(1500);
     if (line == NULL) {
         return ERROR_BASE_PARSE;
     }
     structureBase_t structureBase;
     initStructure(&structureBase, 0);
-    int titleEndOfLine = 0;
     while (fgets(line, 1500, options->inputFile) != NULL) {
-        linenb++;
         if (line[0] == '<' && line[1] == 'a' && line[2] == 'u')
             extractAuthor(&structureBase, line);
         else if (line[0] == '<' && line[1] == 't' && line[2] == 'i')
-            extractTitle1(&structureBase, line, &titleEndOfLine);
-        else if (titleEndOfLine >= 2 && line[0] != '<')
-            extractTitle2(&structureBase, line, titleEndOfLine);
+            extractTitle(&structureBase, line);
         else if (line[0] == '<' && line[1] == 'y' && line[2] == 'e')
             extractYear(&structureBase, line);
         else if (line[0] == '<' && line[1] == '/') {
@@ -133,7 +102,6 @@ int parseBase(options_t *options) {
                 break;
             }
             initStructure(&structureBase, structureBase.authornb);
-            titleEndOfLine = 0;
         }
     }
     free(line);

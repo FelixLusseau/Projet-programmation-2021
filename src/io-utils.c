@@ -116,7 +116,7 @@ void endOfProgram(options_t *options, node *node0, node **hashTable) {
     if (options->inputFile != NULL || options->outputFile != NULL)
         closeFiles(options);
     if (interruptFlag == 1)
-        fprintf(stderr, "\33[0;33mInterrupted !\33[0m");
+        fprintf(stderr, "\33[0;33mInterrupted !\33[0m\n");
 }
 
 const char *errorToString(error_t err) {
