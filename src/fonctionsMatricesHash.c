@@ -45,8 +45,7 @@ void sousAppendEdge(node *Node1, node *Node2) {
     if (Node1->nodeEdge == NULL) {
         newEdge1->nextEdge = NULL;
         Node1->nodeEdge = newEdge1;
-    } 
-    else {
+    } else {
         newEdge1->nextEdge = Node1->nodeEdge;
         Node1->nodeEdge = newEdge1;
     }
@@ -111,7 +110,6 @@ node *DoListAdjDeBinHash(options_t *options, int *taille, node **hashTable) {
     int16_t precAuthornb = 0;
     structureBase_t Entree;
     initStructure(&Entree, 0);
-    // Entree = readEntryBin(options, -1);
     readStructure(options, &Entree, precAuthornb);
     precAuthornb = Entree.authornb;
 
@@ -124,7 +122,6 @@ node *DoListAdjDeBinHash(options_t *options, int *taille, node **hashTable) {
     if (Entree.authornb > 1) {
         end = sousListeAdj(end, taille, &Entree, hashTable);
     }
-    // Entree = readEntryBin(options, -1);
     readStructure(options, &Entree, precAuthornb);
     precAuthornb = Entree.authornb;
     int curseur = 1;
@@ -136,7 +133,6 @@ node *DoListAdjDeBinHash(options_t *options, int *taille, node **hashTable) {
         if (Entree.authornb >= 1) {
             end = sousListeAdj(end, taille, &Entree, hashTable);
         }
-        //Entree = readEntryBin(options, -1);
         readStructure(options, &Entree, precAuthornb);
         precAuthornb = Entree.authornb;
         curseur++;

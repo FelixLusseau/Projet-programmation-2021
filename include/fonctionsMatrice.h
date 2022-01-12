@@ -39,7 +39,7 @@ int appendEdge(int n1, int n2, node *node0);
 
 void freeEdge(node *currentNode);
 
-void freeListAdj(node *node0);
+void freeListAdj(node *node0, int print);
 
 void printListAdj(node *node0);
 

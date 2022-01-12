@@ -93,7 +93,7 @@ Examples:
 
 
 
-*********************************Libération de l'espace**************************************
+************************************Libération de l'espace**************************************
 
 
 ####
@@ -117,7 +117,7 @@ Articles of Russell Turpin :
 [0;32mComplete ! [0m
 
 
-*********************************Libération de l'espace**************************************
+************************************Libération de l'espace**************************************
 
 
 ####
@@ -147,8 +147,10 @@ gcc -o obj/tests.o -c tests.c -O3 -pipe -march=native -mtune=native -Wall -Wextr
 gcc -o tests obj/fonctionsMatricesHash.o obj/readFunctions.o obj/argsParser.o obj/io-utils.o obj/searchingFunctions.o obj/baseParser.o obj/fonctionsMatrice.o obj/tests.o -O3 -pipe -march=native -mtune=native -Wall -Wextra -Werror -g -fprofile-arcs -ftest-coverage -lm
 Linking complete!
 valgrind --leak-check=full -q ./tests
+testParseArgs
+Done
 Parsing...
-testParse
+testParseBase
 Done
 title : Programming Data Structures in Logic.
 year : 1992
@@ -50863,7 +50865,7 @@ Done
 
 
 
-*********************************Libération de l'espace**************************************
+************************************Libération de l'espace**************************************
 
 testGraph
 Done
@@ -50885,9 +50887,24 @@ Articles of Russell Turpin :
 [0;32mComplete ! [0m
 
 
-*********************************Libération de l'espace**************************************
+************************************Libération de l'espace**************************************
 
 testArticles
+Done
+
+*************************************Debut de la fonction graphe*************************************
+
+[?25l[[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m][?25h
+
+**************************************Fin de la fonction graphe**************************************
+
+Nombre de composantes connexes : 12616
+Dont sommets isolés : 0
+
+
+************************************Libération de l'espace**************************************
+
+testConnected
 Done
 lcov -d obj -c -o rapport.info
 Capturing coverage data from obj
@@ -50910,17 +50927,17 @@ Found 10 entries.
 Found common filename prefix "/home/felix/Documents/Cours/1A/ProjetProgrammation2021"
 Writing .css and .png files.
 Generating output.
-Processing file src/argsParser.c
-Processing file src/readFunctions.c
 Processing file src/fonctionsMatrice.c
-Processing file src/baseParser.c
+Processing file src/readFunctions.c
+Processing file src/searchingFunctions.c
+Processing file src/argsParser.c
 Processing file src/io-utils.c
 Processing file src/fonctionsMatricesHash.c
-Processing file src/searchingFunctions.c
+Processing file src/baseParser.c
 Processing file tests/tests.c
 Processing file /usr/include/stdlib.h
 Processing file /usr/include/x86_64-linux-gnu/bits/stdio2.h
 Writing directory view page.
 Overall coverage rate:
-  lines......: 50.8% (457 of 899 lines)
-  functions..: 58.6% (34 of 58 functions)
+  lines......: 63.5% (591 of 930 lines)
+  functions..: 63.9% (39 of 61 functions)

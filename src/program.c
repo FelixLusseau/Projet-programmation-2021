@@ -53,7 +53,6 @@ int main(int argc, char **argv) {
         testExitCode(openFiles(&options, "r", 0));
         node0 = DoListAdjDeBinHash(&options, &taille, hashTable);
         // printListNode(node0);
-        // printf("nba : 2956966");
         // printListEdge(node0);
         // printListAdj(node0);
         // printf("%i\n", authorNameToNodeNumber("Russell Turpin", hashTable));
@@ -72,23 +71,29 @@ int main(int argc, char **argv) {
     if (options.action[ACTION_SHORTEST_PATH] == TO_DO) {
         testExitCode(chooseAuthor(&options, node0, 0));
         testExitCode(chooseAuthor(&options, node0, 1));
-        testExitCode(plusCourtChemin( hashTable[ hash((unsigned char *)options.authorNames[0], pr1) ],
-                                      hashTable[ hash((unsigned char *)options.authorNames[1], pr1) ],
-                                      taille));
+        testExitCode(plusCourtChemin(
+            hashTable[hash((unsigned char *)options.authorNames[0], pr1)],
+            hashTable[hash((unsigned char *)options.authorNames[1], pr1)],
+            taille));
     }
     if (options.action[ACTION_DIJKSTRA] == TO_DO) {
         testExitCode(chooseAuthor(&options, node0, 0));
         /*int isole=0;
-        explorationGraphe(hashTable[ hash((unsigned char *)options.authorNames[0], pr1)], &isole);
-        reinitialise(node0);
+        explorationGraphe(hashTable[ hash((unsigned char
+        *)options.authorNames[0], pr1)], &isole); reinitialise(node0);
         printf("nbr:%i\n",isole);*/
-        testExitCode(dijkstra(hashTable[ hash((unsigned char *)options.authorNames[0], pr1) ],
-                              hashTable[ hash((unsigned char *)options.authorNames[1], pr1) ],
-                              taille));
+        node *node1 =
+            hashTable[hash((unsigned char *)options.authorNames[0], pr1)];
+        node *node2 = NULL;
+        if (options.authorNames[1] != NULL) {
+            testExitCode(chooseAuthor(&options, node0, 1));
+            node2 =
+                hashTable[hash((unsigned char *)options.authorNames[1], pr1)];
+        }
+        testExitCode(dijkstra(node1, node2, taille));
     }
     if (options.action[ACTION_DISTANCE] == TO_DO) {
-        testExitCode(chooseAuthor(&options, node0, 1));
-        //printDistances(&options, node0);
+        // printDistances(&options, node0);
     }
     if (options.action[ACTION_NEIGHBOURS] == TO_DO) {
         testExitCode(printAuthorAtDist(&options, node0));

@@ -31,15 +31,6 @@ void readStructure(options_t *options, structureBase_t *structureBase,
 int readEntireBin(options_t *options, int print);
 
 /**
- * @brief read one entry and return it in a structure
- *
- * @param options
- * @param curseur
- * @return structureBase_t
- */
-structureBase_t readEntryBin(options_t *options, int curseur);
-
-/**
  * @brief print the structure given in argument
  *
  * @param structureBase
