@@ -33,7 +33,7 @@ options:
 	-o FICHIER               indicate the binary to use
 	-x                       generate the binary file from the xml database
 	-r                       read and print the binary structure for each document
-	-m                       make the adjacence list from the binary file
+	-g [-s]                  make the adjacence list from the binary file [and show it]
 	-a AUTHOR                show the titles of all the documents where the author has participated
 	-a AUTHOR -y YEAR        show the titles of the documents where the author has participated in the year given
 	-l WORD                  show all the authors containing WORD in their name
@@ -297,14 +297,28 @@ gcc -o obj/tests.o -c tests.c -O3 -pipe -march=native -mtune=native -Wall -Wextr
 gcc -o tests obj/fonctionsMatricesHash.o obj/readFunctions.o obj/argsParser.o obj/io-utils.o obj/searchingFunctions.o obj/baseParser.o obj/fonctionsMatrice.o obj/tests.o -O3 -pipe -march=native -mtune=native -Wall -Wextra -Werror -g -fprofile-arcs -ftest-coverage -lm
 Linking complete!
 valgrind --leak-check=full -q ./tests
+./bin/program: option requires an argument -- 'o'
+Option -o requires an argument.
+No such file or directory : sampl.xml.
+=> [0;31mError[0m while opening database ! You need to give a xml file with the -i database.xml option !
+=> The input file isn't a XML database !
+No such file or directory : out9.
+=> [0;31mError[0m while opening binary !
+=> The output file is not a binary or an empty file !
+=> [0;31mError[0m while generating the hashtable !
 => [0;31mError[0m while parsing base !
+creatListAdj:erreur malloc node = NULL
+=> [0;31mError[0m while generating the adjacence list !
+=> [0;31mError[0m graph is empty !
+testArgMissing
+Done
 usage: ./bin/program OPTIONS
 options:
 	-i FICHIER               indicate the xml to use
 	-o FICHIER               indicate the binary to use
 	-x                       generate the binary file from the xml database
 	-r                       read and print the binary structure for each document
-	-m                       make the adjacence list from the binary file
+	-g [-s]                  make the adjacence list from the binary file [and show it]
 	-a AUTHOR                show the titles of all the documents where the author has participated
 	-a AUTHOR -y YEAR        show the titles of the documents where the author has participated in the year given
 	-l WORD                  show all the authors containing WORD in their name
@@ -319,11 +333,18 @@ Examples:
 ./bin/program -i database/dblp.xml -o database/dblp.bin -a "Quentin Bramas"
 testParseArgs
 Done
+testErrorFiles
+Done
 Parsing...
 testParseBase
 Done
 Parsing...
-testMallocError
+testMallocError1
+Done
+
+*************************************Debut de la fonction graphe*************************************
+
+[?25ltestMallocError2
 Done
 title : Programming Data Structures in Logic.
 year : 1992
@@ -63879,17 +63900,17 @@ Found 10 entries.
 Found common filename prefix "/home/felix/Documents/Cours/1A/ProjetProgrammation2021"
 Writing .css and .png files.
 Generating output.
-Processing file src/baseParser.c
-Processing file src/fonctionsMatrice.c
-Processing file src/readFunctions.c
-Processing file src/searchingFunctions.c
-Processing file src/io-utils.c
-Processing file src/fonctionsMatricesHash.c
 Processing file src/argsParser.c
+Processing file src/baseParser.c
+Processing file src/io-utils.c
+Processing file src/readFunctions.c
+Processing file src/fonctionsMatricesHash.c
+Processing file src/fonctionsMatrice.c
+Processing file src/searchingFunctions.c
 Processing file tests/tests.c
 Processing file /usr/include/stdlib.h
 Processing file /usr/include/x86_64-linux-gnu/bits/stdio2.h
 Writing directory view page.
 Overall coverage rate:
-  lines......: 87.5% (807 of 922 lines)
-  functions..: 93.2% (55 of 59 functions)
+  lines......: 91.1% (889 of 976 lines)
+  functions..: 95.1% (58 of 61 functions)

@@ -8,13 +8,14 @@
 
 #include "program.h"
 #include "readFunctions.h"
+#include "tps_unit_test.h"
 
 extern int interruptFlag;
 
 node *CreateListAdj(char *author) {
     node *node0 = (node *)malloc(sizeof(node));
     if (node0 == NULL) {
-        fprintf(stderr, "creatListAdj:erreur malloc node = NULL");
+        fprintf(stderr, "creatListAdj:erreur malloc node = NULL\n");
         return NULL;
     }
     int k = 0;
@@ -311,6 +312,8 @@ int dijkstra(node *node1, node *node2, int taille) {
     /* liste des nodes non marqués dont on a changé la distane (!=-1), elle
     permet de trouver le prochain sommet avec la distance minimum*/
     node *ListeDistance = CreateListAdj("0");
+    if (ListeDistance == NULL)
+        return ERROR_NODE_EQ_NULL;
     ListeDistance->distance = 1;
     edge *endListe = appendListeEdge(NULL, currentNode, ListeDistance);
     int k = 0;

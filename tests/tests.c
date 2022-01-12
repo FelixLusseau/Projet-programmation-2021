@@ -71,10 +71,17 @@ int interruptFlag = 0;
 
 TEST_INIT_GLOBAL
 
+void testArgMissing() {
+    options_t options;
+    int argc = 3;
+    char *argv[] = {"./bin/program", "-g", "-o"};
+    tps_assert(parseArgs(argc, argv, &options) == ERROR_ARGS_PARSE);
+}
+
 void testParseArgs() {
     printUsage();
     options_t options;
-    int argc = 22;
+    int argc = 23;
     char *argv[] = {"./bin/program",
                     "-i",
                     "tests/sample.xml",
@@ -82,7 +89,8 @@ void testParseArgs() {
                     "tests/sample.bin",
                     "-x",
                     "-r",
-                    "-m",
+                    "-g",
+                    "-s",
                     "-a",
                     "Quentin Bramas",
                     "-y",
@@ -97,18 +105,32 @@ void testParseArgs() {
                     "-n",
                     "2",
                     "-c"};
-    parseArgs(argc, argv, &options);
+    tps_assert(parseArgs(argc, argv, &options) == OK);
     tps_assert(strcmp(options.outputFilename, "tests/sample.bin") == 0);
     tps_assert(options.year == 2021);
     tps_assert(strcmp(options.authorNames[0], "Pascal M&eacute;rindol") == 0);
     tps_assert(options.action[ACTION_SHOW_ARTICLES_YEAR] == TO_DO);
 }
 
-void testArgMissing() {
+void testErrorFiles() {
     options_t options;
-    int argc = 3;
-    char *argv[] = {"./bin/program", "-o", "-m"};
-    tps_assert(parseArgs(argc, argv, &options) == ERROR_ARGS_PARSE);
+    initOptions(&options);
+    int exitCode;
+    options.inputFilename = "sampl.xml";
+    options.action[ACTION_PARSE] = TO_DO;
+    tps_assert((exitCode = openFiles(&options, "w", 0)) == ERROR_OPEN_DATABASE);
+    fprintf(stderr, "%s\n", errorToString(exitCode));
+    options.inputFilename = "sample.bin";
+    tps_assert((exitCode = openFiles(&options, "w", 0)) == ERROR_XML);
+    fprintf(stderr, "%s\n", errorToString(exitCode));
+
+    options.action[ACTION_PARSE] = NOT_TO_DO;
+    options.outputFilename = "out9";
+    tps_assert((exitCode = openFiles(&options, "r", 0)) == ERROR_OPEN_BIN);
+    fprintf(stderr, "%s\n", errorToString(exitCode));
+    options.outputFilename = "sample.xml";
+    tps_assert((exitCode = openFiles(&options, "r", 0)) == ERROR_BIN);
+    fprintf(stderr, "%s\n", errorToString(exitCode));
 }
 
 void testParseBase() {
@@ -124,18 +146,49 @@ void testParseBase() {
     closeFiles(&options);
 }
 
-void testMallocError() {
+void testMallocError1() {
     __remaining_alloc = 0;
     int exitCode = OK;
+    node **hashTable = malloc(HT_SIZE * sizeof(unsigned int) * sizeof(char *));
+    tps_assert(hashTable == NULL);
+    if (hashTable == NULL)
+        exitCode = ERROR_HASHTABLE;
+    fprintf(stderr, "%s\n", errorToString(exitCode));
     options_t options;
     initOptions(&options);
     options.inputFilename = "sample.xml";
     options.outputFilename = "out";
-    options.action[ACTION_PARSE] = 1;
+    options.action[ACTION_PARSE] = TO_DO;
     openFiles(&options, "w", 0);
     tps_assert((exitCode = parseBase(&options)) == ERROR_BASE_PARSE);
     fprintf(stderr, "%s\n", errorToString(exitCode));
     closeFiles(&options);
+    __remaining_alloc = -1;
+}
+
+void testMallocError2() {
+    node **hashTable = malloc(HT_SIZE * sizeof(unsigned int) * sizeof(char *));
+    tps_assert(hashTable != NULL);
+    for (int i = 0; i < HT_SIZE; i++)
+        hashTable[i] = NULL;
+    __remaining_alloc = 0;
+    options_t options;
+    initOptions(&options);
+    int exitCode = OK;
+    options.action[ACTION_PARSE] = NOT_TO_DO;
+    options.outputFilename = "sample.bin";
+    openFiles(&options, "r", 0);
+    node *node0;
+    int taille = 0;
+    tps_assert((node0 = DoListAdjDeBinHash(&options, &taille, hashTable)) ==
+               NULL);
+    if (node0 == NULL)
+        exitCode = ERROR_LIST;
+    fprintf(stderr, "%s\n", errorToString(exitCode));
+    tps_assert((exitCode = printAuthorAtDist(&options, node0)) ==
+               ERROR_NODE_EQ_NULL);
+    fprintf(stderr, "%s\n", errorToString(exitCode));
+    endOfProgram(&options, node0, hashTable);
     __remaining_alloc = -1;
 }
 
@@ -276,10 +329,12 @@ int main(void) {
 
     closeFiles(&options);*/
 
+    TEST(testArgMissing);
     TEST(testParseArgs);
-    // TEST(testArgMissing);
+    TEST(testErrorFiles);
     TEST(testParseBase);
-    TEST(testMallocError);
+    TEST(testMallocError1);
+    TEST(testMallocError2);
     TEST(testRead);
     TEST(testGraph);
     TEST(testArticles);

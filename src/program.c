@@ -37,7 +37,7 @@ int main(int argc, char **argv) {
     node *node0 = NULL;
     node **hashTable = malloc(HT_SIZE * sizeof(char *));
     if (hashTable == NULL) {
-        exitCode = ERROR_GRAPH;
+        exitCode = ERROR_HASHTABLE;
         goto error;
     }
     for (int i = 0; i < HT_SIZE; i++)
@@ -63,9 +63,15 @@ int main(int argc, char **argv) {
     if (options.action[ACTION_GRAPH] == TO_DO) {
         testExitCode(openFiles(&options, "r", 0));
         node0 = DoListAdjDeBinHash(&options, &taille, hashTable);
+        if (node0 == NULL) {
+            exitCode = ERROR_LIST;
+            goto error;
+        }
+    }
+    if (options.action[ACTION_PRINT_GRAPH] == TO_DO) {
+        printListAdj(node0);
         // printListNode(node0);
         // printListEdge(node0);
-        // printListAdj(node0);
     }
     if (options.action[ACTION_SHOW_AUTHORS] == TO_DO) {
         showAuthors(&options, node0, 0);

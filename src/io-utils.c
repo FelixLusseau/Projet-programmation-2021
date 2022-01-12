@@ -136,16 +136,16 @@ const char *errorToString(error_t err) {
         return "=> \33[0;31mError\33[0m while parsing base !";
     case ERROR_READ:
         return "=> \33[0;31mError\33[0m while reading the binary !";
-    case ERROR_MAT:
-        return "=> \33[0;31mError\33[0m while generating the matrice !";
+    case ERROR_LIST:
+        return "=> \33[0;31mError\33[0m while generating the adjacence list !";
     case ERROR_SHOW_ARTICLES:
         return "=> \33[0;31mError\33[0m while showing the articles !";
     case ERROR_SHOW_AUTHORS:
         return "=> \33[0;31mError\33[0m while showing the authors !";
     case ERROR_CHOOSE_AUTHOR:
         return "=> \33[0;31mError\33[0m while choosing the author(s) !";
-    case ERROR_GRAPH:
-        return "=> \33[0;31mError\33[0m while generating the graph !";
+    case ERROR_HASHTABLE:
+        return "=> \33[0;31mError\33[0m while generating the hashtable !";
     case ERROR_NODE_EQ_NULL:
         return "=> \33[0;31mError\33[0m graph is empty !";
     case ERROR_PATH:

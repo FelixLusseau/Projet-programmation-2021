@@ -17,8 +17,8 @@ void printUsage(void) {
         "database\n"
         "\t-r                       read and print the binary structure for "
         "each document\n"
-        "\t-m                       make the adjacence list from the "
-        "binary file\n"
+        "\t-g [-s]                  make the adjacence list from the "
+        "binary file [and show it]\n"
         "\t-a AUTHOR                show the titles of all the documents "
         "where the author has participated\n"
         "\t-a AUTHOR -y YEAR        show the titles of the documents where the "
@@ -42,7 +42,7 @@ int parseArgs(int argc, char **argv, options_t *options) {
     initOptions(options);
     int countAuthorsArguments = 0;
     int c;
-    while ((c = getopt(argc, argv, "i:o:xrma:y:l:hp:dn:c")) != -1) {
+    while ((c = getopt(argc, argv, "i:o:xrgsa:y:l:hp:dn:c")) != -1) {
         switch (c) {
         case 'i':
             options->inputFilename = optarg;
@@ -56,8 +56,12 @@ int parseArgs(int argc, char **argv, options_t *options) {
         case 'r':
             options->action[ACTION_READ] = TO_DO;
             break;
-        case 'm':
+        case 'g':
             options->action[ACTION_GRAPH] = TO_DO;
+            break;
+        case 's':
+            options->action[ACTION_GRAPH] = TO_DO;
+            options->action[ACTION_PRINT_GRAPH] = TO_DO;
             break;
         case 'a':
             options->action[ACTION_GRAPH] = TO_DO;
@@ -86,7 +90,6 @@ int parseArgs(int argc, char **argv, options_t *options) {
             else
                 options->authorNames[1] = optarg;
             countAuthorsArguments++;
-            // printf("%i\n", countAuthorsArguments);
             options->action[ACTION_GRAPH] = TO_DO;
             options->action[ACTION_SHORTEST_PATH] = TO_DO;
             break;

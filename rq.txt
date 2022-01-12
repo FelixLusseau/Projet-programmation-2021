@@ -11,3 +11,5 @@ Interface ?
 test de malloc et autres erreurs ?
 
 écrire le graphe dans un fichier ?
+
+test open ?

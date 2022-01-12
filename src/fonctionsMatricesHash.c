@@ -118,6 +118,8 @@ node *DoListAdjDeBinHash(options_t *options, int *taille, node **hashTable) {
         return NULL;
     }
     node *node0 = CreateListAdj(Entree.author[0]);
+    if (node0 == NULL)
+        return NULL;
     node *end = node0;
     if (Entree.authornb > 1) {
         end = sousListeAdj(end, taille, &Entree, hashTable);
