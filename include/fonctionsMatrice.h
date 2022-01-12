@@ -67,7 +67,7 @@ void printDistances(options_t *options, node *node0);
 /**affiche les auteur dans le plus court chemin entre n1 et n2*/
 int plusCourtChemin(node *Node1, node *Node2, int taille);
 
-int explorationGraphe(node *node0, int *isole);
+int explorationGraphe(node *node0);
 
 void nbrComposanteConnexe(node *node0);
 
