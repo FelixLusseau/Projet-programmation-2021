@@ -17,6 +17,7 @@ extern int interruptFlag;
 int showAuthors(options_t *options, node *node0, int author0or1) {
     initSigaction();
     fseek(options->outputFile, 14, SEEK_SET);
+    int exact = 0;
     if (node0 == NULL) {
         return ERROR_NODE_EQ_NULL;
     }
@@ -25,8 +26,16 @@ int showAuthors(options_t *options, node *node0, int author0or1) {
     int counter = 0;
     printf("Authors containing \"%s\" in their name : \n",
            options->authorNames[author0or1]);
-    while (currentNode->nextNode != NULL) {
+    while (currentNode != NULL) {
         if (strstr(currentNode->author, options->authorNames[author0or1])) {
+            if (strcmp(currentNode->author, options->authorNames[author0or1]) ==
+                0) {
+                exact = 1;
+                authortmp = currentNode->author;
+                printf(" - %s\n", currentNode->author);
+                counter++;
+                break;
+            }
             authortmp = currentNode->author;
             printf(" - %s\n", currentNode->author);
             counter++;
@@ -35,18 +44,12 @@ int showAuthors(options_t *options, node *node0, int author0or1) {
         if (interruptFlag == 1)
             break;
     }
-    /* Take the last author */
-    if (strstr(currentNode->author, options->authorNames[author0or1])) {
-        authortmp = currentNode->author;
-        printf(" - %s\n", currentNode->author);
-        counter++;
-    }
     if (counter == 0) {
         printf("\n\33[0;33mNo author containing \"\33[0;31m%s\33[0m\33[0;33m\" "
                "in his name ! \33[0m",
                options->authorNames[author0or1]);
     }
-    if (counter == 1) {
+    if (counter == 1 || exact == 1) {
         options->authorNames[author0or1] = authortmp;
     }
     printf("\n\n");

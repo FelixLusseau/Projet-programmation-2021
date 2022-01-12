@@ -25,13 +25,13 @@ void printUsage(void) {
         "author has participated in the year given\n"
         "\t-l WORD                  show all the authors containing WORD in "
         "their name\n"
-        "\t-p AUTHOR1 -p AUTHOR2    return the shortest way between these "
+        "\t-p AUTHOR1 -p AUTHOR2    return the shortest path between these "
         "authors\n"
         "\t-p AUTHOR1 -p AUTHOR2 -d return the shortest distance between these "
         "authors\n"
         "\t-a AUTHOR -n N           show all the authors at the distance N "
         "of the author given\n"
-        "\t-c                       count the number of connected components "
+        "\t-c                       count the number of connected components\n"
         "\t-h                       show this help\n\n\n"
         "Examples:\n"
         "./bin/program -i database/dblp.xml -o database/dblp.bin -a "
@@ -104,7 +104,8 @@ int parseArgs(int argc, char **argv, options_t *options) {
             return ERROR_ARGS_PARSE;
         case '?':
             if (optopt == 'i' || optopt == 'o' || optopt == 'a' ||
-                optopt == 'l' || optopt == 'p' || optopt == 'N')
+                optopt == 'l' || optopt == 'p' || optopt == 'N' ||
+                optopt == 'y')
                 fprintf(stderr, "Option -%c requires an argument.\n", optopt);
             else if (isprint(optopt))
                 fprintf(stderr, "Unknown option `-%c'.\n", optopt);
