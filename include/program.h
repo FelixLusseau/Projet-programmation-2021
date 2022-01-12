@@ -56,6 +56,7 @@ typedef enum action_status_t {
 
 typedef enum error_t {
     OK,
+    ERROR_VERIFY_AUTHOR,
     ERROR_ARGS_PARSE,
     ERROR_MISSING_ACTION,
     ERROR_OPEN_DATABASE,

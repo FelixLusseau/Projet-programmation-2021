@@ -72,6 +72,7 @@ int interruptFlag = 0;
 TEST_INIT_GLOBAL
 
 void testParseArgs() {
+    printUsage();
     options_t options;
     int argc = 22;
     char *argv[] = {"./bin/program",
@@ -185,6 +186,57 @@ void testArticles() {
     endOfProgram(&options, node0, hashTable);
 }
 
+void testShortestPath() {
+    int taille = 0;
+    node *node0 = NULL;
+    node **hashTable = malloc(HT_SIZE * sizeof(unsigned int) * sizeof(char *));
+    tps_assert(hashTable != NULL);
+    for (int i = 0; i < HT_SIZE; i++)
+        hashTable[i] = NULL;
+    options_t options;
+    initOptions(&options);
+    options.outputFilename = "sample2.bin";
+    options.action[ACTION_PARSE] = 0;
+    options.authorNames[0] = "Takaya Asano";
+    options.authorNames[1] = "Takuya Iwamoto";
+    openFiles(&options, "r", 0);
+    node0 = DoListAdjDeBinHash(&options, &taille, hashTable);
+    tps_assert(node0 != NULL);
+    node *node1 = verifyAuthorHash(&options, hashTable, 0);
+    node *node2 = verifyAuthorHash(&options, hashTable, 1);
+    tps_assert(plusCourtChemin(node1, node2, taille) == OK);
+    tps_assert(node2->distance != 0);
+    tps_assert(node2->flag == 1);
+    endOfProgram(&options, node0, hashTable);
+}
+
+void testDistances() {
+    int taille = 0;
+    node *node0 = NULL;
+    node **hashTable = malloc(HT_SIZE * sizeof(unsigned int) * sizeof(char *));
+    tps_assert(hashTable != NULL);
+    for (int i = 0; i < HT_SIZE; i++)
+        hashTable[i] = NULL;
+    options_t options;
+    initOptions(&options);
+    options.outputFilename = "sample2.bin";
+    options.action[ACTION_PARSE] = 0;
+    options.authorNames[0] = "Takaya Asano";
+    options.authorNames[1] = "Takuya Iwamoto";
+    options.N = 2;
+    openFiles(&options, "r", 0);
+    node0 = DoListAdjDeBinHash(&options, &taille, hashTable);
+    tps_assert(node0 != NULL);
+    node *node1 = verifyAuthorHash(&options, hashTable, 0);
+    node *node2 = verifyAuthorHash(&options, hashTable, 1);
+    tps_assert(dijkstra(node1, node2, taille) == OK);
+    tps_assert(node2->distance != 0);
+    tps_assert(node2->flag == 1);
+    printDistances(&options, node0);
+    tps_assert(printAuthorAtDist(&options, node0) == OK);
+    endOfProgram(&options, node0, hashTable);
+}
+
 void testConnected() {
     int taille = 0;
     node *node0 = NULL;
@@ -231,6 +283,8 @@ int main(void) {
     TEST(testRead);
     TEST(testGraph);
     TEST(testArticles);
+    TEST(testShortestPath);
+    TEST(testDistances);
     TEST(testConnected);
 
     return 0;

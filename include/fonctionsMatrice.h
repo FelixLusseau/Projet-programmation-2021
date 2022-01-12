@@ -71,4 +71,6 @@ int explorationGraphe(node *node0);
 
 void nbrComposanteConnexe(node *node0);
 
+node *verifyAuthorHash(options_t *options, node **hashTable, int author0or1);
+
 #endif

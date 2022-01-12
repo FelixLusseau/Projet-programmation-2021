@@ -104,7 +104,7 @@ int parseArgs(int argc, char **argv, options_t *options) {
             return ERROR_ARGS_PARSE;
         case '?':
             if (optopt == 'i' || optopt == 'o' || optopt == 'a' ||
-                optopt == 'l' || optopt == 'p' || optopt == 'N' ||
+                optopt == 'l' || optopt == 'p' || optopt == 'n' ||
                 optopt == 'y')
                 fprintf(stderr, "Option -%c requires an argument.\n", optopt);
             else if (isprint(optopt))

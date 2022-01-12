@@ -78,6 +78,18 @@ then
 fi
 coloredEcho "OK" green
 
+annoncer "Execution plus court chemin"
+$VALGRIND ./$TARGET -o tests/sample2.bin -p "Takaya Asano" -p "Takuya Iwamoto" >> $LOG 2>&1 || fail
+coloredEcho "OK" green
+
+annoncer "Execution distances"
+$VALGRIND ./$TARGET -o tests/sample2.bin -p "Takaya Asano" -p "Takuya Iwamoto" -d >> $LOG 2>&1 || fail
+coloredEcho "OK" green
+
+annoncer "Execution auteurs à distance n"
+$VALGRIND ./$TARGET -o tests/sample2.bin -a "Takaya Asano" -n 2 >> $LOG 2>&1 || fail
+coloredEcho "OK" green
+
 annoncer "Execution composantes connexes sample"
 $VALGRIND ./$TARGET -o tests/sample.bin -c >> $LOG 2>&1 || fail
 coloredEcho "OK" green

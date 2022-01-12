@@ -51,17 +51,6 @@ int appendEdgeHash(unsigned int hash1, unsigned int hash2, node **hashTable);
 node *DoListAdjDeBinHash(options_t *option, int *taille, node **hashTable);
 
 /**
- * @brief Convert author name to it node number
- *
- * @param authorName
- * @param hashTable
- * @return int
- */
-int authorNameToNodeNumber(char *authorName, node **hashTable);
-
-char *nodeNumberToAuthorName(int nodeNumber, node *node0);
-
-/**
  * @brief print all the authors at the distance N of the author given
  *
  * @param options

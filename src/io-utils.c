@@ -150,6 +150,8 @@ const char *errorToString(error_t err) {
         return "=> \33[0;31mError\33[0m graph is empty !";
     case ERROR_PATH:
         return "=> \33[0;31mError\33[0m making the path !";
+    case ERROR_VERIFY_AUTHOR:
+        return "=> \33[0;31mError\33[0m on verfying hash for the author !";
     case OK:
         return "";
     default:

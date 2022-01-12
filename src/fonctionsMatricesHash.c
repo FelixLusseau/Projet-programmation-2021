@@ -147,24 +147,6 @@ node *DoListAdjDeBinHash(options_t *options, int *taille, node **hashTable) {
     return node0;
 }
 
-int authorNameToNodeNumber(char *authorName, node **hashTable) {
-    unsigned int authorHash = hash((unsigned char *)authorName, pr1);
-    return hashTable[authorHash]->nodeNumber;
-}
-
-/* char *nodeNumberToAuthorName(int nodeNumber, node *node0) {
-    node *currentNode = node0;
-    while (currentNode->nextNode != NULL) {
-        if (currentNode->nodeNumber == nodeNumber) {
-            return currentNode->author;
-        }
-        currentNode = currentNode->nextNode;
-        if (interruptFlag == 1)
-            break;
-    }
-    return NULL;
-} */
-
 int printAuthorAtDist(options_t *options, node *node0) {
     if (node0 == NULL) {
         return ERROR_NODE_EQ_NULL;
