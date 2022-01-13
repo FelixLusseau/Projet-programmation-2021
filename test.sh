@@ -96,7 +96,7 @@ coloredEcho "OK" green
 
 annoncer "Execution tests.c + cov"
 cd tests/
-make cov  >> ../$LOG 2>&1 || fail
+make cov < in >> ../$LOG 2>&1 || fail
 coloredEcho "OK" green
 echo "Rapport de couverture disponible ici : ./tests/rapport/index.html"
 cd ..

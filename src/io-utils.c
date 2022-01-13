@@ -112,7 +112,8 @@ int closeFiles(options_t *options) {
 void endOfProgram(options_t *options, node *node0, node **hashTable) {
     if (node0 != NULL)
         freeListAdj(node0, 1);
-    free(hashTable);
+    if (hashTable != NULL)
+        free(hashTable);
     if (options->inputFile != NULL || options->outputFile != NULL)
         closeFiles(options);
     if (interruptFlag == 1)
