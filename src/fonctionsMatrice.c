@@ -321,7 +321,7 @@ int dijkstra(node *node1, node *node2, int taille) {
         voisin = currentEdge->otherNode;
         /* exploration des voisins non marqué de currentNode
         et mise a jour de leur distance*/
-        while (1) {
+        while (currentEdge!=NULL) {
             flag = voisin->distance;
             if (voisin->distance == -1 ||
                 (voisin->distance > (currentNode->distance + 1) &&
