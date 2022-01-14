@@ -33,7 +33,7 @@ int showAuthors(options_t *options, node *node0, int author0or1) {
                 exact = 1;
                 authortmp = currentNode->author;
                 printf(" - %s\n", currentNode->author);
-                counter++;
+                counter = 1;
                 break;
             }
             authortmp = currentNode->author;

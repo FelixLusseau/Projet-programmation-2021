@@ -19,6 +19,13 @@ TEST_INIT_GLOBAL
         if ((exitCode = op))                                                   \
             goto error;                                                        \
     }
+#define testCorrectHash(op)                                                    \
+    {                                                                          \
+        if ((op) == NULL) {                                                    \
+            exitCode = ERROR_VERIFY_AUTHOR;                                    \
+            goto error;                                                        \
+        }                                                                      \
+    }
 
 int interruptFlag = 0;
 
@@ -30,7 +37,7 @@ int main(int argc, char **argv) {
     node *node0 = NULL;
     node **hashTable = malloc(HT_SIZE * sizeof(char *));
     if (hashTable == NULL) {
-        exitCode = ERROR_GRAPH;
+        exitCode = ERROR_HASHTABLE;
         goto error;
     }
     for (int i = 0; i < HT_SIZE; i++)
@@ -56,11 +63,15 @@ int main(int argc, char **argv) {
     if (options.action[ACTION_GRAPH] == TO_DO) {
         testExitCode(openFiles(&options, "r", 0));
         node0 = DoListAdjDeBinHash(&options, &taille, hashTable);
+        if (node0 == NULL) {
+            exitCode = ERROR_LIST;
+            goto error;
+        }
+    }
+    if (options.action[ACTION_PRINT_GRAPH] == TO_DO) {
+        printListAdj(node0);
         // printListNode(node0);
         // printListEdge(node0);
-        // printListAdj(node0);
-        // printf("%i\n", authorNameToNodeNumber("Russell Turpin", hashTable));
-        // printf("%i\n", authorNameToNodeNumber("Dimitar Ruscev", hashTable));
     }
     if (options.action[ACTION_SHOW_AUTHORS] == TO_DO) {
         showAuthors(&options, node0, 0);
@@ -75,24 +86,20 @@ int main(int argc, char **argv) {
     if (options.action[ACTION_SHORTEST_PATH] == TO_DO) {
         testExitCode(chooseAuthor(&options, node0, 0));
         testExitCode(chooseAuthor(&options, node0, 1));
-        testExitCode(plusCourtChemin(
-            hashTable[hash((unsigned char *)options.authorNames[0], pr1)],
-            hashTable[hash((unsigned char *)options.authorNames[1], pr1)],
-            taille));
+        node *node1;
+        testCorrectHash(node1 = verifyAuthorHash(&options, hashTable, 0));
+        node *node2;
+        testCorrectHash(node2 = verifyAuthorHash(&options, hashTable, 1));
+        testExitCode(plusCourtChemin(node1, node2, taille));
     }
     if (options.action[ACTION_DIJKSTRA] == TO_DO) {
         testExitCode(chooseAuthor(&options, node0, 0));
-        /*int isole=0;
-        explorationGraphe(hashTable[ hash((unsigned char
-        *)options.authorNames[0], pr1)], &isole); reinitialise(node0);
-        printf("nbr:%i\n",isole);*/
-        node *node1 =
-            hashTable[hash((unsigned char *)options.authorNames[0], pr1)];
+        node *node1;
+        testCorrectHash(node1 = verifyAuthorHash(&options, hashTable, 0));
         node *node2 = NULL;
         if (options.authorNames[1] != NULL) {
             testExitCode(chooseAuthor(&options, node0, 1));
-            node2 =
-                hashTable[hash((unsigned char *)options.authorNames[1], pr1)];
+            testCorrectHash(node2 = verifyAuthorHash(&options, hashTable, 1));
         }
         testExitCode(dijkstra(node1, node2, taille));
     }

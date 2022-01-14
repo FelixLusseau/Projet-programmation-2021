@@ -8,13 +8,14 @@
 
 #include "program.h"
 #include "readFunctions.h"
+#include "tps_unit_test.h"
 
 extern int interruptFlag;
 
 node *CreateListAdj(char *author) {
     node *node0 = (node *)malloc(sizeof(node));
     if (node0 == NULL) {
-        fprintf(stderr, "creatListAdj:erreur malloc node = NULL");
+        fprintf(stderr, "creatListAdj:erreur malloc node = NULL\n");
         return NULL;
     }
     int k = 0;
@@ -32,19 +33,20 @@ node *CreateListAdj(char *author) {
     return node0;
 }
 
-void reinitialise(node *node0) {
+/* void reinitialise(node *node0) {
     node *currentNode = node0;
     while (1) {
-        printf("reinitialise:%i--%s\n",currentNode->nodeNumber,currentNode->author);
+        printf("reinitialise:%i--%s\n", currentNode->nodeNumber,
+               currentNode->author);
         currentNode->flag = 0;
         currentNode->distance = -1;
-        if(currentNode->nextNode==NULL){
+        if (currentNode->nextNode == NULL) {
             break;
         }
         currentNode = currentNode->nextNode;
     }
-}
-node *GoToNode(int n, node *node0) {
+} */
+/* node *GoToNode(int n, node *node0) {
     node *currentNode = node0;
     for (int k = 0; currentNode->nodeNumber != n; k++) {
         if (currentNode->nextNode == NULL) {
@@ -54,7 +56,7 @@ node *GoToNode(int n, node *node0) {
         currentNode = currentNode->nextNode;
     }
     return currentNode;
-}
+} */
 
 /* node *GoToEndNode(node *node0) {
     if (node0 == NULL) {
@@ -100,7 +102,7 @@ node *appendNode(char *author, node *end) {
 }
 
 /* Utilisée dans tests.c uniquement */
-int appendEdge(int n1, int n2, node *node0) {
+/* int appendEdge(int n1, int n2, node *node0) {
     node *Node1 = GoToNode(n1, node0);
     node *Node2 = GoToNode(n2, node0);
 
@@ -135,7 +137,7 @@ int appendEdge(int n1, int n2, node *node0) {
     }
 
     return 0;
-}
+} */
 
 void freeEdge(node *currentNode) {
     edge *currentEdge = currentNode->nodeEdge;
@@ -186,25 +188,22 @@ void printListNode(node *node0) {
         if (interruptFlag == 1) {
             break;
         }
-        // if (currentNode->nodeNumber > 2700000)
         printf("  %i:%s\n", currentNode->nodeNumber, currentNode->author);
         currentNode = currentNode->nextNode;
     }
     printf("  %i:%s\n", currentNode->nodeNumber, currentNode->author);
-    /* printf("\ntotal : 2956966\nCollisions : %i\n",
-           2956966 - currentNode->nodeNumber); */
 }
-void sousprintListEdge(node *node0){
-    edge *currentEdge=node0->nodeEdge;
+void sousprintListEdge(node *node0) {
+    edge *currentEdge = node0->nodeEdge;
     printf(" %s -> %s|", currentEdge->linkNode->author,
-                         currentEdge->otherNode->author);
+           currentEdge->otherNode->author);
     while (currentEdge->nextEdge != NULL) {
         printf(" %s -> %s|", currentEdge->linkNode->author,
-                             currentEdge->otherNode->author);
+               currentEdge->otherNode->author);
         currentEdge = currentEdge->nextEdge;
     }
     printf(" %s -> %s|", currentEdge->linkNode->author,
-                         currentEdge->otherNode->author);
+           currentEdge->otherNode->author);
 }
 void printListEdge(node *node0) {
     node *currentNode = node0;
@@ -222,12 +221,12 @@ void printListEdge(node *node0) {
         currentNode = currentNode->nextNode;
     }
     if (currentEdge != NULL) {
-            sousprintListEdge(currentNode);
+        sousprintListEdge(currentNode);
     }
     printf("\n");
 }
 
-int AuthorInList(char *author, node *node0) {
+/* int AuthorInList(char *author, node *node0) {
     node *currentNode = node0;
     while (currentNode->nextNode != NULL) {
         // printf("test présence:%s %s\n",author,currentNode->author);
@@ -241,9 +240,9 @@ int AuthorInList(char *author, node *node0) {
         return currentNode->nodeNumber;
     }
     return -1;
-}
+} */
 
-edge *creatListeEdge(node *node0) {
+/* edge *creatListeEdge(node *node0) {
     printf("create\n");
     edge *liste0 = (edge *)malloc(sizeof(edge));
     if (liste0 == NULL)
@@ -251,7 +250,8 @@ edge *creatListeEdge(node *node0) {
     liste0->linkNode = node0;
     liste0->nextEdge = NULL;
     return liste0;
-}
+} */
+
 node *popListeEdge(node *debutListe) {
     node *node0 = debutListe->nodeEdge->linkNode;
     edge *inter = debutListe->nodeEdge;
@@ -260,9 +260,9 @@ node *popListeEdge(node *debutListe) {
     return node0;
 }
 int enleveEdgeListe(node *debutListe, node *nodeEnleve) {
-    if(debutListe->nodeEdge->linkNode->nodeNumber ==nodeEnleve->nodeNumber){
-        edge *inter=debutListe->nodeEdge;
-        debutListe->nodeEdge=debutListe->nodeEdge->nextEdge;
+    if (debutListe->nodeEdge->linkNode->nodeNumber == nodeEnleve->nodeNumber) {
+        edge *inter = debutListe->nodeEdge;
+        debutListe->nodeEdge = debutListe->nodeEdge->nextEdge;
         free(inter);
         return 1;
     }
@@ -282,21 +282,22 @@ edge *appendListeEdge(edge *endListe, node *newNode, node *debutListe) {
         fprintf(stderr, "appendListeEdge:erreur malloc node = NULL ");
         exit(1);
     }
-    newListe->linkNode=newNode;
+    newListe->linkNode = newNode;
     newListe->nextEdge = NULL;
 
-    if(debutListe->nodeEdge==NULL){
-        debutListe->nodeEdge=newListe;
+    if (debutListe->nodeEdge == NULL) {
+        debutListe->nodeEdge = newListe;
         return newListe;
     }
-    endListe->nextEdge=newListe;
+    endListe->nextEdge = newListe;
     return newListe;
 }
 
 int dijkstra(node *node1, node *node2, int taille) {
     printf("*************************************Debut dijkstra"
            "*************************************\n\n");
-    // flag pour determiner si on cherche une distance entre 2 noude ou tout la composante connexe
+    // flag pour determiner si on cherche une distance entre 2 noude ou tout la
+    // composante connexe
     int flagGraphe = 0;
     if (node2 == NULL) {
         flagGraphe = 1;
@@ -311,12 +312,15 @@ int dijkstra(node *node1, node *node2, int taille) {
     /* liste des nodes non marqués dont on a changé la distane (!=-1), elle
     permet de trouver le prochain sommet avec la distance minimum*/
     node *ListeDistance = CreateListAdj("0");
-    ListeDistance->distance=1;
-    edge *endListe=appendListeEdge(NULL,currentNode,ListeDistance);
+    if (ListeDistance == NULL)
+        return ERROR_NODE_EQ_NULL;
+    ListeDistance->distance = 1;
+    edge *endListe = appendListeEdge(NULL, currentNode, ListeDistance);
     int k = 0;
 
     while (k < taille) {
-        //printf("k:%i/%i--ListeD:%i NN:%s\n",k,2664528,ListeDistance->distance,currentNode->author);
+        // printf("k:%i/%i--ListeD:%i
+        // NN:%s\n",k,2664528,ListeDistance->distance,currentNode->author);
         currentEdge = currentNode->nodeEdge;
         voisin = currentEdge->otherNode;
         /* exploration des voisins non marqué de currentNode
@@ -331,8 +335,8 @@ int dijkstra(node *node1, node *node2, int taille) {
                 /* si le voisin avait une distance -1 précedemment
                 il n'était pas dans la Liste, on le rajoute*/
                 if (flag == -1) {
-                    endListe=appendListeEdge(endListe,voisin,ListeDistance);
-                    ListeDistance->distance+=1;
+                    endListe = appendListeEdge(endListe, voisin, ListeDistance);
+                    ListeDistance->distance += 1;
                 }
             }
             if (currentEdge->nextEdge == NULL) {
@@ -343,12 +347,13 @@ int dijkstra(node *node1, node *node2, int taille) {
         }
 
         currentNode->flag = 1;
-        // on enlève currentNode de la ListeDistance car il est maintenant marqué 
+        // on enlève currentNode de la ListeDistance car il est maintenant
+        // marqué
         enleveEdgeListe(ListeDistance, currentNode);
-        ListeDistance->distance-=1;
+        ListeDistance->distance -= 1;
 
         /*liste distance=NULL, la distance minimale est l'infinie:
-        le graphe n'est pas connexe,on arrete djikstra*/
+        le graphe n'est pas connexe,on arrete dijkstra*/
         if (ListeDistance->nodeEdge == NULL) {
             printf("distance NULL\n");
             break;
@@ -365,9 +370,10 @@ int dijkstra(node *node1, node *node2, int taille) {
             int minDistance = minNode->distance;
 
             while (1) {
-                //si on trouve une distance = à celle du currentNode, c'est un minimum
-                if(ListeEdge->linkNode->distance==currentNode->distance){
-                    minNode=ListeEdge->linkNode;
+                // si on trouve une distance = à celle du currentNode, c'est un
+                // minimum
+                if (ListeEdge->linkNode->distance == currentNode->distance) {
+                    minNode = ListeEdge->linkNode;
                     break;
                 }
 
@@ -384,16 +390,15 @@ int dijkstra(node *node1, node *node2, int taille) {
         }
         k++;
     }
-    if (flagGraphe == 0 ) {
+    if (flagGraphe == 0) {
         printf("Distance: %i\n", node2->distance);
     }
-    
+
     freeListAdj(ListeDistance, 0);
     printf("\n*************************************Fin dijkstra"
            "*************************************\n\n");
     return OK;
 }
-
 
 void printDistances(options_t *options, node *node0) {
     node *currentNode = node0;
@@ -408,16 +413,17 @@ void printDistances(options_t *options, node *node0) {
 }
 
 int plusCourtChemin(node *Node1, node *Node2, int taille) {
-    int exitCode = dijkstra(Node1, Node2,taille);
+    int exitCode = dijkstra(Node1, Node2, taille);
     if (exitCode)
         return exitCode;
+    int len;
 
-    printf("\nPlus court chemin entre %s et %s:\n", Node1->author,
+    printf("\nPlus court chemin entre %s et %s :\n\n", Node1->author,
            Node2->author);
     node *currentNode = Node2;
     int distance = currentNode->distance;
     if (distance == -1) {
-        fprintf(stderr, "pas de chemin entre %s et %s\n", Node1->author,
+        fprintf(stderr, "Pas de chemin entre %s et %s\n", Node1->author,
                 Node2->author);
         return ERROR_PATH;
     }
@@ -425,7 +431,9 @@ int plusCourtChemin(node *Node1, node *Node2, int taille) {
     edge *currentEdge = currentNode->nodeEdge;
     node *minVoisin = currentEdge->otherNode;
     while (currentNode->nodeNumber != Node1->nodeNumber) {
-        printf("%s\n", currentNode->author);
+        len = (50 - strlen(currentNode->author)) / 2;
+        printf("%*s%s%*s\n", len, "", currentNode->author, len, "");
+        printf("%*s\33[0;32m|\33[0m%*s\n", 25, "", 25, "");
         while (currentEdge != NULL) {
             if (currentEdge->linkNode->flag == 1 &&
                 currentEdge->otherNode->distance < minVoisin->distance) {
@@ -436,14 +444,15 @@ int plusCourtChemin(node *Node1, node *Node2, int taille) {
         currentNode = minVoisin;
         currentEdge = currentNode->nodeEdge;
     }
-    printf("%s\n", currentNode->author);
-    printf("distance entre %s et %s: %i\n", Node1->author, Node2->author,
+    len = (50 - strlen(currentNode->author)) / 2;
+    printf("%*s%s%*s\n", len, "", currentNode->author, len, "");
+    printf("\nDistance entre %s et %s : %i\n", Node1->author, Node2->author,
            distance);
     return OK;
 }
 
 int explorationGraphe(node *node0) {
-    int nbrNode=0;
+    int nbrNode = 0;
 
     node0->flag = 1;
     if (node0->nodeEdge == NULL) {
@@ -453,7 +462,7 @@ int explorationGraphe(node *node0) {
     node *voisin = currentEdge->otherNode;
 
     node *debutListe = CreateListAdj("0");
-    edge *endListe=appendListeEdge(NULL,node0,debutListe);
+    edge *endListe = appendListeEdge(NULL, node0, debutListe);
     while (debutListe->nodeEdge != NULL) {
         nbrNode += 1;
         node0 = popListeEdge(debutListe);
@@ -463,7 +472,7 @@ int explorationGraphe(node *node0) {
         while (1) {
             if (voisin->flag == 0) {
                 voisin->flag = 1;
-                endListe=appendListeEdge(endListe,voisin,debutListe);
+                endListe = appendListeEdge(endListe, voisin, debutListe);
             }
             if (currentEdge->nextEdge == NULL) {
                 break;
@@ -491,4 +500,19 @@ void nbrComposanteConnexe(node *node0) {
     }
     printf("Nombre de composantes connexes : %i\nDont sommets isolés : %i\n",
            nbrConnexe, isole);
+}
+
+node *verifyAuthorHash(options_t *options, node **hashTable, int author0or1) {
+    int pr[4] = {pr1, pr2, pr3, pr4};
+    for (int p = 0; p < 4; p++) {
+        if (strcmp(hashTable[hash((unsigned char *)
+                                      options->authorNames[author0or1],
+                                  pr[p])]
+                       ->author,
+                   options->authorNames[author0or1]) == 0) {
+            return hashTable[hash(
+                (unsigned char *)options->authorNames[author0or1], pr[p])];
+        }
+    }
+    return NULL;
 }

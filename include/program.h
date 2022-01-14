@@ -5,7 +5,7 @@
 #include <stdint.h>
 #include <stdio.h>
 
-#define ACTIONS_NB 11
+#define ACTIONS_NB 12
 #define HT_SIZE 50000000 * 2
 
 #define pr1 6961
@@ -17,6 +17,7 @@ typedef enum action_t {
     ACTION_UNKNOWN,
     ACTION_PARSE,
     ACTION_GRAPH,
+    ACTION_PRINT_GRAPH,
     ACTION_READ,
     ACTION_SHOW_AUTHORS,
     ACTION_SHOW_ARTICLES,
@@ -56,6 +57,7 @@ typedef enum action_status_t {
 
 typedef enum error_t {
     OK,
+    ERROR_VERIFY_AUTHOR,
     ERROR_ARGS_PARSE,
     ERROR_MISSING_ACTION,
     ERROR_OPEN_DATABASE,
@@ -64,12 +66,12 @@ typedef enum error_t {
     ERROR_BIN,
     ERROR_BASE_PARSE,
     ERROR_READ,
-    ERROR_MAT,
+    ERROR_LIST,
     ERROR_SHOW_ARTICLES,
     ERROR_SHOW_AUTHORS,
     ERROR_CHOOSE_AUTHOR,
     ERROR_NO_AUTHOR,
-    ERROR_GRAPH,
+    ERROR_HASHTABLE,
     ERROR_NODE_EQ_NULL,
     ERROR_PATH
 } error_t;

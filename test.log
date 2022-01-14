@@ -33,7 +33,7 @@ options:
 	-o FICHIER               indicate the binary to use
 	-x                       generate the binary file from the xml database
 	-r                       read and print the binary structure for each document
-	-m                       make the adjacence list from the binary file
+	-g [-s]                  make the adjacence list from the binary file [and show it]
 	-a AUTHOR                show the titles of all the documents where the author has participated
 	-a AUTHOR -y YEAR        show the titles of the documents where the author has participated in the year given
 	-l WORD                  show all the authors containing WORD in their name
@@ -112,6 +112,148 @@ Authors containing "Rus" in their name :
 ===DIFF===
 
 ####
+#### Execution plus court chemin
+####
+
+*************************************Debut de la fonction graphe*************************************
+
+[?25l[[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m][?25h
+
+**************************************Fin de la fonction graphe**************************************
+
+Authors containing "Takaya Asano" in their name : 
+ - Takaya Asano
+
+
+Authors containing "Takuya Iwamoto" in their name : 
+ - Takuya Iwamoto
+
+
+*************************************Debut dijkstra*************************************
+
+distance NULL
+Distance: 3
+
+*************************************Fin dijkstra*************************************
+
+
+Plus court chemin entre Takaya Asano et Takuya Iwamoto :
+
+                  Takuya Iwamoto                  
+                         [0;32m|[0m                         
+                 Takayuki Kosaka                 
+                         [0;32m|[0m                         
+                  Akihiko Shirai                  
+                         [0;32m|[0m                         
+                   Takaya Asano                   
+
+Distance entre Takaya Asano et Takuya Iwamoto : 3
+
+
+************************************Libération de l'espace**************************************
+
+
+####
+#### Execution distances
+####
+
+*************************************Debut de la fonction graphe*************************************
+
+[?25l[[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m][?25h
+
+**************************************Fin de la fonction graphe**************************************
+
+Authors containing "Takaya Asano" in their name : 
+ - Takaya Asano
+
+
+Authors containing "Takuya Iwamoto" in their name : 
+ - Takuya Iwamoto
+
+
+*************************************Debut dijkstra*************************************
+
+distance NULL
+Distance: 3
+
+*************************************Fin dijkstra*************************************
+
+Distances : 
+Takaya Asano - Yuria Suzuki : 2
+Takaya Asano - Ayumi Ando : 2
+Takaya Asano - Ryotaro Tsuda : 2
+Takaya Asano - Akihiko Shirai : 1
+Takaya Asano - Takuya Sakai : 2
+Takaya Asano - Wataru Fujimura : 2
+Takaya Asano - Robert Songer : 2
+Takaya Asano - Takayuki Kosaka : 2
+Takaya Asano - Hisataka Suzuki : 2
+Takaya Asano - Yannick Littfass : 2
+Takaya Asano - Rex Hsieh : 1
+Takaya Asano - Hiroki Taguchi : 2
+Takaya Asano - Yukua Koide : 2
+Takaya Asano - Yuki Kose : 2
+Takaya Asano - Kumiko Minobe : 2
+Takaya Asano - Tomoyuki Kimura : 2
+Takaya Asano - Go Akiyama : 2
+Takaya Asano - Nahomi Maki : 2
+Takaya Asano - Kazuhisa Yanaka : 2
+Takaya Asano - Takuya Iwamoto : 3
+Takaya Asano - Yuya Mochizuki : 1
+Takaya Asano - Daiki Agatsuma : 1
+Takaya Asano - Takaya Asano : 0
+Takaya Asano - Marika Higashida : 1
+Takaya Asano - Tatsuya Nishikizawa : 1
+
+
+************************************Libération de l'espace**************************************
+
+
+####
+#### Execution auteurs à distance n
+####
+
+*************************************Debut de la fonction graphe*************************************
+
+[?25l[[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m][?25h
+
+**************************************Fin de la fonction graphe**************************************
+
+Authors containing "Takaya Asano" in their name : 
+ - Takaya Asano
+
+
+*************************************Debut dijkstra*************************************
+
+distance NULL
+
+*************************************Fin dijkstra*************************************
+
+
+Authors at distance 2 of Takaya Asano : 
+ - Yuria Suzuki
+ - Ayumi Ando
+ - Ryotaro Tsuda
+ - Takuya Sakai
+ - Wataru Fujimura
+ - Robert Songer
+ - Takayuki Kosaka
+ - Hisataka Suzuki
+ - Yannick Littfass
+ - Hiroki Taguchi
+ - Yukua Koide
+ - Yuki Kose
+ - Kumiko Minobe
+ - Tomoyuki Kimura
+ - Go Akiyama
+ - Nahomi Maki
+ - Kazuhisa Yanaka
+
+
+************************************Libération de l'espace**************************************
+
+
+####
 #### Execution composantes connexes sample
 ####
 
@@ -155,11 +297,340 @@ gcc -o obj/tests.o -c tests.c -O3 -pipe -march=native -mtune=native -Wall -Wextr
 gcc -o tests obj/fonctionsMatricesHash.o obj/readFunctions.o obj/argsParser.o obj/io-utils.o obj/searchingFunctions.o obj/baseParser.o obj/fonctionsMatrice.o obj/tests.o -O3 -pipe -march=native -mtune=native -Wall -Wextra -Werror -g -fprofile-arcs -ftest-coverage -lm
 Linking complete!
 valgrind --leak-check=full -q ./tests
+No such file or directory : sampl.xml.
+=> [0;31mError[0m while opening database ! You need to give a xml file with the -i database.xml option !
+=> The input file isn't a XML database !
+No such file or directory : out9.
+=> [0;31mError[0m while opening binary !
+=> The output file is not a binary or an empty file !
+=> [0;31mError[0m while generating the hashtable !
 => [0;31mError[0m while parsing base !
-testParseArgs
+creatListAdj:erreur malloc node = NULL
+=> [0;31mError[0m while generating the adjacence list !
+=> [0;31mError[0m graph is empty !
+./bin/program: option requires an argument -- 'o'
+Option -o requires an argument.
+testErrorFiles
 Done
 Parsing...
-testMallocError
+testMallocError1
+Done
+
+*************************************Debut de la fonction graphe*************************************
+
+[?25ltestMallocError2
+Done
+testArgMissing
+Done
+title : Programming Data Structures in Logic.
+year : 1992
+author 0 : Russell Turpin
+
+title : Random Sampling from Databases
+year : 1993
+author 0 : Frank Olken
+
+title : Using open source software to develop E-business applications for medium- and small-sized enterprises.
+year : 2009
+author 0 : Guido Frisch
+
+title : Pattern extraction from data with application to image processing.
+year : 2012
+author 0 : Alessia Amelio
+
+title : Aggregation and adaptation of web services: a semi-automated methodology for the aggregation and adaption of web services.
+year : 2008
+author 0 : Razvan Andrei Popescu
+
+title : Space and Time-Efficient Data Structures for Massive Datasets.
+year : 2018
+author 0 : Giulio Ermanno Pibiri
+
+title : A new Nested Graph Model for Data Integration
+year : 2018
+author 0 : Giacomo Bergami
+
+title : Clustering and ranking for web information retrieval: methodologies for searching the web.
+year : 2008
+author 0 : Antonio Gull&igrave;
+
+title : Computational Prediction of Gene Functions through Machine Learning methods and Multiple Validation Procedures
+year : 2014
+author 0 : Davide Chicco
+
+title : Optimizing and Parallelizing Loops in Object-Oriented Database Programming Languages.
+year : 1992
+author 0 : Daniel F. Lieuwen
+
+title : Software product line engineering for consumer electronics: Keeping up with the speed of innovation.
+year : 2015
+author 0 : Herman Hartmann
+
+title : Grid-enabling a software product: integration of grid resources in the RCE environment.
+year : 2008
+author 0 : Kenneth Rohde Christiansen
+
+title : Verifying OCL specifications of UML models: tool support and compositionakity.
+year : 2006
+author 0 : Marcel Kyas
+
+title : A Pattern Language of Firefighting Frontline Practice to Inform the Design of Ubiquitous Computing.
+year : 2011
+author 0 : Sebastian Denef
+
+title : Revealing the skeleton from imperfect point clouds.
+year : 2011
+author 0 : Alexander Bucksch
+
+title : An executable theory of multi-agent systems refinement
+year : 2011
+author 0 : Lacramioara Astefanoaei
+
+title : Team Automata: A Formal Approach to the Modeling of Collaboration Between System Components.
+year : 2003
+author 0 : Maurice H. ter Beek
+
+title : Compositional design and verification of component-based information systems.
+year : 2011
+author 0 : Jan Martijn E. M. van der Werf
+
+title : Testing Object Interactions.
+year : 2010
+author 0 : Andreas G&uuml;ner
+
+title : Quantum query: complexity and distributed computing.
+year : 2003
+author 0 : Hein Philipp R&ouml;hrig
+
+title : Performance Analysis of Data Sharing Environments
+year : 1990
+author 0 : Asit Dan
+
+title : On the Foundations of Query Evaluation in Deductive Databases
+year : 1992
+author 0 : David B. Kemp
+
+title : Request-Prediction and Hyperlink-Proposals
+year : 2001
+author 0 : Ernst Georg Haffner
+
+title : Hardness of Approximation Between P and NP.
+year : 2017
+author 0 : Aviad Rubinstein
+
+title : Web-Pr&auml;senz-Management im Unternehmen: Entwicklung und Einsatz eines Java-basierten Online-Redaktionssystems.
+year : 2002
+author 0 : Andreas Heuer 0002
+
+title : High-level Methods for OBDD-based Sequential Verification
+year : 2002
+author 0 : Christian Stangier
+
+title : Parsing and Quering XML Documents in SML.
+year : 2000
+author 0 : Andreas Neumann 0001
+
+title : Self-Describing Database Systems - Formalization and Realization
+year : 1985
+author 0 : Leo Mark
+
+title : Communication with an Automatic Computer
+year : 1959
+author 0 : Edsger W. Dijkstra
+
+title : Persistence in Distributed Object Systems: ORB/ODBMS Integration.
+year : 1996
+author 0 : Francisco Reverbel
+
+title : Trie Methods for Text and Spatial Data on Secondary Storage.
+year : 1994
+author 0 : Heping Shang
+
+title : Systems of Logic Based on Ordinals.
+year : 1938
+author 0 : Alan M. Turing
+
+title : Improving the Power of Ordered Binary Decision Diagrams by Integrating Parity Nodes
+year : 2002
+author 0 : Harald Sack
+
+[0;33mCTRL+C pressed ![0m
+Do you want to save and exit ? [Y / N]
+Ans : Exit !
+**********Debut de la fonction graphe*************************************
+
+[?25ltestMallocError2
+Done
+testArgMissing
+Done
+title : Programming Data Structures in Logic.
+year : 1992
+author 0 : Russell Turpin
+
+title : Random Sampling from Databases
+year : 1993
+author 0 : Frank Olken
+
+title : Using open source software to develop E-business applications for medium- and small-sized enterprises.
+year : 2009
+author 0 : Guido Frisch
+
+title : Pattern extraction from data with application to image processing.
+year : 2012
+author 0 : Alessia Amelio
+
+title : Aggregation and adaptation of web services: a semi-automated methodology for the aggregation and adaption of web services.
+year : 2008
+author 0 : Razvan Andrei Popescu
+
+title : Space and Time-Efficient Data Structures for Massive Datasets.
+year : 2018
+author 0 : Giulio Ermanno Pibiri
+
+title : A new Nested Graph Model for Data Integration
+year : 2018
+author 0 : Giacomo Bergami
+
+title : Clustering and ranking for web information retrieval: methodologies for searching the web.
+year : 2008
+author 0 : Antonio Gull&igrave;
+
+title : Computational Prediction of Gene Functions through Machine Learning methods and Multiple Validation Procedures
+year : 2014
+author 0 : Davide Chicco
+
+title : Optimizing and Parallelizing Loops in Object-Oriented Database Programming Languages.
+year : 1992
+author 0 : Daniel F. Lieuwen
+
+title : Software product line engineering for consumer electronics: Keeping up with the speed of innovation.
+year : 2015
+author 0 : Herman Hartmann
+
+title : Grid-enabling a software product: integration of grid resources in the RCE environment.
+year : 2008
+author 0 : Kenneth Rohde Christiansen
+
+title : Verifying OCL specifications of UML models: tool support and compositionakity.
+year : 2006
+author 0 : Marcel Kyas
+
+title : A Pattern Language of Firefighting Frontline Practice to Inform the Design of Ubiquitous Computing.
+year : 2011
+author 0 : Sebastian Denef
+
+title : Revealing the skeleton from imperfect point clouds.
+year : 2011
+author 0 : Alexander Bucksch
+
+title : An executable theory of multi-agent systems refinement
+year : 2011
+author 0 : Lacramioara Astefanoaei
+
+title : Team Automata: A Formal Approach to the Modeling of Collaboration Between System Components.
+year : 2003
+author 0 : Maurice H. ter Beek
+
+title : Compositional design and verification of component-based information systems.
+year : 2011
+author 0 : Jan Martijn E. M. van der Werf
+
+title : Testing Object Interactions.
+year : 2010
+author 0 : Andreas G&uuml;ner
+
+title : Quantum query: complexity and distributed computing.
+year : 2003
+author 0 : Hein Philipp R&ouml;hrig
+
+title : Performance Analysis of Data Sharing Environments
+year : 1990
+author 0 : Asit Dan
+
+title : On the Foundations of Query Evaluation in Deductive Databases
+year : 1992
+author 0 : David B. Kemp
+
+title : Request-Prediction and Hyperlink-Proposals
+year : 2001
+author 0 : Ernst Georg Haffner
+
+title : Hardness of Approximation Between P and NP.
+year : 2017
+author 0 : Aviad Rubinstein
+
+title : Web-Pr&auml;senz-Management im Unternehmen: Entwicklung und Einsatz eines Java-basierten Online-Redaktionssystems.
+year : 2002
+author 0 : Andreas Heuer 0002
+
+title : High-level Methods for OBDD-based Sequential Verification
+year : 2002
+author 0 : Christian Stangier
+
+title : Parsing and Quering XML Documents in SML.
+year : 2000
+author 0 : Andreas Neumann 0001
+
+title : Self-Describing Database Systems - Formalization and Realization
+year : 1985
+author 0 : Leo Mark
+
+title : Communication with an Automatic Computer
+year : 1959
+author 0 : Edsger W. Dijkstra
+
+title : Persistence in Distributed Object Systems: ORB/ODBMS Integration.
+year : 1996
+author 0 : Francisco Reverbel
+
+title : Trie Methods for Text and Spatial Data on Secondary Storage.
+year : 1994
+author 0 : Heping Shang
+
+title : Systems of Logic Based on Ordinals.
+year : 1938
+author 0 : Alan M. Turing
+
+title : Improving the Power of Ordered Binary Decision Diagrams by Integrating Parity Nodes
+year : 2002
+author 0 : Harald Sack
+[0;33mInterrupted ![0m
+testErrorFiles
+Done
+Parsing...
+testMallocError1
+Done
+
+*************************************Debut de la fonction graphe*************************************
+
+[?25ltestMallocError2
+Done
+testArgMissing
+Done
+exit(0)
+
+testInterruption
+Done
+usage: ./bin/program OPTIONS
+options:
+	-i FICHIER               indicate the xml to use
+	-o FICHIER               indicate the binary to use
+	-x                       generate the binary file from the xml database
+	-r                       read and print the binary structure for each document
+	-g [-s]                  make the adjacence list from the binary file [and show it]
+	-a AUTHOR                show the titles of all the documents where the author has participated
+	-a AUTHOR -y YEAR        show the titles of the documents where the author has participated in the year given
+	-l WORD                  show all the authors containing WORD in their name
+	-p AUTHOR1 -p AUTHOR2    return the shortest path between these authors
+	-p AUTHOR1 -p AUTHOR2 -d return the shortest distance between these authors
+	-a AUTHOR -n N           show all the authors at the distance N of the author given
+	-c                       count the number of connected components
+	-h                       show this help
+
+
+Examples:
+./bin/program -i database/dblp.xml -o database/dblp.bin -a "Quentin Bramas"
+testParseArgs
 Done
 Parsing...
 testParseBase
@@ -63556,133 +64027,7 @@ liste sommet:
   12676:Stephan Reitzner
 
 liste arretes:
- 196 -> 197|
- 196 -> 197|
- 197 -> 196|
- 197 -> 196|
- 417 -> 418|
- 418 -> 417|
- 420 -> 421|
- 421 -> 420|
- 898 -> 899|
- 899 -> 898|
- 1313 -> 1314|
- 1314 -> 1313|
- 1831 -> 1832|
- 1832 -> 1831|
- 1998 -> 1999|
- 1999 -> 1998|
- 2242 -> 2243|
- 2243 -> 2242|
- 2306 -> 2307|
- 2307 -> 2306|
- 2502 -> 2503|
- 2503 -> 2502|
- 3529 -> 3530|
- 3530 -> 3529|
- 3664 -> 3665|
- 3665 -> 3664|
- 3947 -> 3948|
- 3948 -> 3947|
- 3972 -> 3973|
- 3973 -> 3972|
- 4091 -> 4092|
- 4092 -> 4091|
- 4192 -> 4193|
- 4193 -> 4192|
- 4227 -> 4228|
- 4228 -> 4227|
- 4393 -> 4394|
- 4394 -> 4393|
- 4694 -> 4695|
- 4695 -> 4694|
- 4818 -> 4819|
- 4819 -> 4818|
- 4866 -> 4867|
- 4867 -> 4866|
- 4944 -> 4945|
- 4945 -> 4944|
- 4994 -> 4995|
- 4995 -> 4994|
- 5409 -> 5410|
- 5410 -> 5409|
- 5592 -> 5593|
- 5593 -> 5592|
- 5604 -> 5605|
- 5605 -> 5604|
- 5658 -> 5659|
- 5659 -> 5658|
- 5665 -> 5666|
- 5666 -> 5665|
- 5670 -> 5671|
- 5671 -> 5670|
- 6331 -> 6333|
- 6331 -> 6332|
- 6332 -> 6333|
- 6332 -> 6331|
- 6333 -> 6332|
- 6333 -> 6331|
- 6694 -> 6695|
- 6695 -> 6694|
- 6788 -> 6789|
- 6789 -> 6788|
- 6985 -> 6986|
- 6986 -> 6985|
- 7363 -> 7364|
- 7364 -> 7363|
- 7390 -> 7391|
- 7391 -> 7390|
- 7517 -> 7518|
- 7518 -> 7517|
- 7927 -> 7928|
- 7928 -> 7927|
- 8049 -> 8050|
- 8050 -> 8049|
- 8211 -> 8212|
- 8212 -> 8211|
- 8266 -> 8267|
- 8267 -> 8266|
- 9272 -> 9273|
- 9273 -> 9272|
- 9320 -> 9321|
- 9321 -> 9320|
- 9387 -> 9388|
- 9388 -> 9387|
- 9736 -> 9737|
- 9737 -> 9736|
- 9754 -> 9755|
- 9755 -> 9754|
- 9904 -> 9905|
- 9905 -> 9904|
- 9989 -> 9990|
- 9990 -> 9989|
- 10214 -> 10215|
- 10215 -> 10214|
- 10343 -> 10344|
- 10344 -> 10343|
- 10483 -> 10484|
- 10484 -> 10483|
- 10647 -> 10648|
- 10648 -> 10647|
- 11247 -> 11248|
- 11248 -> 11247|
- 11297 -> 11298|
- 11298 -> 11297|
- 11316 -> 11317|
- 11317 -> 11316|
- 11601 -> 11602|
- 11602 -> 11601|
- 11946 -> 11947|
- 11947 -> 11946|
- 12470 -> 12471|
- 12471 -> 12470|
- 12475 -> 12476|
- 12476 -> 12475|
- 12562 -> 12563|
- 12563 -> 12562|
- 12606 -> 12607|
- 12607 -> 12606|
-
+ Regina Fischer 0001 -> Marlies Rogalski| Regina Fischer 0001 -> Marlies Rogalski| Regina Fischer 0001 -> Marlies Rogalski| Marlies Rogalski -> Regina Fischer 0001| Marlies Rogalski -> Regina Fischer 0001| Marlies Rogalski -> Regina Fischer 0001| Peter Bo&szlig;e -> Markus Iwig| Peter Bo&szlig;e -> Markus Iwig| Markus Iwig -> Peter Bo&szlig;e| Markus Iwig -> Peter Bo&szlig;e| Elke Wierick -> Heinz Hoffmeister| Elke Wierick -> Heinz Hoffmeister| Heinz Hoffmeister -> Elke Wierick| Heinz Hoffmeister -> Elke Wierick| Werner Wehmeier -> Hans-Hermann Riedel| Werner Wehmeier -> Hans-Hermann Riedel| Hans-Hermann Riedel -> Werner Wehmeier| Hans-Hermann Riedel -> Werner Wehmeier| Sabine Brugger -> Thomas Frenzel| Sabine Brugger -> Thomas Frenzel| Thomas Frenzel -> Sabine Brugger| Thomas Frenzel -> Sabine Brugger| Joachim Veith -> Dieter Winter| Joachim Veith -> Dieter Winter| Dieter Winter -> Joachim Veith| Dieter Winter -> Joachim Veith| Rainer Scholze -> G&uuml;nter Schulze| Rainer Scholze -> G&uuml;nter Schulze| G&uuml;nter Schulze -> Rainer Scholze| G&uuml;nter Schulze -> Rainer Scholze| Gerhard Jacob -> Klaus J&auml;nsch| Gerhard Jacob -> Klaus J&auml;nsch| Klaus J&auml;nsch -> Gerhard Jacob| Klaus J&auml;nsch -> Gerhard Jacob| G&uuml;nter H&uuml;bel -> Hans-Peter Schr&ouml;der| G&uuml;nter H&uuml;bel -> Hans-Peter Schr&ouml;der| Hans-Peter Schr&ouml;der -> G&uuml;nter H&uuml;bel| Hans-Peter Schr&ouml;der -> G&uuml;nter H&uuml;bel| Rainer G&ouml;tze 0002 -> Ren&eacute; Sch&uuml;ffny| Rainer G&ouml;tze 0002 -> Ren&eacute; Sch&uuml;ffny| Ren&eacute; Sch&uuml;ffny -> Rainer G&ouml;tze 0002| Ren&eacute; Sch&uuml;ffny -> Rainer G&ouml;tze 0002| Helmut Jarosch -> Hans-Dieter M&uuml;ller| Helmut Jarosch -> Hans-Dieter M&uuml;ller| Hans-Dieter M&uuml;ller -> Helmut Jarosch| Hans-Dieter M&uuml;ller -> Helmut Jarosch| Dietrich Eckhardt -> Werner Gross| Dietrich Eckhardt -> Werner Gross| Werner Gross -> Dietrich Eckhardt| Werner Gross -> Dietrich Eckhardt| Marc Born -> Olaf Kath| Marc Born -> Olaf Kath| Olaf Kath -> Marc Born| Olaf Kath -> Marc Born| Wolfgang Leidholdt -> Hans-Werner Ratzeburg| Wolfgang Leidholdt -> Hans-Werner Ratzeburg| Hans-Werner Ratzeburg -> Wolfgang Leidholdt| Hans-Werner Ratzeburg -> Wolfgang Leidholdt| Henning Esser -> Hubertus Th. Jongen| Henning Esser -> Hubertus Th. Jongen| Hubertus Th. Jongen -> Henning Esser| Hubertus Th. Jongen -> Henning Esser| Margot Haussmann -> Cornelia Hettich| Margot Haussmann -> Cornelia Hettich| Cornelia Hettich -> Margot Haussmann| Cornelia Hettich -> Margot Haussmann| Wolfram Behr -> Uwe Herrmann| Wolfram Behr -> Uwe Herrmann| Uwe Herrmann -> Wolfram Behr| Uwe Herrmann -> Wolfram Behr| Pankaj Pathak -> Parashu Ram Pal| Pankaj Pathak -> Parashu Ram Pal| Parashu Ram Pal -> Pankaj Pathak| Parashu Ram Pal -> Pankaj Pathak| Arend Flemming -> Jens Hertlein| Arend Flemming -> Jens Hertlein| Jens Hertlein -> Arend Flemming| Jens Hertlein -> Arend Flemming| Klaus R&ouml;del -> Manfred Weiss| Klaus R&ouml;del -> Manfred Weiss| Manfred Weiss -> Klaus R&ouml;del| Manfred Weiss -> Klaus R&ouml;del| G&uuml;nter Schorr -> Ralf B&ouml;se| G&uuml;nter Schorr -> Ralf B&ouml;se| Ralf B&ouml;se -> G&uuml;nter Schorr| Ralf B&ouml;se -> G&uuml;nter Schorr| Peter Kuntsche -> Bernd Terpe| Peter Kuntsche -> Bernd Terpe| Bernd Terpe -> Peter Kuntsche| Bernd Terpe -> Peter Kuntsche| Wolfgang Eiserbeck -> Hans-Joachim Planert| Wolfgang Eiserbeck -> Hans-Joachim Planert| Hans-Joachim Planert -> Wolfgang Eiserbeck| Hans-Joachim Planert -> Wolfgang Eiserbeck| Monika Oehler -> Ines Kuhn| Monika Oehler -> Ines Kuhn| Ines Kuhn -> Monika Oehler| Ines Kuhn -> Monika Oehler| Karl-Heinz Franke -> Franz Schmidt| Karl-Heinz Franke -> Franz Schmidt| Franz Schmidt -> Karl-Heinz Franke| Franz Schmidt -> Karl-Heinz Franke| Rudolf-Joachim Fischer -> Wolfgang Herrmann| Rudolf-Joachim Fischer -> Wolfgang Herrmann| Wolfgang Herrmann -> Rudolf-Joachim Fischer| Wolfgang Herrmann -> Rudolf-Joachim Fischer| Gottfried Rost -> G&uuml;nter Tews| Gottfried Rost -> G&uuml;nter Tews| G&uuml;nter Tews -> Gottfried Rost| G&uuml;nter Tews -> Gottfried Rost| Hanno Frahm -> Hans-Joachim Sch&ouml;rling| Hanno Frahm -> Hans-Joachim Sch&ouml;rling| Hans-Joachim Sch&ouml;rling -> Hanno Frahm| Hans-Joachim Sch&ouml;rling -> Hanno Frahm| Bernd Fritzsche -> Bernd Kirstein| Bernd Fritzsche -> Bernd Kirstein| Bernd Kirstein -> Bernd Fritzsche| Bernd Kirstein -> Bernd Fritzsche| Ingo Engert-Oostingh -> Fritz Schweiger| Ingo Engert-Oostingh -> Fritz Schweiger| Ingo Engert-Oostingh -> Claudia Helena Breitfuss-Horner| Claudia Helena Breitfuss-Horner -> Fritz Schweiger| Claudia Helena Breitfuss-Horner -> Fritz Schweiger| Claudia Helena Breitfuss-Horner -> Ingo Engert-Oostingh| Fritz Schweiger -> Claudia Helena Breitfuss-Horner| Fritz Schweiger -> Claudia Helena Breitfuss-Horner| Fritz Schweiger -> Ingo Engert-Oostingh| Benno Beier -> Ulrich Distel| Benno Beier -> Ulrich Distel| Ulrich Distel -> Benno Beier| Ulrich Distel -> Benno Beier| Eckard Freudenthal -> Thomas Haufe| Eckard Freudenthal -> Thomas Haufe| Thomas Haufe -> Eckard Freudenthal| Thomas Haufe -> Eckard Freudenthal| Dietmar Heinze -> G&uuml;nter Mohr| Dietmar Heinze -> G&uuml;nter Mohr| G&uuml;nter Mohr -> Dietmar Heinze| G&uuml;nter Mohr -> Dietmar Heinze| Manfred Sauer -> J&uuml;rgen Weihrauch| Manfred Sauer -> J&uuml;rgen Weihrauch| J&uuml;rgen Weihrauch -> Manfred Sauer| J&uuml;rgen Weihrauch -> Manfred Sauer| Axel Jopke -> Andreas Naumann| Axel Jopke -> Andreas Naumann| Andreas Naumann -> Axel Jopke| Andreas Naumann -> Axel Jopke| Joachim Friedrich 0003 -> Siegfried K&ouml;pke| Joachim Friedrich 0003 -> Siegfried K&ouml;pke| Siegfried K&ouml;pke -> Joachim Friedrich 0003| Siegfried K&ouml;pke -> Joachim Friedrich 0003| Annette Fr&ouml;mmel -> Karen Kleine| Annette Fr&ouml;mmel -> Karen Kleine| Karen Kleine -> Annette Fr&ouml;mmel| Karen Kleine -> Annette Fr&ouml;mmel| Hans-Joachim Schmidt 0002 -> Dieter Wulf| Hans-Joachim Schmidt 0002 -> Dieter Wulf| Dieter Wulf -> Hans-Joachim Schmidt 0002| Dieter Wulf -> Hans-Joachim Schmidt 0002| Arnold Beck -> Detlef Lobenstein| Arnold Beck -> Detlef Lobenstein| Detlef Lobenstein -> Arnold Beck| Detlef Lobenstein -> Arnold Beck| Jochen Linnemann -> J&uuml;rgen Thaler| Jochen Linnemann -> J&uuml;rgen Thaler| J&uuml;rgen Thaler -> Jochen Linnemann| J&uuml;rgen Thaler -> Jochen Linnemann| Angela Stephan -> Dieter Suske| Angela Stephan -> Dieter Suske| Dieter Suske -> Angela Stephan| Dieter Suske -> Angela Stephan| Siegfried Reinich -> Karl Schubert| Siegfried Reinich -> Karl Schubert| Karl Schubert -> Siegfried Reinich| Karl Schubert -> Siegfried Reinich| Henning Helmdach -> Marian Siwek| Henning Helmdach -> Marian Siwek| Marian Siwek -> Henning Helmdach| Marian Siwek -> Henning Helmdach| Franz Menhart -> J&uuml;rgen Stumpf| Franz Menhart -> J&uuml;rgen Stumpf| J&uuml;rgen Stumpf -> Franz Menhart| J&uuml;rgen Stumpf -> Franz Menhart| Wieland Remde -> Frank-Wolfhart Timm| Wieland Remde -> Frank-Wolfhart Timm| Frank-Wolfhart Timm -> Wieland Remde| Frank-Wolfhart Timm -> Wieland Remde| Werner M&uuml;ller -> Horst Wrabetz| Werner M&uuml;ller -> Horst Wrabetz| Horst Wrabetz -> Werner M&uuml;ller| Horst Wrabetz -> Werner M&uuml;ller| Wolfgang Bilz -> Bernd Unger| Wolfgang Bilz -> Bernd Unger| Bernd Unger -> Wolfgang Bilz| Bernd Unger -> Wolfgang Bilz| Bernd Demian -> Thomas Meischner| Bernd Demian -> Thomas Meischner| Thomas Meischner -> Bernd Demian| Thomas Meischner -> Bernd Demian| Uta Th&uuml;rmer -> Robert Th&uuml;rmer| Uta Th&uuml;rmer -> Robert Th&uuml;rmer| Robert Th&uuml;rmer -> Uta Th&uuml;rmer| Robert Th&uuml;rmer -> Uta Th&uuml;rmer| Ulrich F&ouml;rster 0002 -> Rudolf von Zweydorff| Ulrich F&ouml;rster 0002 -> Rudolf von Zweydorff| Rudolf von Zweydorff -> Ulrich F&ouml;rster 0002| Rudolf von Zweydorff -> Ulrich F&ouml;rster 0002| Axel Friedrich -> Klaus T&auml;ubig| Axel Friedrich -> Klaus T&auml;ubig| Klaus T&auml;ubig -> Axel Friedrich| Klaus T&auml;ubig -> Axel Friedrich| Rainer Tsch&ouml;pel -> Siegmar Sommer| Rainer Tsch&ouml;pel -> Siegmar Sommer| Siegmar Sommer -> Rainer Tsch&ouml;pel| Siegmar Sommer -> Rainer Tsch&ouml;pel| Romy Kaulen -> Frithjof Kaulen| Romy Kaulen -> Frithjof Kaulen| Frithjof Kaulen -> Romy Kaulen| Frithjof Kaulen -> Romy Kaulen| Lothar Kaufmann -> Rolf Hoffmann| Lothar Kaufmann -> Rolf Hoffmann| Rolf Hoffmann -> Lothar Kaufmann| Rolf Hoffmann -> Lothar Kaufmann| Herbert Klein -> Christoph Ramshorn| Herbert Klein -> Christoph Ramshorn| Christoph Ramshorn -> Herbert Klein| Christoph Ramshorn -> Herbert Klein| Ralf-Dieter Mayas -> Udo Porsch| Ralf-Dieter Mayas -> Udo Porsch| Udo Porsch -> Ralf-Dieter Mayas| Udo Porsch -> Ralf-Dieter Mayas| Arwin Kahn -> Uwe L&ouml;ffler| Arwin Kahn -> Uwe L&ouml;ffler| Uwe L&ouml;ffler -> Arwin Kahn| Uwe L&ouml;ffler -> Arwin Kahn| Timm St&uuml;ckrath -> Manfred Heinl| Timm St&uuml;ckrath -> Manfred Heinl| Manfred Heinl -> Timm St&uuml;ckrath| Manfred Heinl -> Timm St&uuml;ckrath| Eberhard B&ouml;rner -> Klaus-Dieter Krebs| Eberhard B&ouml;rner -> Klaus-Dieter Krebs| Klaus-Dieter Krebs -> Eberhard B&ouml;rner| Klaus-Dieter Krebs -> Eberhard B&ouml;rner| Michael Knorr -> Gerd Schmerbauch| Michael Knorr -> Gerd Schmerbauch| Gerd Schmerbauch -> Michael Knorr| Gerd Schmerbauch -> Michael Knorr|
 
 
 ************************************Libération de l'espace**************************************
@@ -63718,6 +64063,103 @@ Done
 
 **************************************Fin de la fonction graphe**************************************
 
+*************************************Debut dijkstra*************************************
+
+distance NULL
+Distance: 3
+
+*************************************Fin dijkstra*************************************
+
+
+Plus court chemin entre Takaya Asano et Takuya Iwamoto :
+
+                  Takuya Iwamoto                  
+                         [0;32m|[0m                         
+                 Takayuki Kosaka                 
+                         [0;32m|[0m                         
+                  Akihiko Shirai                  
+                         [0;32m|[0m                         
+                   Takaya Asano                   
+
+Distance entre Takaya Asano et Takuya Iwamoto : 3
+
+
+************************************Libération de l'espace**************************************
+
+testShortestPath
+Done
+
+*************************************Debut de la fonction graphe*************************************
+
+[?25l[[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m][?25h
+
+**************************************Fin de la fonction graphe**************************************
+
+*************************************Debut dijkstra*************************************
+
+distance NULL
+Distance: 3
+
+*************************************Fin dijkstra*************************************
+
+Distances : 
+Takaya Asano - Yuria Suzuki : 2
+Takaya Asano - Ayumi Ando : 2
+Takaya Asano - Ryotaro Tsuda : 2
+Takaya Asano - Akihiko Shirai : 1
+Takaya Asano - Takuya Sakai : 2
+Takaya Asano - Wataru Fujimura : 2
+Takaya Asano - Robert Songer : 2
+Takaya Asano - Takayuki Kosaka : 2
+Takaya Asano - Hisataka Suzuki : 2
+Takaya Asano - Yannick Littfass : 2
+Takaya Asano - Rex Hsieh : 1
+Takaya Asano - Hiroki Taguchi : 2
+Takaya Asano - Yukua Koide : 2
+Takaya Asano - Yuki Kose : 2
+Takaya Asano - Kumiko Minobe : 2
+Takaya Asano - Tomoyuki Kimura : 2
+Takaya Asano - Go Akiyama : 2
+Takaya Asano - Nahomi Maki : 2
+Takaya Asano - Kazuhisa Yanaka : 2
+Takaya Asano - Takuya Iwamoto : 3
+Takaya Asano - Yuya Mochizuki : 1
+Takaya Asano - Daiki Agatsuma : 1
+Takaya Asano - Takaya Asano : 0
+Takaya Asano - Marika Higashida : 1
+Takaya Asano - Tatsuya Nishikizawa : 1
+
+Authors at distance 2 of Takaya Asano : 
+ - Yuria Suzuki
+ - Ayumi Ando
+ - Ryotaro Tsuda
+ - Takuya Sakai
+ - Wataru Fujimura
+ - Robert Songer
+ - Takayuki Kosaka
+ - Hisataka Suzuki
+ - Yannick Littfass
+ - Hiroki Taguchi
+ - Yukua Koide
+ - Yuki Kose
+ - Kumiko Minobe
+ - Tomoyuki Kimura
+ - Go Akiyama
+ - Nahomi Maki
+ - Kazuhisa Yanaka
+
+
+************************************Libération de l'espace**************************************
+
+testDistances
+Done
+
+*************************************Debut de la fonction graphe*************************************
+
+[?25l[[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m][?25h
+
+**************************************Fin de la fonction graphe**************************************
+
 Nombre de composantes connexes : 12616
 Dont sommets isolés : 0
 
@@ -63732,32 +64174,32 @@ Found gcov version: 9.3.0
 Using intermediate gcov format
 Scanning obj for .gcda files ...
 Found 8 data files in obj
-Processing obj/searchingFunctions.gcda
-Processing obj/fonctionsMatricesHash.gcda
 Processing obj/baseParser.gcda
-Processing obj/argsParser.gcda
+Processing obj/searchingFunctions.gcda
 Processing obj/io-utils.gcda
-Processing obj/fonctionsMatrice.gcda
 Processing obj/readFunctions.gcda
+Processing obj/fonctionsMatrice.gcda
 Processing obj/tests.gcda
+Processing obj/fonctionsMatricesHash.gcda
+Processing obj/argsParser.gcda
 Finished .info-file creation
 genhtml -o rapport -t "Couverture" rapport.info
 Reading data file rapport.info
 Found 10 entries.
-Found common filename prefix "/home/felixlusseau/Documents/Cours/ProjetProgrammation2021"
+Found common filename prefix "/home/felix/Documents/Cours/1A/ProjetProgrammation2021"
 Writing .css and .png files.
 Generating output.
-Processing file src/argsParser.c
-Processing file src/searchingFunctions.c
 Processing file src/io-utils.c
-Processing file src/fonctionsMatricesHash.c
-Processing file src/fonctionsMatrice.c
-Processing file src/readFunctions.c
+Processing file src/searchingFunctions.c
 Processing file src/baseParser.c
+Processing file src/argsParser.c
+Processing file src/fonctionsMatrice.c
+Processing file src/fonctionsMatricesHash.c
+Processing file src/readFunctions.c
 Processing file tests/tests.c
 Processing file /usr/include/stdlib.h
 Processing file /usr/include/x86_64-linux-gnu/bits/stdio2.h
 Writing directory view page.
 Overall coverage rate:
-  lines......: 70.2% (647 of 922 lines)
-  functions..: 71.0% (44 of 62 functions)
+  lines......: 91.5% (910 of 995 lines)
+  functions..: 96.8% (60 of 62 functions)
