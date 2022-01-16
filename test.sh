@@ -61,7 +61,7 @@ fi
 coloredEcho "OK" green
 
 annoncer "Execution graphe sample"
-$VALGRIND ./$TARGET -o tests/sample.bin -g >> $LOG 2>&1 || fail
+$VALGRIND ./$TARGET -o tests/sample.bin -g -s >> $LOG 2>&1 || fail
 coloredEcho "OK" green
 
 annoncer "Execution recherche auteurs"
