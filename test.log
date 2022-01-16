@@ -13004,8 +13004,279 @@ Done
 Done
 testArgMissing
 Done
+title : Programming Data Structures in Logic.
+year : 1992
+author 0 : Russell Turpin
+
+title : Random Sampling from Databases
+year : 1993
+author 0 : Frank Olken
+
+title : Using open source software to develop E-business applications for medium- and small-sized enterprises.
+year : 2009
+author 0 : Guido Frisch
+
+title : Pattern extraction from data with application to image processing.
+year : 2012
+author 0 : Alessia Amelio
+
+title : Aggregation and adaptation of web services: a semi-automated methodology for the aggregation and adaption of web services.
+year : 2008
+author 0 : Razvan Andrei Popescu
+
+title : Space and Time-Efficient Data Structures for Massive Datasets.
+year : 2018
+author 0 : Giulio Ermanno Pibiri
+
+title : A new Nested Graph Model for Data Integration
+year : 2018
+author 0 : Giacomo Bergami
+
+title : Clustering and ranking for web information retrieval: methodologies for searching the web.
+year : 2008
+author 0 : Antonio Gull&igrave;
+
+title : Computational Prediction of Gene Functions through Machine Learning methods and Multiple Validation Procedures
+year : 2014
+author 0 : Davide Chicco
+
+title : Optimizing and Parallelizing Loops in Object-Oriented Database Programming Languages.
+year : 1992
+author 0 : Daniel F. Lieuwen
+
+title : Software product line engineering for consumer electronics: Keeping up with the speed of innovation.
+year : 2015
+author 0 : Herman Hartmann
+
+title : Grid-enabling a software product: integration of grid resources in the RCE environment.
+year : 2008
+author 0 : Kenneth Rohde Christiansen
+
+title : Verifying OCL specifications of UML models: tool support and compositionakity.
+year : 2006
+author 0 : Marcel Kyas
+
+title : A Pattern Language of Firefighting Frontline Practice to Inform the Design of Ubiquitous Computing.
+year : 2011
+author 0 : Sebastian Denef
+
+title : Revealing the skeleton from imperfect point clouds.
+year : 2011
+author 0 : Alexander Bucksch
+
+title : An executable theory of multi-agent systems refinement
+year : 2011
+author 0 : Lacramioara Astefanoaei
+
+title : Team Automata: A Formal Approach to the Modeling of Collaboration Between System Components.
+year : 2003
+author 0 : Maurice H. ter Beek
+
+title : Compositional design and verification of component-based information systems.
+year : 2011
+author 0 : Jan Martijn E. M. van der Werf
+
+title : Testing Object Interactions.
+year : 2010
+author 0 : Andreas G&uuml;ner
+
+title : Quantum query: complexity and distributed computing.
+year : 2003
+author 0 : Hein Philipp R&ouml;hrig
+
+title : Performance Analysis of Data Sharing Environments
+year : 1990
+author 0 : Asit Dan
+
+title : On the Foundations of Query Evaluation in Deductive Databases
+year : 1992
+author 0 : David B. Kemp
+
+title : Request-Prediction and Hyperlink-Proposals
+year : 2001
+author 0 : Ernst Georg Haffner
+
+title : Hardness of Approximation Between P and NP.
+year : 2017
+author 0 : Aviad Rubinstein
+
+title : Web-Pr&auml;senz-Management im Unternehmen: Entwicklung und Einsatz eines Java-basierten Online-Redaktionssystems.
+year : 2002
+author 0 : Andreas Heuer 0002
+
+title : High-level Methods for OBDD-based Sequential Verification
+year : 2002
+author 0 : Christian Stangier
+
+title : Parsing and Quering XML Documents in SML.
+year : 2000
+author 0 : Andreas Neumann 0001
+
+title : Self-Describing Database Systems - Formalization and Realization
+year : 1985
+author 0 : Leo Mark
+
+title : Communication with an Automatic Computer
+year : 1959
+author 0 : Edsger W. Dijkstra
+
+title : Persistence in Distributed Object Systems: ORB/ODBMS Integration.
+year : 1996
+author 0 : Francisco Reverbel
+
+title : Trie Methods for Text and Spatial Data on Secondary Storage.
+year : 1994
+author 0 : Heping Shang
+
+title : Systems of Logic Based on Ordinals.
+year : 1938
+author 0 : Alan M. Turing
+
+title : Improving the Power of Ordered Binary Decision Diagrams by Integrating Parity Nodes
+year : 2002
+author 0 : Harald Sack
+
+[0;33mCTRL+C pressed ![0m
+Do you want to save and exit ? [Y / N]
+Ans : Exit !
+**********Debut de la fonction graphe*************************************
+
+[?25ltestMallocError2
+Done
+testArgMissing
+Done
+title : Programming Data Structures in Logic.
+year : 1992
+author 0 : Russell Turpin
+
+title : Random Sampling from Databases
+year : 1993
+author 0 : Frank Olken
+
+title : Using open source software to develop E-business applications for medium- and small-sized enterprises.
+year : 2009
+author 0 : Guido Frisch
+
+title : Pattern extraction from data with application to image processing.
+year : 2012
+author 0 : Alessia Amelio
+
+title : Aggregation and adaptation of web services: a semi-automated methodology for the aggregation and adaption of web services.
+year : 2008
+author 0 : Razvan Andrei Popescu
+
+title : Space and Time-Efficient Data Structures for Massive Datasets.
+year : 2018
+author 0 : Giulio Ermanno Pibiri
+
+title : A new Nested Graph Model for Data Integration
+year : 2018
+author 0 : Giacomo Bergami
+
+title : Clustering and ranking for web information retrieval: methodologies for searching the web.
+year : 2008
+author 0 : Antonio Gull&igrave;
+
+title : Computational Prediction of Gene Functions through Machine Learning methods and Multiple Validation Procedures
+year : 2014
+author 0 : Davide Chicco
+
+title : Optimizing and Parallelizing Loops in Object-Oriented Database Programming Languages.
+year : 1992
+author 0 : Daniel F. Lieuwen
+
+title : Software product line engineering for consumer electronics: Keeping up with the speed of innovation.
+year : 2015
+author 0 : Herman Hartmann
+
+title : Grid-enabling a software product: integration of grid resources in the RCE environment.
+year : 2008
+author 0 : Kenneth Rohde Christiansen
+
+title : Verifying OCL specifications of UML models: tool support and compositionakity.
+year : 2006
+author 0 : Marcel Kyas
+
+title : A Pattern Language of Firefighting Frontline Practice to Inform the Design of Ubiquitous Computing.
+year : 2011
+author 0 : Sebastian Denef
+
+title : Revealing the skeleton from imperfect point clouds.
+year : 2011
+author 0 : Alexander Bucksch
+
+title : An executable theory of multi-agent systems refinement
+year : 2011
+author 0 : Lacramioara Astefanoaei
+
+title : Team Automata: A Formal Approach to the Modeling of Collaboration Between System Components.
+year : 2003
+author 0 : Maurice H. ter Beek
+
+title : Compositional design and verification of component-based information systems.
+year : 2011
+author 0 : Jan Martijn E. M. van der Werf
+
+title : Testing Object Interactions.
+year : 2010
+author 0 : Andreas G&uuml;ner
+
+title : Quantum query: complexity and distributed computing.
+year : 2003
+author 0 : Hein Philipp R&ouml;hrig
+
+title : Performance Analysis of Data Sharing Environments
+year : 1990
+author 0 : Asit Dan
+
+title : On the Foundations of Query Evaluation in Deductive Databases
+year : 1992
+author 0 : David B. Kemp
+
+title : Request-Prediction and Hyperlink-Proposals
+year : 2001
+author 0 : Ernst Georg Haffner
+
+title : Hardness of Approximation Between P and NP.
+year : 2017
+author 0 : Aviad Rubinstein
+
+title : Web-Pr&auml;senz-Management im Unternehmen: Entwicklung und Einsatz eines Java-basierten Online-Redaktionssystems.
+year : 2002
+author 0 : Andreas Heuer 0002
+
+title : High-level Methods for OBDD-based Sequential Verification
+year : 2002
+author 0 : Christian Stangier
+
+title : Parsing and Quering XML Documents in SML.
+year : 2000
+author 0 : Andreas Neumann 0001
+
+title : Self-Describing Database Systems - Formalization and Realization
+year : 1985
+author 0 : Leo Mark
+
+title : Communication with an Automatic Computer
+year : 1959
+author 0 : Edsger W. Dijkstra
+
+title : Persistence in Distributed Object Systems: ORB/ODBMS Integration.
+year : 1996
+author 0 : Francisco Reverbel
+
+title : Trie Methods for Text and Spatial Data on Secondary Storage.
+year : 1994
+author 0 : Heping Shang
+
+title : Systems of Logic Based on Ordinals.
+year : 1938
+author 0 : Alan M. Turing
+
+title : Improving the Power of Ordered Binary Decision Diagrams by Integrating Parity Nodes
+year : 2002
+author 0 : Harald Sack
 [0;33mInterrupted ![0m
-exit(0)
 testErrorFiles
 Done
 Parsing...
@@ -13018,10 +13289,8 @@ Done
 Done
 testArgMissing
 Done
+exit(0)
 
-[0;33mCTRL+C pressed ![0m
-Do you want to save and exit ? [Y / N]
-Ans : Exit !
 testInterruption
 Done
 usage: ./bin/program OPTIONS
@@ -76602,13 +76871,13 @@ Found 10 entries.
 Found common filename prefix "/home/felix/Documents/Cours/1A/ProjetProgrammation2021"
 Writing .css and .png files.
 Generating output.
+Processing file src/searchingFunctions.c
 Processing file src/readFunctions.c
 Processing file src/io-utils.c
+Processing file src/baseParser.c
 Processing file src/argsParser.c
 Processing file src/fonctionsMatricesHash.c
-Processing file src/baseParser.c
 Processing file src/fonctionsMatrice.c
-Processing file src/searchingFunctions.c
 Processing file tests/tests.c
 Processing file /usr/include/stdlib.h
 Processing file /usr/include/x86_64-linux-gnu/bits/stdio2.h
