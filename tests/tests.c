@@ -62,8 +62,9 @@ int interruptFlag = 0;
     //options.authorNames[0] = "a";
     //dijkstra(1, node0, 6);
     //printDistances(&options, node0);
-    // plusCourtChemin(3,2,node0,6);
-    // int rs=nbrComposanteConnexe(node0);
+    // shortestPath(3,2,node0,6);
+    // int rs=nbrConnectedComponent
+(node0);
     // printf("nbr Connexe:%i\n",rs);
 
     freeListAdj(node0, 1);
@@ -133,8 +134,8 @@ void testMallocError2() {
     options.outputFilename = "sample.bin";
     openFiles(&options, "r");
     node *node0;
-    int taille = 0;
-    tps_assert((node0 = DoListAdjDeBinHash(&options, &taille, hashTable)) ==
+    int size = 0;
+    tps_assert((node0 = DoListAdjDeBinHash(&options, &size, hashTable)) ==
                NULL);
     if (node0 == NULL)
         exitCode = ERROR_LIST;
@@ -237,7 +238,7 @@ void testRead() {
 }
 
 void testGraph() {
-    int taille = 0;
+    int size = 0;
     node **hashTable = malloc(HT_SIZE * sizeof(unsigned int) * sizeof(char *));
     tps_assert(hashTable != NULL);
     for (int i = 0; i < HT_SIZE; i++)
@@ -246,14 +247,14 @@ void testGraph() {
     initOptions(&options);
     options.outputFilename = "outsampletest.bin";
     openFiles(&options, "r");
-    node *node0 = DoListAdjDeBinHash(&options, &taille, hashTable);
+    node *node0 = DoListAdjDeBinHash(&options, &size, hashTable);
     tps_assert(node0 != NULL);
     printListAdj(node0);
     endOfProgram(&options, node0, hashTable);
 }
 
 void testArticles() {
-    int taille = 0;
+    int size = 0;
     node **hashTable = malloc(HT_SIZE * sizeof(unsigned int) * sizeof(char *));
     tps_assert(hashTable != NULL);
     for (int i = 0; i < HT_SIZE; i++)
@@ -263,14 +264,14 @@ void testArticles() {
     options.outputFilename = "outsampletest.bin";
     options.authorNames[0] = "Russell Turpin";
     openFiles(&options, "r");
-    node *node0 = DoListAdjDeBinHash(&options, &taille, hashTable);
+    node *node0 = DoListAdjDeBinHash(&options, &size, hashTable);
     tps_assert(node0 != NULL);
     tps_assert(showArticles(&options, node0, 0) == OK);
     endOfProgram(&options, node0, hashTable);
 }
 
 void testShortestPath() {
-    int taille = 0;
+    int size = 0;
     node *node0 = NULL;
     node **hashTable = malloc(HT_SIZE * sizeof(unsigned int) * sizeof(char *));
     tps_assert(hashTable != NULL);
@@ -282,18 +283,18 @@ void testShortestPath() {
     options.authorNames[0] = "Takaya Asano";
     options.authorNames[1] = "Takuya Iwamoto";
     openFiles(&options, "r");
-    node0 = DoListAdjDeBinHash(&options, &taille, hashTable);
+    node0 = DoListAdjDeBinHash(&options, &size, hashTable);
     tps_assert(node0 != NULL);
     node *node1 = verifyAuthorHash(&options, hashTable, 0);
     node *node2 = verifyAuthorHash(&options, hashTable, 1);
-    tps_assert(plusCourtChemin(node1, node2, taille) == OK);
+    tps_assert(shortestPath(node1, node2, size) == OK);
     tps_assert(node2->distance != 0);
     tps_assert(node2->flag == 1);
     endOfProgram(&options, node0, hashTable);
 }
 
 void testDistances() {
-    int taille = 0;
+    int size = 0;
     node *node0 = NULL;
     node **hashTable = malloc(HT_SIZE * sizeof(unsigned int) * sizeof(char *));
     tps_assert(hashTable != NULL);
@@ -306,11 +307,11 @@ void testDistances() {
     options.authorNames[1] = "Takuya Iwamoto";
     options.N = 2;
     openFiles(&options, "r");
-    node0 = DoListAdjDeBinHash(&options, &taille, hashTable);
+    node0 = DoListAdjDeBinHash(&options, &size, hashTable);
     tps_assert(node0 != NULL);
     node *node1 = verifyAuthorHash(&options, hashTable, 0);
     node *node2 = verifyAuthorHash(&options, hashTable, 1);
-    tps_assert(dijkstra(node1, node2, taille) == OK);
+    tps_assert(dijkstra(node1, node2, size) == OK);
     tps_assert(node2->distance != 0);
     tps_assert(node2->flag == 1);
     printDistances(&options, node0);
@@ -319,7 +320,7 @@ void testDistances() {
 }
 
 void testConnected() {
-    int taille = 0;
+    int size = 0;
     node *node0 = NULL;
     node **hashTable = malloc(HT_SIZE * sizeof(unsigned int) * sizeof(char *));
     tps_assert(hashTable != NULL);
@@ -329,9 +330,9 @@ void testConnected() {
     initOptions(&options);
     options.outputFilename = "outsampletest.bin";
     openFiles(&options, "r");
-    node0 = DoListAdjDeBinHash(&options, &taille, hashTable);
+    node0 = DoListAdjDeBinHash(&options, &size, hashTable);
     tps_assert(node0 != NULL);
-    nbrComposanteConnexe(node0);
+    nbrConnectedComponent(node0);
     tps_assert(node0->flag == 1);
     endOfProgram(&options, node0, hashTable);
 }

@@ -32,6 +32,13 @@ int AuthorInListHash(char *author, node **hashTable, int pr);
  */
 node *GoToNodeHash(node **hashTable, unsigned int hash);
 
+/**
+ * @brief Append the list of node of the graphe
+ *
+ * @param author
+ * @param end
+ * @return node*
+ */
 node *appendNode(char *author, node *end);
 
 /**
@@ -48,11 +55,11 @@ int appendEdgeHash(unsigned int hash1, unsigned int hash2, node **hashTable);
  * @brief Make the adjacence list from the binary file
  *
  * @param option
- * @param taille
+ * @param size
  * @param hashTable
  * @return node*
  */
-node *DoListAdjDeBinHash(options_t *option, int *taille, node **hashTable);
+node *DoListAdjDeBinHash(options_t *option, int *size, node **hashTable);
 
 void freeEdge(node *currentNode);
 

@@ -29,11 +29,11 @@ success ()
 }
 
 
-# créer un fichier de taille et de nom indiqués
+# créer un fichier de size et de nom indiqués
 creer_fichier ()
 {
-    local taille="$1" nom="$2"
-    dd if=/dev/zero of=$nom bs=$taille count=1 2> /dev/null
+    local size="$1" nom="$2"
+    dd if=/dev/zero of=$nom bs=$size count=1 2> /dev/null
 }
 
 
