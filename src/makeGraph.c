@@ -36,6 +36,7 @@ node *CreateListAdj(char *author) {
     node0->nodeNumber = 0;
     node0->flag = 0;
     node0->nextNode = NULL;
+    // distance = -1 means infinity
     node0->distance = -1;
     node0->nodeEdge = NULL;
 
@@ -60,12 +61,13 @@ node *GoToNodeHash(node **hashTable, unsigned int hash) {
 node *appendNode(char *author, node *end) {
     node *newNode = malloc(sizeof(node));
     if (newNode == NULL) {
-        fprintf(stderr, "appendNode:erreur malloc node = NULL ");
+        fprintf(stderr, "appendNode:error malloc node = NULL ");
     }
     node *currentNode = end;
     currentNode->nextNode = newNode;
     newNode->nextNode = NULL;
     newNode->nodeNumber = currentNode->nodeNumber + 1;
+    // distance = -1 means infinity
     newNode->distance = -1;
     newNode->flag = 0;
     newNode->nodeEdge = NULL;
@@ -81,7 +83,7 @@ node *appendNode(char *author, node *end) {
 void sousAppendEdge(node *Node1, node *Node2) {
     edge *newEdge1 = (edge *)malloc(sizeof(edge));
     if (newEdge1 == NULL) {
-        fprintf(stderr, "appendEdge:erreur malloc edge = NULL");
+        fprintf(stderr, "appendEdge:error malloc edge = NULL");
     }
     newEdge1->otherNode = Node2;
     newEdge1->linkNode = Node1;
@@ -101,7 +103,7 @@ void appendEdgeHash(unsigned int hash1, unsigned int hash2, node **hashTable) {
     sousAppendEdge(Node2, Node1);
 }
 
-node *sousListeAdj(node *end, int *taille, structureBase_t *Entree,
+node *sousListeAdj(node *end, int *size, structureBase_t *Entree,
                    node **hashTable) {
     int pr[4] = {pr1, pr2, pr3, pr4};
     int n1 = 0;
@@ -109,8 +111,8 @@ node *sousListeAdj(node *end, int *taille, structureBase_t *Entree,
     L[0] = -1;
     unsigned int LH[100];
     int index = 0;
-    /*on récupère les numéros des co auteur de l'article et on les mets
-     dans une liste*/
+    /*the names of authors are converted to their number
+    to put them in a list */
     for (int k = 0; k < Entree->authornb; k++) {
         char *author1 = Entree->author[k];
         unsigned int hash1 = 0;
@@ -120,8 +122,8 @@ node *sousListeAdj(node *end, int *taille, structureBase_t *Entree,
             if (n1 == -1) {
                 end = appendNode(author1, end);
                 hashTable[hash1] = end;
-                *taille += 1;
-                n1 = *taille;
+                *size += 1;
+                n1 = *size;
                 break;
             } else if (n1 == -2) {
                 continue;
@@ -134,7 +136,7 @@ node *sousListeAdj(node *end, int *taille, structureBase_t *Entree,
         L[index] = -1;
     }
 
-    // on utilise la liste pour append le graphe
+    // the list is now use to append the graphe
     for (int i = 0; L[i] > -1 && i < 100; i++) {
         for (int k = i + 1; L[k] > -1 && k < 100; k++) {
             appendEdgeHash(LH[i], LH[k], hashTable);
@@ -143,13 +145,13 @@ node *sousListeAdj(node *end, int *taille, structureBase_t *Entree,
     return end;
 }
 
-node *DoListAdjDeBinHash(options_t *options, int *taille, node **hashTable) {
+node *DoListAdjDeBinHash(options_t *options, int *size, node **hashTable) {
     int nbEntries = readEntireBin(options, 0);
-    printf("\n*************************************Debut de la fonction "
-           "graphe*************************************\n\n");
+    printf("\n************************************* Start of the function "
+           "graph *************************************\n\n");
     printf("\33[?25l");
 
-    *taille = 0;
+    *size = 0;
     int16_t precAuthornb = 0;
     structureBase_t Entree;
     initStructure(&Entree, 0);
@@ -157,7 +159,7 @@ node *DoListAdjDeBinHash(options_t *options, int *taille, node **hashTable) {
     precAuthornb = Entree.authornb;
 
     if (Entree.author[0] == NULL) {
-        printf("Erreur 1er livre author[0]=NULL");
+        printf("Error 1st book: author[0]=NULL");
         return NULL;
     }
     node *node0 = CreateListAdj(Entree.author[0]);
@@ -165,7 +167,7 @@ node *DoListAdjDeBinHash(options_t *options, int *taille, node **hashTable) {
         return NULL;
     node *end = node0;
     if (Entree.authornb > 1) {
-        end = sousListeAdj(end, taille, &Entree, hashTable);
+        end = sousListeAdj(end, size, &Entree, hashTable);
     }
     readStructure(options, &Entree, precAuthornb);
     precAuthornb = Entree.authornb;
@@ -176,7 +178,7 @@ node *DoListAdjDeBinHash(options_t *options, int *taille, node **hashTable) {
             break;
         }
         if (Entree.authornb >= 1) {
-            end = sousListeAdj(end, taille, &Entree, hashTable);
+            end = sousListeAdj(end, size, &Entree, hashTable);
         }
         readStructure(options, &Entree, precAuthornb);
         precAuthornb = Entree.authornb;
@@ -187,8 +189,8 @@ node *DoListAdjDeBinHash(options_t *options, int *taille, node **hashTable) {
     }
     progressBar(100);
     printf("\33[?25h");
-    printf("\n\n**************************************Fin de la fonction "
-           "graphe**************************************\n\n");
+    printf("\n\n************************************** End of the function "
+           "graph **************************************\n\n");
     return node0;
 }
 
@@ -196,22 +198,19 @@ void freeEdge(node *currentNode) {
     edge *currentEdge = currentNode->nodeEdge;
     edge *inter;
     while (currentEdge->nextEdge != NULL) {
-        // printf("    cuE:%i\n",currentEdge->otherNode->nodeNumber);
         inter = currentEdge;
         currentEdge = currentEdge->nextEdge;
         free(inter);
     }
-    // printf("    cuE:%i\n",currentEdge->otherNode->nodeNumber);
     free(currentEdge);
 }
 void freeListAdj(node *node0, int print) {
     if (print)
-        printf("\n\n************************************Libération de "
-               "l'espace**************************************\n\n");
+        printf("\n\n************************************ Freeing the "
+               "space**************************************\n\n");
     node *currentNode = node0;
     node *interN;
     while (currentNode->nextNode != NULL) {
-        // printf("cuN:%s\n", currentNode->author);
         if (currentNode->nodeEdge != NULL) {
             freeEdge(currentNode);
         }
@@ -222,6 +221,5 @@ void freeListAdj(node *node0, int print) {
     if (currentNode->nodeEdge != NULL) {
         freeEdge(currentNode);
     }
-    // printf("cuN:%s\n", currentNode->author);
     free(currentNode);
 }

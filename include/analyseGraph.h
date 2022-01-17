@@ -22,34 +22,93 @@ typedef struct edge {
     struct edge *nextEdge;
 } edge;
 
-void reinitialise(node *node0);
+/**
+ * @brief reset flag and distance of nodes
+ *
+ * @param node0
+ * @return void
+ */
+void reset(node *node0);
 
-/** Prend le numéros de sommets liés et augmente le graphe.*/
+
+/**
+ * @brief takes number of nodes and append the graph
+ *
+ * @param n1
+ * @param n2
+ * @param node0
+ * @return int
+ */
 int appendEdge(int n1, int n2, node *node0);
 
+/**
+ * @brief print list node and list edge
+ *
+ * @param node0
+ * @return void
+ */  
 void printListAdj(node *node0);
 
+/**
+ * @brief print list node of graph
+ *
+ * @param node0
+ * @return void
+ */
 void printListNode(node *node0);
 
+/**
+ * @brief print list edge of graph
+ *
+ * @param node0
+ * @return void
+ */
 void printListEdge(node *node0);
 
-/** prend une ligne d'auteurs et append le graphe*/
-void AuthorSAppend(char **authorS, node *node0, int *taille);
+/**
+ * @brief calculate the distance between 2 authors
+ *
+ * @param node1
+ * @param node2
+ * @param size
+ * @return int
+ */
+int dijkstra(node *node1, node *node2, int size);
 
-node *DoListAdjDeBin(options_t *option, int *taille);
-
-/**calcul de la plus petite distance par rapport à un author*/
-int dijkstra(node *node1, node *node2, int taille);
-
-/** affiche les noeud dont la distance de n1 est positive*/
+/**
+ * @brief print nodes that have a distance greater than -1
+ *
+ * @param options
+ * @param node0
+ * @return void
+ */
 void printDistances(options_t *options, node *node0);
 
-/**affiche les auteur dans le plus court chemin entre n1 et n2*/
-int plusCourtChemin(node *Node1, node *Node2, int taille);
+/**
+ * @brief print the shortest path of authors between 2 node
+ *
+ * @param Node1
+ * @param Node2
+ * @param size
+ * @return int
+ */
+int shortestPath(node *Node1, node *Node2, int size);
 
-int explorationGraphe(node *node0);
+/**
+ * @brief explore one connected component of the graphe
+ *
+ * @param node0
+ * @return int
+ */
+int exploreGraph(node *node0);
 
-void nbrComposanteConnexe(node *node0);
+/**
+ * @brief calculate the number of connected component
+ *
+ * @param node0
+ * @return void
+ */
+void nbrConnectedComponent(node *node0);
 
 node *verifyAuthorHash(options_t *options, node **hashTable, int author0or1);
 

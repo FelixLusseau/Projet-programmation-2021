@@ -30,7 +30,7 @@ TEST_INIT_GLOBAL
 int interruptFlag = 0;
 
 int main(int argc, char **argv) {
-    int taille = 0;
+    int size = 0;
     int exitCode = OK;
     initSigaction();
     options_t options;
@@ -62,7 +62,7 @@ int main(int argc, char **argv) {
     }
     if (options.action[ACTION_GRAPH] == TO_DO) {
         testExitCode(openFiles(&options, "r", 0));
-        node0 = DoListAdjDeBinHash(&options, &taille, hashTable);
+        node0 = DoListAdjDeBinHash(&options, &size, hashTable);
         if (node0 == NULL) {
             exitCode = ERROR_LIST;
             goto error;
@@ -90,7 +90,7 @@ int main(int argc, char **argv) {
         testCorrectHash(node1 = verifyAuthorHash(&options, hashTable, 0));
         node *node2;
         testCorrectHash(node2 = verifyAuthorHash(&options, hashTable, 1));
-        testExitCode(plusCourtChemin(node1, node2, taille));
+        testExitCode(shortestPath(node1, node2, size));
     }
     if (options.action[ACTION_DIJKSTRA] == TO_DO) {
         testExitCode(chooseAuthor(&options, node0, 0));
@@ -101,7 +101,7 @@ int main(int argc, char **argv) {
             testExitCode(chooseAuthor(&options, node0, 1));
             testCorrectHash(node2 = verifyAuthorHash(&options, hashTable, 1));
         }
-        testExitCode(dijkstra(node1, node2, taille));
+        testExitCode(dijkstra(node1, node2, size));
     }
     if (options.action[ACTION_DISTANCE] == TO_DO) {
         printDistances(&options, node0);
@@ -110,7 +110,8 @@ int main(int argc, char **argv) {
         testExitCode(printAuthorAtDist(&options, node0));
     }
     if (options.action[ACTION_CONNECTED] == TO_DO) {
-        nbrComposanteConnexe(node0);
+        nbrConnectedComponent
+(node0);
     }
     if (options.action[ACTION_UNKNOWN] == 1) {
         fprintf(stderr, "Action is missing !\n");
