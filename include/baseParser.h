@@ -4,15 +4,6 @@
 #include "program.h"
 
 /**
- * @brief function to parse the xml base into the structureBase_t structure
- * written in the binary base
- *
- * @param options
- * @return int
- */
-int parseBase(options_t *options);
-
-/**
  * @brief initialise the structure with the NULL values corresponding to the
  * types
  *
@@ -44,5 +35,14 @@ void extractYear(structureBase_t *structureBase, char *line);
  * @param line
  */
 void extractTitle(structureBase_t *structureBase, char *line);
+
+/**
+ * @brief function to extract data from the xml base to the structureBase_t
+ * structure then written in the binary file
+ *
+ * @param options
+ * @return error_t
+ */
+error_t parseBase(options_t *options);
 
 #endif

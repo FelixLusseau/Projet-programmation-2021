@@ -48,7 +48,7 @@ void initOptions(options_t *options) {
     options->year = 0;
 }
 
-int isXML(FILE *file) {
+error_t isXML(FILE *file) {
     char docType[6];
     int exitCode = fread(&docType, 1, 5, file);
     docType[5] = '\0';
@@ -61,7 +61,7 @@ int isXML(FILE *file) {
     return OK;
 }
 
-int isBinOrEmpty(FILE *file) {
+error_t isBinOrEmpty(FILE *file) {
     char line[20];
     char *exitString = fgets(&line[0], 20, file);
     if (exitString == NULL) {
@@ -74,7 +74,7 @@ int isBinOrEmpty(FILE *file) {
     return OK;
 }
 
-int openFiles(options_t *options, char *openMode, int test) {
+error_t openFiles(options_t *options, char *openMode) {
     errno = 0;
     if (options->action[ACTION_PARSE] == TO_DO) {
         options->inputFile = fopen(options->inputFilename, "r");
@@ -90,10 +90,7 @@ int openFiles(options_t *options, char *openMode, int test) {
     }
     options->outputFile = fopen(options->outputFilename, openMode);
     if (options->outputFile == NULL) {
-        if (test != 1) {
-            fprintf(stderr, "%s : %s.\n", strerror(errno),
-                    options->outputFilename);
-        }
+        fprintf(stderr, "%s : %s.\n", strerror(errno), options->outputFilename);
         return ERROR_OPEN_BIN;
     }
     if (strcmp(openMode, "r") == 0 && isBinOrEmpty(options->outputFile) != OK) {
@@ -102,7 +99,7 @@ int openFiles(options_t *options, char *openMode, int test) {
     return OK;
 }
 
-int closeFiles(options_t *options) {
+error_t closeFiles(options_t *options) {
     if (options->inputFile != NULL)
         fclose(options->inputFile);
     if (options->outputFile != NULL)
@@ -115,8 +112,7 @@ void endOfProgram(options_t *options, node *node0, node **hashTable) {
         freeListAdj(node0, 1);
     if (hashTable != NULL)
         free(hashTable);
-    if (options->inputFile != NULL || options->outputFile != NULL)
-        closeFiles(options);
+    closeFiles(options);
     if (interruptFlag == 1)
         fprintf(stderr, "\33[0;33mInterrupted !\33[0m\n");
 }

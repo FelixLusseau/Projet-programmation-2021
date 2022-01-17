@@ -65,7 +65,7 @@ void extractTitle(structureBase_t *structureBase, char *line) {
     structureBase->title[i - 7] = '\0';
 }
 
-int parseBase(options_t *options) {
+error_t parseBase(options_t *options) {
     initSigaction();
     printf("Parsing...\n");
     fprintf(options->outputFile, "<binary file>\n");

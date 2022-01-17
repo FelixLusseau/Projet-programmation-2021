@@ -35,7 +35,7 @@ void readStructure(options_t *options, structureBase_t *structureBase,
     // printStruct(structureBase);
 }
 
-int readEntireBin(options_t *options, int print) {
+error_t readEntireBin(options_t *options, int print) {
     initSigaction();
     fseek(options->outputFile, 14, SEEK_SET);
     int counter = 0;

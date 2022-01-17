@@ -56,7 +56,7 @@ int showAuthors(options_t *options, node *node0, int author0or1) {
     return counter;
 }
 
-int chooseAuthor(options_t *options, node *node0, int author0or1) {
+error_t chooseAuthor(options_t *options, node *node0, int author0or1) {
     int count;
 begin:
     count = showAuthors(options, node0, author0or1);
@@ -92,7 +92,7 @@ begin:
     return OK;
 }
 
-int showArticles(options_t *options, node *node0, int year) {
+error_t showArticles(options_t *options, node *node0, int year) {
     initSigaction();
     int exitCode = chooseAuthor(options, node0, 0);
     if (exitCode != OK)

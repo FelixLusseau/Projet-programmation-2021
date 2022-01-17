@@ -82,10 +82,7 @@ void printListEdge(node *node0) {
     printf("\n");
 }
 
-/** the three functions that follow are used to manipulate
-a list of edges that are not a part of the graphe. Those list
-are used in dijkstra and exploreConnectedComponent to keep track
-of the node that we use for the algorithm.*/
+
 node *popListeEdge(node *startList) {
     node *node0 = startList->nodeEdge->linkNode;
     edge *inter = startList->nodeEdge;
@@ -93,24 +90,24 @@ node *popListeEdge(node *startList) {
     free(inter);
     return node0;
 }
-int removeEdgeListe(node *startList, node *nodeEnleve) {
-    if (startList->nodeEdge->linkNode->nodeNumber == nodeEnleve->nodeNumber) {
+error_t removeEdgeListe(node *startList, node *nodeToRemove) {
+    if (startList->nodeEdge->linkNode->nodeNumber == nodeToRemove->nodeNumber) {
         edge *inter = startList->nodeEdge;
         startList->nodeEdge = startList->nodeEdge->nextEdge;
         free(inter);
-        return 1;
+        return ERROR_DIJKSTRA;
     }
     edge *currentEdge = startList->nodeEdge;
     edge *previousEdge = startList->nodeEdge;
 
-    while (currentEdge->linkNode->nodeNumber != nodeEnleve->nodeNumber) {
+    while (currentEdge->linkNode->nodeNumber != nodeToRemove->nodeNumber) {
         previousEdge = currentEdge;
         currentEdge = currentEdge->nextEdge;
     }
 
     previousEdge->nextEdge = currentEdge->nextEdge;
     free(currentEdge);
-    return 0;
+    return OK;
 }
 edge *appendListeEdge(edge *endListe, node *newNode, node *startList) {
     edge *newListe = (edge *)malloc(sizeof(edge));
@@ -129,7 +126,7 @@ edge *appendListeEdge(edge *endListe, node *newNode, node *startList) {
     return newListe;
 }
 
-int dijkstra(node *node1, node *node2, int size) {
+error_t dijkstra(node *node1, node *node2, int size) {
     /* flag to know if we want the distance between 2 node or
     if we do all of the connected component*/
     int flagGraphe = 0;
@@ -139,8 +136,8 @@ int dijkstra(node *node1, node *node2, int size) {
 
     // distance = -1 means infinity
 
-    if(node1->nodeEdge==NULL){
-        printf("node:%s isolated \n distance:-1\n",node1->author);
+    if (node1->nodeEdge == NULL) {
+        printf("node:%s isolated \n distance:-1\n", node1->author);
         return 0;
     }
     node *currentNode = node1;
@@ -149,8 +146,8 @@ int dijkstra(node *node1, node *node2, int size) {
     node *neighbor = currentEdge->otherNode;
     int flag = neighbor->distance;
 
-    /* list of nodes not marked (flag=0) with a distance changed from infinity (!=-1), 
-    it is used to find the minimum for the next currentNode*/
+    /* list of nodes not marked (flag=0) with a distance changed from infinity
+    (!=-1), it is used to find the minimum wich is the next currentNode*/
     node *listDistance = CreateListAdj("0");
     if (listDistance == NULL)
         return ERROR_NODE_EQ_NULL;
@@ -158,7 +155,7 @@ int dijkstra(node *node1, node *node2, int size) {
     edge *endListe = appendListeEdge(NULL, currentNode, listDistance);
     int k = 0;
 
-     printf("************************************* Start dijkstra"
+    printf("************************************* Start dijkstra"
            "*************************************\n\n");
     while (k < size) {
         currentEdge = currentNode->nodeEdge;
@@ -166,15 +163,16 @@ int dijkstra(node *node1, node *node2, int size) {
         /* explore neigbour and change their distance*/
         while (currentEdge != NULL) {
             flag = neighbor->distance;
-            if (neighbor ->distance == -1 ||
-                (neighbor ->distance > (currentNode->distance + 1) &&
-                 neighbor ->flag == 0)) {
+            if (neighbor->distance == -1 ||
+                (neighbor->distance > (currentNode->distance + 1) &&
+                 neighbor->flag == 0)) {
 
-                neighbor ->distance = currentNode->distance + 1;
+                neighbor->distance = currentNode->distance + 1;
                 /* if the e neighbor had a distance=-1 before
                 then he wasn't in listDistance */
                 if (flag == -1) {
-                    endListe = appendListeEdge(endListe,neighbor,listDistance);
+                    endListe =
+                        appendListeEdge(endListe, neighbor, listDistance);
                     listDistance->distance += 1;
                 }
             }
@@ -248,7 +246,7 @@ void printDistances(options_t *options, node *node0) {
     }
 }
 
-int shortestPath(node *Node1, node *Node2, int size) {
+error_t shortestPath(node *Node1, node *Node2, int size) {
     int exitCode = dijkstra(Node1, Node2, size);
     if (exitCode)
         return exitCode;
@@ -276,7 +274,7 @@ int shortestPath(node *Node1, node *Node2, int size) {
         while (currentEdge != NULL) {
 
             if (currentEdge->linkNode->flag == 1 &&
-                currentEdge->otherNode->distance < minneighbor ->distance) {
+                currentEdge->otherNode->distance < minneighbor->distance) {
                 minneighbor = currentEdge->otherNode;
             }
             currentEdge = currentEdge->nextEdge;
@@ -284,7 +282,6 @@ int shortestPath(node *Node1, node *Node2, int size) {
 
         currentNode = minneighbor;
         currentEdge = currentNode->nodeEdge;
-
     }
 
     len = (50 - strlen(currentNode->author)) / 2;
@@ -311,20 +308,19 @@ int exploreGraph(node *node0) {
         nbrNode += 1;
         node0 = popListeEdge(debutListe);
         currentEdge = node0->nodeEdge;
-        neighbor  = currentEdge->otherNode;
+        neighbor = currentEdge->otherNode;
 
         while (1) {
             if (neighbor->flag == 0) {
-                neighbor ->flag = 1;
-                endListe = appendListeEdge(endListe, neighbor,debutListe);
+                neighbor->flag = 1;
+                endListe = appendListeEdge(endListe, neighbor, debutListe);
             }
             if (currentEdge->nextEdge == NULL) {
                 break;
             }
             currentEdge = currentEdge->nextEdge;
-            neighbor  = currentEdge->otherNode;
+            neighbor = currentEdge->otherNode;
         }
-
     }
 
     free(debutListe);
@@ -346,7 +342,7 @@ void nbrConnectedComponent(node *node0) {
         currentNode = currentNode->nextNode;
     }
 
-    printf("Connected component : %i",nbrConnected);
+    printf("Connected component : %i", nbrConnected);
 }
 
 node *verifyAuthorHash(options_t *options, node **hashTable, int author0or1) {
@@ -364,7 +360,7 @@ node *verifyAuthorHash(options_t *options, node **hashTable, int author0or1) {
     return NULL;
 }
 
-int printAuthorAtDist(options_t *options, node *node0) {
+error_t printAuthorAtDist(options_t *options, node *node0) {
     if (node0 == NULL) {
         return ERROR_NODE_EQ_NULL;
     }

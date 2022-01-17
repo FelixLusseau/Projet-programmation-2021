@@ -2,14 +2,6 @@ tests.c et test.sh
 
 hash function : http://www.cse.yorku.ca/~oz/hash.html
 
-automatiser (ou presque) parsage au début du prog ?
+return error_t
 
-harmoniser ang / fr, error codes etc
-
-Interface ?
-
-test de malloc et autres erreurs ?
-
-écrire le graphe dans un fichier ?
-
-test open ?
+pointeur pour dolistaadj ?

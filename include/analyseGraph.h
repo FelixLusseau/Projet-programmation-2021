@@ -30,7 +30,6 @@ typedef struct edge {
  */
 void reset(node *node0);
 
-
 /**
  * @brief takes number of nodes and append the graph
  *
@@ -46,7 +45,7 @@ int appendEdge(int n1, int n2, node *node0);
  *
  * @param node0
  * @return void
- */  
+ */
 void printListAdj(node *node0);
 
 /**
@@ -66,14 +65,42 @@ void printListNode(node *node0);
 void printListEdge(node *node0);
 
 /**
+ * @brief Used in dijkstra and exploreConnectedComponent to keep track of the node that they use.
+ *        Pop first node of the list.
+ *
+ * @param startList
+ * @return node
+ */
+node *popListeEdge(node *startList);
+/**
+ * @brief Used in dijkstra and exploreConnectedComponent to keep track of the node that they use.
+ *        Find end remove a node of the list.
+ *
+ * @param startList
+ * @param nodeToRemove
+ * @return node
+ */
+error_t removeEdgeListe(node *startList, node *nodeToRemove);
+/**
+ * @brief Used in dijkstra and exploreConnectedComponent to keep track of the node that they use.
+ *        Append end of the list
+ *
+ * @param endList
+ * @param newNode
+ * @param startList
+ * @return edge
+ */
+edge *appendListeEdge(edge *endListe, node *newNode, node *startList);
+
+/**
  * @brief calculate the distance between 2 authors
  *
  * @param node1
  * @param node2
  * @param size
- * @return int
+ * @return error_t
  */
-int dijkstra(node *node1, node *node2, int size);
+error_t dijkstra(node *node1, node *node2, int size);
 
 /**
  * @brief print nodes that have a distance greater than -1
@@ -90,9 +117,9 @@ void printDistances(options_t *options, node *node0);
  * @param Node1
  * @param Node2
  * @param size
- * @return int
+ * @return error_t
  */
-int shortestPath(node *Node1, node *Node2, int size);
+error_t shortestPath(node *Node1, node *Node2, int size);
 
 /**
  * @brief explore one connected component of the graphe
@@ -117,8 +144,8 @@ node *verifyAuthorHash(options_t *options, node **hashTable, int author0or1);
  *
  * @param options
  * @param node0
- * @return int
+ * @return error_t
  */
-int printAuthorAtDist(options_t *options, node *node0);
+error_t printAuthorAtDist(options_t *options, node *node0);
 
 #endif
