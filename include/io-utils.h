@@ -1,7 +1,7 @@
 #ifndef IO_UTILS_H
 #define IO_UTILS_H
 
-#include "fonctionsMatrice.h"
+#include "analyseGraph.h"
 #include "program.h"
 
 /**

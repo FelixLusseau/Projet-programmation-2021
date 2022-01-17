@@ -6,7 +6,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "fonctionsMatrice.h"
+#include "analyseGraph.h"
+#include "makeGraph.h"
 #include "program.h"
 
 extern int interruptFlag;

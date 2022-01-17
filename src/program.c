@@ -2,11 +2,11 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "analyseGraph.h"
 #include "argsParser.h"
 #include "baseParser.h"
-#include "fonctionsMatrice.h"
-#include "fonctionsMatricesHash.h"
 #include "io-utils.h"
+#include "makeGraph.h"
 #include "program.h"
 #include "readFunctions.h"
 #include "searchingFunctions.h"
