@@ -129,9 +129,9 @@ edge *appendListeEdge(edge *endListe, node *newNode, node *startList) {
 error_t dijkstra(node *node1, node *node2, int size) {
     /* flag to know if we want the distance between 2 node or
     if we do all of the connected component*/
-    int flagGraphe = 0;
+    int flagGraph = 0;
     if (node2 == NULL) {
-        flagGraphe = 1;
+        flagGraph = 1;
     }
 
     // distance = -1 means infinity
@@ -190,11 +190,10 @@ error_t dijkstra(node *node1, node *node2, int size) {
 
         /*listDistance=NULL, end of the connected component*/
         if (listDistance->nodeEdge == NULL) {
-            printf("distance NULL\n");
             break;
         }
         /* if node2 marked, end of drijkstra */
-        if (flagGraphe == 0 && node2->flag == 1) {
+        if (flagGraph == 0 && node2->flag == 1) {
             break;
         }
 
@@ -224,7 +223,7 @@ error_t dijkstra(node *node1, node *node2, int size) {
         }
         k++;
     }
-    if (flagGraphe == 0) {
+    if (flagGraph == 0) {
         printf("Distance: %i\n", node2->distance);
     }
 
