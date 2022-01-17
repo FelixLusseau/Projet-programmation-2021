@@ -35,13 +35,11 @@ int main(int argc, char **argv) {
     initSigaction();
     options_t options;
     node *node0 = NULL;
-    node **hashTable = malloc(HT_SIZE * sizeof(char *));
+    node **hashTable = calloc(HT_SIZE, sizeof(char *));
     if (hashTable == NULL) {
         exitCode = ERROR_HASHTABLE;
         goto error;
     }
-    for (int i = 0; i < HT_SIZE; i++)
-        hashTable[i] = NULL;
     testExitCode(parseArgs(argc, argv, &options));
 
     if (options.action[ACTION_PARSE] == TO_DO) {
