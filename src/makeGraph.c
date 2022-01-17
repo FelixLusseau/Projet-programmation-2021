@@ -145,7 +145,7 @@ node *sousListeAdj(node *end, int *size, structureBase_t *Entree,
     return end;
 }
 
-node *DoListAdjDeBinHash(options_t *options, int *size, node **hashTable) {
+node *DoListAdjHash(options_t *options, int *size, node **hashTable) {
     int nbEntries = readEntireBin(options, 0);
     printf("\n************************************* Start of the function "
            "graph *************************************\n\n");

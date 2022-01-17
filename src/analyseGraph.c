@@ -85,8 +85,7 @@ void printListEdge(node *node0) {
 /** the three functions that follow are used to manipulate
 a list of edges that are not a part of the graphe. Those list
 are used in dijkstra and exploreConnectedComponent to keep track
-of the node that we use for the algorithm.
-*/
+of the node that we use for the algorithm.*/
 node *popListeEdge(node *startList) {
     node *node0 = startList->nodeEdge->linkNode;
     edge *inter = startList->nodeEdge;
@@ -103,10 +102,12 @@ int removeEdgeListe(node *startList, node *nodeEnleve) {
     }
     edge *currentEdge = startList->nodeEdge;
     edge *previousEdge = startList->nodeEdge;
+
     while (currentEdge->linkNode->nodeNumber != nodeEnleve->nodeNumber) {
         previousEdge = currentEdge;
         currentEdge = currentEdge->nextEdge;
     }
+
     previousEdge->nextEdge = currentEdge->nextEdge;
     free(currentEdge);
     return 0;
@@ -149,7 +150,7 @@ int dijkstra(node *node1, node *node2, int size) {
     int flag = neighbor->distance;
 
     /* list of nodes not marked (flag=0) with a distance changed from infinity (!=-1), 
-    it is used to find the minimum wich is the next currentNode*/
+    it is used to find the minimum for the next currentNode*/
     node *listDistance = CreateListAdj("0");
     if (listDistance == NULL)
         return ERROR_NODE_EQ_NULL;
@@ -185,7 +186,7 @@ int dijkstra(node *node1, node *node2, int size) {
         }
 
         currentNode->flag = 1;
-        /* remove currentNode from the liste because he is marked */
+        /* remove currentNode from the list because it is marked */
         removeEdgeListe(listDistance, currentNode);
         listDistance->distance -= 1;
 
@@ -201,25 +202,25 @@ int dijkstra(node *node1, node *node2, int size) {
 
         // listDistance != NULL, search for the minimum
         else {
-            edge *ListeEdge = listDistance->nodeEdge;
-            node *minNode = ListeEdge->linkNode;
+            edge *listeEdge = listDistance->nodeEdge;
+            node *minNode = listeEdge->linkNode;
             int minDistance = minNode->distance;
 
             while (1) {
-                /* if distance=previous minimum then it is a minimum */
-                if (ListeEdge->linkNode->distance == currentNode->distance) {
-                    minNode = ListeEdge->linkNode;
+                /* if distance = previous minimum, then it is a minimum */
+                if (listeEdge->linkNode->distance == currentNode->distance) {
+                    minNode = listeEdge->linkNode;
                     break;
                 }
 
-                if (ListeEdge->linkNode->distance < minDistance) {
-                    minNode = ListeEdge->linkNode;
+                if (listeEdge->linkNode->distance < minDistance) {
+                    minNode = listeEdge->linkNode;
                     minDistance = minNode->distance;
                 }
-                if (ListeEdge->nextEdge == NULL) {
+                if (listeEdge->nextEdge == NULL) {
                     break;
                 }
-                ListeEdge = ListeEdge->nextEdge;
+                listeEdge = listeEdge->nextEdge;
             }
             currentNode = minNode;
         }

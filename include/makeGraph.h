@@ -59,7 +59,7 @@ int appendEdgeHash(unsigned int hash1, unsigned int hash2, node **hashTable);
  * @param hashTable
  * @return node*
  */
-node *DoListAdjDeBinHash(options_t *option, int *size, node **hashTable);
+node *DoListAdjHash(options_t *option, int *size, node **hashTable);
 
 void freeEdge(node *currentNode);
 
