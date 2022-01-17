@@ -20,7 +20,11 @@ unsigned hash(unsigned char *str, int pr) {
     return hash;
 }
 
-void CreateListAdj(char *author, node **hashTable, node *node0) {
+node *CreateListAdj(char *author, node **hashTable) {
+    node *node0 = (node *)malloc(sizeof(node));
+    if (node0 == NULL) {
+        fprintf(stderr, "creatListAdj:erreur malloc node = NULL\n");
+    }
     int k = 0;
     unsigned int hash1 = 0;
     hash1 = hash((unsigned char *)author, pr1);
@@ -36,6 +40,7 @@ void CreateListAdj(char *author, node **hashTable, node *node0) {
     // distance = -1 means infinity
     node0->distance = -1;
     node0->nodeEdge = NULL;
+    return node0;
 }
 
 int AuthorInListHash(char *author, node **hashTable, int pr) {
@@ -140,8 +145,7 @@ node *ListeAdj2(node *end, int *size, structureBase_t *Entree,
     return end;
 }
 
-error_t doListAdjHash(options_t *options, int *size, node **hashTable,
-                      node *node0) {
+node *doListAdjHash(options_t *options, int *size, node **hashTable) {
     int nbEntries = readEntireBin(options, 0);
     printf("\n************************************* Start of the function "
            "graph *************************************\n\n");
@@ -156,12 +160,10 @@ error_t doListAdjHash(options_t *options, int *size, node **hashTable,
 
     if (Entree.author[0] == NULL) {
         printf("Error 1st book: author[0]=NULL");
-        return ERROR_LIST;
+        return NULL;
     }
 
-    CreateListAdj(Entree.author[0], hashTable, node0);
-    if (node0 == NULL)
-        return ERROR_LIST;
+    node *node0=CreateListAdj(Entree.author[0],hashTable);
     node *end = node0;
     if (Entree.authornb > 1) {
         end = ListeAdj2(end, size, &Entree, hashTable);
@@ -192,7 +194,7 @@ error_t doListAdjHash(options_t *options, int *size, node **hashTable,
     printf("\33[?25h");
     printf("\n\n************************************** End of the function "
            "graph **************************************\n\n");
-    return OK;
+    return node0;
 }
 
 void freeEdge(node *currentNode) {

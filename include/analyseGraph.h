@@ -66,6 +66,14 @@ void printListEdge(node *node0);
 
 /**
  * @brief Used in dijkstra and exploreConnectedComponent to keep track of the node that they use.
+ *        Créer la liste.
+ *
+ * @param void
+ * @return node
+ */
+node *createList(void);
+/**
+ * @brief Used in dijkstra and exploreConnectedComponent to keep track of the node that they use.
  *        Pop first node of the list.
  *
  * @param startList

@@ -34,10 +34,7 @@ int main(int argc, char **argv) {
     error_t exitCode = OK;
     initSigaction();
     options_t options;
-    node *node0 = (node *)malloc(sizeof(node));
-    if (node0 == NULL) {
-        fprintf(stderr, "creatListAdj:erreur malloc node = NULL\n");
-    }
+    node *node0=NULL;
     node **hashTable = malloc(HT_SIZE * sizeof(char *));
     if (hashTable == NULL) {
         exitCode = ERROR_HASHTABLE;
@@ -59,8 +56,8 @@ int main(int argc, char **argv) {
     }
     if (options.action[ACTION_GRAPH] == TO_DO) {
         testExitCode(openFiles(&options, "r"));
-        exitCode = doListAdjHash(&options, &size, hashTable, node0);
-        if (exitCode != OK) {
+        node0 = doListAdjHash(&options, &size, hashTable);
+        if (node0 == NULL) {
             exitCode = ERROR_LIST;
             goto error;
         }

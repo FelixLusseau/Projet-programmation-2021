@@ -83,6 +83,20 @@ void printListEdge(node *node0) {
 }
 
 
+node *createList(void) {
+    node *node0 = (node *)malloc(sizeof(node));
+    if (node0 == NULL) {
+        fprintf(stderr, "creatListAdj:erreur malloc node = NULL");
+        return NULL;
+    }
+    node0->nodeNumber = 0;
+    node0->flag = 0;
+    node0->nextNode = NULL;
+    node0->distance = -1;
+    node0->nodeEdge = NULL;
+
+    return node0;
+}
 node *popListeEdge(node *startList) {
     node *node0 = startList->nodeEdge->linkNode;
     edge *inter = startList->nodeEdge;
@@ -148,9 +162,7 @@ error_t dijkstra(node *node1, node *node2, int size) {
 
     /* list of nodes not marked (flag=0) with a distance changed from infinity
     (!=-1), it is used to find the minimum wich is the next currentNode*/
-    node *listDistance = (node *)malloc(sizeof(node));
-    if (listDistance == NULL)
-        return ERROR_NODE_EQ_NULL;
+    node *listDistance = createList();
     listDistance->distance = 1;
     edge *endListe = appendListeEdge(NULL, currentNode, listDistance);
     int k = 0;
@@ -300,7 +312,7 @@ int exploreGraph(node *node0) {
     edge *currentEdge = node0->nodeEdge;
     node *neighbor = currentEdge->otherNode;
 
-    node *debutListe = (node *)malloc(sizeof(node));
+    node *debutListe = createList();
     edge *endListe = appendListeEdge(NULL, node0, debutListe);
 
     while (debutListe->nodeEdge != NULL) {
