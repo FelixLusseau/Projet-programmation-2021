@@ -15,10 +15,11 @@ unsigned hash(unsigned char *str, int pr);
 /**
  * @brief create first node of graph
  *
- * @param void
- * @return node
+ * @param author
+ * @param node0
+ * @return void
  */
-node *CreateListAdj();
+void CreateListAdj(char *author, node *node0);
 
 /**
  * @brief Check if the author already is in the graph
@@ -68,8 +69,21 @@ int appendEdgeHash(unsigned int hash1, unsigned int hash2, node **hashTable);
  */
 error_t doListAdjHash(options_t *option, int *size, node **hashTable,node* node0);
 
+/**
+ * @brief Free edges of a node
+ *
+ * @param currentNode
+ * @return error_t
+ */
 void freeEdge(node *currentNode);
 
+/**
+ * @brief Free graph
+ *
+ * @param node0
+ * @param print
+ * @return error_t
+ */
 void freeListAdj(node *node0, int print);
 
 #endif
