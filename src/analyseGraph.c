@@ -89,12 +89,12 @@ node *popListeEdge(node *debutListe) {
     free(inter);
     return node0;
 }
-int enleveEdgeListe(node *debutListe, node *nodeEnleve) {
+error_t enleveEdgeListe(node *debutListe, node *nodeEnleve) {
     if (debutListe->nodeEdge->linkNode->nodeNumber == nodeEnleve->nodeNumber) {
         edge *inter = debutListe->nodeEdge;
         debutListe->nodeEdge = debutListe->nodeEdge->nextEdge;
         free(inter);
-        return 1;
+        return ERROR_DIJKSTRA;
     }
     edge *currentEdge = debutListe->nodeEdge;
     edge *previousEdge = debutListe->nodeEdge;
@@ -104,7 +104,7 @@ int enleveEdgeListe(node *debutListe, node *nodeEnleve) {
     }
     previousEdge->nextEdge = currentEdge->nextEdge;
     free(currentEdge);
-    return 0;
+    return OK;
 }
 edge *appendListeEdge(edge *endListe, node *newNode, node *debutListe) {
     edge *newListe = (edge *)malloc(sizeof(edge));
@@ -123,7 +123,7 @@ edge *appendListeEdge(edge *endListe, node *newNode, node *debutListe) {
     return newListe;
 }
 
-int dijkstra(node *node1, node *node2, int taille) {
+error_t dijkstra(node *node1, node *node2, int taille) {
     printf("*************************************Debut dijkstra"
            "*************************************\n\n");
     // flag pour determiner si on cherche une distance entre 2 noude ou tout la
@@ -242,7 +242,7 @@ void printDistances(options_t *options, node *node0) {
     }
 }
 
-int plusCourtChemin(node *Node1, node *Node2, int taille) {
+error_t plusCourtChemin(node *Node1, node *Node2, int taille) {
     int exitCode = dijkstra(Node1, Node2, taille);
     if (exitCode)
         return exitCode;
@@ -314,6 +314,7 @@ int explorationGraphe(node *node0) {
     free(debutListe);
     return nbrNode;
 }
+
 void nbrComposanteConnexe(node *node0) {
     node *currentNode = node0;
     int nbrConnexe = 0;
@@ -347,7 +348,7 @@ node *verifyAuthorHash(options_t *options, node **hashTable, int author0or1) {
     return NULL;
 }
 
-int printAuthorAtDist(options_t *options, node *node0) {
+error_t printAuthorAtDist(options_t *options, node *node0) {
     if (node0 == NULL) {
         return ERROR_NODE_EQ_NULL;
     }

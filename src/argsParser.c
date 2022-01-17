@@ -38,7 +38,7 @@ void printUsage(void) {
         "\"Quentin Bramas\"\n");
 }
 
-int parseArgs(int argc, char **argv, options_t *options) {
+error_t parseArgs(int argc, char **argv, options_t *options) {
     initOptions(options);
     int countAuthorsArguments = 0;
     int c;

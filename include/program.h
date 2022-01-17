@@ -6,6 +6,7 @@
 #include <stdio.h>
 
 #define ACTIONS_NB 12
+
 #define HT_SIZE 50000000 * 2
 
 #define pr1 6961
@@ -73,7 +74,8 @@ typedef enum error_t {
     ERROR_NO_AUTHOR,
     ERROR_HASHTABLE,
     ERROR_NODE_EQ_NULL,
-    ERROR_PATH
+    ERROR_PATH,
+    ERROR_DIJKSTRA
 } error_t;
 
 #endif

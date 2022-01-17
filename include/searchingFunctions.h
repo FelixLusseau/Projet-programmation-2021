@@ -4,33 +4,38 @@
 #include "program.h"
 
 /**
- * @brief print the authors' names containing the string given in argument using
- * the graph
+ * @brief print the authors' names containing the string given in argument of
+ * command using the graph (author0or1 allows to read the first or second
+ * author's argument)
  *
  * @param options
- * @param hashTable
  * @param node0
+ * @param author0or1
  * @return int
  */
 int showAuthors(options_t *options, node *node0, int author0or1);
 
 /**
- * @brief Calls showAuthors and ask for a unique author name
+ * @brief Calls showAuthors and ask for a unique author name (author0or1 allows
+ * to read the first or second author's argument). If it is not unique it enters
+ * in a loop and if the author is invalid it prints an error
  *
  * @param options
- * @param hashTable
  * @param node0
  * @param author0or1
- * @return int
+ * @return error_t
  */
-int chooseAuthor(options_t *options, node *node0, int author0or1);
+error_t chooseAuthor(options_t *options, node *node0, int author0or1);
 
 /**
- * @brief print the articles written by the author given in argument
+ * @brief Prints the articles written by the author given in argument and if
+ * year!=0 it prints those of the year given
  *
  * @param options
- * @return int
+ * @param node0
+ * @param year
+ * @return error_t
  */
-int showArticles(options_t *options, node *node0, int year);
+error_t showArticles(options_t *options, node *node0, int year);
 
 #endif

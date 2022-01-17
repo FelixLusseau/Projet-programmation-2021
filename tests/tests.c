@@ -84,19 +84,19 @@ void testErrorFiles() {
     int exitCode;
     options.inputFilename = "sampl.xml";
     options.action[ACTION_PARSE] = TO_DO;
-    tps_assert((exitCode = openFiles(&options, "w", 0)) == ERROR_OPEN_DATABASE);
+    tps_assert((exitCode = openFiles(&options, "w")) == ERROR_OPEN_DATABASE);
     closeFiles(&options);
     fprintf(stderr, "%s\n", errorToString(exitCode));
     options.inputFilename = "sample.bin";
-    tps_assert((exitCode = openFiles(&options, "w", 0)) == ERROR_XML);
+    tps_assert((exitCode = openFiles(&options, "w")) == ERROR_XML);
     fprintf(stderr, "%s\n", errorToString(exitCode));
 
     options.action[ACTION_PARSE] = NOT_TO_DO;
     options.outputFilename = "out9";
-    tps_assert((exitCode = openFiles(&options, "r", 0)) == ERROR_OPEN_BIN);
+    tps_assert((exitCode = openFiles(&options, "r")) == ERROR_OPEN_BIN);
     fprintf(stderr, "%s\n", errorToString(exitCode));
     options.outputFilename = "sample.xml";
-    tps_assert((exitCode = openFiles(&options, "r", 0)) == ERROR_BIN);
+    tps_assert((exitCode = openFiles(&options, "r")) == ERROR_BIN);
     closeFiles(&options);
     fprintf(stderr, "%s\n", errorToString(exitCode));
 }
@@ -114,7 +114,7 @@ void testMallocError1() {
     options.inputFilename = "sample.xml";
     options.outputFilename = "out";
     options.action[ACTION_PARSE] = TO_DO;
-    openFiles(&options, "w", 0);
+    openFiles(&options, "w");
     tps_assert((exitCode = parseBase(&options)) == ERROR_BASE_PARSE);
     fprintf(stderr, "%s\n", errorToString(exitCode));
     closeFiles(&options);
@@ -131,7 +131,7 @@ void testMallocError2() {
     initOptions(&options);
     int exitCode = OK;
     options.outputFilename = "sample.bin";
-    openFiles(&options, "r", 0);
+    openFiles(&options, "r");
     node *node0;
     int taille = 0;
     tps_assert((node0 = DoListAdjDeBinHash(&options, &taille, hashTable)) ==
@@ -163,7 +163,7 @@ void testInterruption() {
         exit(0);
     default:
         options.outputFilename = "outsampletest.bin";
-        openFiles(&options, "r", 0);
+        openFiles(&options, "r");
         tps_assert(readEntireBin(&options, 1) == OK);
         endOfProgram(&options, node0, hashTable);
         if (wait(&raison) == -1)
@@ -220,7 +220,7 @@ void testParseBase() {
     options.inputFilename = "sample.xml";
     options.outputFilename = "outsampletest.bin";
     options.action[ACTION_PARSE] = 1;
-    openFiles(&options, "w", 0);
+    openFiles(&options, "w");
     tps_assert(options.inputFile != NULL);
     tps_assert(options.outputFile != NULL);
     tps_assert(parseBase(&options) == OK);
@@ -231,7 +231,7 @@ void testRead() {
     options_t options;
     initOptions(&options);
     options.outputFilename = "outsampletest.bin";
-    openFiles(&options, "r", 0);
+    openFiles(&options, "r");
     tps_assert(readEntireBin(&options, 1) == OK);
     closeFiles(&options);
 }
@@ -245,7 +245,7 @@ void testGraph() {
     options_t options;
     initOptions(&options);
     options.outputFilename = "outsampletest.bin";
-    openFiles(&options, "r", 0);
+    openFiles(&options, "r");
     node *node0 = DoListAdjDeBinHash(&options, &taille, hashTable);
     tps_assert(node0 != NULL);
     printListAdj(node0);
@@ -262,7 +262,7 @@ void testArticles() {
     initOptions(&options);
     options.outputFilename = "outsampletest.bin";
     options.authorNames[0] = "Russell Turpin";
-    openFiles(&options, "r", 0);
+    openFiles(&options, "r");
     node *node0 = DoListAdjDeBinHash(&options, &taille, hashTable);
     tps_assert(node0 != NULL);
     tps_assert(showArticles(&options, node0, 0) == OK);
@@ -281,7 +281,7 @@ void testShortestPath() {
     options.outputFilename = "sample2.bin";
     options.authorNames[0] = "Takaya Asano";
     options.authorNames[1] = "Takuya Iwamoto";
-    openFiles(&options, "r", 0);
+    openFiles(&options, "r");
     node0 = DoListAdjDeBinHash(&options, &taille, hashTable);
     tps_assert(node0 != NULL);
     node *node1 = verifyAuthorHash(&options, hashTable, 0);
@@ -305,7 +305,7 @@ void testDistances() {
     options.authorNames[0] = "Takaya Asano";
     options.authorNames[1] = "Takuya Iwamoto";
     options.N = 2;
-    openFiles(&options, "r", 0);
+    openFiles(&options, "r");
     node0 = DoListAdjDeBinHash(&options, &taille, hashTable);
     tps_assert(node0 != NULL);
     node *node1 = verifyAuthorHash(&options, hashTable, 0);
@@ -328,7 +328,7 @@ void testConnected() {
     options_t options;
     initOptions(&options);
     options.outputFilename = "outsampletest.bin";
-    openFiles(&options, "r", 0);
+    openFiles(&options, "r");
     node0 = DoListAdjDeBinHash(&options, &taille, hashTable);
     tps_assert(node0 != NULL);
     nbrComposanteConnexe(node0);
@@ -350,7 +350,7 @@ int main(void) {
     options.authorNames[0] = NULL;
     options.authorNames[1] = NULL;
 
-    openFiles(&options, "r", 0);
+    openFiles(&options, "r");
 
     closeFiles(&options);*/
 
@@ -368,5 +368,5 @@ int main(void) {
     TEST(testDistances);
     TEST(testConnected);
 
-    return 0;
+    return OK;
 }

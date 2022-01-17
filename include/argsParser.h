@@ -5,18 +5,18 @@
 
 /**
  * @brief print fonction usage
- * 
+ *
  */
 void printUsage(void);
 
 /**
- * @brief parse the arguments from the command line 
- * 
- * @param argc 
- * @param argv 
- * @param options 
- * @return int 
+ * @brief parse the arguments from the command line
+ *
+ * @param argc
+ * @param argv
+ * @param options
+ * @return error_t
  */
-int parseArgs(int argc, char ** argv, options_t * options);
+error_t parseArgs(int argc, char **argv, options_t *options);
 
 #endif

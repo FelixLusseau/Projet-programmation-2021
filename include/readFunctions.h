@@ -4,15 +4,7 @@
 #include "program.h"
 
 /**
- * @brief read the XML to count lines
- *
- * @param options
- * @return int
- */
-int readEntireXML(options_t *options);
-
-/**
- * @brief Read an entry from the binary base
+ * @brief Read an entry from the binary file ant put it on the pointer
  *
  * @param options
  * @param structureBase
@@ -28,10 +20,10 @@ void readStructure(options_t *options, structureBase_t *structureBase,
  * @param print
  * @return int
  */
-int readEntireBin(options_t *options, int print);
+error_t readEntireBin(options_t *options, int print);
 
 /**
- * @brief print the structure given in argument
+ * @brief print the structureBase structure given in argument
  *
  * @param structureBase
  */

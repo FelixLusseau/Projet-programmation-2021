@@ -39,13 +39,13 @@ void AuthorSAppend(char **authorS, node *node0, int *taille);
 node *DoListAdjDeBin(options_t *option, int *taille);
 
 /**calcul de la plus petite distance par rapport à un author*/
-int dijkstra(node *node1, node *node2, int taille);
+error_t dijkstra(node *node1, node *node2, int taille);
 
 /** affiche les noeud dont la distance de n1 est positive*/
 void printDistances(options_t *options, node *node0);
 
 /**affiche les auteur dans le plus court chemin entre n1 et n2*/
-int plusCourtChemin(node *Node1, node *Node2, int taille);
+error_t plusCourtChemin(node *Node1, node *Node2, int taille);
 
 int explorationGraphe(node *node0);
 
@@ -58,8 +58,8 @@ node *verifyAuthorHash(options_t *options, node **hashTable, int author0or1);
  *
  * @param options
  * @param node0
- * @return int
+ * @return error_t
  */
-int printAuthorAtDist(options_t *options, node *node0);
+error_t printAuthorAtDist(options_t *options, node *node0);
 
 #endif

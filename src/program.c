@@ -31,7 +31,7 @@ int interruptFlag = 0;
 
 int main(int argc, char **argv) {
     int taille = 0;
-    int exitCode = OK;
+    error_t exitCode = OK;
     initSigaction();
     options_t options;
     node *node0 = NULL;
@@ -43,25 +43,19 @@ int main(int argc, char **argv) {
     for (int i = 0; i < HT_SIZE; i++)
         hashTable[i] = NULL;
     testExitCode(parseArgs(argc, argv, &options));
-    /* if (openFiles(&options, "r", 1) == ERROR_OPEN_BIN) {
-        testExitCode(openFiles(&options, "w", 0));
-        testExitCode(parseBase(&options));
-        printf("\33[0;32mDatabase parsing ok ! \33[0m\n");
-    } else
-        closeFiles(&options);
-    testExitCode(openFiles(&options, "r", 0)); */
+
     if (options.action[ACTION_PARSE] == TO_DO) {
-        testExitCode(openFiles(&options, "w", 0));
+        testExitCode(openFiles(&options, "w"));
         testExitCode(parseBase(&options));
         if (exitCode == OK && interruptFlag == 0)
             printf("\33[0;32mDatabase parsing ok ! \33[0m\n");
     }
     if (options.action[ACTION_READ] == TO_DO) {
-        testExitCode(openFiles(&options, "r", 0));
+        testExitCode(openFiles(&options, "r"));
         testExitCode(readEntireBin(&options, 1));
     }
     if (options.action[ACTION_GRAPH] == TO_DO) {
-        testExitCode(openFiles(&options, "r", 0));
+        testExitCode(openFiles(&options, "r"));
         node0 = DoListAdjDeBinHash(&options, &taille, hashTable);
         if (node0 == NULL) {
             exitCode = ERROR_LIST;
