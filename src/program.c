@@ -34,8 +34,18 @@ int main(int argc, char **argv) {
     error_t exitCode = OK;
     initSigaction();
     options_t options;
+<<<<<<< HEAD
     node *node0=NULL;
     node **hashTable = malloc(HT_SIZE * sizeof(char *));
+=======
+    node *node0 = (node *)malloc(sizeof(node));
+    node0->nodeNumber = -1;
+    node **hashTable = malloc(HT_SIZE * sizeof(char *));
+    if (node0 == NULL) {
+        exitCode = ERROR_NODE_EQ_NULL;
+        goto error;
+    }
+>>>>>>> 239d42bea27dcc8c6a17505ed4084787c82ba819
     if (hashTable == NULL) {
         exitCode = ERROR_HASHTABLE;
         goto error;
