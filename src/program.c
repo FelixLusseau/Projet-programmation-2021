@@ -56,7 +56,7 @@ int main(int argc, char **argv) {
     }
     if (options.action[ACTION_GRAPH] == TO_DO) {
         testExitCode(openFiles(&options, "r"));
-        doListAdjHash(&options, &size, hashTable,node0);
+        doListAdjHash(&options, &size, hashTable, node0);
         if (node0 == NULL) {
             exitCode = ERROR_LIST;
             goto error;

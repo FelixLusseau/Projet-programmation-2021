@@ -21,14 +21,17 @@ unsigned hash(unsigned char *str, int pr) {
     return hash;
 }
 
-node *CreateListAdj(char *author) {
+node *CreateListAdj(char *author, node **hashTable) {
     node *node0 = (node *)malloc(sizeof(node));
     if (node0 == NULL) {
         fprintf(stderr, "creatListAdj:erreur malloc node = NULL\n");
         return NULL;
     }
     int k = 0;
+    unsigned int hash1 = 0;
     while (author[k] != '\0') {
+        hash1 = hash((unsigned char *)author[k], pr1);
+        hashTable[hash1] = node0;
         node0->author[k] = author[k];
         k++;
     }
@@ -104,7 +107,7 @@ void appendEdgeHash(unsigned int hash1, unsigned int hash2, node **hashTable) {
 }
 
 node *ListeAdj2(node *end, int *size, structureBase_t *Entree,
-                   node **hashTable) {
+                node **hashTable) {
     int pr[4] = {pr1, pr2, pr3, pr4};
     int n1 = 0;
     int L[500];
@@ -145,7 +148,8 @@ node *ListeAdj2(node *end, int *size, structureBase_t *Entree,
     return end;
 }
 
-error_t doListAdjHash(options_t *options, int *size, node **hashTable,node *node0) {
+error_t doListAdjHash(options_t *options, int *size, node **hashTable,
+                      node *node0) {
     int nbEntries = readEntireBin(options, 0);
     printf("\n************************************* Start of the function "
            "graph *************************************\n\n");
@@ -163,10 +167,10 @@ error_t doListAdjHash(options_t *options, int *size, node **hashTable,node *node
         return ERROR_LIST;
     }
 
-    node0 = CreateListAdj(Entree.author[0]);
+    node0 = CreateListAdj(Entree.author[0], hashTable);
     if (node0 == NULL)
         return ERROR_LIST;
-    
+
     node *end = node0;
     if (Entree.authornb > 1) {
         end = ListeAdj2(end, size, &Entree, hashTable);
@@ -191,9 +195,8 @@ error_t doListAdjHash(options_t *options, int *size, node **hashTable,node *node
         if (curseur % 50000 == 0) {
             progressBar(curseur * 100 / nbEntries);
         }
-
     }
-    
+
     progressBar(100);
     printf("\33[?25h");
     printf("\n\n************************************** End of the function "
