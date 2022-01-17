@@ -206,6 +206,10 @@ void freeEdge(node *currentNode) {
     free(currentEdge);
 }
 void freeListAdj(node *node0, int print) {
+    if (node0->nodeNumber == -1) {
+        free(node0);
+        return;
+    }
     if (print)
         printf("\n\n************************************ Freeing the "
                "space **************************************\n\n");

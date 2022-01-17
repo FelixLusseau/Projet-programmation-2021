@@ -35,10 +35,12 @@ int main(int argc, char **argv) {
     initSigaction();
     options_t options;
     node *node0 = (node *)malloc(sizeof(node));
-    if (node0 == NULL) {
-        fprintf(stderr, "creatListAdj:erreur malloc node = NULL\n");
-    }
+    node0->nodeNumber = -1;
     node **hashTable = malloc(HT_SIZE * sizeof(char *));
+    if (node0 == NULL) {
+        exitCode = ERROR_NODE_EQ_NULL;
+        goto error;
+    }
     if (hashTable == NULL) {
         exitCode = ERROR_HASHTABLE;
         goto error;
