@@ -82,10 +82,11 @@ void testMallocError2() {
     int exitCode = OK;
     options.outputFilename = "sample.bin";
     openFiles(&options, "r");
-    node *node0;
+    node *node0 = NULL;
     int size = 0;
-    tps_assert((node0 = DoListAdjDeBinHash(&options, &size, hashTable)) ==
-               NULL);
+    tps_assert((doListAdjHash(&options, &size, hashTable, node0)) ==
+               ERROR_LIST);
+    tps_assert(node0 == NULL);
     if (node0 == NULL)
         exitCode = ERROR_LIST;
     fprintf(stderr, "%s\n", errorToString(exitCode));
@@ -196,7 +197,8 @@ void testGraph() {
     initOptions(&options);
     options.outputFilename = "outsampletest.bin";
     openFiles(&options, "r");
-    node *node0 = DoListAdjDeBinHash(&options, &size, hashTable);
+    node *node0 = NULL;
+    doListAdjHash(&options, &size, hashTable, node0);
     tps_assert(node0 != NULL);
     printListAdj(node0);
     endOfProgram(&options, node0, hashTable);
@@ -213,7 +215,8 @@ void testArticles() {
     options.outputFilename = "outsampletest.bin";
     options.authorNames[0] = "Russell Turpin";
     openFiles(&options, "r");
-    node *node0 = DoListAdjDeBinHash(&options, &size, hashTable);
+    node *node0 = NULL;
+    doListAdjHash(&options, &size, hashTable, node0);
     tps_assert(node0 != NULL);
     tps_assert(showArticles(&options, node0, 0) == OK);
     endOfProgram(&options, node0, hashTable);
@@ -232,7 +235,7 @@ void testShortestPath() {
     options.authorNames[0] = "Takaya Asano";
     options.authorNames[1] = "Takuya Iwamoto";
     openFiles(&options, "r");
-    node0 = DoListAdjDeBinHash(&options, &size, hashTable);
+    doListAdjHash(&options, &size, hashTable, node0);
     tps_assert(node0 != NULL);
     node *node1 = verifyAuthorHash(&options, hashTable, 0);
     node *node2 = verifyAuthorHash(&options, hashTable, 1);
@@ -256,7 +259,7 @@ void testDistances() {
     options.authorNames[1] = "Takuya Iwamoto";
     options.N = 2;
     openFiles(&options, "r");
-    node0 = DoListAdjDeBinHash(&options, &size, hashTable);
+    doListAdjHash(&options, &size, hashTable, node0);
     tps_assert(node0 != NULL);
     node *node1 = verifyAuthorHash(&options, hashTable, 0);
     node *node2 = verifyAuthorHash(&options, hashTable, 1);
@@ -279,7 +282,7 @@ void testConnected() {
     initOptions(&options);
     options.outputFilename = "outsampletest.bin";
     openFiles(&options, "r");
-    node0 = DoListAdjDeBinHash(&options, &size, hashTable);
+    doListAdjHash(&options, &size, hashTable, node0);
     tps_assert(node0 != NULL);
     nbrConnectedComponent(node0);
     tps_assert(node0->flag == 1);
@@ -287,23 +290,6 @@ void testConnected() {
 }
 
 int main(void) {
-    /*// testCreateListeAdj();
-    options_t options;
-    options.inputFilename = "../database/dblp.xml";
-    // options.outputFilename = "../database/dblp.bin";
-    // options.outputFilename = "../tests/sample.bin";
-    options.inputFile = NULL;
-    options.outputFile = NULL;
-    options.action[ACTION_UNKNOWN] = 1;
-    for (int a = 1; a < 6; a++)
-        options.action[a] = NOT_TO_DO;
-    options.authorNames[0] = NULL;
-    options.authorNames[1] = NULL;
-
-    openFiles(&options, "r");
-
-    closeFiles(&options);*/
-
     TEST(testErrorFiles);
     TEST(testMallocError1);
     TEST(testMallocError2);
