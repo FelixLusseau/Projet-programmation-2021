@@ -6,7 +6,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-// Structure pour faire une liste adjacente.
+/** Struct for graph */
 typedef struct node {
     char author[100];
     int nodeNumber;

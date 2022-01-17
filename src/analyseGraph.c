@@ -148,7 +148,7 @@ error_t dijkstra(node *node1, node *node2, int size) {
 
     /* list of nodes not marked (flag=0) with a distance changed from infinity
     (!=-1), it is used to find the minimum wich is the next currentNode*/
-    node *listDistance = CreateListAdj("0");
+    node *listDistance = (node *)malloc(sizeof(node));
     if (listDistance == NULL)
         return ERROR_NODE_EQ_NULL;
     listDistance->distance = 1;
@@ -156,7 +156,7 @@ error_t dijkstra(node *node1, node *node2, int size) {
     int k = 0;
 
     printf("************************************* Start dijkstra"
-           "*************************************\n\n");
+           " *************************************\n\n");
     while (k < size) {
         currentEdge = currentNode->nodeEdge;
         neighbor = currentEdge->otherNode;
@@ -230,7 +230,7 @@ error_t dijkstra(node *node1, node *node2, int size) {
 
     freeListAdj(listDistance, 0);
     printf("\n************************************* End dijkstra"
-           "*************************************\n\n");
+           " *************************************\n\n");
     return OK;
 }
 
@@ -301,7 +301,7 @@ int exploreGraph(node *node0) {
     edge *currentEdge = node0->nodeEdge;
     node *neighbor = currentEdge->otherNode;
 
-    node *debutListe = CreateListAdj("0");
+    node *debutListe = (node *)malloc(sizeof(node));
     edge *endListe = appendListeEdge(NULL, node0, debutListe);
 
     while (debutListe->nodeEdge != NULL) {

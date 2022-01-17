@@ -17,21 +17,15 @@ unsigned hash(unsigned char *str, int pr) {
     while ((c = *str++))
         hash = ((hash << 5) + hash) + c;
     hash %= HT_SIZE;
-    // printf("%u\n", hash);
     return hash;
 }
 
-node *CreateListAdj(char *author, node **hashTable) {
-    node *node0 = (node *)malloc(sizeof(node));
-    if (node0 == NULL) {
-        fprintf(stderr, "creatListAdj:erreur malloc node = NULL\n");
-        return NULL;
-    }
+void CreateListAdj(char *author, node **hashTable, node *node0) {
     int k = 0;
     unsigned int hash1 = 0;
+    hash1 = hash((unsigned char *)author, pr1);
+    hashTable[hash1] = node0;
     while (author[k] != '\0') {
-        hash1 = hash((unsigned char *)author[k], pr1);
-        hashTable[hash1] = node0;
         node0->author[k] = author[k];
         k++;
     }
@@ -42,8 +36,6 @@ node *CreateListAdj(char *author, node **hashTable) {
     // distance = -1 means infinity
     node0->distance = -1;
     node0->nodeEdge = NULL;
-
-    return node0;
 }
 
 int AuthorInListHash(char *author, node **hashTable, int pr) {
@@ -167,10 +159,9 @@ error_t doListAdjHash(options_t *options, int *size, node **hashTable,
         return ERROR_LIST;
     }
 
-    node0 = CreateListAdj(Entree.author[0], hashTable);
+    CreateListAdj(Entree.author[0], hashTable, node0);
     if (node0 == NULL)
         return ERROR_LIST;
-
     node *end = node0;
     if (Entree.authornb > 1) {
         end = ListeAdj2(end, size, &Entree, hashTable);
@@ -217,7 +208,7 @@ void freeEdge(node *currentNode) {
 void freeListAdj(node *node0, int print) {
     if (print)
         printf("\n\n************************************ Freeing the "
-               "space**************************************\n\n");
+               "space **************************************\n\n");
     node *currentNode = node0;
     node *interN;
     while (currentNode->nextNode != NULL) {
