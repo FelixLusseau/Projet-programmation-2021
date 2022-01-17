@@ -220,7 +220,6 @@ void testArticles() {
 
 void testShortestPath() {
     int size = 0;
-    node *node0 = NULL;
     node **hashTable = malloc(HT_SIZE * sizeof(unsigned int) * sizeof(char *));
     tps_assert(hashTable != NULL);
     for (int i = 0; i < HT_SIZE; i++)
@@ -231,7 +230,7 @@ void testShortestPath() {
     options.authorNames[0] = "Takaya Asano";
     options.authorNames[1] = "Takuya Iwamoto";
     openFiles(&options, "r");
-    node0 = doListAdjHash(&options, &size, hashTable);
+    node *node0 = doListAdjHash(&options, &size, hashTable);
     tps_assert(node0 != NULL);
     node *node1 = verifyAuthorHash(&options, hashTable, 0);
     node *node2 = verifyAuthorHash(&options, hashTable, 1);
@@ -243,7 +242,6 @@ void testShortestPath() {
 
 void testDistances() {
     int size = 0;
-    node *node0 = NULL;
     node **hashTable = malloc(HT_SIZE * sizeof(unsigned int) * sizeof(char *));
     tps_assert(hashTable != NULL);
     for (int i = 0; i < HT_SIZE; i++)
@@ -255,7 +253,7 @@ void testDistances() {
     options.authorNames[1] = "Takuya Iwamoto";
     options.N = 2;
     openFiles(&options, "r");
-    node0 = doListAdjHash(&options, &size, hashTable);
+    node *node0 = doListAdjHash(&options, &size, hashTable);
     tps_assert(node0 != NULL);
     node *node1 = verifyAuthorHash(&options, hashTable, 0);
     node *node2 = verifyAuthorHash(&options, hashTable, 1);
@@ -269,7 +267,6 @@ void testDistances() {
 
 void testConnected() {
     int size = 0;
-    node *node0 = NULL;
     node **hashTable = malloc(HT_SIZE * sizeof(unsigned int) * sizeof(char *));
     tps_assert(hashTable != NULL);
     for (int i = 0; i < HT_SIZE; i++)
@@ -278,7 +275,7 @@ void testConnected() {
     initOptions(&options);
     options.outputFilename = "outsampletest.bin";
     openFiles(&options, "r");
-    node0 = doListAdjHash(&options, &size, hashTable);
+    node *node0 = doListAdjHash(&options, &size, hashTable);
     tps_assert(node0 != NULL);
     nbrConnectedComponent(node0);
     tps_assert(node0->flag == 1);

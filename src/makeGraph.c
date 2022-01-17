@@ -24,6 +24,7 @@ node *CreateListAdj(char *author, node **hashTable) {
     node *node0 = (node *)malloc(sizeof(node));
     if (node0 == NULL) {
         fprintf(stderr, "creatListAdj:erreur malloc node = NULL\n");
+        return NULL;
     }
     int k = 0;
     unsigned int hash1 = 0;
@@ -163,7 +164,9 @@ node *doListAdjHash(options_t *options, int *size, node **hashTable) {
         return NULL;
     }
 
-    node *node0=CreateListAdj(Entree.author[0],hashTable);
+    node *node0 = CreateListAdj(Entree.author[0], hashTable);
+    if (node0 == NULL)
+        return NULL;
     node *end = node0;
     if (Entree.authornb > 1) {
         end = ListeAdj2(end, size, &Entree, hashTable);
@@ -208,10 +211,6 @@ void freeEdge(node *currentNode) {
     free(currentEdge);
 }
 void freeListAdj(node *node0, int print) {
-    if (node0->nodeNumber == -1) {
-        free(node0);
-        return;
-    }
     if (print)
         printf("\n\n************************************ Freeing the "
                "space **************************************\n\n");
