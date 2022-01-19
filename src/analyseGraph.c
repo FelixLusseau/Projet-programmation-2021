@@ -7,7 +7,7 @@
 #include "makeGraph.h"
 
 #include "program.h"
-#include "readFunctions.h"
+#include "readBin.h"
 #include "tps_unit_test.h"
 
 extern int interruptFlag;
@@ -89,7 +89,6 @@ void printListEdge(node *node0) {
     }
     printf("\n");
 }
-
 
 node *createList(void) {
     node *node0 = (node *)malloc(sizeof(node));

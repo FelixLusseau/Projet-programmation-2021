@@ -9,7 +9,7 @@
 #include "io-utils.h"
 #include "makeGraph.h"
 #include "program.h"
-#include "readFunctions.h"
+#include "readBin.h"
 #include "searchingFunctions.h"
 
 extern int interruptFlag;

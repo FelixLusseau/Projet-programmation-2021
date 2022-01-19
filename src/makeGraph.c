@@ -6,7 +6,7 @@
 #include "baseParser.h"
 #include "io-utils.h"
 #include "program.h"
-#include "readFunctions.h"
+#include "readBin.h"
 #include "tps_unit_test.h"
 
 extern int interruptFlag;
@@ -170,7 +170,9 @@ node *doListAdjHash(options_t *options, int *size, node **hashTable) {
         return NULL;
     }
 
-    node *node0=CreateListAdj(Entree.author[0],hashTable);
+    node *node0 = CreateListAdj(Entree.author[0], hashTable);
+    if (node0 == NULL)
+        return NULL;
     node *end = node0;
     if (Entree.authornb > 1) {
         end = ListeAdj2(end, size, &Entree, hashTable);
@@ -215,10 +217,6 @@ void freeEdge(node *currentNode) {
     free(currentEdge);
 }
 void freeListAdj(node *node0, int print) {
-    if (node0->nodeNumber == -1) {
-        free(node0);
-        return;
-    }
     if (print)
         printf("\n\n************************************ Freeing the "
                "space **************************************\n\n");

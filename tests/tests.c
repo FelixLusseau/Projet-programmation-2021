@@ -13,7 +13,7 @@
 #include "io-utils.h"
 #include "makeGraph.h"
 #include "program.h"
-#include "readFunctions.h"
+#include "readBin.h"
 #include "searchingFunctions.h"
 #include "tps_unit_test.h"
 
@@ -24,7 +24,7 @@ TEST_INIT_GLOBAL
 void testArgMissing() {
     options_t options;
     int argc = 3;
-    char *argv[] = {"./bin/program", "-g", "-o"};
+    char *argv[] = {"./bin/program", "-g", "-o", NULL};
     tps_assert(parseArgs(argc, argv, &options) == ERROR_ARGS_PARSE);
 }
 
@@ -155,7 +155,8 @@ void testParseArgs() {
                     "-d",
                     "-n",
                     "2",
-                    "-c"};
+                    "-c",
+                    NULL};
     tps_assert(parseArgs(argc, argv, &options) == OK);
     tps_assert(strcmp(options.outputFilename, "tests/sample.bin") == 0);
     tps_assert(options.year == 2021);
@@ -220,7 +221,6 @@ void testArticles() {
 
 void testShortestPath() {
     int size = 0;
-    node *node0 = NULL;
     node **hashTable = malloc(HT_SIZE * sizeof(unsigned int) * sizeof(char *));
     tps_assert(hashTable != NULL);
     for (int i = 0; i < HT_SIZE; i++)
@@ -231,7 +231,7 @@ void testShortestPath() {
     options.authorNames[0] = "Takaya Asano";
     options.authorNames[1] = "Takuya Iwamoto";
     openFiles(&options, "r");
-    node0 = doListAdjHash(&options, &size, hashTable);
+    node *node0 = doListAdjHash(&options, &size, hashTable);
     tps_assert(node0 != NULL);
     node *node1 = verifyAuthorHash(&options, hashTable, 0);
     node *node2 = verifyAuthorHash(&options, hashTable, 1);
@@ -243,7 +243,6 @@ void testShortestPath() {
 
 void testDistances() {
     int size = 0;
-    node *node0 = NULL;
     node **hashTable = malloc(HT_SIZE * sizeof(unsigned int) * sizeof(char *));
     tps_assert(hashTable != NULL);
     for (int i = 0; i < HT_SIZE; i++)
@@ -255,7 +254,7 @@ void testDistances() {
     options.authorNames[1] = "Takuya Iwamoto";
     options.N = 2;
     openFiles(&options, "r");
-    node0 = doListAdjHash(&options, &size, hashTable);
+    node *node0 = doListAdjHash(&options, &size, hashTable);
     tps_assert(node0 != NULL);
     node *node1 = verifyAuthorHash(&options, hashTable, 0);
     node *node2 = verifyAuthorHash(&options, hashTable, 1);
@@ -269,7 +268,6 @@ void testDistances() {
 
 void testConnected() {
     int size = 0;
-    node *node0 = NULL;
     node **hashTable = malloc(HT_SIZE * sizeof(unsigned int) * sizeof(char *));
     tps_assert(hashTable != NULL);
     for (int i = 0; i < HT_SIZE; i++)
@@ -278,7 +276,7 @@ void testConnected() {
     initOptions(&options);
     options.outputFilename = "outsampletest.bin";
     openFiles(&options, "r");
-    node0 = doListAdjHash(&options, &size, hashTable);
+    node *node0 = doListAdjHash(&options, &size, hashTable);
     tps_assert(node0 != NULL);
     nbrConnectedComponent(node0);
     tps_assert(node0->flag == 1);

@@ -5,7 +5,7 @@
 
 #include "baseParser.h"
 #include "io-utils.h"
-#include "readFunctions.h"
+#include "readBin.h"
 #include "tps_unit_test.h"
 
 extern int interruptFlag;
@@ -32,6 +32,14 @@ void extractAuthor(structureBase_t *structureBase, char *line) {
         dec = i;
     }
     while (line[i] != '<') {
+        /* if (line[i] == '&') {
+            structureBase->author[structureBase->authornb][i - dec] =
+                line[i + 1];
+            while (line[i] != ';') {
+                i++;
+                dec++;
+            }
+        } */
         structureBase->author[structureBase->authornb][i - dec] = line[i];
         i++;
     }

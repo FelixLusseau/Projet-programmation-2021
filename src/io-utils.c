@@ -108,7 +108,8 @@ error_t closeFiles(options_t *options) {
 }
 
 void endOfProgram(options_t *options, node *node0, node **hashTable) {
-    freeListAdj(node0, 1);
+    if (node0 != NULL)
+        freeListAdj(node0, 1);
     if (hashTable != NULL)
         free(hashTable);
     closeFiles(options);

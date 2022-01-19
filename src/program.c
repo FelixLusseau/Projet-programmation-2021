@@ -8,7 +8,7 @@
 #include "io-utils.h"
 #include "makeGraph.h"
 #include "program.h"
-#include "readFunctions.h"
+#include "readBin.h"
 #include "searchingFunctions.h"
 #include "tps_unit_test.h"
 
@@ -34,14 +34,12 @@ int main(int argc, char **argv) {
     error_t exitCode = OK;
     initSigaction();
     options_t options;
-    node *node0=NULL;
-    node **hashTable = malloc(HT_SIZE * sizeof(char *));
+    node *node0 = NULL;
+    node **hashTable = calloc(HT_SIZE, sizeof(char *));
     if (hashTable == NULL) {
         exitCode = ERROR_HASHTABLE;
         goto error;
     }
-    for (int i = 0; i < HT_SIZE; i++)
-        hashTable[i] = NULL;
     testExitCode(parseArgs(argc, argv, &options));
 
     if (options.action[ACTION_PARSE] == TO_DO) {
