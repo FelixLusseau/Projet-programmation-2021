@@ -24,6 +24,7 @@ node *CreateListAdj(char *author, node **hashTable) {
     node *node0 = (node *)malloc(sizeof(node));
     if (node0 == NULL) {
         fprintf(stderr, "creatListAdj:erreur malloc node = NULL\n");
+        return NULL;
     }
     int k = 0;
     unsigned int hash1 = 0;
@@ -116,20 +117,26 @@ node *ListeAdj2(node *end, int *size, structureBase_t *Entree,
     for (int k = 0; k < Entree->authornb; k++) {
         char *author1 = Entree->author[k];
         unsigned int hash1 = 0;
+        
         for (int p = 0; p < 4; p++) {
+
             hash1 = hash((unsigned char *)author1, pr[p]);
             n1 = AuthorInListHash(author1, hashTable, pr[p]);
+
             if (n1 == -1) {
                 end = appendNode(author1, end);
                 hashTable[hash1] = end;
                 *size += 1;
                 n1 = *size;
                 break;
-            } else if (n1 == -2) {
+            } 
+            else if (n1 == -2) {
                 continue;
-            } else
+            } 
+            else
                 break;
         }
+
         L[index] = n1;
         LH[index] = hash1;
         index++;

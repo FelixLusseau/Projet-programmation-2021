@@ -38,13 +38,16 @@ void printListNode(node *node0) {
     node *currentNode = node0;
     printf("\n");
     printf("List node:\n");
+
     while (currentNode->nextNode != NULL) {
+
         if (interruptFlag == 1) {
             break;
         }
         printf("  %i:%s\n", currentNode->nodeNumber, currentNode->author);
         currentNode = currentNode->nextNode;
     }
+
     printf("  %i:%s\n", currentNode->nodeNumber, currentNode->author);
 }
 
@@ -52,11 +55,13 @@ void printListEdgeOfAuthor(node *node0) {
     edge *currentEdge = node0->nodeEdge;
     printf(" %s -> %s|", currentEdge->linkNode->author,
            currentEdge->otherNode->author);
+
     while (currentEdge->nextEdge != NULL) {
         printf(" %s -> %s|", currentEdge->linkNode->author,
                currentEdge->otherNode->author);
         currentEdge = currentEdge->nextEdge;
     }
+
     printf(" %s -> %s|", currentEdge->linkNode->author,
            currentEdge->otherNode->author);
 }
@@ -66,7 +71,9 @@ void printListEdge(node *node0) {
     edge *currentEdge = currentNode->nodeEdge;
     printf("\n");
     printf("List edges:\n");
+
     while (currentNode->nextNode != NULL) {
+
         if (interruptFlag == 1) {
             break;
         }
@@ -76,6 +83,7 @@ void printListEdge(node *node0) {
         }
         currentNode = currentNode->nextNode;
     }
+
     if (currentEdge != NULL) {
         printListEdgeOfAuthor(currentNode);
     }
@@ -170,16 +178,25 @@ error_t dijkstra(node *node1, node *node2, int size) {
     printf("************************************* Start dijkstra"
            " *************************************\n\n");
     while (k < size) {
+
+        if (interruptFlag == 1) {
+            printf("\33[?25h");
+            break;
+        }
+
         currentEdge = currentNode->nodeEdge;
         neighbor = currentEdge->otherNode;
+
         /* explore neigbour and change their distance*/
         while (currentEdge != NULL) {
+
             flag = neighbor->distance;
             if (neighbor->distance == -1 ||
                 (neighbor->distance > (currentNode->distance + 1) &&
                  neighbor->flag == 0)) {
 
                 neighbor->distance = currentNode->distance + 1;
+
                 /* if the e neighbor had a distance=-1 before
                 then he wasn't in listDistance */
                 if (flag == -1) {
@@ -188,6 +205,7 @@ error_t dijkstra(node *node1, node *node2, int size) {
                     listDistance->distance += 1;
                 }
             }
+
             if (currentEdge->nextEdge == NULL) {
                 break;
             }
@@ -216,6 +234,7 @@ error_t dijkstra(node *node1, node *node2, int size) {
             int minDistance = minNode->distance;
 
             while (1) {
+
                 /* if distance = previous minimum, then it is a minimum */
                 if (listeEdge->linkNode->distance == currentNode->distance) {
                     minNode = listeEdge->linkNode;
@@ -231,6 +250,7 @@ error_t dijkstra(node *node1, node *node2, int size) {
                 }
                 listeEdge = listeEdge->nextEdge;
             }
+
             currentNode = minNode;
         }
         k++;
@@ -378,6 +398,7 @@ error_t printAuthorAtDist(options_t *options, node *node0) {
     node *currentNode = node0;
     printf("\nAuthors at distance %i of %s : \n", options->N,
            options->authorNames[0]);
+           
     while (currentNode->nextNode != NULL) {
         if (currentNode->distance == options->N) {
             printf(" - %s\n", currentNode->author);
