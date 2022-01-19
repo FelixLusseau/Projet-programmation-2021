@@ -147,11 +147,11 @@ void testParseArgs() {
                     "-y",
                     "2021",
                     "-l",
-                    "Pascal M&eacute;rindol",
+                    "Pascal Merindol",
                     "-p",
                     "Quentin Bramas",
                     "-p",
-                    "Pascal M&eacute;rindol",
+                    "Pascal Merindol",
                     "-d",
                     "-n",
                     "2",
@@ -160,7 +160,7 @@ void testParseArgs() {
     tps_assert(parseArgs(argc, argv, &options) == OK);
     tps_assert(strcmp(options.outputFilename, "tests/sample.bin") == 0);
     tps_assert(options.year == 2021);
-    tps_assert(strcmp(options.authorNames[0], "Pascal M&eacute;rindol") == 0);
+    tps_assert(strcmp(options.authorNames[0], "Pascal Merindol") == 0);
     tps_assert(options.action[ACTION_SHOW_ARTICLES_YEAR] == TO_DO);
 }
 
