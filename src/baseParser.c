@@ -32,16 +32,38 @@ void extractAuthor(structureBase_t *structureBase, char *line) {
         dec = i;
     }
     while (line[i] != '<') {
-        /* if (line[i] == '&') {
-            structureBase->author[structureBase->authornb][i - dec] =
-                line[i + 1];
+        if (line[i] == '&') {
+            if (line[i + 1] == 'e' && line[i + 2] == 't') {
+                structureBase->author[structureBase->authornb][i - dec] = 'd';
+            } else if (line[i + 1] == 'E' && line[i + 2] == 'T') {
+                structureBase->author[structureBase->authornb][i - dec] = 'D';
+            } else if (line[i + 1] == 't' && line[i + 2] == 'h') {
+                structureBase->author[structureBase->authornb][i - dec] = 't';
+                structureBase->author[structureBase->authornb][i - dec + 1] =
+                    'h';
+                dec--;
+            } else if (line[i + 1] == 'T' && line[i + 2] == 'H') {
+                structureBase->author[structureBase->authornb][i - dec] = 'T';
+                structureBase->author[structureBase->authornb][i - dec + 1] =
+                    'H';
+                dec--;
+            } else if (line[i + 1] == 's' && line[i + 2] == 'z') {
+                structureBase->author[structureBase->authornb][i - dec] = 's';
+                structureBase->author[structureBase->authornb][i - dec + 1] =
+                    's';
+                dec--;
+            } else
+                structureBase->author[structureBase->authornb][i - dec] =
+                    line[i + 1];
             while (line[i] != ';') {
                 i++;
                 dec++;
             }
-        } */
-        structureBase->author[structureBase->authornb][i - dec] = line[i];
-        i++;
+            i++;
+        } else {
+            structureBase->author[structureBase->authornb][i - dec] = line[i];
+            i++;
+        }
     }
     structureBase->author[structureBase->authornb][i - dec] = '\0';
     structureBase->authorlengths[structureBase->authornb] = i - dec;
@@ -60,17 +82,40 @@ void extractYear(structureBase_t *structureBase, char *line) {
 }
 
 void extractTitle(structureBase_t *structureBase, char *line) {
-    int i = 7;
-    while (1) {
-        if (line[0] == '<' && line[i] == '<' && line[i + 2] == 't') {
-            structureBase->titleLength = i - 7;
-            break;
+    int dec = 7;
+    int i = dec;
+    while (line[i] != '<') {
+        if (line[i] == '&') {
+            if (line[i + 1] == 'e' && line[i + 2] == 't') {
+                structureBase->title[i - dec] = 'd';
+            } else if (line[i + 1] == 'E' && line[i + 2] == 'T') {
+                structureBase->title[i - dec] = 'D';
+            } else if (line[i + 1] == 't' && line[i + 2] == 'h') {
+                structureBase->title[i - dec] = 't';
+                structureBase->title[i - dec + 1] = 'h';
+                dec--;
+            } else if (line[i + 1] == 'T' && line[i + 2] == 'H') {
+                structureBase->title[i - dec] = 'T';
+                structureBase->title[i - dec + 1] = 'H';
+                dec--;
+            } else if (line[i + 1] == 's' && line[i + 2] == 'z') {
+                structureBase->title[i - dec] = 's';
+                structureBase->title[i - dec + 1] = 's';
+                dec--;
+            } else
+                structureBase->title[i - dec] = line[i + 1];
+            while (line[i] != ';') {
+                i++;
+                dec++;
+            }
+            i++;
+        } else {
+            structureBase->title[i - dec] = line[i];
+            i++;
         }
-        structureBase->title[i - 7] = line[i];
-        i++;
     }
-    structureBase->titleLength = i - 7;
-    structureBase->title[i - 7] = '\0';
+    structureBase->titleLength = i - dec;
+    structureBase->title[i - dec] = '\0';
 }
 
 error_t parseBase(options_t *options) {
