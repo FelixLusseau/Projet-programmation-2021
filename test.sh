@@ -64,6 +64,10 @@ annoncer "Execution graphe sample"
 $VALGRIND ./$TARGET -o tests/sample.bin -g -s >> $LOG 2>&1 || fail
 coloredEcho "OK" green
 
+annoncer "Execution parsing base sample + graphe"
+$VALGRIND ./$TARGET -i tests/sample.xml -o tests/out -x -g >> $LOG 2>&1 || fail
+coloredEcho "OK" green
+
 annoncer "Execution recherche auteurs"
 $VALGRIND ./$TARGET -o tests/sample.bin -l "Rus" >> $LOG 2>&1 || fail
 coloredEcho "OK" green

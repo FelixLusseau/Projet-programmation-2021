@@ -29,6 +29,7 @@ tests: $(OBJECTS) obj/tests.o
 cov: clean tests
 	valgrind --leak-check=full -q ./$(TARGET)
 	lcov -d obj -c -o rapport.info
+	lcov --remove rapport.info '/usr/include/*' -o rapport.info
 	genhtml -o rapport -t "Couverture" rapport.info
 
 

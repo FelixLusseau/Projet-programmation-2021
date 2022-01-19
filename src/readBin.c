@@ -11,6 +11,18 @@
 
 extern int interruptFlag;
 
+int nbEntriesBin(options_t *options) {
+    int nbEntries;
+    fseek(options->outputFile, 14, SEEK_SET);
+    int ret = fread(&nbEntries, sizeof(int), 1, options->outputFile);
+    if (ret == -1) {
+        nbEntries = 1;
+        fprintf(stderr, "Unable to read nbEntries ! \n");
+    }
+    fseek(options->outputFile, 28, SEEK_SET);
+    return nbEntries;
+}
+
 void readStructure(options_t *options, structureBase_t *structureBase,
                    int16_t precAuthornb) {
     int exitCode;
@@ -35,10 +47,9 @@ void readStructure(options_t *options, structureBase_t *structureBase,
     // printStruct(structureBase);
 }
 
-error_t readEntireBin(options_t *options, int print) {
+error_t readEntireBin(options_t *options) {
     initSigaction();
-    fseek(options->outputFile, 14, SEEK_SET);
-    int counter = 0;
+    fseek(options->outputFile, 28, SEEK_SET);
     int16_t precAuthornb = 0;
     structureBase_t structureBase;
     while (1) {
@@ -46,13 +57,7 @@ error_t readEntireBin(options_t *options, int print) {
         if (structureBase.authornb == 0 || interruptFlag == 1)
             break;
         precAuthornb = structureBase.authornb;
-        if (print == 1)
-            printStruct(&structureBase);
-        counter++;
-    }
-    if (print == 0) {
-        fseek(options->outputFile, 14, SEEK_SET);
-        return counter;
+        printStruct(&structureBase);
     }
     return OK;
 }

@@ -50,7 +50,7 @@ int main(int argc, char **argv) {
     }
     if (options.action[ACTION_READ] == TO_DO) {
         testExitCode(openFiles(&options, "r"));
-        testExitCode(readEntireBin(&options, 1));
+        testExitCode(readEntireBin(&options));
     }
     if (options.action[ACTION_GRAPH] == TO_DO) {
         testExitCode(openFiles(&options, "r"));

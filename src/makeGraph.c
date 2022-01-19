@@ -117,7 +117,7 @@ node *ListeAdj2(node *end, int *size, structureBase_t *Entree,
     for (int k = 0; k < Entree->authornb; k++) {
         char *author1 = Entree->author[k];
         unsigned int hash1 = 0;
-        
+
         for (int p = 0; p < 4; p++) {
 
             hash1 = hash((unsigned char *)author1, pr[p]);
@@ -129,11 +129,9 @@ node *ListeAdj2(node *end, int *size, structureBase_t *Entree,
                 *size += 1;
                 n1 = *size;
                 break;
-            } 
-            else if (n1 == -2) {
+            } else if (n1 == -2) {
                 continue;
-            } 
-            else
+            } else
                 break;
         }
 
@@ -153,9 +151,9 @@ node *ListeAdj2(node *end, int *size, structureBase_t *Entree,
 }
 
 node *doListAdjHash(options_t *options, int *size, node **hashTable) {
-    int nbEntries = readEntireBin(options, 0);
-    printf("\n************************************* Start of the function "
-           "graph *************************************\n\n");
+    int nbEntries = nbEntriesBin(options);
+    printf("\n************************************* Start of the graph "
+           "function *************************************\n\n");
     printf("\33[?25l");
 
     *size = 0;
@@ -201,8 +199,8 @@ node *doListAdjHash(options_t *options, int *size, node **hashTable) {
 
     progressBar(100);
     printf("\33[?25h");
-    printf("\n\n************************************** End of the function "
-           "graph **************************************\n\n");
+    printf("\n\n************************************** End of the graph "
+           "function **************************************\n\n");
     return node0;
 }
 
@@ -218,8 +216,8 @@ void freeEdge(node *currentNode) {
 }
 void freeListAdj(node *node0, int print) {
     if (print)
-        printf("\n\n************************************ Freeing the "
-               "space **************************************\n\n");
+        printf("\n\n***************************************** Freeing the "
+               "space *******************************************\n\n");
     node *currentNode = node0;
     node *interN;
     while (currentNode->nextNode != NULL) {

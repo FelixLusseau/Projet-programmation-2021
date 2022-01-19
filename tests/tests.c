@@ -113,7 +113,7 @@ void testInterruption() {
     default:
         options.outputFilename = "outsampletest.bin";
         openFiles(&options, "r");
-        tps_assert(readEntireBin(&options, 1) == OK);
+        tps_assert(readEntireBin(&options) == OK);
         endOfProgram(&options, node0, hashTable);
         if (wait(&raison) == -1)
             fprintf(stderr, "fail wait\n");
@@ -182,7 +182,7 @@ void testRead() {
     initOptions(&options);
     options.outputFilename = "outsampletest.bin";
     openFiles(&options, "r");
-    tps_assert(readEntireBin(&options, 1) == OK);
+    tps_assert(readEntireBin(&options) == OK);
     closeFiles(&options);
 }
 

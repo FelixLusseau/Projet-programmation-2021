@@ -122,6 +122,8 @@ error_t parseBase(options_t *options) {
     initSigaction();
     printf("Parsing...\n");
     fprintf(options->outputFile, "<binary file>\n");
+    fprintf(options->outputFile, "             \n");
+    int counter = 0;
     char *line = malloc(1500);
     if (line == NULL) {
         return ERROR_BASE_PARSE;
@@ -137,6 +139,7 @@ error_t parseBase(options_t *options) {
             extractYear(&structureBase, line);
         else if (line[0] == '<' && line[1] == '/') {
             if (structureBase.authornb != 0) {
+                counter++;
                 fwrite(&structureBase,
                        2 * sizeof(int16_t) + structureBase.titleLength + 1, 1,
                        options->outputFile);
@@ -157,6 +160,10 @@ error_t parseBase(options_t *options) {
             initStructure(&structureBase, structureBase.authornb);
         }
     }
+    fseek(options->outputFile, 14, SEEK_SET);
+    fwrite(&counter, sizeof(int), 1, options->outputFile);
     free(line);
+    fclose(options->outputFile);
+    options->outputFile = NULL;
     return OK;
 }

@@ -37,7 +37,7 @@ void printListNode(node *node0) {
     }
     node *currentNode = node0;
     printf("\n");
-    printf("List node:\n");
+    printf("List of nodes:\n");
 
     while (currentNode->nextNode != NULL) {
 
@@ -53,16 +53,16 @@ void printListNode(node *node0) {
 
 void printListEdgeOfAuthor(node *node0) {
     edge *currentEdge = node0->nodeEdge;
-    printf(" %s -> %s|", currentEdge->linkNode->author,
+    printf(" %s -> %s\n", currentEdge->linkNode->author,
            currentEdge->otherNode->author);
 
     while (currentEdge->nextEdge != NULL) {
-        printf(" %s -> %s|", currentEdge->linkNode->author,
+        printf(" %s -> %s\n", currentEdge->linkNode->author,
                currentEdge->otherNode->author);
         currentEdge = currentEdge->nextEdge;
     }
 
-    printf(" %s -> %s|", currentEdge->linkNode->author,
+    printf(" %s -> %s\n", currentEdge->linkNode->author,
            currentEdge->otherNode->author);
 }
 
@@ -70,7 +70,7 @@ void printListEdge(node *node0) {
     node *currentNode = node0;
     edge *currentEdge = currentNode->nodeEdge;
     printf("\n");
-    printf("List edges:\n");
+    printf("List of edges:\n");
 
     while (currentNode->nextNode != NULL) {
 
@@ -316,7 +316,7 @@ error_t shortestPath(node *Node1, node *Node2, int size) {
 
     len = (50 - strlen(currentNode->author)) / 2;
     printf("%*s%s%*s\n", len, "", currentNode->author, len, "");
-    printf("\nDistance entre %s et %s : %i\n", Node1->author, Node2->author,
+    printf("\nDistance between %s and %s : %i\n", Node1->author, Node2->author,
            distance);
     return OK;
 }
@@ -372,7 +372,7 @@ void nbrConnectedComponent(node *node0) {
         currentNode = currentNode->nextNode;
     }
 
-    printf("Connected component : %i", nbrConnected);
+    printf("Connected components : %i", nbrConnected);
 }
 
 node *verifyAuthorHash(options_t *options, node **hashTable, int author0or1) {
@@ -397,7 +397,7 @@ error_t printAuthorAtDist(options_t *options, node *node0) {
     node *currentNode = node0;
     printf("\nAuthors at distance %i of %s : \n", options->N,
            options->authorNames[0]);
-           
+
     while (currentNode->nextNode != NULL) {
         if (currentNode->distance == options->N) {
             printf(" - %s\n", currentNode->author);

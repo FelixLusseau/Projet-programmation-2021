@@ -13,15 +13,13 @@
 extern int interruptFlag;
 
 void handleSignal() {
-    // int carac;
     fprintf(stdout, "\n\33[0;33mCTRL+C pressed !\33[0m\nDo you want to save "
-                    "and exit ? [Y / N]\nAns : ");
+                    "and exit ? [y / n]\nAns : ");
     int carac = getc(stdin);
     if (carac == 'Y' || carac == 'y') {
         interruptFlag = 1;
         fprintf(stdout, "Exit !\n");
     }
-    // printf("interruptFlag : %i\n", interruptFlag);
 }
 void initSigaction() {
     struct sigaction sa;
@@ -76,7 +74,7 @@ error_t isBinOrEmpty(FILE *file) {
 
 error_t openFiles(options_t *options, char *openMode) {
     errno = 0;
-    if (options->action[ACTION_PARSE] == TO_DO) {
+    if (options->action[ACTION_PARSE] == TO_DO && strcmp(openMode, "w") == 0) {
         options->inputFile = fopen(options->inputFilename, "r");
         if (options->inputFile == NULL) {
             fprintf(stderr, "%s : %s.\n", strerror(errno),

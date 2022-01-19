@@ -16,7 +16,7 @@ extern int interruptFlag;
 
 int showAuthors(options_t *options, node *node0, int author0or1) {
     initSigaction();
-    fseek(options->outputFile, 14, SEEK_SET);
+    fseek(options->outputFile, 28, SEEK_SET);
     int exact = 0;
     if (node0 == NULL) {
         return ERROR_NODE_EQ_NULL;
@@ -61,7 +61,7 @@ error_t chooseAuthor(options_t *options, node *node0, int author0or1) {
 begin:
     count = showAuthors(options, node0, author0or1);
     int c;
-    fseek(options->outputFile, 14, SEEK_SET);
+    fseek(options->outputFile, 28, SEEK_SET);
     char *exitChar = "Ok";
     if (count == 0) {
         return ERROR_NO_AUTHOR;
