@@ -24,7 +24,7 @@ TEST_INIT_GLOBAL
 void testArgMissing() {
     options_t options;
     int argc = 3;
-    char *argv[] = {"./bin/program", "-g", "-o"};
+    char *argv[] = {"./bin/program", "-g", "-o", NULL};
     tps_assert(parseArgs(argc, argv, &options) == ERROR_ARGS_PARSE);
 }
 
@@ -155,7 +155,8 @@ void testParseArgs() {
                     "-d",
                     "-n",
                     "2",
-                    "-c"};
+                    "-c",
+                    NULL};
     tps_assert(parseArgs(argc, argv, &options) == OK);
     tps_assert(strcmp(options.outputFilename, "tests/sample.bin") == 0);
     tps_assert(options.year == 2021);
