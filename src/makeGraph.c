@@ -6,7 +6,7 @@
 #include "baseParser.h"
 #include "io-utils.h"
 #include "program.h"
-#include "readFunctions.h"
+#include "readBin.h"
 #include "tps_unit_test.h"
 
 extern int interruptFlag;

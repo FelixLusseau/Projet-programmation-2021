@@ -7,7 +7,7 @@
 #include "baseParser.h"
 #include "io-utils.h"
 #include "program.h"
-#include "readFunctions.h"
+#include "readBin.h"
 
 extern int interruptFlag;
 

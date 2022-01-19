@@ -1,6 +1,2 @@
-tests.c et test.sh
-
 hash function : http://www.cse.yorku.ca/~oz/hash.html
 
-
-pointeur pour dolistaadj ?
