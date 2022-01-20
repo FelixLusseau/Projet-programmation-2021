@@ -15,7 +15,6 @@
 extern int interruptFlag;
 
 int showAuthors(options_t *options, node *node0, int author0or1) {
-    initSigaction();
     fseek(options->outputFile, 28, SEEK_SET);
     int exact = 0;
     if (node0 == NULL) {
@@ -93,7 +92,6 @@ begin:
 }
 
 error_t showArticles(options_t *options, node *node0, int year) {
-    initSigaction();
     int exitCode = chooseAuthor(options, node0, 0);
     if (exitCode != OK)
         return exitCode;
