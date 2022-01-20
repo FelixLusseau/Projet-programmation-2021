@@ -9,33 +9,32 @@
 
 void printUsage(void) {
     printf(
-        "usage: ./bin/program OPTIONS\n"
-        "options:\n"
-        "\t-i FICHIER               indicate the xml to use\n"
-        "\t-o FICHIER               indicate the binary to use\n"
-        "\t-x                       generate the binary file from the xml "
+        "\nUsage: ./bin/program OPTIONS\n\n"
+        "Available options : ([ ] are optional)\n\n"
+        "\t-i FICHIER                 indicate the xml to use\n"
+        "\t-o FICHIER                 indicate the binary to use\n"
+        "\t-x                         generate the binary file from the xml "
         "database\n"
-        "\t-r                       read and print the binary structure for "
+        "\t-r                         read and print the binary structure for "
         "each document\n"
-        "\t-g [-s]                  make the adjacence list from the "
+        "\t-g [-s]                    make the adjacence list from the "
         "binary file [and show it]\n"
-        "\t-a AUTHOR                show the titles of all the documents "
-        "where the author has participated\n"
-        "\t-a AUTHOR -y YEAR        show the titles of the documents where the "
-        "author has participated in the year given\n"
-        "\t-l WORD                  show all the authors containing WORD in "
-        "their name\n"
-        "\t-p AUTHOR1 -p AUTHOR2    return the shortest path between these "
-        "authors\n"
-        "\t-p AUTHOR1 -p AUTHOR2 -d return the shortest distance between these "
-        "authors\n"
-        "\t-a AUTHOR -n N           show all the authors at the distance N "
+        "\t-l PATTERN                 show all the authors containing PATTERN "
+        "in their name\n"
+        "\t-a AUTHOR [-y YEAR]        show the titles of the documents where "
+        "the author has participated [in the year given]\n"
+        "\t-a AUTHOR -n N             show all the authors at the distance N "
         "of the author given\n"
-        "\t-c                       count the number of connected components\n"
-        "\t-h                       show this help\n\n\n"
-        "Examples:\n"
-        "./bin/program -i database/dblp.xml -o database/dblp.bin -a "
-        "\"Quentin Bramas\"\n");
+        "\t-p AUTHOR1 -p AUTHOR2      show the shortest path between these "
+        "authors\n"
+        "\t-p AUTHOR1 -p AUTHOR2 -d   show the distances between these "
+        "authors\n"
+        "\t-c                         count the number of connected "
+        "components\n"
+        "\t-h                         show this help\n\n\n"
+        "Example :\n"
+        "./bin/program -i database/dblp.xml -o database/dblp.bin -x -a "
+        "\"Quentin Bramas\" -y 2021\n");
 }
 
 error_t parseArgs(int argc, char **argv, options_t *options) {
@@ -104,7 +103,7 @@ error_t parseArgs(int argc, char **argv, options_t *options) {
             break;
         case 'h':
             printUsage();
-            return ERROR_ARGS_PARSE;
+            return ERROR_HELP;
         case '?':
             if (optopt == 'i' || optopt == 'o' || optopt == 'a' ||
                 optopt == 'l' || optopt == 'p' || optopt == 'n' ||

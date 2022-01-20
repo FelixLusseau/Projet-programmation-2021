@@ -112,7 +112,7 @@ node *ListeAdj2(node *end, int *size, structureBase_t *Entree,
     L[0] = -1;
     unsigned int LH[100];
     int index = 0;
-    /*the names of authors are converted to their number
+    /* the names of the authors are converted to their number
     to put them in a list */
     for (int k = 0; k < Entree->authornb; k++) {
         char *author1 = Entree->author[k];

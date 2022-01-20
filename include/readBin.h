@@ -23,6 +23,13 @@ void readStructure(options_t *options, structureBase_t *structureBase,
                    int16_t precAuthornb);
 
 /**
+ * @brief Prints the structureBase structure given in argument
+ *
+ * @param structureBase
+ */
+void printStruct(structureBase_t *structureBase);
+
+/**
  * @brief Reads the binary and print the structure if print==1 or return the
  * number of lines
  *
@@ -31,12 +38,5 @@ void readStructure(options_t *options, structureBase_t *structureBase,
  * @return error_t
  */
 error_t readEntireBin(options_t *options);
-
-/**
- * @brief Prints the structureBase structure given in argument
- *
- * @param structureBase
- */
-void printStruct(structureBase_t *structureBase);
 
 #endif

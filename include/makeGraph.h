@@ -4,6 +4,22 @@
 #include "analyseGraph.h"
 #include "program.h"
 
+/** Structs for the graph */
+typedef struct node {
+    char author[85];
+    int32_t nodeNumber;
+    int16_t distance;
+    int8_t flag;
+    struct edge *nodeEdge;
+    struct node *nextNode;
+} node;
+
+typedef struct edge {
+    struct node *linkNode;
+    struct node *otherNode;
+    struct edge *nextEdge;
+} edge;
+
 /**
  * @brief Generate an unique hash code from the author name
  *
@@ -54,9 +70,8 @@ node *appendNode(char *author, node *end);
  * @param hash1
  * @param hash2
  * @param hashTable
- * @return int
  */
-int appendEdgeHash(unsigned int hash1, unsigned int hash2, node **hashTable);
+void appendEdgeHash(unsigned int hash1, unsigned int hash2, node **hashTable);
 
 /**
  * @brief Make the adjacence list from the binary file

@@ -1,12 +1,8 @@
-
-
-TARGET   = tests
-
 CC = gcc
 CFLAGS = -O3 -pipe -march=native -mtune=native -Wall -Wextra -Werror -g -fprofile-arcs -ftest-coverage
+LDLIBS = 
 
-LDLIBS= -lm
-
+TARGET   = tests
 
 INCLUDE_PATH = ../include
 
@@ -18,20 +14,15 @@ INCLUDES := $(wildcard $(INCLUDE_PATH)/*.h)
 OBJECTS0  := $(SOURCES:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
 OBJECTS = $(filter-out $(OBJDIR)/program.o,$(OBJECTS0))
 
-
-
 tests: $(OBJECTS) obj/tests.o
-
 	$(CC) -o $@ $^ $(CFLAGS) $(LDLIBS)
 	@echo "Linking complete!"
-
 
 cov: clean tests
 	valgrind --leak-check=full -q ./$(TARGET)
 	lcov -d obj -c -o rapport.info
 	lcov --remove rapport.info '/usr/include/*' -o rapport.info
 	genhtml -o rapport -t "Couverture" rapport.info
-
 
 check: clean tests
 	time valgrind --leak-check=full -q ./$(TARGET)

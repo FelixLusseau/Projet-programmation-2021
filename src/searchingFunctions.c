@@ -6,7 +6,6 @@
 
 #include "analyseGraph.h"
 #include "baseParser.h"
-#include "io-utils.h"
 #include "makeGraph.h"
 #include "program.h"
 #include "readBin.h"

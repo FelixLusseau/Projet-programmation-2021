@@ -105,7 +105,7 @@ int main(int argc, char **argv) {
         nbrConnectedComponent(node0);
     }
     if (options.action[ACTION_UNKNOWN] == 1) {
-        fprintf(stderr, "Action is missing !\n");
+        fprintf(stderr, "\33[0;31mAction is missing !\33[0m\n");
         printUsage();
         exitCode = ERROR_MISSING_ACTION;
         goto error;

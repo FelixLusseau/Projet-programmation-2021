@@ -1,6 +1,6 @@
 CC = gcc
 CFLAGS ?= -O3 -pipe -march=native -mtune=native -Wall -Wextra -Werror -g 
-LDLIBS?= 
+LDLIBS ?= 
 
 INCLUDE_PATH = ./include
 

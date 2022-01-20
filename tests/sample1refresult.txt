@@ -1,7 +1,10 @@
-title : A Fast-Convergence Routing of the Hot-Potato.
-year : 2021
-author 0 : Jean-Romain Luttringer
-author 1 : Quentin Bramas
-author 2 : Cristel Pelsser
-author 3 : Pascal Merindol
+
+Title : A Fast-Convergence Routing of the Hot-Potato.
+Year : 2021
+Author 0 : Jean-Romain Luttringer
+Author 1 : Quentin Bramas
+Author 2 : Cristel Pelsser
+Author 3 : Pascal Merindol
+
+---
 

@@ -1,26 +1,11 @@
 #ifndef FONCTIONSMATRICE_H
 #define FONCTIONSMATRICE_H
 
+#include "makeGraph.h"
 #include "program.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
-/** Struct for graph */
-typedef struct node {
-    char author[100];
-    int nodeNumber;
-    int distance;
-    int flag;
-    struct edge *nodeEdge;
-    struct node *nextNode;
-} node;
-
-typedef struct edge {
-    struct node *linkNode;
-    struct node *otherNode;
-    struct edge *nextEdge;
-} edge;
 
 /**
  * @brief reset flag and distance of nodes
@@ -65,24 +50,24 @@ void printListNode(node *node0);
 void printListEdge(node *node0);
 
 /**
- * @brief Used in dijkstra and exploreConnectedComponent to keep track of the node that they use.
- *        Créer la liste.
+ * @brief Used in dijkstra and exploreConnectedComponent to keep track of the
+ * node that they use. Créer la liste.
  *
  * @param void
  * @return node
  */
 node *createList(void);
 /**
- * @brief Used in dijkstra and exploreConnectedComponent to keep track of the node that they use.
- *        Pop first node of the list.
+ * @brief Used in dijkstra and exploreConnectedComponent to keep track of the
+ * node that they use. Pop first node of the list.
  *
  * @param startList
  * @return node
  */
 node *popListeEdge(node *startList);
 /**
- * @brief Used in dijkstra and exploreConnectedComponent to keep track of the node that they use.
- *        Find end remove a node of the list.
+ * @brief Used in dijkstra and exploreConnectedComponent to keep track of the
+ * node that they use. Find end remove a node of the list.
  *
  * @param startList
  * @param nodeToRemove
@@ -90,8 +75,8 @@ node *popListeEdge(node *startList);
  */
 error_t removeEdgeListe(node *startList, node *nodeToRemove);
 /**
- * @brief Used in dijkstra and exploreConnectedComponent to keep track of the node that they use.
- *        Append end of the list
+ * @brief Used in dijkstra and exploreConnectedComponent to keep track of the
+ * node that they use. Append end of the list
  *
  * @param endList
  * @param newNode
@@ -145,6 +130,15 @@ int exploreGraph(node *node0);
  */
 void nbrConnectedComponent(node *node0);
 
+/**
+ * @brief receives an author name and responds the pointer to this author after
+ * having verified that the hash calculated isn't an other's due to a collision
+ *
+ * @param options
+ * @param hashTable
+ * @param author0or1
+ * @return node*
+ */
 node *verifyAuthorHash(options_t *options, node **hashTable, int author0or1);
 
 /**

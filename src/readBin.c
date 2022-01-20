@@ -5,7 +5,6 @@
 #include <sys/signal.h>
 
 #include "baseParser.h"
-#include "io-utils.h"
 #include "program.h"
 #include "readBin.h"
 
@@ -47,7 +46,17 @@ void readStructure(options_t *options, structureBase_t *structureBase,
     // printStruct(structureBase);
 }
 
+void printStruct(structureBase_t *structureBase) {
+    printf("Title : %s\nYear : %i\n", structureBase->title,
+           structureBase->year);
+    for (int r = 0; r < structureBase->authornb; r++) {
+        printf("Author %i : %s\n", r, structureBase->author[r]);
+    }
+    printf("\n---\n\n");
+}
+
 error_t readEntireBin(options_t *options) {
+    printf("\n");
     fseek(options->outputFile, 28, SEEK_SET);
     int16_t precAuthornb = 0;
     structureBase_t structureBase;
@@ -59,13 +68,4 @@ error_t readEntireBin(options_t *options) {
         printStruct(&structureBase);
     }
     return OK;
-}
-
-void printStruct(structureBase_t *structureBase) {
-    printf("title : %s\nyear : %i\n", structureBase->title,
-           structureBase->year);
-    for (int r = 0; r < structureBase->authornb; r++) {
-        printf("author %i : %s\n", r, structureBase->author[r]);
-    }
-    printf("\n");
 }

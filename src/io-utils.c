@@ -1,5 +1,3 @@
-#include "io-utils.h"
-#include <ctype.h>
 #include <errno.h>
 #include <signal.h>
 #include <stdio.h>
@@ -7,6 +5,7 @@
 #include <string.h>
 
 #include "analyseGraph.h"
+#include "io-utils.h"
 #include "makeGraph.h"
 #include "program.h"
 
@@ -148,6 +147,8 @@ const char *errorToString(error_t err) {
         return "=> \33[0;31mError\33[0m making the path !";
     case ERROR_VERIFY_AUTHOR:
         return "=> \33[0;31mError\33[0m on verfying hash for the author !";
+    case ERROR_HELP:
+        return "";
     case OK:
         return "";
     default:

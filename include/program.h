@@ -33,22 +33,21 @@ typedef enum action_t {
 typedef struct structureBase_t {
     int16_t year;
     int16_t titleLength;
-    char title[2000];
+    char title[1400];
     int16_t authornb;
     int8_t authorlengths[500];
-    char author[500][100];
+    char author[500][85];
 } structureBase_t;
 
 typedef struct options_t {
     char *inputFilename;
-    char *outputFilename;
-    int action[ACTIONS_NB + 1];
-    char *authorNames[2];
-    int N;
-    int year;
-
     FILE *inputFile;
+    char *outputFilename;
     FILE *outputFile;
+    int8_t action[ACTIONS_NB + 1];
+    char *authorNames[2];
+    int16_t N;
+    int16_t year;
 } options_t;
 
 typedef enum action_status_t {
@@ -75,7 +74,8 @@ typedef enum error_t {
     ERROR_HASHTABLE,
     ERROR_NODE_EQ_NULL,
     ERROR_PATH,
-    ERROR_DIJKSTRA
+    ERROR_DIJKSTRA,
+    ERROR_HELP
 } error_t;
 
 #endif

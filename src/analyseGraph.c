@@ -255,7 +255,7 @@ error_t dijkstra(node *node1, node *node2, int size) {
         k++;
     }
     if (flagGraph == 0) {
-        printf("Distance: %i\n", node2->distance);
+        printf("Distance : %i\n", node2->distance);
     }
 
     freeListAdj(listDistance, 0);

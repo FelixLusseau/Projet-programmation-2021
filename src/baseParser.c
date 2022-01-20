@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <sys/signal.h>
 
 #include "baseParser.h"
 #include "io-utils.h"
@@ -32,6 +31,7 @@ void extractAuthor(structureBase_t *structureBase, char *line) {
         dec = i;
     }
     while (line[i] != '<') {
+        /* code to correct the encoding errors of the xml */
         if (line[i] == '&') {
             if (line[i + 1] == 'e' && line[i + 2] == 't') {
                 structureBase->author[structureBase->authornb][i - dec] = 'd';
@@ -71,13 +71,14 @@ void extractAuthor(structureBase_t *structureBase, char *line) {
 }
 
 void extractYear(structureBase_t *structureBase, char *line) {
-    int i = 6;
+    int dec = 6;
+    int i = dec;
     char yeartmp[5];
     while (line[i] != '<') {
-        yeartmp[i - 6] = line[i];
+        yeartmp[i - dec] = line[i];
         i++;
     }
-    yeartmp[i - 6] = '\0';
+    yeartmp[i - dec] = '\0';
     structureBase->year = atoi(yeartmp);
 }
 
@@ -85,6 +86,7 @@ void extractTitle(structureBase_t *structureBase, char *line) {
     int dec = 7;
     int i = dec;
     while (line[i] != '<') {
+        /* code to correct the encoding errors of the xml */
         if (line[i] == '&') {
             if (line[i + 1] == 'e' && line[i + 2] == 't') {
                 structureBase->title[i - dec] = 'd';
@@ -137,6 +139,7 @@ error_t parseBase(options_t *options) {
         else if (line[0] == '<' && line[1] == 'y' && line[2] == 'e')
             extractYear(&structureBase, line);
         else if (line[0] == '<' && line[1] == '/') {
+            /* At the end of an entry, write into the binary */
             if (structureBase.authornb != 0) {
                 counter++;
                 fwrite(&structureBase,
