@@ -1,4 +1,7 @@
-title : Using open source software to develop E-business applications for medium-and small-sized enterprises.
-year : 2009
-author 0 : Guido Frisch
+title : A Fast-Convergence Routing of the Hot-Potato.
+year : 2021
+author 0 : Jean-Romain Luttringer
+author 1 : Quentin Bramas
+author 2 : Cristel Pelsser
+author 3 : Pascal Merindol
 

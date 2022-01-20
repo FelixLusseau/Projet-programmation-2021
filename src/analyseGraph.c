@@ -174,8 +174,8 @@ error_t dijkstra(node *node1, node *node2, int size) {
     edge *endListe = appendListeEdge(NULL, currentNode, listDistance);
     int k = 0;
 
-    printf("************************************* Start dijkstra"
-           " *************************************\n\n");
+    printf("******************************************** Start dijkstra"
+           " *******************************************\n\n");
     while (k < size) {
 
         if (interruptFlag == 1) {
@@ -259,8 +259,8 @@ error_t dijkstra(node *node1, node *node2, int size) {
     }
 
     freeListAdj(listDistance, 0);
-    printf("\n************************************* End dijkstra"
-           " *************************************\n\n");
+    printf("\n********************************************* End dijkstra"
+           " ********************************************\n\n");
     return OK;
 }
 
