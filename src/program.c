@@ -62,8 +62,6 @@ int main(int argc, char **argv) {
     }
     if (options.action[ACTION_PRINT_GRAPH] == TO_DO) {
         printListAdj(node0);
-        // printListNode(node0);
-        // printListEdge(node0);
     }
     if (options.action[ACTION_SHOW_AUTHORS] == TO_DO) {
         showAuthors(&options, node0, 0);

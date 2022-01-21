@@ -12,20 +12,6 @@
 
 extern int interruptFlag;
 
-/* void reset(node *node0) {
-    node *currentNode = node0;
-    while (1) {
-        printf("reinitialise:%i--%s\n", currentNode->nodeNumber,
-               currentNode->author);
-        currentNode->flag = 0;
-        currentNode->distance = -1;
-        if (currentNode->nextNode == NULL) {
-            break;
-        }
-        currentNode = currentNode->nextNode;
-    }
-} */
-
 void printListAdj(node *node0) {
     printListNode(node0);
     printListEdge(node0);
