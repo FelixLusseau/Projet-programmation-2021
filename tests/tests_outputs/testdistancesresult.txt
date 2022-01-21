@@ -1,0 +1,51 @@
+
+************************************* Start of the graph function *************************************
+
+[?25l[[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m][?25h
+
+************************************** End of the graph function **************************************
+
+Authors containing "Takaya Asano" in their name : 
+ - Takaya Asano
+
+
+Authors containing "Takuya Iwamoto" in their name : 
+ - Takuya Iwamoto
+
+
+******************************************** Start dijkstra *******************************************
+
+Distance : 3
+
+********************************************* End dijkstra ********************************************
+
+Distances : 
+Takaya Asano - Yuria Suzuki : 2
+Takaya Asano - Ayumi Ando : 2
+Takaya Asano - Ryotaro Tsuda : 2
+Takaya Asano - Akihiko Shirai : 1
+Takaya Asano - Takuya Sakai : 2
+Takaya Asano - Wataru Fujimura : 2
+Takaya Asano - Robert Songer : 2
+Takaya Asano - Takayuki Kosaka : 2
+Takaya Asano - Hisataka Suzuki : 2
+Takaya Asano - Yannick Littfass : 2
+Takaya Asano - Rex Hsieh : 1
+Takaya Asano - Hiroki Taguchi : 2
+Takaya Asano - Yukua Koide : 2
+Takaya Asano - Yuki Kose : 2
+Takaya Asano - Kumiko Minobe : 2
+Takaya Asano - Tomoyuki Kimura : 2
+Takaya Asano - Go Akiyama : 2
+Takaya Asano - Nahomi Maki : 2
+Takaya Asano - Kazuhisa Yanaka : 2
+Takaya Asano - Takuya Iwamoto : 3
+Takaya Asano - Yuya Mochizuki : 1
+Takaya Asano - Daiki Agatsuma : 1
+Takaya Asano - Takaya Asano : 0
+Takaya Asano - Marika Higashida : 1
+Takaya Asano - Tatsuya Nishikizawa : 1
+
+
+***************************************** Freeing the space *******************************************
+
