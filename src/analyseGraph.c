@@ -39,11 +39,6 @@ void printListNode(node *node0) {
 
 void printListEdgeOfAuthor(node *node0) {
     edge *currentEdge = node0->nodeEdge;
-<<<<<<< HEAD
-    // printf(" %s -> %s\n", currentEdge->linkNode->author,
-    //      currentEdge->otherNode->author);
-=======
->>>>>>> a27fad69c7153a8708a9abcc2b6d485dd25bbbb6
 
     while (currentEdge->nextEdge != NULL) {
         printf(" %s -> %s\n", currentEdge->linkNode->author,
