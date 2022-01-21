@@ -6,3 +6,5 @@ tests/rapport/
 test.log
 tests/rapport.info
 tests/tests
+tests/out
+tests/out.txt
