@@ -119,7 +119,6 @@ node *ListeAdj2(node *end, int *size, structureBase_t *Entree,
         unsigned int hash1 = 0;
 
         for (int p = 0; p < 4; p++) {
-
             hash1 = hash((unsigned char *)author1, pr[p]);
             n1 = AuthorInListHash(author1, hashTable, pr[p]);
 
@@ -181,7 +180,6 @@ node *doListAdjHash(options_t *options, int *size, node **hashTable) {
     int curseur = 1;
 
     while (Entree.authornb != 0) {
-
         if (interruptFlag == 1) {
             printf("\33[?25h");
             break;

@@ -1,11 +1,12 @@
 #include "argsParser.h"
-#include "io-utils.h"
 
 #include <ctype.h>
 #include <getopt.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+
+#include "io-utils.h"
 
 void printUsage(void) {
     printf(

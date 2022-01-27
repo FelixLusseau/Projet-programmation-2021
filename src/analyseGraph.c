@@ -1,11 +1,11 @@
+#include "analyseGraph.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-#include "analyseGraph.h"
 #include "baseParser.h"
 #include "makeGraph.h"
-
 #include "program.h"
 #include "readBin.h"
 #include "tps_unit_test.h"
@@ -26,7 +26,6 @@ void printListNode(node *node0) {
     printf("List of nodes:\n");
 
     while (currentNode->nextNode != NULL) {
-
         if (interruptFlag == 1) {
             break;
         }
@@ -57,7 +56,6 @@ void printListEdge(node *node0) {
     printf("List of edges:\n");
 
     while (currentNode->nextNode != NULL) {
-
         if (interruptFlag == 1) {
             break;
         }
@@ -161,7 +159,6 @@ error_t dijkstra(node *node1, node *node2, int size) {
     printf("******************************************** Start dijkstra"
            " *******************************************\n\n");
     while (k < size) {
-
         if (interruptFlag == 1) {
             printf("\33[?25h");
             break;
@@ -172,12 +169,10 @@ error_t dijkstra(node *node1, node *node2, int size) {
 
         /* explore neigbour and change their distance*/
         while (currentEdge != NULL) {
-
             flag = neighbor->distance;
             if (neighbor->distance == -1 ||
                 (neighbor->distance > (currentNode->distance + 1) &&
                  neighbor->flag == 0)) {
-
                 neighbor->distance = currentNode->distance + 1;
 
                 /* if the e neighbor had a distance=-1 before
@@ -217,7 +212,6 @@ error_t dijkstra(node *node1, node *node2, int size) {
             int minDistance = minNode->distance;
 
             while (1) {
-
                 /* if distance = previous minimum, then it is a minimum */
                 if (listeEdge->linkNode->distance == currentNode->distance) {
                     minNode = listeEdge->linkNode;
@@ -280,13 +274,11 @@ error_t shortestPath(node *Node1, node *Node2, int size) {
     node *minneighbor = currentEdge->otherNode;
 
     while (currentNode->nodeNumber != Node1->nodeNumber) {
-
         len = (50 - strlen(currentNode->author)) / 2;
         printf("%*s%s%*s\n", len, "", currentNode->author, len, "");
         printf("%*s\33[0;32m|\33[0m%*s\n", 25, "", 25, "");
 
         while (currentEdge != NULL) {
-
             if (currentEdge->linkNode->flag == 1 &&
                 currentEdge->otherNode->distance < minneighbor->distance) {
                 minneighbor = currentEdge->otherNode;

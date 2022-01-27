@@ -1,3 +1,5 @@
+#include "readBin.h"
+
 #include <errno.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -6,7 +8,6 @@
 
 #include "baseParser.h"
 #include "program.h"
-#include "readBin.h"
 
 extern int interruptFlag;
 

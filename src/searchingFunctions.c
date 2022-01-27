@@ -1,3 +1,5 @@
+#include "searchingFunctions.h"
+
 #include <errno.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -9,7 +11,6 @@
 #include "makeGraph.h"
 #include "program.h"
 #include "readBin.h"
-#include "searchingFunctions.h"
 
 extern int interruptFlag;
 

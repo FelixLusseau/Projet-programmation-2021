@@ -1,3 +1,5 @@
+#include "io-utils.h"
+
 #include <errno.h>
 #include <signal.h>
 #include <stdio.h>
@@ -5,7 +7,6 @@
 #include <string.h>
 
 #include "analyseGraph.h"
-#include "io-utils.h"
 #include "makeGraph.h"
 #include "program.h"
 

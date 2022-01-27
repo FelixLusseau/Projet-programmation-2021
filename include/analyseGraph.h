@@ -1,11 +1,12 @@
 #ifndef FONCTIONSMATRICE_H
 #define FONCTIONSMATRICE_H
 
-#include "makeGraph.h"
-#include "program.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+#include "makeGraph.h"
+#include "program.h"
 
 /**
  * @brief reset flag and distance of nodes
