@@ -5,6 +5,7 @@
 #include "analyseGraph.h"
 #include "baseParser.h"
 #include "io-utils.h"
+#include "makeGraph.h"
 #include "program.h"
 #include "readBin.h"
 #include "tps_unit_test.h"
@@ -48,16 +49,13 @@ int AuthorInListHash(char *author, node **hashTable, int pr) {
     unsigned int authorHashed = hash((unsigned char *)author, pr);
     if (hashTable[authorHashed] == NULL)
         return -1;
-    else if (hashTable[authorHashed] != NULL &&
-             strcmp(author, hashTable[authorHashed]->author))
+    else if (hashTable[authorHashed] != NULL && strcmp(author, hashTable[authorHashed]->author))
         return -2;
     else
         return hashTable[authorHashed]->nodeNumber;
 }
 
-node *GoToNodeHash(node **hashTable, unsigned int hash) {
-    return hashTable[hash];
-}
+node *GoToNodeHash(node **hashTable, unsigned int hash) { return hashTable[hash]; }
 
 node *appendNode(char *author, node *end) {
     node *newNode = malloc(sizeof(node));
@@ -104,8 +102,7 @@ void appendEdgeHash(unsigned int hash1, unsigned int hash2, node **hashTable) {
     AppendEdge2(Node2, Node1);
 }
 
-node *ListeAdj2(node *end, int *size, structureBase_t *Entree,
-                node **hashTable) {
+node *ListeAdj2(node *end, int *size, structureBase_t *Entree, node **hashTable) {
     int pr[4] = {pr1, pr2, pr3, pr4};
     int n1 = 0;
     int L[500];
@@ -151,8 +148,7 @@ node *ListeAdj2(node *end, int *size, structureBase_t *Entree,
 
 node *doListAdjHash(options_t *options, int *size, node **hashTable) {
     int nbEntries = nbEntriesBin(options);
-    printf("\n************************************* Start of the graph "
-           "function *************************************\n\n");
+    printf("\n************************************* Start of the graph function *************************************\n\n");
     printf("\33[?25l");
 
     *size = 0;
@@ -197,8 +193,7 @@ node *doListAdjHash(options_t *options, int *size, node **hashTable) {
 
     progressBar(100);
     printf("\33[?25h");
-    printf("\n\n************************************** End of the graph "
-           "function **************************************\n\n");
+    printf("\n\n************************************** End of the graph function **************************************\n\n");
     return node0;
 }
 
@@ -214,8 +209,7 @@ void freeEdge(node *currentNode) {
 }
 void freeListAdj(node *node0, int print) {
     if (print)
-        printf("\n\n***************************************** Freeing the "
-               "space *******************************************\n\n");
+        printf("\n\n***************************************** Freeing the space *******************************************\n\n");
     node *currentNode = node0;
     node *interN;
     while (currentNode->nextNode != NULL) {

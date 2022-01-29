@@ -1,5 +1,3 @@
-#include "io-utils.h"
-
 #include <errno.h>
 #include <signal.h>
 #include <stdio.h>
@@ -7,28 +5,28 @@
 #include <string.h>
 
 #include "analyseGraph.h"
+#include "io-utils.h"
 #include "makeGraph.h"
 #include "program.h"
 
 extern int interruptFlag;
 
 void handleSignal() {
-    fprintf(stdout, "\n\33[0;33mCTRL+C pressed !\33[0m\nDo you want to save "
-                    "and exit ? [y / n]\nAns : ");
+    fprintf(stdout, "\n\33[0;33mCTRL+C pressed !\33[0m\nDo you want to save and exit ? [y / n]\nAns : ");
     int carac = getc(stdin);
     if (carac == 'Y' || carac == 'y') {
         interruptFlag = 1;
         fprintf(stdout, "Exit !\n");
     }
 }
+
 void initSigaction() {
     struct sigaction sa;
     sa.sa_handler = &handleSignal;
     sa.sa_flags = SA_RESTART;
     sigfillset(&sa.sa_mask);
     if (sigaction(SIGINT, &sa, NULL) == -1) {
-        perror(
-            "\33[0;31mError:\33[0m cannot handle SIGINT"); // Should not happen
+        perror("\33[0;31mError:\33[0m cannot handle SIGINT"); // Should not happen
     }
 }
 
@@ -65,7 +63,6 @@ error_t isBinOrEmpty(FILE *file) {
     if (exitString == NULL) {
         return ERROR_BIN;
     }
-    // printf("%li", ftell(file));
     if (strcmp(line, "<binary file>\n")) {
         return ERROR_BIN;
     }
@@ -77,8 +74,7 @@ error_t openFiles(options_t *options, char *openMode) {
     if (options->action[ACTION_PARSE] == TO_DO && strcmp(openMode, "w") == 0) {
         options->inputFile = fopen(options->inputFilename, "r");
         if (options->inputFile == NULL) {
-            fprintf(stderr, "%s : %s.\n", strerror(errno),
-                    options->inputFilename);
+            fprintf(stderr, "%s : %s.\n", strerror(errno), options->inputFilename);
             return ERROR_OPEN_DATABASE;
         }
         if (isXML(options->inputFile) == ERROR_XML) {
@@ -120,8 +116,7 @@ const char *errorToString(error_t err) {
     case ERROR_ARGS_PARSE:
         return "=> \33[0;31mError\33[0m while parsing arguments !";
     case ERROR_OPEN_DATABASE:
-        return "=> \33[0;31mError\33[0m while opening database ! You need to "
-               "give a xml file with the -i database.xml option !";
+        return "=> \33[0;31mError\33[0m while opening database ! You need to give a xml file with the -i database.xml option !";
     case ERROR_OPEN_BIN:
         return "=> \33[0;31mError\33[0m while opening binary !";
     case ERROR_XML:

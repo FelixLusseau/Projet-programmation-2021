@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "signal.h": "c",
+        "errno.h": "c",
+        "tps_unit_test.h": "c"
+    }
+}
