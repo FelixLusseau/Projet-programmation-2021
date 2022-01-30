@@ -148,8 +148,7 @@ edge *appendListeEdge(edge *endListe, node *newNode, node *startList) {
 }
 
 error_t dijkstra(node *node1, node *node2, int size) {
-    /* flag to know if we want the distance between 2 node or
-    if we do all of the connected component*/
+    /* flag to know if we want the distance between 2 node or if we do all of the connected component */
     int flagGraph = 0;
     if (node2 == NULL) {
         flagGraph = 1;
@@ -167,8 +166,7 @@ error_t dijkstra(node *node1, node *node2, int size) {
     node *neighbor = currentEdge->otherNode;
     int flag = neighbor->distance;
 
-    /* list of nodes not marked (flag=0) with a distance changed from infinity
-    (!=-1), it is used to find the minimum wich is the next currentNode*/
+    /* list of nodes not marked (flag=0) with a distance changed from infinity (!=-1), it is used to find the minimum wich is the next currentNode */
     node *listDistance = createList();
     listDistance->distance = 1;
     edge *endListe = appendListeEdge(NULL, currentNode, listDistance);
@@ -184,14 +182,13 @@ error_t dijkstra(node *node1, node *node2, int size) {
         currentEdge = currentNode->nodeEdge;
         neighbor = currentEdge->otherNode;
 
-        /* explore neigbour and change their distance*/
+        /* explore neigbour and change their distance */
         while (currentEdge != NULL) {
             flag = neighbor->distance;
             if (neighbor->distance == -1 || (neighbor->distance > (currentNode->distance + 1) && neighbor->flag == 0)) {
                 neighbor->distance = currentNode->distance + 1;
 
-                /* if the e neighbor had a distance=-1 before
-                then he wasn't in listDistance */
+                /* if the e neighbor had a distance=-1 before then he wasn't in listDistance */
                 if (flag == -1) {
                     endListe = appendListeEdge(endListe, neighbor, listDistance);
                     listDistance->distance += 1;
@@ -210,7 +207,7 @@ error_t dijkstra(node *node1, node *node2, int size) {
         removeEdgeListe(listDistance, currentNode);
         listDistance->distance -= 1;
 
-        /*listDistance=NULL, end of the connected component*/
+        /*listDistance=NULL, end of the connected component */
         if (listDistance->nodeEdge == NULL) {
             break;
         }
@@ -335,7 +332,6 @@ int exploreGraph(node *node0) {
         neighbor = currentEdge->otherNode;
 
         while (1) {
-
             if (neighbor->flag == 0) {
                 neighbor->flag = 1;
                 endListe = appendListeEdge(endListe, neighbor, debutListe);

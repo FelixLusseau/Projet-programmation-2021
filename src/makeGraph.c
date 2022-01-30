@@ -158,7 +158,7 @@ node *ListeAdj2(node *end, int *size, structureBase_t *Entree, node **hashTable)
         L[index] = -1;
     }
 
-    /* the list is now used to append the graphe */
+    /* the list is now used to append the graph */
     for (int i = 0; L[i] > -1 && i < 100; i++) {
         for (int k = i + 1; L[k] > -1 && k < 100; k++) {
             appendEdgeHash(LH[i], LH[k], hashTable);

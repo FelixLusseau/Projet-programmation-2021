@@ -66,7 +66,7 @@ then
 fi
 coloredEcho "OK" green
 
-annoncer "Execution graphe sample"
+annoncer "Execution graph sample"
 $VALGRIND ./$TARGET -o tests/sample.bin -g -s > tests/out.txt || fail
 echo "===DIFF===" >> $LOG
 diff -Z tests/out.txt tests/tests_outputs/testgraphesampleresult.txt >> $LOG 2>&1
@@ -76,7 +76,7 @@ then
 fi
 coloredEcho "OK" green
 
-annoncer "Execution parsing base sample + graphe in one command"
+annoncer "Execution parsing base sample + graph in one command"
 $VALGRIND ./$TARGET -i tests/sample.xml -o tests/out -x -g > tests/out.txt || fail
 echo "===DIFF===" >> $LOG
 diff -Z tests/out.txt tests/tests_outputs/testparseandgrapheresult.txt >> $LOG 2>&1
