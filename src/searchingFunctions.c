@@ -24,7 +24,7 @@ int showAuthors(options_t *options, node *node0, int author0or1) {
     int counter = 0;
     printf("Authors containing \"%s\" in their name : \n", options->authorNames[author0or1]);
 
-    /* Search for the author in the graphe */
+    /* Search for the author in the graph */
     while (currentNode != NULL) {
         if (strstr(currentNode->author, options->authorNames[author0or1])) {
             if (strcmp(currentNode->author, options->authorNames[author0or1]) == 0) {
