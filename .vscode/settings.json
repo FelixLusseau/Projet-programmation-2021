@@ -1,10 +1,16 @@
 {
     "files.associations": {
+<<<<<<< HEAD
         "iostream": "cpp",
         "unistd.h": "c",
         "types.h": "c",
         "array": "cpp",
         "string": "cpp",
         "string_view": "cpp"
+=======
+        "signal.h": "c",
+        "errno.h": "c",
+        "tps_unit_test.h": "c"
+>>>>>>> 676a2207ccdaaa199d5ebe32eacc29f7741b232a
     }
 }

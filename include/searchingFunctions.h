@@ -28,8 +28,8 @@ int showAuthors(options_t *options, node *node0, int author0or1);
 error_t chooseAuthor(options_t *options, node *node0, int author0or1);
 
 /**
- * @brief Prints the articles written by the author given in argument and if
- * year!=0 it prints those of the year given
+ * @brief Print the articles written by the author given in argument and if
+ * year != 0 it prints those of the year given
  *
  * @param options
  * @param node0

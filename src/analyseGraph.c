@@ -5,7 +5,6 @@
 #include "analyseGraph.h"
 #include "baseParser.h"
 #include "makeGraph.h"
-
 #include "program.h"
 #include "readBin.h"
 #include "tps_unit_test.h"
@@ -18,18 +17,12 @@ void printListAdj(node *node0) {
 }
 
 void printListNode(node *node0) {
-
-    if (node0 == NULL) {
-        exit(ERROR_NODE_EQ_NULL);
-    }
-
     node *currentNode = node0;
 
     printf("\n");
     printf("List of nodes:\n");
 
     while (currentNode->nextNode != NULL) {
-
         if (interruptFlag == 1) {
             break;
         }
@@ -45,13 +38,11 @@ void printListEdgeOfAuthor(node *node0) {
     edge *currentEdge = node0->nodeEdge;
 
     while (currentEdge->nextEdge != NULL) {
-        printf(" %s -> %s\n", currentEdge->linkNode->author,
-               currentEdge->otherNode->author);
+        printf(" %s -> %s\n", currentEdge->linkNode->author, currentEdge->otherNode->author);
         currentEdge = currentEdge->nextEdge;
     }
 
-    printf(" %s -> %s\n", currentEdge->linkNode->author,
-           currentEdge->otherNode->author);
+    printf(" %s -> %s\n", currentEdge->linkNode->author, currentEdge->otherNode->author);
 }
 
 void printListEdge(node *node0) {
@@ -63,7 +54,6 @@ void printListEdge(node *node0) {
     printf("List of edges:\n");
 
     while (currentNode->nextNode != NULL) {
-
         if (interruptFlag == 1) {
             break;
         }
@@ -88,7 +78,7 @@ node *createList(void) {
     node *node0 = (node *)malloc(sizeof(node));
 
     if (node0 == NULL) {
-        fprintf(stderr, "creatListAdj:erreur malloc node = NULL");
+        fprintf(stderr, "creatListAdj : malloc error node == NULL");
         return NULL;
     }
 
@@ -100,6 +90,7 @@ node *createList(void) {
 
     return node0;
 }
+
 node *popListeEdge(node *startList) {
 
     node *node0 = startList->nodeEdge->linkNode;
@@ -110,6 +101,7 @@ node *popListeEdge(node *startList) {
     free(inter);
     return node0;
 }
+
 error_t removeEdgeListe(node *startList, node *nodeToRemove) {
 
     if (startList->nodeEdge->linkNode->nodeNumber == nodeToRemove->nodeNumber) {
@@ -132,12 +124,13 @@ error_t removeEdgeListe(node *startList, node *nodeToRemove) {
     free(currentEdge);
     return OK;
 }
+
 edge *appendListeEdge(edge *endListe, node *newNode, node *startList) {
 
     edge *newListe = (edge *)malloc(sizeof(edge));
 
     if (newListe == NULL) {
-        fprintf(stderr, "appendListeEdge:erreur malloc node = NULL ");
+        fprintf(stderr, "appendListeEdge : malloc error node == NULL ");
         exit(1);
     }
 
@@ -165,7 +158,7 @@ error_t dijkstra(node *node1, node *node2, int size) {
     // distance = -1 means infinity
 
     if (node1->nodeEdge == NULL) {
-        printf("node:%s isolated \n distance:-1\n", node1->author);
+        printf("node:%s isolated \n distance : -1\n", node1->author);
         return 0;
     }
     node *currentNode = node1;
@@ -181,10 +174,8 @@ error_t dijkstra(node *node1, node *node2, int size) {
     edge *endListe = appendListeEdge(NULL, currentNode, listDistance);
     int k = 0;
 
-    printf("******************************************** Start dijkstra"
-           " *******************************************\n\n");
+    printf("******************************************** Start dijkstra *******************************************\n\n");
     while (k < size) {
-
         if (interruptFlag == 1) {
             printf("\33[?25h");
             break;
@@ -195,19 +186,14 @@ error_t dijkstra(node *node1, node *node2, int size) {
 
         /* explore neigbour and change their distance*/
         while (currentEdge != NULL) {
-
             flag = neighbor->distance;
-            if (neighbor->distance == -1 ||
-                (neighbor->distance > (currentNode->distance + 1) &&
-                 neighbor->flag == 0)) {
-
+            if (neighbor->distance == -1 || (neighbor->distance > (currentNode->distance + 1) && neighbor->flag == 0)) {
                 neighbor->distance = currentNode->distance + 1;
 
                 /* if the e neighbor had a distance=-1 before
                 then he wasn't in listDistance */
                 if (flag == -1) {
-                    endListe =
-                        appendListeEdge(endListe, neighbor, listDistance);
+                    endListe = appendListeEdge(endListe, neighbor, listDistance);
                     listDistance->distance += 1;
                 }
             }
@@ -240,7 +226,6 @@ error_t dijkstra(node *node1, node *node2, int size) {
             int minDistance = minNode->distance;
 
             while (1) {
-
                 /* if distance = previous minimum, then it is a minimum */
                 if (listeEdge->linkNode->distance == currentNode->distance) {
                     minNode = listeEdge->linkNode;
@@ -274,13 +259,11 @@ error_t dijkstra(node *node1, node *node2, int size) {
 void printDistances(options_t *options, node *node0) {
 
     node *currentNode = node0;
-    printf("Distances : \n");
-
+    printf("Distances from %s : \n", options->authorNames[0]);
     while (currentNode != NULL) {
 
         if (currentNode->distance != -1) {
-            printf("%s - %s : %i\n", options->authorNames[0],
-                   currentNode->author, currentNode->distance);
+            printf(" - %s : %i\n", currentNode->author, currentNode->distance);
         }
 
         currentNode = currentNode->nextNode;
@@ -296,15 +279,12 @@ error_t shortestPath(node *Node1, node *Node2, int size) {
 
     int len;
 
-    printf("\nShortest path between %s and %s :\n\n", Node1->author,
-           Node2->author);
-
+    printf("\nShortest path between %s and %s :\n\n", Node1->author, Node2->author);
     node *currentNode = Node2;
     int distance = currentNode->distance;
 
     if (distance == -1) {
-        fprintf(stderr, "No path between %s and %s\n", Node1->author,
-                Node2->author);
+        fprintf(stderr, "No path between %s and %s\n", Node1->author, Node2->author);
         return ERROR_PATH;
     }
 
@@ -312,15 +292,12 @@ error_t shortestPath(node *Node1, node *Node2, int size) {
     node *minneighbor = currentEdge->otherNode;
 
     while (currentNode->nodeNumber != Node1->nodeNumber) {
-
         len = (50 - strlen(currentNode->author)) / 2;
         printf("%*s%s%*s\n", len, "", currentNode->author, len, "");
         printf("%*s\33[0;32m|\33[0m%*s\n", 25, "", 25, "");
 
         while (currentEdge != NULL) {
-
-            if (currentEdge->linkNode->flag == 1 &&
-                currentEdge->otherNode->distance < minneighbor->distance) {
+            if (currentEdge->linkNode->flag == 1 && currentEdge->otherNode->distance < minneighbor->distance) {
                 minneighbor = currentEdge->otherNode;
             }
             currentEdge = currentEdge->nextEdge;
@@ -332,8 +309,7 @@ error_t shortestPath(node *Node1, node *Node2, int size) {
 
     len = (50 - strlen(currentNode->author)) / 2;
     printf("%*s%s%*s\n", len, "", currentNode->author, len, "");
-    printf("\nDistance between %s and %s : %i\n", Node1->author, Node2->author,
-           distance);
+    printf("\nDistance between %s and %s : %i\n", Node1->author, Node2->author, distance);
     return OK;
 }
 
@@ -401,14 +377,8 @@ node *verifyAuthorHash(options_t *options, node **hashTable, int author0or1) {
     int pr[4] = {pr1, pr2, pr3, pr4};
 
     for (int p = 0; p < 4; p++) {
-
-        if (strcmp(hashTable[hash((unsigned char *)
-                                      options->authorNames[author0or1],
-                                  pr[p])]
-                       ->author,
-                   options->authorNames[author0or1]) == 0) {
-            return hashTable[hash(
-                (unsigned char *)options->authorNames[author0or1], pr[p])];
+        if (strcmp(hashTable[hash((unsigned char *)options->authorNames[author0or1], pr[p])]->author, options->authorNames[author0or1]) == 0) {
+            return hashTable[hash((unsigned char *)options->authorNames[author0or1], pr[p])];
         }
     }
     return NULL;
@@ -421,9 +391,7 @@ error_t printAuthorAtDist(options_t *options, node *node0) {
     }
 
     node *currentNode = node0;
-
-    printf("\nAuthors at distance %i of %s : \n", options->N,
-           options->authorNames[0]);
+    printf("\nAuthors at distance %i of %s : \n", options->N, options->authorNames[0]);
 
     while (currentNode->nextNode != NULL) {
 

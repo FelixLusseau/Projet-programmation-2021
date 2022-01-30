@@ -87,8 +87,7 @@ void testMallocError2() {
     if (node0 == NULL)
         exitCode = ERROR_LIST;
     fprintf(stderr, "%s\n", errorToString(exitCode));
-    tps_assert((exitCode = printAuthorAtDist(&options, node0)) ==
-               ERROR_NODE_EQ_NULL);
+    tps_assert((exitCode = printAuthorAtDist(&options, node0)) == ERROR_NODE_EQ_NULL);
     fprintf(stderr, "%s\n", errorToString(exitCode));
     endOfProgram(&options, node0, hashTable);
     __remaining_alloc = -1;
@@ -132,30 +131,9 @@ void testParseArgs() {
     printUsage();
     options_t options;
     int argc = 23;
-    char *argv[] = {"./bin/program",
-                    "-i",
-                    "tests/sample.xml",
-                    "-o",
-                    "tests/sample.bin",
-                    "-x",
-                    "-r",
-                    "-g",
-                    "-s",
-                    "-a",
-                    "Quentin Bramas",
-                    "-y",
-                    "2021",
-                    "-l",
-                    "Pascal Merindol",
-                    "-p",
-                    "Quentin Bramas",
-                    "-p",
-                    "Pascal Merindol",
-                    "-d",
-                    "-n",
-                    "2",
-                    "-c",
-                    NULL};
+    char *argv[] = {
+        "./bin/program",   "-i", "tests/sample.xml", "-o", "tests/sample.bin", "-x", "-r", "-g", "-s", "-a", "Quentin Bramas", "-y", "2021", "-l",
+        "Pascal Merindol", "-p", "Quentin Bramas",   "-p", "Pascal Merindol",  "-d", "-n", "2",  "-c", NULL};
     tps_assert(parseArgs(argc, argv, &options) == OK);
     tps_assert(strcmp(options.outputFilename, "tests/sample.bin") == 0);
     tps_assert(options.year == 2021);

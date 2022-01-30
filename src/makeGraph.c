@@ -5,14 +5,14 @@
 #include "analyseGraph.h"
 #include "baseParser.h"
 #include "io-utils.h"
+#include "makeGraph.h"
 #include "program.h"
 #include "readBin.h"
 #include "tps_unit_test.h"
 
 extern int interruptFlag;
 
-unsigned hash(unsigned char *str, int pr) {
-
+unsigned int hash(unsigned char *str, int pr) {
     unsigned hash = pr;
     int c;
 
@@ -28,7 +28,7 @@ node *CreateListAdj(char *author, node **hashTable) {
     node *node0 = (node *)malloc(sizeof(node));
 
     if (node0 == NULL) {
-        fprintf(stderr, "creatListAdj:erreur malloc node = NULL\n");
+        fprintf(stderr, "creatListAdj : malloc error node == NULL\n");
         return NULL;
     }
 
@@ -59,25 +59,21 @@ int AuthorInListHash(char *author, node **hashTable, int pr) {
 
     if (hashTable[authorHashed] == NULL)
         return -1;
-
-    else if (hashTable[authorHashed] != NULL &&
-             strcmp(author, hashTable[authorHashed]->author))
+    else if (hashTable[authorHashed] != NULL && strcmp(author, hashTable[authorHashed]->author))
         return -2;
 
     else
         return hashTable[authorHashed]->nodeNumber;
 }
 
-node *GoToNodeHash(node **hashTable, unsigned int hash) {
-    return hashTable[hash];
-}
+node *GoToNodeHash(node **hashTable, unsigned int hash) { return hashTable[hash]; }
 
 node *appendNode(char *author, node *end) {
 
     node *newNode = malloc(sizeof(node));
 
     if (newNode == NULL) {
-        fprintf(stderr, "appendNode:error malloc node = NULL ");
+        fprintf(stderr, "appendNode : malloc error node == NULL ");
     }
 
     node *currentNode = end;
@@ -104,7 +100,7 @@ void AppendEdge2(node *Node1, node *Node2) {
     edge *newEdge1 = (edge *)malloc(sizeof(edge));
 
     if (newEdge1 == NULL) {
-        fprintf(stderr, "appendEdge:error malloc edge = NULL");
+        fprintf(stderr, "appendEdge : malloc error edge == NULL");
     }
 
     newEdge1->otherNode = Node2;
@@ -128,23 +124,19 @@ void appendEdgeHash(unsigned int hash1, unsigned int hash2, node **hashTable) {
     AppendEdge2(Node2, Node1);
 }
 
-node *ListeAdj2(node *end, int *size, structureBase_t *Entree,
-                node **hashTable) {
-
+node *ListeAdj2(node *end, int *size, structureBase_t *Entree, node **hashTable) {
     int pr[4] = {pr1, pr2, pr3, pr4};
     int n1 = 0;
     int L[500];
     L[0] = -1;
     unsigned int LH[100];
     int index = 0;
-    /* the names of the authors are converted to their number
-    to put them in a list */
+    /* the names of the authors are converted to their number to put them in a list */
     for (int k = 0; k < Entree->authornb; k++) {
         char *author1 = Entree->author[k];
         unsigned int hash1 = 0;
 
         for (int p = 0; p < 4; p++) {
-
             hash1 = hash((unsigned char *)author1, pr[p]);
             n1 = AuthorInListHash(author1, hashTable, pr[p]);
 
@@ -166,7 +158,7 @@ node *ListeAdj2(node *end, int *size, structureBase_t *Entree,
         L[index] = -1;
     }
 
-    // the list is now use to append the graphe
+    /* the list is now used to append the graphe */
     for (int i = 0; L[i] > -1 && i < 100; i++) {
         for (int k = i + 1; L[k] > -1 && k < 100; k++) {
             appendEdgeHash(LH[i], LH[k], hashTable);
@@ -178,9 +170,7 @@ node *ListeAdj2(node *end, int *size, structureBase_t *Entree,
 node *doListAdjHash(options_t *options, int *size, node **hashTable) {
 
     int nbEntries = nbEntriesBin(options);
-
-    printf("\n************************************* Start of the graph "
-           "function *************************************\n\n");
+    printf("\n************************************* Start of the graph function *************************************\n\n");
     printf("\33[?25l");
 
     *size = 0;
@@ -191,7 +181,7 @@ node *doListAdjHash(options_t *options, int *size, node **hashTable) {
     precAuthornb = Entree.authornb;
 
     if (Entree.author[0] == NULL) {
-        printf("Error 1st book: author[0]=NULL");
+        printf("Error 1st book : author[0]==NULL");
         return NULL;
     }
 
@@ -210,7 +200,6 @@ node *doListAdjHash(options_t *options, int *size, node **hashTable) {
     int curseur = 1;
 
     while (Entree.authornb != 0) {
-
         if (interruptFlag == 1) {
             printf("\33[?25h");
             break;
@@ -228,8 +217,7 @@ node *doListAdjHash(options_t *options, int *size, node **hashTable) {
 
     progressBar(100);
     printf("\33[?25h");
-    printf("\n\n************************************** End of the graph "
-           "function **************************************\n\n");
+    printf("\n\n************************************** End of the graph function **************************************\n\n");
     return node0;
 }
 
@@ -245,11 +233,10 @@ void freeEdge(node *currentNode) {
     }
     free(currentEdge);
 }
+
 void freeListAdj(node *node0, int print) {
     if (print)
-        printf("\n\n***************************************** Freeing the "
-               "space *******************************************\n\n");
-
+        printf("\n\n***************************************** Freeing the space *******************************************\n\n");
     node *currentNode = node0;
     node *interN;
 

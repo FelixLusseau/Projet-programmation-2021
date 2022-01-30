@@ -22,33 +22,23 @@ int nbEntriesBin(options_t *options) {
     return nbEntries;
 }
 
-void readStructure(options_t *options, structureBase_t *structureBase,
-                   int16_t precAuthornb) {
+void readStructure(options_t *options, structureBase_t *structureBase, int16_t precAuthornb) {
     int exitCode;
     initStructure(structureBase, precAuthornb);
-    exitCode =
-        fread(structureBase, 2 * sizeof(int16_t), 1, options->outputFile);
-    exitCode = fread(&structureBase->title, structureBase->titleLength + 1, 1,
-                     options->outputFile);
-    exitCode = fread(&structureBase->authornb, sizeof(int16_t), 1,
-                     options->outputFile);
-    exitCode =
-        fread(&structureBase->authorlengths,
-              structureBase->authornb * sizeof(int8_t), 1, options->outputFile);
+    exitCode = fread(structureBase, 2 * sizeof(int16_t), 1, options->outputFile);
+    exitCode = fread(&structureBase->title, structureBase->titleLength + 1, 1, options->outputFile);
+    exitCode = fread(&structureBase->authornb, sizeof(int16_t), 1, options->outputFile);
+    exitCode = fread(&structureBase->authorlengths, structureBase->authornb * sizeof(int8_t), 1, options->outputFile);
     for (int m = 0; m < structureBase->authornb; m++) {
-        exitCode =
-            fread(structureBase->author[m], structureBase->authorlengths[m] + 1,
-                  1, options->outputFile);
+        exitCode = fread(structureBase->author[m], structureBase->authorlengths[m] + 1, 1, options->outputFile);
     }
     if (exitCode == 0) {
         return;
     }
-    // printStruct(structureBase);
 }
 
 void printStruct(structureBase_t *structureBase) {
-    printf("Title : %s\nYear : %i\n", structureBase->title,
-           structureBase->year);
+    printf("Title : %s\nYear : %i\n", structureBase->title, structureBase->year);
     for (int r = 0; r < structureBase->authornb; r++) {
         printf("Author %i : %s\n", r, structureBase->author[r]);
     }

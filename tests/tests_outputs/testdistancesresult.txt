@@ -1,0 +1,51 @@
+
+************************************* Start of the graph function *************************************
+
+[?25l[[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m[0;35m#[0m][?25h
+
+************************************** End of the graph function **************************************
+
+Authors containing "Takaya Asano" in their name : 
+ - Takaya Asano
+
+
+Authors containing "Takuya Iwamoto" in their name : 
+ - Takuya Iwamoto
+
+
+******************************************** Start dijkstra *******************************************
+
+Distance : 3
+
+********************************************* End dijkstra ********************************************
+
+Distances from Takaya Asano : 
+ - Yuria Suzuki : 2
+ - Ayumi Ando : 2
+ - Ryotaro Tsuda : 2
+ - Akihiko Shirai : 1
+ - Takuya Sakai : 2
+ - Wataru Fujimura : 2
+ - Robert Songer : 2
+ - Takayuki Kosaka : 2
+ - Hisataka Suzuki : 2
+ - Yannick Littfass : 2
+ - Rex Hsieh : 1
+ - Hiroki Taguchi : 2
+ - Yukua Koide : 2
+ - Yuki Kose : 2
+ - Kumiko Minobe : 2
+ - Tomoyuki Kimura : 2
+ - Go Akiyama : 2
+ - Nahomi Maki : 2
+ - Kazuhisa Yanaka : 2
+ - Takuya Iwamoto : 3
+ - Yuya Mochizuki : 1
+ - Daiki Agatsuma : 1
+ - Takaya Asano : 0
+ - Marika Higashida : 1
+ - Tatsuya Nishikizawa : 1
+
+
+***************************************** Freeing the space *******************************************
+
