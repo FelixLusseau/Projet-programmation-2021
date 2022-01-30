@@ -15,12 +15,12 @@ extern int interruptFlag;
 
 int showAuthors(options_t *options, node *node0, int author0or1) {
     fseek(options->outputFile, 28, SEEK_SET);
-    int exact = 0;
     if (node0 == NULL) {
         return ERROR_NODE_EQ_NULL;
     }
     node *currentNode = node0;
     char *authortmp = currentNode->author;
+    int exact = 0;
     int counter = 0;
     printf("Authors containing \"%s\" in their name : \n", options->authorNames[author0or1]);
 
@@ -101,7 +101,7 @@ error_t showArticles(options_t *options, node *node0, int year) {
     }
     printf(" : \n");
 
-    /* Search for the articles of the author */
+    /* Search for the articles of the author in the binary file */
     while (1) {
         initStructure(&structureBase, precAuthornb);
         readStructure(options, &structureBase, precAuthornb);
@@ -110,7 +110,7 @@ error_t showArticles(options_t *options, node *node0, int year) {
             break;
         for (int k = 0; k < structureBase.authornb; k++) {
             if (strstr(structureBase.author[k], options->authorNames[0])) {
-                if ((year > 0 && structureBase.year == year) || year == 0)
+                if (year == 0 || (year > 0 && structureBase.year == year))
                     printf(" - %s\n", structureBase.title);
                 count++;
                 break;
@@ -129,5 +129,6 @@ error_t showArticles(options_t *options, node *node0, int year) {
     }
     if (interruptFlag != 1)
         printf("\n\n\33[0;32mComplete ! \33[0m\n");
+
     return OK;
 }

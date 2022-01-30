@@ -4,7 +4,7 @@
 #include "program.h"
 
 /**
- * @brief initialise the structure with the NULL values corresponding to the
+ * @brief initialise the structure with the null values corresponding to the
  * types
  *
  * @param structureBase

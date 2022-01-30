@@ -12,7 +12,7 @@
 
 extern int interruptFlag;
 
-unsigned hash(unsigned char *str, int pr) {
+unsigned int hash(unsigned char *str, int pr) {
     unsigned hash = pr;
     int c;
     while ((c = *str++))
@@ -24,7 +24,7 @@ unsigned hash(unsigned char *str, int pr) {
 node *CreateListAdj(char *author, node **hashTable) {
     node *node0 = (node *)malloc(sizeof(node));
     if (node0 == NULL) {
-        fprintf(stderr, "creatListAdj:erreur malloc node = NULL\n");
+        fprintf(stderr, "creatListAdj : malloc error node == NULL\n");
         return NULL;
     }
     int k = 0;
@@ -60,7 +60,7 @@ node *GoToNodeHash(node **hashTable, unsigned int hash) { return hashTable[hash]
 node *appendNode(char *author, node *end) {
     node *newNode = malloc(sizeof(node));
     if (newNode == NULL) {
-        fprintf(stderr, "appendNode:error malloc node = NULL ");
+        fprintf(stderr, "appendNode : malloc error node == NULL ");
     }
     node *currentNode = end;
     currentNode->nextNode = newNode;
@@ -82,7 +82,7 @@ node *appendNode(char *author, node *end) {
 void AppendEdge2(node *Node1, node *Node2) {
     edge *newEdge1 = (edge *)malloc(sizeof(edge));
     if (newEdge1 == NULL) {
-        fprintf(stderr, "appendEdge:error malloc edge = NULL");
+        fprintf(stderr, "appendEdge : malloc error edge == NULL");
     }
     newEdge1->otherNode = Node2;
     newEdge1->linkNode = Node1;
@@ -109,8 +109,7 @@ node *ListeAdj2(node *end, int *size, structureBase_t *Entree, node **hashTable)
     L[0] = -1;
     unsigned int LH[100];
     int index = 0;
-    /* the names of the authors are converted to their number
-    to put them in a list */
+    /* the names of the authors are converted to their number to put them in a list */
     for (int k = 0; k < Entree->authornb; k++) {
         char *author1 = Entree->author[k];
         unsigned int hash1 = 0;
@@ -137,7 +136,7 @@ node *ListeAdj2(node *end, int *size, structureBase_t *Entree, node **hashTable)
         L[index] = -1;
     }
 
-    // the list is now use to append the graphe
+    /* the list is now used to append the graphe */
     for (int i = 0; L[i] > -1 && i < 100; i++) {
         for (int k = i + 1; L[k] > -1 && k < 100; k++) {
             appendEdgeHash(LH[i], LH[k], hashTable);
@@ -159,7 +158,7 @@ node *doListAdjHash(options_t *options, int *size, node **hashTable) {
     precAuthornb = Entree.authornb;
 
     if (Entree.author[0] == NULL) {
-        printf("Error 1st book: author[0]=NULL");
+        printf("Error 1st book : author[0]==NULL");
         return NULL;
     }
 
@@ -207,6 +206,7 @@ void freeEdge(node *currentNode) {
     }
     free(currentEdge);
 }
+
 void freeListAdj(node *node0, int print) {
     if (print)
         printf("\n\n***************************************** Freeing the space *******************************************\n\n");

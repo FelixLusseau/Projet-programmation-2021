@@ -5,14 +5,17 @@
 #include <stdint.h>
 #include <stdio.h>
 
-#define ACTIONS_NB 12
+#define ACTIONS_NB 12 // Size of the action tab
 
-#define HT_SIZE 50000000 * 2
+#define HT_SIZE 50000000 * 2 // Size of the hashtable and range for the hashes
 
+/* prime numbers for the calculation of the hash */
 #define pr1 6961
 #define pr2 11239
 #define pr3 17293
 #define pr4 5381
+
+/* Structs and enum for all the program */
 
 typedef enum action_t {
     ACTION_UNKNOWN,
@@ -75,7 +78,7 @@ typedef enum error_t {
     ERROR_NODE_EQ_NULL,
     ERROR_PATH,
     ERROR_DIJKSTRA,
-    ERROR_HELP
+    HELP
 } error_t;
 
 #endif

@@ -69,7 +69,7 @@ void printListEdge(node *node0) {
 node *createList(void) {
     node *node0 = (node *)malloc(sizeof(node));
     if (node0 == NULL) {
-        fprintf(stderr, "creatListAdj:erreur malloc node = NULL");
+        fprintf(stderr, "creatListAdj : malloc error node == NULL");
         return NULL;
     }
     node0->nodeNumber = 0;
@@ -112,7 +112,7 @@ error_t removeEdgeListe(node *startList, node *nodeToRemove) {
 edge *appendListeEdge(edge *endListe, node *newNode, node *startList) {
     edge *newListe = (edge *)malloc(sizeof(edge));
     if (newListe == NULL) {
-        fprintf(stderr, "appendListeEdge:erreur malloc node = NULL ");
+        fprintf(stderr, "appendListeEdge : malloc error node == NULL ");
         exit(1);
     }
     newListe->linkNode = newNode;
@@ -137,7 +137,7 @@ error_t dijkstra(node *node1, node *node2, int size) {
     // distance = -1 means infinity
 
     if (node1->nodeEdge == NULL) {
-        printf("node:%s isolated \n distance:-1\n", node1->author);
+        printf("node:%s isolated \n distance : -1\n", node1->author);
         return 0;
     }
     node *currentNode = node1;
@@ -238,10 +238,10 @@ error_t dijkstra(node *node1, node *node2, int size) {
 
 void printDistances(options_t *options, node *node0) {
     node *currentNode = node0;
-    printf("Distances : \n");
+    printf("Distances from %s : \n", options->authorNames[0]);
     while (currentNode != NULL) {
         if (currentNode->distance != -1) {
-            printf("%s - %s : %i\n", options->authorNames[0], currentNode->author, currentNode->distance);
+            printf(" - %s : %i\n", currentNode->author, currentNode->distance);
         }
         currentNode = currentNode->nextNode;
     }

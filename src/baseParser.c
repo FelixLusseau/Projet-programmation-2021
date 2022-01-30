@@ -23,8 +23,7 @@ void initStructure(structureBase_t *structureBase, int authornb) {
 void extractAuthor(structureBase_t *structureBase, char *line) {
     int offset = 8;
     int i = offset;
-    /* Increment the offset when the author tag contains an orcid
-     * number */
+    /* Increment the offset when the author tag contains an orcid number */
     if (line[i - 1] != '>') {
         while (line[i] != '>') {
             i++;
@@ -140,8 +139,7 @@ error_t parseBase(options_t *options) {
         else if (line[0] == '<' && line[1] == 'y' && line[2] == 'e')
             extractYear(&structureBase, line);
         else if (line[0] == '<' && line[1] == '/') {
-            /* At the end of a reference, write into the binary if
-             * there is at least one author */
+            /* At the end of a reference, write into the binary if there is at least one author */
             if (structureBase.authornb != 0) {
                 counter++;
                 fwrite(&structureBase, 2 * sizeof(int16_t) + structureBase.titleLength + 1, 1, options->outputFile);
@@ -158,8 +156,7 @@ error_t parseBase(options_t *options) {
         }
     }
 
-    /* Write the number of lines at the beginning and close the binary
-     * opened in "w" mode */
+    /* Write the number of lines at the beginning and close the binary opened in "w" mode */
     fseek(options->outputFile, 14, SEEK_SET);
     fwrite(&counter, sizeof(int), 1, options->outputFile);
     free(line);

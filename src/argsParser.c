@@ -18,8 +18,9 @@ void printUsage(void) {
            "\t-l PATTERN                 show all the authors containing PATTERN in their name\n"
            "\t-a AUTHOR [-y YEAR]        show the titles of the documents where the author has participated [in the year given]\n"
            "\t-a AUTHOR -n N             show all the authors at the distance N of the author given\n"
+           "\t-a AUTHOR -d               show all the authors' distances in the connected component of the author given\n"
            "\t-p AUTHOR1 -p AUTHOR2      show the shortest path between these authors\n"
-           "\t-p AUTHOR1 -p AUTHOR2 -d   show the distances between these authors\n"
+           "\t-p AUTHOR1 -p AUTHOR2 -d   show all the distances between these authors\n"
            "\t-c                         count the number of connected components\n"
            "\t-h                         show this help\n\n\n"
            "Example :\n"
@@ -83,6 +84,7 @@ error_t parseArgs(int argc, char **argv, options_t *options) {
             options->action[ACTION_SHORTEST_PATH] = TO_DO;
             break;
         case 'd':
+            options->action[ACTION_SHOW_ARTICLES] = NOT_TO_DO;
             options->action[ACTION_SHORTEST_PATH] = NOT_TO_DO;
             options->action[ACTION_DIJKSTRA] = TO_DO;
             options->action[ACTION_DISTANCE] = TO_DO;
@@ -93,7 +95,7 @@ error_t parseArgs(int argc, char **argv, options_t *options) {
             break;
         case 'h':
             printUsage();
-            return ERROR_HELP;
+            return HELP;
         case '?':
             if (optopt == 'i' || optopt == 'o' || optopt == 'a' || optopt == 'l' || optopt == 'p' || optopt == 'n' || optopt == 'y')
                 fprintf(stderr, "Option -%c requires an argument.\n", optopt);

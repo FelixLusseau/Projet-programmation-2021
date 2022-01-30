@@ -4,7 +4,8 @@
 #include "analyseGraph.h"
 #include "program.h"
 
-/** Structs for the graph */
+/* Structs for the graph */
+
 typedef struct node {
     char author[85];
     int32_t nodeNumber;
@@ -24,12 +25,12 @@ typedef struct edge {
  * @brief Generate an unique hash code from the author name
  *
  * @param str
- * @return unsigned
+ * @return unsigned int
  */
-unsigned hash(unsigned char *str, int pr);
+unsigned int hash(unsigned char *str, int pr);
 
 /**
- * @brief create first node of graph
+ * @brief create first node of the graph
  *
  * @param author
  * @param hashTable
@@ -56,7 +57,7 @@ int AuthorInListHash(char *author, node **hashTable, int pr);
 node *GoToNodeHash(node **hashTable, unsigned int hash);
 
 /**
- * @brief Append the list of node of the graphe
+ * @brief Append the list of node of the graph
  *
  * @param author
  * @param end

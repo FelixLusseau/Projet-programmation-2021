@@ -17,7 +17,8 @@ void handleSignal();
 void initSigaction();
 
 /**
- * @brief Initialise the options structure
+ * @brief Initialise the options structure with the null values corresponding to the
+ * types
  *
  * @param options
  */
@@ -33,7 +34,7 @@ void initOptions(options_t *options);
 error_t isXML(FILE *file);
 
 /**
- * @brief Verify that the output file is a binary file searching the
+ * @brief Verify that the output file is a binary or an empty file searching the
  * "<binary file>\n" at the beginning
  *
  * @param file

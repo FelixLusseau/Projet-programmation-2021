@@ -56,34 +56,32 @@ int main(void)
 extern int __remaining_alloc;
 extern char *__current_test_name;
 
-#define TEST_INIT_GLOBAL                                                       \
-    int __remaining_alloc = -1;                                                \
+#define TEST_INIT_GLOBAL        \
+    int __remaining_alloc = -1; \
     char *__current_test_name;
 
-#define calloc(a, b)                                                           \
-    (__remaining_alloc ? __remaining_alloc--, calloc(a, b) : NULL)
+#define calloc(a, b) (__remaining_alloc ? __remaining_alloc--, calloc(a, b) : NULL)
 #define malloc(a) (__remaining_alloc ? __remaining_alloc--, malloc(a) : NULL)
-#define realloc(a, b)                                                          \
-    (__remaining_alloc ? __remaining_alloc--, realloc(a, b) : NULL)
+#define realloc(a, b) (__remaining_alloc ? __remaining_alloc--, realloc(a, b) : NULL)
 
 #define tps_test_error(msg) printf("Error %s [ FAILED ]\n", msg)
 
-#define tps_assert(expr)                                                       \
-    do {                                                                       \
-        if (!(expr)) {                                                         \
-            puts(__current_test_name);                                         \
-            tps_test_error("\nassertion failed: " #expr);                      \
-            exit(1);                                                           \
-            return;                                                            \
-        }                                                                      \
+#define tps_assert(expr)                                  \
+    do {                                                  \
+        if (!(expr)) {                                    \
+            puts(__current_test_name);                    \
+            tps_test_error("\nassertion failed: " #expr); \
+            exit(1);                                      \
+            return;                                       \
+        }                                                 \
     } while (0)
 
-#define TEST(func)                                                             \
-    do {                                                                       \
-        __current_test_name = #func;                                           \
-        func();                                                                \
-        puts(__current_test_name);                                             \
-        puts("Done");                                                          \
+#define TEST(func)                   \
+    do {                             \
+        __current_test_name = #func; \
+        func();                      \
+        puts(__current_test_name);   \
+        puts("Done");                \
     } while (0)
 
 #endif

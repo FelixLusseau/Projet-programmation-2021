@@ -9,14 +9,6 @@
 #include "program.h"
 
 /**
- * @brief reset flag and distance of nodes
- *
- * @param node0
- * @return void
- */
-void reset(node *node0);
-
-/**
  * @brief takes number of nodes and append the graph
  *
  * @param n1
@@ -52,12 +44,13 @@ void printListEdge(node *node0);
 
 /**
  * @brief Used in dijkstra and exploreConnectedComponent to keep track of the
- * node that they use. Créer la liste.
+ * node that they use. Create the list.
  *
  * @param void
  * @return node
  */
 node *createList(void);
+
 /**
  * @brief Used in dijkstra and exploreConnectedComponent to keep track of the
  * node that they use. Pop first node of the list.
@@ -66,18 +59,20 @@ node *createList(void);
  * @return node
  */
 node *popListeEdge(node *startList);
+
 /**
  * @brief Used in dijkstra and exploreConnectedComponent to keep track of the
- * node that they use. Find end remove a node of the list.
+ * node that they use. Find and remove a node of the list.
  *
  * @param startList
  * @param nodeToRemove
  * @return node
  */
 error_t removeEdgeListe(node *startList, node *nodeToRemove);
+
 /**
  * @brief Used in dijkstra and exploreConnectedComponent to keep track of the
- * node that they use. Append end of the list
+ * node that they use. Append end of the list.
  *
  * @param endList
  * @param newNode
@@ -87,7 +82,7 @@ error_t removeEdgeListe(node *startList, node *nodeToRemove);
 edge *appendListeEdge(edge *endListe, node *newNode, node *startList);
 
 /**
- * @brief calculate the distance between 2 authors
+ * @brief calculate the distance between 2 authors applying the Dijkstra algorithm
  *
  * @param node1
  * @param node2
@@ -106,7 +101,7 @@ error_t dijkstra(node *node1, node *node2, int size);
 void printDistances(options_t *options, node *node0);
 
 /**
- * @brief print the shortest path of authors between 2 node
+ * @brief print the shortest path of authors between 2 nodes
  *
  * @param Node1
  * @param Node2
@@ -116,7 +111,7 @@ void printDistances(options_t *options, node *node0);
 error_t shortestPath(node *Node1, node *Node2, int size);
 
 /**
- * @brief explore one connected component of the graphe
+ * @brief explore one connected component of the graph
  *
  * @param node0
  * @return int
@@ -143,7 +138,7 @@ void nbrConnectedComponent(node *node0);
 node *verifyAuthorHash(options_t *options, node **hashTable, int author0or1);
 
 /**
- * @brief print all the authors at the distance N of the author given
+ * @brief prints all the authors at the distance N of the author given
  *
  * @param options
  * @param node0
