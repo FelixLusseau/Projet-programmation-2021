@@ -45,7 +45,7 @@ int main(int argc, char **argv) {
     if (options.action[ACTION_PARSE] == TO_DO) {
         testExitCode(openFiles(&options, "w"));
         testExitCode(parseBase(&options));
-        if (exitCode == OK && interruptFlag == 0)
+        if (interruptFlag == 0)
             printf("\33[0;32mDatabase parsing ok ! \33[0m\n");
     }
     if (options.action[ACTION_READ] == TO_DO) {
@@ -66,7 +66,7 @@ int main(int argc, char **argv) {
     if (options.action[ACTION_SHOW_AUTHORS] == TO_DO) {
         showAuthors(&options, node0, 0);
     }
-    if (options.action[ACTION_SHOW_ARTICLES] == TO_DO && options.action[ACTION_NEIGHBOURS] != TO_DO) {
+    if (options.action[ACTION_SHOW_ARTICLES] == TO_DO) {
         testExitCode(showArticles(&options, node0, 0));
     }
     if (options.action[ACTION_SHOW_ARTICLES_YEAR] == TO_DO) {

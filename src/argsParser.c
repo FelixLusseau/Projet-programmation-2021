@@ -65,6 +65,7 @@ error_t parseArgs(int argc, char **argv, options_t *options) {
             break;
         case 'n':
             options->action[ACTION_GRAPH] = TO_DO;
+            options->action[ACTION_SHOW_ARTICLES] = NOT_TO_DO;
             options->action[ACTION_DIJKSTRA] = TO_DO;
             options->action[ACTION_NEIGHBOURS] = TO_DO;
             options->N = atoi(optarg);
