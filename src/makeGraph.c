@@ -12,28 +12,36 @@
 extern int interruptFlag;
 
 unsigned hash(unsigned char *str, int pr) {
+
     unsigned hash = pr;
     int c;
+
     while ((c = *str++))
         hash = ((hash << 5) + hash) + c;
+
     hash %= HT_SIZE;
     return hash;
 }
 
 node *CreateListAdj(char *author, node **hashTable) {
+
     node *node0 = (node *)malloc(sizeof(node));
+
     if (node0 == NULL) {
         fprintf(stderr, "creatListAdj:erreur malloc node = NULL\n");
         return NULL;
     }
+
     int k = 0;
     unsigned int hash1 = 0;
     hash1 = hash((unsigned char *)author, pr1);
     hashTable[hash1] = node0;
+
     while (author[k] != '\0') {
         node0->author[k] = author[k];
         k++;
     }
+
     node0->author[k] = '\0';
     node0->nodeNumber = 0;
     node0->flag = 0;
@@ -41,16 +49,21 @@ node *CreateListAdj(char *author, node **hashTable) {
     // distance = -1 means infinity
     node0->distance = -1;
     node0->nodeEdge = NULL;
+
     return node0;
 }
 
 int AuthorInListHash(char *author, node **hashTable, int pr) {
+
     unsigned int authorHashed = hash((unsigned char *)author, pr);
+
     if (hashTable[authorHashed] == NULL)
         return -1;
+
     else if (hashTable[authorHashed] != NULL &&
              strcmp(author, hashTable[authorHashed]->author))
         return -2;
+
     else
         return hashTable[authorHashed]->nodeNumber;
 }
@@ -60,10 +73,13 @@ node *GoToNodeHash(node **hashTable, unsigned int hash) {
 }
 
 node *appendNode(char *author, node *end) {
+
     node *newNode = malloc(sizeof(node));
+
     if (newNode == NULL) {
         fprintf(stderr, "appendNode:error malloc node = NULL ");
     }
+
     node *currentNode = end;
     currentNode->nextNode = newNode;
     newNode->nextNode = NULL;
@@ -73,30 +89,38 @@ node *appendNode(char *author, node *end) {
     newNode->flag = 0;
     newNode->nodeEdge = NULL;
     int k = 0;
+
     while (author[k] != '\0') {
         newNode->author[k] = author[k];
         k++;
     }
+
     newNode->author[k] = '\0';
     return newNode;
 }
 
 void AppendEdge2(node *Node1, node *Node2) {
+
     edge *newEdge1 = (edge *)malloc(sizeof(edge));
+
     if (newEdge1 == NULL) {
         fprintf(stderr, "appendEdge:error malloc edge = NULL");
     }
+
     newEdge1->otherNode = Node2;
     newEdge1->linkNode = Node1;
+
     if (Node1->nodeEdge == NULL) {
         newEdge1->nextEdge = NULL;
         Node1->nodeEdge = newEdge1;
+
     } else {
         newEdge1->nextEdge = Node1->nodeEdge;
         Node1->nodeEdge = newEdge1;
     }
 }
 void appendEdgeHash(unsigned int hash1, unsigned int hash2, node **hashTable) {
+
     node *Node1 = GoToNodeHash(hashTable, hash1);
     node *Node2 = GoToNodeHash(hashTable, hash2);
 
@@ -106,6 +130,7 @@ void appendEdgeHash(unsigned int hash1, unsigned int hash2, node **hashTable) {
 
 node *ListeAdj2(node *end, int *size, structureBase_t *Entree,
                 node **hashTable) {
+
     int pr[4] = {pr1, pr2, pr3, pr4};
     int n1 = 0;
     int L[500];
@@ -151,7 +176,9 @@ node *ListeAdj2(node *end, int *size, structureBase_t *Entree,
 }
 
 node *doListAdjHash(options_t *options, int *size, node **hashTable) {
+
     int nbEntries = nbEntriesBin(options);
+
     printf("\n************************************* Start of the graph "
            "function *************************************\n\n");
     printf("\33[?25l");
@@ -171,7 +198,9 @@ node *doListAdjHash(options_t *options, int *size, node **hashTable) {
     node *node0 = CreateListAdj(Entree.author[0], hashTable);
     if (node0 == NULL)
         return NULL;
+
     node *end = node0;
+
     if (Entree.authornb > 1) {
         end = ListeAdj2(end, size, &Entree, hashTable);
     }
@@ -205,8 +234,10 @@ node *doListAdjHash(options_t *options, int *size, node **hashTable) {
 }
 
 void freeEdge(node *currentNode) {
+
     edge *currentEdge = currentNode->nodeEdge;
     edge *inter;
+
     while (currentEdge->nextEdge != NULL) {
         inter = currentEdge;
         currentEdge = currentEdge->nextEdge;
@@ -218,12 +249,16 @@ void freeListAdj(node *node0, int print) {
     if (print)
         printf("\n\n***************************************** Freeing the "
                "space *******************************************\n\n");
+
     node *currentNode = node0;
     node *interN;
+
     while (currentNode->nextNode != NULL) {
+
         if (currentNode->nodeEdge != NULL) {
             freeEdge(currentNode);
         }
+
         interN = currentNode;
         currentNode = currentNode->nextNode;
         free(interN);
